@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Public+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +10,87 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  background-color: #f7f7ff;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+
+button, input, optgroup, select, textarea {
+  color: inherit;
+  font-family: inherit;
+  font-size: 100%;
+  font-weight: inherit;
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+.input {
+  --tw-border-opacity: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  border-color: rgba(209,213,219,var(--tw-border-opacity));
+  border-radius: 0.375rem;
+  border-width: 1px;
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+}
+ h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+a{
+  font-size: 0.8rem;
+}
+p {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+
+h1{
+  font-size:2.25rem;
+  font-weight:700;
+  line-height:2.5rem
+}
+h2{
+  font-size: 2rem;
+  font-weight: 700;
+}
+h3{
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 2rem;
+}
+
+.btn-light {
+  color: #212529;
+  background-color: #f6f6f9;
+  border-color: #f6f6f9;
+}
+
+@media (max-width: 500px){
+  html{
+    font-size: 62.5%;
+  }
 }
