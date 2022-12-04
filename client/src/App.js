@@ -1,25 +1,24 @@
 import { Route, Routes } from "react-router-dom";
-// import About from "./Components/About";
-// import HomePage from "./Pages/Homepage";
 
 import "./App.css";
-import Error from "./components/Error";
-import ChatPage from "./Pages/ChatPage";
+import Login from "./Components/Auth/Login";
+import Signup from "./Components/Auth/Signup";
+import DefaultLayoutHoc from "./Layout/DefaultLayout";
+import AuthPage from "./Pages/AuthPage";
 import HomePage from "./Pages/HomePage";
-import LoginPage from "./Pages/Login";
-import Signup from "./Pages/Signup";
+import Error from "./Components/Error";
 
 function App() {
   return (
     <>
       <div className="App">
         <Routes>
-          {/* <Route path="/" element={<HomePage />} /> */}
-          {/* <Route path="/auth" element={<About />} /> */}
           <Route path="/" element={<HomePage />} />
-          <Route path="/chats" element={<ChatPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<Signup />} />
+
+          <Route path="/auth" element={<AuthPage />}>
+            <Route path="" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+          </Route>
           <Route path="*" element={<Error />} />
         </Routes>
       </div>

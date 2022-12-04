@@ -1,29 +1,31 @@
 import React from "react";
 import styled from "styled-components";
-import LoginForm from "../components/LoginForm";
+import SignupForm from "./SignupForm";
 import { NavLink } from "react-router-dom";
 
-const Login = () => {
+const Signup = () => {
   return (
-    <Wrapper className="login-page-bg xl:mt-10">
+    <Wrapper className="login-page-bg xl:mt-36">
       <div className="h-full flex justify-center items-center">
         <div className="py-6">
           <div className="px-8 flex flex-col justify-center items-center">
             <div className="logo" style={{ width: "auto" }}>
-              <img src="images/logo.png" alt="E-Talk logo" />
+              <img src="/images/logo.png" alt="E-Talk logo" />
             </div>
-            <LoginForm />
+            <SignupForm />
             <div className="mt-6 text-center">
-              <p><span>Don't have an account yet? </span>
-              <NavLink
-                className="text-green-500 font-bold  hover:underline"
-                to="/signup"
-              >
-                Sign up
-              </NavLink></p>
               <p>
-              © 2022 E-Talk created with ❤️{" "}
+                {" "}
+                <span>Already have an account?</span>
+                <NavLink
+                  className="text-green-500 font-bold  hover:underline"
+                  to="/auth"
+                >
+                  {" "}
+                  Sign in
+                </NavLink>
               </p>
+              <p>© 2022 E-Talk created with ❤️ </p>
             </div>
           </div>
         </div>
@@ -31,7 +33,6 @@ const Login = () => {
     </Wrapper>
   );
 };
-
 const Wrapper = styled.section`
   height: 100vh;
   background-color: #f7f7ff;
@@ -42,8 +43,12 @@ const Wrapper = styled.section`
   }
 
   .auth-page-content {
-    border-radius: 16px;
-    margin: 24px 0;
+    height: calc(100% - 48px);
+    margin: 24px;
+
+    .card {
+      border-radius: 0.25rem;
+    }
   }
   .signin-other-title {
     position: relative;
@@ -64,5 +69,4 @@ const Wrapper = styled.section`
     }
   }
 `;
-
-export default Login;
+export default Signup;

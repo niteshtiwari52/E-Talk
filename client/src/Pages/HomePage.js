@@ -1,9 +1,14 @@
-import React from 'react';
+import React from "react";
+import DefaultLayoutHoc from "../Layout/DefaultLayout";
 
 const HomePage = () => {
   return (
-    <div className='container w-40 h-20 bg-green-500'>HomePage</div>
-  )
-}
+    <>
+      <h1 className=" text-center text-4xl mt-20 align-middle">
+        WelCome to E-Talk !
+      </h1>
+    </>
+  );
+};
 
-export default HomePage
+export default DefaultLayoutHoc(HomePage);

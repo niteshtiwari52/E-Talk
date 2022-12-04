@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
 
 const Error = () => {
   return (
-    <div>Error</div>
-  )
-}
+    <>
+      <h1 className=" text-center text-4xl mt-20 align-middle">
+        An Error Occurred. Sorry For inconvience. Please Try Again Later
+      </h1>
+    </>
+  );
+};
 
-export default Error
+export default Error;
