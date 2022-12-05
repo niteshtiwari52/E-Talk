@@ -1,12 +1,23 @@
 import React from "react";
+import Chat from "../Components/Chat";
+import Welcome from "../Components/Welcome";
 import DefaultLayoutHoc from "../Layout/DefaultLayout";
 
 const HomePage = () => {
+  const user = {
+    name: "Nitesh",
+  };
   return (
     <>
-      <h1 className=" text-center text-4xl mt-20 align-middle">
-        WelCome to E-Talk !
-      </h1>
+      {user?.name ? (
+        <>
+          <Chat />
+        </>
+      ) : (
+        <>
+          <Welcome />
+        </>
+      )}
     </>
   );
 };
