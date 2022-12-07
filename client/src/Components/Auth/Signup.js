@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 
 const Signup = () => {
   return (
-    <Wrapper className="login-page-bg xl:mt-36">
+    <Wrapper className="login-page-bg">
       <div className="h-full flex justify-center items-center">
         <div className="py-6">
           <div className="px-8 flex flex-col justify-center items-center">
@@ -34,7 +34,9 @@ const Signup = () => {
   );
 };
 const Wrapper = styled.section`
-  height: 100vh;
+  position: relative;
+  width: 100vw;
+  height: auto;
   background-color: #f7f7ff;
   .logo {
     img {

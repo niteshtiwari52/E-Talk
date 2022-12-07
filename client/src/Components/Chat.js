@@ -6,7 +6,7 @@ import UserList from "./UserList";
 const Chat = () => {
   return (
     <>
-      <div className="flex justify-between">
+      <div className="flex justify-between w-full">
         <SideMenu />
         <UserList />
         <ChatWindow />
