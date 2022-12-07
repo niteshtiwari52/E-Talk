@@ -1,3 +1,9 @@
+.App{
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  font-family: "Poppins", sans-serif;
+}
 .input-suffix-end {
   right: 0.625rem;
 }

@@ -5,11 +5,12 @@ const DefaultLayoutHoc =
   ({ ...props }) => {
     return (
       <>
-        <div className="container mx-auto px-4 lg:px-20">
+        <div className="w-full">
           <Components {...props} />
         </div>
       </>
     );
   };
+
 
 export default DefaultLayoutHoc;

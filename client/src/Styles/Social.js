@@ -17,7 +17,7 @@ const Social = () => {
             id="facebbok"
           >
             <img
-              src="./social/facebook.svg"
+              src="../social/facebook.svg"
               alt="facebook"
               data-bs-toggle="tooltip"
               data-bs-placement="top"
@@ -32,7 +32,7 @@ const Social = () => {
             id="facebbok"
           >
             <img
-              src="./social/twitter.svg"
+              src="../social/twitter.svg"
               alt="facebook"
               data-bs-toggle="tooltip"
               data-bs-placement="top"
