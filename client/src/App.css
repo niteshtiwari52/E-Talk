@@ -2,7 +2,7 @@
   width: 100vw;
   height: 100vh;
   overflow-x: hidden;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 .input-suffix-end {
   right: 0.625rem;
@@ -12,12 +12,6 @@
   display: flex;
   position: absolute;
   top: 50%;
-  -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y))
-    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
-    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .input-wrapper {

@@ -19,7 +19,7 @@ const SideMenu = () => {
             : "bg-white side-menu flex justify-between"
         }
       >
-        <div className=" mobile-navbar">
+        <div className=" mobile-navbar overflow-y-auto">
           <div className="sideMenu-brand-logo mb-5">
             <NavLink to="/" className="logo">
               <span>
@@ -27,7 +27,7 @@ const SideMenu = () => {
               </span>
             </NavLink>
           </div>
-          <div className="mobile-sideMenu-btn">
+          <div className="mobile-sideMenu-btn justify-center items-center">
             <CgMenu
               name="menu-outline"
               className="mobile-nav-icon"
@@ -41,7 +41,7 @@ const SideMenu = () => {
           </div>
         </div>
 
-        <div className="side-menu-bar">
+        <div className="side-menu-bar overflow-y-auto">
           <div className="sideMenu-brand-box mb-5">
             <NavLink to="/" className="logo">
               <span>
@@ -129,12 +129,16 @@ const SideMenu = () => {
 };
 
 const Wrapper = styled.section`
+
   .side-menu {
     max-width: 100px;
-    box-shadow: 0 2px 4px rgb(15 34 58 / 12%);
     height: 100vh;
     min-width: 100px;
     flex-direction: column;
+    border-right: 1px solid  ${({ theme }) => theme.colors.border};
+  }
+  .side-menu-bar{
+    height: 100%;
   }
 
   .sideMenu-brand-box {
@@ -203,7 +207,6 @@ const Wrapper = styled.section`
       top: 0;
       left: 0;
       max-height: 80px;
-      box-shadow: 0 2px 4px rgb(15 34 58 / 12%);
       max-width: 100vw;
       min-height: 80px;
       z-index: 998;
@@ -267,9 +270,6 @@ const Wrapper = styled.section`
     .active .mobile-navbar .mobile-nav-icon {
       display: none;
       font-size: 4.2rem;
-      position: absolute;
-      top: 30%;
-      right: 10%;
       color: ${({ theme }) => theme.colors.black};
       z-index: 9999;
     }

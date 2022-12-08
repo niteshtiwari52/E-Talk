@@ -1,15 +1,15 @@
 import { Route, Routes } from "react-router-dom";
 
 import "./App.css";
-import Login from "./Components/Auth/Login";
-import Signup from "./Components/Auth/Signup";
+import Login from "./components/Auth/Login";
+import Signup from "./components/Auth/Signup";
 import AuthPage from "./Pages/AuthPage";
 import HomePage from "./Pages/HomePage";
-import Error from "./Components/Error";
+import Error from "./components/Error";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./GlobalStyle/GlobalStyle";
 import { useEffect, useState } from "react";
-import Loading from "./Components/Loading";
+import Loading from "./components/Loading";
 import Team from "./Pages/Team";
 import Contact from "./Pages/Contact";
 import Features from "./Pages/Features";
@@ -36,6 +36,7 @@ function App() {
       btn: "rgb(22 163 74)",
       btnlight: "#f6f6f9",
       hr: "#ffffff",
+      border: "#eff1f2",
       gradient: "linear-gradient(145deg,#1ca9fe,#1c6ee9);",
     },
     media: {
