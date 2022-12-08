@@ -36,6 +36,7 @@ function App() {
       btn: "rgb(22 163 74)",
       btnlight: "#f6f6f9",
       hr: "#ffffff",
+      border: "#eff1f2",
       gradient: "linear-gradient(145deg,#1ca9fe,#1c6ee9);",
     },
     media: {

@@ -137,9 +137,6 @@ function Nav() {
       .active .mobile-nav-icon {
         display: none;
         font-size: 4.2rem;
-        position: absolute;
-        top: 30%;
-        right: 10%;
         color: ${({ theme }) => theme.colors.black};
         z-index: 9999;
       }

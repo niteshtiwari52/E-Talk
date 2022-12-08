@@ -11,19 +11,23 @@ const Searchbar = () => {
 
   return (
     <>
-      <div className=" bg-slate-100 p-2 rounded-full hover:bg-slate-200">
         {searchOpen ? (
           <>
+            <div className="bg-slate-100 hover:bg-slate-200 p-2 rounded-full flex justify-center items-center h-10 w-10 cursor-pointer" >
             <BiSearch size={20} onClick={handleChange} />
+            </div>
           </>
         ) : (
-          <>
+          <div className="input-group flex w-full justify-between bg-gray-100 overflow-hidden">
+            <input type="text" className="bg-gray-100 w-full" />
+            <div className="bg-slate-100 hover:bg-slate-200  p-2 rounded-full cursor-pointer ">
             <RxCross1 size={20} onClick={handleChange} />
-          </>
+            </div>
+          </div>
         )}
-      </div>
     </>
   );
 };
+
 
 export default Searchbar;

@@ -13,7 +13,7 @@ const Wrapper = styled.section`
   position: relative;
   max-width: 75%;
   height: 100vh;
-  min-width: 75%;
+  min-width: 70%;
   background-color: ${({ theme }) => theme.colors.bgprimary};
   overflow: hidden;
   .custom-scroll {
