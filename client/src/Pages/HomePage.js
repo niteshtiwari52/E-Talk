@@ -1,6 +1,6 @@
 import React from "react";
-import Chat from "../components/Chat";
-import Welcome from "../components/Welcome";
+import Chat from "../Components/Chat";
+import Welcome from "../Components/Welcome";
 import DefaultLayoutHoc from "../Layout/DefaultLayout";
 
 const HomePage = () => {
