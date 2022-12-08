@@ -13,9 +13,13 @@ const Searchbar = () => {
     <>
       <div className=" bg-slate-100 p-2 rounded-full hover:bg-slate-200">
         {searchOpen ? (
-          <BiSearch size={25} onClick={handleChange} />
+          <>
+            <BiSearch size={20} onClick={handleChange} />
+          </>
         ) : (
-          <RxCross1 size={25} onClick={handleChange} />
+          <>
+            <RxCross1 size={20} onClick={handleChange} />
+          </>
         )}
       </div>
     </>
