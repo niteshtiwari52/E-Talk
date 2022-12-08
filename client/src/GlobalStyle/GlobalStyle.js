@@ -5,20 +5,21 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Montserrat', sans-serif;
+  }
+  body{
+    scroll-behavior: smooth;
   }
   ::-webkit-scrollbar {
     background-color: initial;
-    width: 6px;
+    width: 5px;
 }
 ::-webkit-scrollbar-thumb {
-    background-color: rgba(0,0,0,.3);
+  background-color: rgba(28,157,234,.15);
     border-radius: 6px;
 }
 ::-webkit-scrollbar-track {
-    background-color: #fff;
-    background-color: var(--white);
-    box-shadow: none;
+  box-shadow: inset 0 0 6px #eff1f2;
 }
   
   button,
@@ -50,7 +51,7 @@ export const GlobalStyle = createGlobalStyle`
   h6 {
     margin-top: 0;
     margin-bottom: 0.5rem;
-    font-weight: 500;
+    font-weight: 700;
     line-height: 1.2;
   }
   
