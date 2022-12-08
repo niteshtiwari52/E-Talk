@@ -82,7 +82,7 @@ const UserList = () => {
   return (
     // <Wrapper>
     <>
-      <ul className="h-full max-h-screen w-72 overflow-x-hidden overflow-y-scroll">
+      <ul className="h-full max-h-screen w-72 overflow-x-hidden overflow-y-scroll sm:w-full">
         <div className="px-2 mt-4">
           {userList.map((userList) => (
             <li className="my-4 ">
