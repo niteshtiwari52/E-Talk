@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BiSearch } from "react-icons/bi";
 import { RxCross1 } from "react-icons/rx";
 
