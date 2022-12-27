@@ -9,7 +9,7 @@ import { CgClose, CgMenu } from "react-icons/cg";
 
 const SideMenu = () => {
   const [menuIcon, setMenuIcon] = useState();
-  console.log(menuIcon);
+
   return (
     <Wrapper>
       <div
@@ -129,15 +129,14 @@ const SideMenu = () => {
 };
 
 const Wrapper = styled.section`
-
   .side-menu {
     max-width: 100px;
     height: 100vh;
     min-width: 100px;
     flex-direction: column;
-    border-right: 1px solid  ${({ theme }) => theme.colors.border};
+    border-right: 1px solid ${({ theme }) => theme.colors.border};
   }
-  .side-menu-bar{
+  .side-menu-bar {
     height: 100%;
   }
 

@@ -7,113 +7,25 @@ const UserList = () => {
       id: 1,
       src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
       name: "Nitesh Tiwari",
-      message:
-        "Hello kabnuiewhiuebwfui tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
+      message: " hello ",
     },
     {
       id: 2,
       src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
       name: "Narendra ",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
+      message: "kya haal hai ? ",
     },
     {
       id: 3,
       src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
       name: "Rituresh",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 1,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Nitesh Tiwari",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 2,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Narendra ",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 3,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Rituresh",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 1,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Nitesh Tiwari",
-      message:
-        "Hello kabnuiewhiuebwfui tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 2,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Narendra ",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 3,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Rituresh",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 1,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Nitesh Tiwari",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 2,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Narendra ",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 3,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Rituresh",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 1,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Nitesh Tiwari",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 2,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Narendra ",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 3,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Rituresh",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 1,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Nitesh Tiwari",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 2,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Narendra ",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 3,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Rituresh",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
+      message: "Good mornign ",
     },
   ];
+
+  const handleUser = (index) => {
+    console.log(index);
+  };
 
   return (
     // <Wrapper>
@@ -123,9 +35,10 @@ const UserList = () => {
           {userList.map((userList, index) => (
             <li
               key={index}
-              className={index === 0 ? "active px-5 py-2" : "px-5 py-2"}
+              className={index === 2 ? "active px-5 py-2" : "px-5 py-2"}
+              
             >
-              <div className="chat-box flex items-center">
+              <div className="chat-box flex items-center" >
                 <div className="profile">
                   <img
                     className=" w-15 h-15 rounded-full"

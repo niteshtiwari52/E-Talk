@@ -78,11 +78,14 @@ const fetchChats = asyncHandler(async (req, res) => {
 //@route           POST /api/chat/group
 //@access          Protected
 const createGroupChat = asyncHandler(async (req, res) => {
-  if (!req.body.users || !req.body.name) {
+  // console.log(req);
+  console.log(req.body.chatName, req.body.users);
+  if (!req.body.users || !req.body.chatName) {
     return res.status(400).send({ message: "Please Fill all the feilds" });
   }
 
   var users = JSON.parse(req.body.users);
+  console.log(users);
 
   if (users.length < 2) {
     return res
@@ -111,4 +114,4 @@ const createGroupChat = asyncHandler(async (req, res) => {
     throw new Error(error.message);
   }
 });
-module.exports = { accessChat,fetchChats,createGroupChat };
+module.exports = { accessChat, fetchChats, createGroupChat };
