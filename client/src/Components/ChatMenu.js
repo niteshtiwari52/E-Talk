@@ -2,15 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Searchbar from "./Searchbar";
 import UserList from "./UserList";
-import { BiSearch } from "react-icons/bi";
-import { RxCross1 } from "react-icons/rx";
-
 const ChatMenu = () => {
   const [SearchOpen, setSearchOpen] = useState(false);
 
-  const handleChange = () => {
-    setSearchOpen((prev) => !prev);
-  };
   return (
     <Wrapper className="chat-menu-section bg-white">
       <div className="chat-menu flex flex-wrap items-center justify-between w-full ">
