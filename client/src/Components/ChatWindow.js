@@ -29,7 +29,7 @@ const ChatWindow = () => {
       </div> */}
       <div className="chat-content flex">
         <div className="w-full h-full position-relative">
-          <div className="user-chat-topbar p-3 p-lg-4"></div>
+          <div className="user-chat-topbar p-3 pb-7 p-lg-4"></div>
 
           <div className="chat-conversation p-3 p-lg-4">
             <ul className="chat-conversation-list">

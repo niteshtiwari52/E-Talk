@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const UserList = () => {
@@ -6,26 +6,54 @@ const UserList = () => {
     {
       id: 1,
       src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Nitesh Tiwari",
+      name: "Nitesh Tiwari 1",
       message: " hello ",
     },
     {
       id: 2,
       src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Narendra ",
+      name: "Narendra 2 ",
       message: "kya haal hai ? ",
     },
     {
       id: 3,
       src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Rituresh",
+      name: "Rituresh 3",
+      message: "Good mornign ",
+    },
+    {
+      id: 4,
+      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
+      name: "Nitesh Tiwari 4",
+      message: " hello ",
+    },
+    {
+      id: 5,
+      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
+      name: "Narendra 5",
+      message: "kya haal hai ? ",
+    },
+    {
+      id: 6,
+      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
+      name: "Rituresh 6",
+      message: "Good mornign ",
+    },
+    {
+      id: 7,
+      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
+      name: "Rituresh 7",
       message: "Good mornign ",
     },
   ];
-
-  const handleUser = (index) => {
-    console.log(index);
-  };
+  const [selectedUser , setSelectedUser] = useState("");
+  const handler = (event) => {
+    // console.log(event.currentTarget.dataset.index);
+    
+    setSelectedUser(event.currentTarget.dataset.index)
+    console.log(selectedUser);
+    
+};
 
   return (
     // <Wrapper>
@@ -35,7 +63,8 @@ const UserList = () => {
           {userList.map((userList, index) => (
             <li
               key={index}
-              className={index === 2 ? "active px-5 py-2" : "px-5 py-2"}
+              data-index={index} onClick={handler}
+              className={index === `selectedUser` ? "active px-5 py-2" : "px-5 py-2"}
               
             >
               <div className="chat-box flex items-center" >
