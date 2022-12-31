@@ -9,7 +9,6 @@ import { CgClose, CgMenu } from "react-icons/cg";
 
 const SideMenu = () => {
   const [menuIcon, setMenuIcon] = useState();
-  console.log(menuIcon);
   return (
     <Wrapper>
       <div

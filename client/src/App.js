@@ -29,12 +29,20 @@ function App() {
       white: "#fff",
       black: " #212529",
       primary: "#1ca9fe",
-      secondary: "rgb(22 163 74)",
+      secondary: "#4eac6d",
+      danger: "#ff4e2b",
+      light: "#223645",
+
+      bgPrimary: "rgb(173,216,255)",
+      bgSecondary: "rgb(78,172,109)",
 
       bg: "#f7f7ff",
       bgprimary: "#eff7fe",
-      btn: "rgb(22 163 74)",
+
+      btn: "#1ca9fe",
+      btnSecondary: "rgb(22 163 74)",
       btnlight: "#f6f6f9",
+      
       hr: "#ffffff",
       border: "#eff1f2",
       gradient: "linear-gradient(145deg,#1ca9fe,#1c6ee9);",
