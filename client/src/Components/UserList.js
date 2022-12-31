@@ -119,7 +119,7 @@ const UserList = () => {
     // <Wrapper>
     <Wrapper>
       <ul className="chat-main h-full overflow-x-hidden overflow-y-scroll">
-        <div className="mt-4 ">
+        <div className="my-4">
           {userList.map((userList, index) => (
             <li
               key={index}
@@ -157,7 +157,7 @@ const UserList = () => {
 const Wrapper = styled.section`
   position: relative;
   .chat-main {
-    height: calc(100vh + 150px);
+    height: 100vh;
     li.active {
       background-color: #eff7fe;
       border-left: 4px solid #1c9dea;
