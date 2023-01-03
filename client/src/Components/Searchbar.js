@@ -23,7 +23,7 @@ const Searchbar = ({ State, setState }) => {
             </div>
             <input
               type="text"
-              className="pl-7 px-5 py-5 bg-gray-100 w-full focus:text-gray-700 focus:outline-none"
+              className="pl-9 px-5 py-5 bg-gray-100 w-full focus:text-gray-700 focus:outline-none"
               placeholder="Search..."
             />
             <div className=" flex items-center  p-2 cursor-pointer ">

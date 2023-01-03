@@ -133,18 +133,16 @@ const Wrapper = styled.section`
     height: 100vh;
     min-width: 100px;
     flex-direction: column;
-    border-right: 1px solid ${({ theme }) => theme.colors.border};
+    border-right: 1px solid  ${({ theme }) => theme.colors.border};
   }
-  .side-menu-bar {
+  .side-menu-bar{
     height: 100%;
   }
-
   .sideMenu-brand-box {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100px;
-
     .logo {
       img {
         vertical-align: middle;
@@ -152,12 +150,10 @@ const Wrapper = styled.section`
       }
     }
   }
-
   .side-menu-list {
     .side-menu-item {
       margin: 7px auto;
       cursor: pointer;
-
       .nav-link.active {
         background-color: #eff1f2;
         color: ${({ theme }) => theme.colors.primary};
@@ -172,7 +168,6 @@ const Wrapper = styled.section`
         width: 56px;
         color: black;
         border-radius: 8px;
-
         &:hover {
           color: ${({ theme }) => theme.colors.primary};
         }
@@ -222,16 +217,13 @@ const Wrapper = styled.section`
       height: 100vh;
       min-width: 100px;
     }
-
     .sideMenu-brand-box {
       display: none;
     }
-
     //mobile-navbar
     .sideMenu-brand-logo {
       display: inline;
       height: auto;
-
       .logo {
         img {
           vertical-align: middle;
@@ -244,7 +236,6 @@ const Wrapper = styled.section`
       transform-origin: left;
       transition: all 1s linear;
     }
-
     .mobile-navbar {
       position: relative;
       width: 100vw;
@@ -255,7 +246,6 @@ const Wrapper = styled.section`
       padding: 0 3.2rem;
       z-index: 10;
     }
-
     .mobile-sideMenu-btn {
       display: inline-block;
       z-index: 9999;

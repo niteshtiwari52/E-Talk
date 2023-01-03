@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Button } from "../Styles/Button";
 import { BiDotsHorizontalRounded, BiSmile } from "react-icons/bi";
 import { IoMdSend } from "react-icons/io";
-
 import Dropdown from "./Dropdown";
+import { useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 import { createRef } from "react";
-
-
+import { useEffect } from "react";
 
 const ChatWindow = () => {
   const inputRef = createRef();
@@ -34,6 +33,8 @@ const ChatWindow = () => {
   },[cursorPosition])
   return (
     <Wrapper>
+
+
       {/* <div className="chat-welcome-section overflow-x-hidden flex justify-center items-center">
         <div className="flex justify-center items-center p-4">
            <div className="w-1/2 flex flex-col justify-center items-center text-center">
@@ -52,9 +53,37 @@ const ChatWindow = () => {
            </div>
         </div>
       </div> */}
+
+      
       <div className="chat-content flex">
         <div className="w-full h-full position-relative">
-          <div className="user-chat-topbar p-3 pb-7 p-lg-4"></div>
+
+          <div className="user-chat-topbar p-3 p-lg-4 absolute">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <div className="chat-avatar mr-4">
+                  <img
+                    src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
+                    alt="profile"
+                    className="rounded-full"
+                  />
+                </div>
+                <div className="overflow-hidden">
+                  <h6 className="mb-0">Narender</h6>
+                  <p className="mb-0">
+                    <small>Active</small>
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div className="dropdown relative">
+                  <Dropdown />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          
 
           <div className="chat-conversation p-3 p-lg-4">
             <ul className="chat-conversation-list">
@@ -324,7 +353,6 @@ const Wrapper = styled.section`
   background-color: ${({ theme }) => theme.colors.bgprimary};
   overflow: hidden;
   background: url("https://doot-light.react.themesbrand.com/static/media/pattern-05.ffd181cd.png");
-
   .btn {
     width: 43px;
     padding: 0;
@@ -344,7 +372,6 @@ const Wrapper = styled.section`
     width: 50px;
     height: 43px;
   }
-
   .dropdown-menu {
     top: 70px;
     z-index: 101;
@@ -353,15 +380,12 @@ const Wrapper = styled.section`
     right: 0;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-
     button {
       position: relative;
       width: 100%;
       padding: 1.5rem 1.5rem;
       margin-bottom: 20px;
       height: 30px;
-
-
       &:hover {
         background-color: #f8f9fa;
       }
@@ -392,14 +416,12 @@ const Wrapper = styled.section`
       }
     }
   }
-
   .chat-welcome-section {
     width: 100%;
     height: 100vh;
     position: absolute;
     padding: 30px 30px 0;
   }
-
   .chat-content {
     .user-chat-topbar {
       width: 100%;
@@ -458,7 +480,6 @@ const Wrapper = styled.section`
         }
       }
     }
-
     .chat-input-section {
       bottom: 0;
       background-color: hsla(0, 0%, 100%, 0.05);

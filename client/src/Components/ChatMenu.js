@@ -6,15 +6,15 @@ const ChatMenu = () => {
   const [SearchOpen, setSearchOpen] = useState(false);
 
   return (
-    <Wrapper className="chat-menu-section bg-white">
-      <div className="chat-menu flex flex-wrap items-center justify-between w-full ">
+    <Wrapper className="chat-menu-section bg-white" >
+      <div className="chat-menu flex flex-wrap items-center justify-between w-full  ">
         {SearchOpen ? (
           <> </>
         ) : (
           <>
             <div>
               <h1 className=" text-2xl m-0">Chat</h1>
-              <p className=" text-gray-400 ">Start New Conversation</p>
+              <p className=" text-gray-400 mb-0">Start New Conversation</p>
             </div>
           </>
         )}
@@ -29,7 +29,6 @@ const ChatMenu = () => {
 };
 
 const Wrapper = styled.section`
-  padding: 1.5rem 0;
   position: relative;
   max-width: 20rem;
   height: 100vh;
@@ -39,8 +38,9 @@ const Wrapper = styled.section`
   /* overflow-x: hidden;
   overflow-y: scroll; */
   .chat-menu {
-    padding: 0rem 1.5rem 1rem;
+    padding: 1rem 1rem;
   }
+ 
   @media (max-width: ${({ theme }) => theme.media.mobile}) {
     padding: 1.5rem 0;
     margin-top: 70px;
@@ -48,9 +48,18 @@ const Wrapper = styled.section`
     max-width: 100vw;
     min-width: 100vw;
     .chat-menu {
-      padding: 0 2rem 1rem;
+      padding: 2rem 1.5rem;
       box-shadow: 0 10px 10px rgb(15 34 58 / 12%);
     }
+    input{
+    font-size: 1.5rem;
+  }
+  h1{
+    font-size: 2rem;
+  }
+  p{
+    font-size: 1.5rem;
+  }
   }
 `;
 
