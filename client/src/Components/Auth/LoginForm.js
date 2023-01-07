@@ -3,19 +3,29 @@ import { NavLink } from "react-router-dom";
 import Social from "../../Styles/Social";
 import { Button } from "../../Styles/Button";
 
+import { useDispatch } from "react-redux"; 
+import { signIn } from "../../Redux/Reducer/Auth/auth.action";
+
 const LoginForm = () => {
-  const [loginDetails, setLoginDetails] = useState({
+  const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
-
   const handleChange = (e) => {
-    setLoginDetails((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    // console.log(e.target.name , e.target.value)
+    setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+
+  const dispatch = useDispatch();
+  
+
   const handleLogin = () => {
-    console.log(loginDetails);
-    alert("Server will add soon");
+    // console.log(userData);
+    alert(userData);
+    dispatch(signIn(userData));
+    setUserData({email : "" , password : ""});
+
   };
 
   return (
@@ -38,7 +48,7 @@ const LoginForm = () => {
                   name="email"
                   autoComplete="off"
                   placeholder="user name or email"
-                  value={loginDetails.email}
+                  value={userData.email}
                   onChange={handleChange}
                 />
               </div>
@@ -63,7 +73,7 @@ const LoginForm = () => {
                     name="password"
                     autoComplete="off"
                     placeholder="Password"
-                    value={loginDetails.password}
+                    value={userData.password}
                     onChange={handleChange}
                     style={{ paddingRight: "2.25rem" }}
                   />
