@@ -128,16 +128,16 @@ function Nav() {
       .mobile-navbar-btn {
         display: inline-block;
         z-index: 9999;
-        border: ${({ theme }) => theme.colors.black};
+        border: ${({ theme }) => theme.colors.heading};
         .mobile-nav-icon {
           font-size: 4.2rem;
-          color: ${({ theme }) => theme.colors.black};
+          color: ${({ theme }) => theme.colors.heading};
         }
       }
       .active .mobile-nav-icon {
         display: none;
         font-size: 4.2rem;
-        color: ${({ theme }) => theme.colors.black};
+        color: ${({ theme }) => theme.colors.heading};
         z-index: 9999;
       }
       .active .close-outline {

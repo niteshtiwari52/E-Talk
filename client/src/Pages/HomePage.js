@@ -11,7 +11,7 @@ const HomePage = () => {
     <>
       {user?.name ? (
         <>
-          <Chat />
+          <Chat  />
         </>
       ) : (
         <>

@@ -15,11 +15,11 @@ export const GlobalStyle = createGlobalStyle`
     width: 5px;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(28,157,234,.15);
+  background-color: rgba(${({ theme }) => theme.colors.rgb.cyan}, .2);
     border-radius: 6px;
 }
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px #eff1f2;
+  box-shadow: inset 0 0 6px ${({ theme }) => theme.colors.border};
 }
   
   button,
@@ -31,8 +31,7 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
   }
-
-  
+ 
   .input {
     -webkit-appearance: none;
     appearance: none;
@@ -53,10 +52,12 @@ export const GlobalStyle = createGlobalStyle`
     margin-bottom: 0.5rem;
     font-weight: 700;
     line-height: 1.2;
+    color: ${({ theme }) => theme.colors.heading};
   }
   
   a {
     font-size: 0.8rem;
+    color: ${({ theme }) => theme.colors.black};
   }
   
   p {
@@ -66,11 +67,12 @@ export const GlobalStyle = createGlobalStyle`
     margin-inline-start: 0px;
     margin-inline-end: 0px;
   }
-  
+
   p,span {
     font-size: 1rem;
     margin-top: 0;
     margin-bottom: 1rem;
+    
   }
   
   h1 {
@@ -122,4 +124,4 @@ export const GlobalStyle = createGlobalStyle`
       grid-template-columns: 1fr;
     }
   }
-`
+`;
