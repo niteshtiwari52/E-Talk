@@ -12,19 +12,13 @@ import Loading from "./Components/Loading";
 import Team from "./Pages/Team";
 import Contact from "./Pages/Contact";
 import Features from "./Pages/Features";
-import { useDarkMode } from "./Components/useDarkMode";
-import Toggler from "./Components/Toggler";
-import { darkTheme, lightTheme } from "./Components/Themes";
+import { darkTheme, lightTheme} from "./Components/Themes"
+import { useSelector } from "react-redux";
+
 
 function App() {
   const [loading, setloading] = useState(false);
-  const [theme, themeToggler] = useDarkMode();
-  const themeMode = theme === 'light' ? lightTheme : darkTheme;
-
-  // const themetoggler = () =>{
-  //     mode === "light" ? setMode("dark") : setMode("light")
-  // }
-
+  const darkThemeEnabled = useSelector((state) => state.themeReducer.darkThemeEnabled);
 
   useEffect(() => {
     setloading(true);
@@ -35,9 +29,8 @@ function App() {
 
   
   return (
-    <ThemeProvider theme={themeMode}>
+    <ThemeProvider theme={darkThemeEnabled ? darkTheme : lightTheme}>
       <GlobalStyle />
-      <Toggler theme={theme} toggleTheme={themeToggler} />
       <div className="App">
         {loading ? (
           <Loading />

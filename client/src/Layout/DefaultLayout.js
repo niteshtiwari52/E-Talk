@@ -5,7 +5,7 @@ const DefaultLayoutHoc =
   ({ ...props }) => {
     return (
       <>
-        <div className="w-full">
+        <div className="w-full h-full">
           <Components {...props} />
         </div>
       </>

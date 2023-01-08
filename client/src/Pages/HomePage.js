@@ -9,7 +9,7 @@ import { signIn } from "../Redux/Reducer/Auth/auth.action";
 
 const HomePage = () => {
   const user = {
-    // name: "Nitesh",
+    name: "Nitesh",
   };
 
   const dispatch = useDispatch();

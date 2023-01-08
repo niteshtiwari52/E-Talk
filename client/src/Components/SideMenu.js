@@ -3,9 +3,10 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { AiOutlineSetting, AiOutlineStar } from "react-icons/ai";
-import { RiContactsLine, RiMoonLine } from "react-icons/ri";
+import { RiContactsLine } from "react-icons/ri";
 import { BsChatSquareDots } from "react-icons/bs";
 import { CgClose, CgMenu } from "react-icons/cg";
+import Toggler from "./Toggler";
 
 const SideMenu = () => {
   const [menuIcon, setMenuIcon] = useState();
@@ -95,7 +96,7 @@ const SideMenu = () => {
                 title="Theme Mode"
               >
                 <div className="nav-link" >
-                  <RiMoonLine className="icon" />
+                  <Toggler/>
                 </div>
               </li>
               <li className="side-menu-item">

@@ -29,6 +29,7 @@ export const lightTheme = {
       "secondary": "22 163 74",
       "danger": "255, 78, 43",
       "light": "#f6f6f9",
+      
       },
       
       "hr": "#ffffff",
@@ -65,7 +66,6 @@ export const lightTheme = {
         "black": "#000000",
         "primary": "#262626",
         "secondary": "#2e2e2e",
-        // "secondary": "#383838",
       },
 
       btn:{

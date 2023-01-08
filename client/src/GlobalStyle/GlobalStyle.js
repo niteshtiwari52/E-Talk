@@ -21,6 +21,10 @@ export const GlobalStyle = createGlobalStyle`
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px ${({ theme }) => theme.colors.border};
 }
+.App{
+  background-color: ${({ theme }) => theme.colors.bg.primary};
+  color: ${({ theme }) => theme.colors.heading}
+}
   
   button,
   input,
