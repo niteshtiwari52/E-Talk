@@ -4,7 +4,10 @@ import Social from "../../Styles/Social";
 import { Button } from "../../Styles/Button";
 
 import { useDispatch } from "react-redux"; 
+import { useNavigate } from "react-router-dom";
+// Redux 
 import { signIn } from "../../Redux/Reducer/Auth/auth.action";
+import { getMySelf } from "../../Redux/Reducer/User/user.action";
 
 const LoginForm = () => {
   const [userData, setUserData] = useState({
@@ -18,13 +21,16 @@ const LoginForm = () => {
 
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
 
   const handleLogin = () => {
-    // console.log(userData);
-    alert(userData);
+    
     dispatch(signIn(userData));
+    navigate("/");
+    // dispatch(getMySelf());
     setUserData({email : "" , password : ""});
+    // window.location.reload();
 
   };
 

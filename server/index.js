@@ -5,6 +5,9 @@ const { chats } = require("./data/data");
 const colors = require("colors");
 const chatRoutes = require("./routes/chatRoutes");
 const userRoutes = require("./routes/userRoutes");
+import cors from "cors";
+import helmet from "helmet";
+
 
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
@@ -12,6 +15,8 @@ dotenv.config();
 const app = express();
 connectDB();
 
+app.use(cors({ origin: "http://localhost:3000" }));
+app.use(helmet());
 app.use(express.json()); //to accept json data
 
 app.use(express.json());
