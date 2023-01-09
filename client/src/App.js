@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-
 import "./App.css";
 import Login from "./Components/Auth/Login";
 import Signup from "./Components/Auth/Signup";
@@ -13,18 +12,28 @@ import Loading from "./Components/Loading";
 import Team from "./Pages/Team";
 import Contact from "./Pages/Contact";
 import Features from "./Pages/Features";
+
+import { darkTheme, lightTheme} from "./Components/Themes"
+import { useSelector } from "react-redux";
+
+
 import { getMySelf } from "./Redux/Reducer/User/user.action";
 import { useDispatch } from "react-redux";
 import { BsWindowSidebar } from "react-icons/bs";
 
+
 function App() {
   const [loading, setloading] = useState(false);
+  const darkThemeEnabled = useSelector((state) => state.themeReducer.darkThemeEnabled);
+
   useEffect(() => {
     setloading(true);
     setTimeout(() => {
       setloading(false);
     }, 3000);
   }, []);
+
+
 
   const dispatch = useDispatch();
 
@@ -67,8 +76,10 @@ function App() {
     },
   };
 
+
+  
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={darkThemeEnabled ? darkTheme : lightTheme}>
       <GlobalStyle />
       <div className="App">
         {loading ? (

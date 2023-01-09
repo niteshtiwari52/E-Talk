@@ -8,7 +8,7 @@ const Chat = () => {
   return (
     <>
       <Wrapper className="flex justify-start w-full">
-        <SideMenu />
+        <SideMenu  />
         {/* <UserList /> */}
         <ChatMenu /> {/*this contain all the user list */}
         <ChatWindow /> {/** This contain our chat window. */}

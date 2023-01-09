@@ -5,6 +5,7 @@ import Contact from "../Pages/Contact";
 import Features from "../Pages/Features";
 import Team from "../Pages/Team";
 import { Button } from "../Styles/Button";
+import Footer from "./Footer";
 import Header from "./Header";
 
 
@@ -42,6 +43,7 @@ const Welcome = () => {
         <Features/>
         <Team/>
         <Contact/>
+        <Footer/>
       </Wrapper>
      
     </>
@@ -54,6 +56,7 @@ const Wrapper = styled.section`
   width: 100vw;
   height: auto;
   background-repeat: no-repeat;
+  background: ${({ theme }) => theme.colors.bg.primary};
   /* background-image: url("./images/1.jpg"); */
   
   img {
@@ -68,9 +71,11 @@ const Wrapper = styled.section`
     h1 {
       text-transform: capitalize;
       font-weight: bold;
+      
     }
     p {
       margin: 1rem 0;
+      color: ${({ theme }) => theme.colors.heading};
     }
     .button {
       width: 50%;

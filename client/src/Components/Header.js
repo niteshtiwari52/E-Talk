@@ -20,7 +20,7 @@ const MainHeader = styled.header`
   padding: 0 3.2rem;
   position: relative;
   height: 8rem;
-  background-color: ${({ theme }) => theme.colors.bg};
+  background-color: ${({ theme }) => theme.colors.bg.primary};
   position: relative;
   .hero-section-logo{
     width: 100%

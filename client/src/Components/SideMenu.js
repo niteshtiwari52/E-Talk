@@ -3,14 +3,18 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { AiOutlineSetting, AiOutlineStar } from "react-icons/ai";
-import { RiContactsLine, RiMoonLine } from "react-icons/ri";
+import { RiContactsLine } from "react-icons/ri";
 import { BsChatSquareDots } from "react-icons/bs";
 import { CgClose, CgMenu } from "react-icons/cg";
+
+import Toggler from "./Toggler";
+
 import {IoLogOutOutline} from "react-icons/io5"
 
 // redux 
 import {useDispatch} from "react-redux"
 import { signOut } from "../Redux/Reducer/Auth/auth.action";
+
 
 const SideMenu = () => {
   
@@ -26,8 +30,8 @@ const SideMenu = () => {
       <div
         className={
           menuIcon
-            ? "bg-white side-menu active flex justify-between"
-            : "bg-white side-menu flex justify-between"
+            ? " side-menu active flex justify-between"
+            : " side-menu flex justify-between"
         }
       >
         <div className=" mobile-navbar overflow-y-auto">
@@ -64,8 +68,6 @@ const SideMenu = () => {
             <ul className="flex flex-col justify-between gap-4">
               <li
                 className="side-menu-item"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
                 title="profile"
               >
                 <NavLink to="profile" className="nav-link ">
@@ -74,8 +76,6 @@ const SideMenu = () => {
               </li>
               <li
                 className="side-menu-item"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
                 title="Favorite"
               >
                 <NavLink to="favorite" className="nav-link">
@@ -84,8 +84,6 @@ const SideMenu = () => {
               </li>
               <li
                 className="side-menu-item"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
                 title="Chats"
               >
                 <NavLink to="/" className="nav-link">
@@ -94,8 +92,6 @@ const SideMenu = () => {
               </li>
               <li
                 className="side-menu-item"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
                 title="contact"
               >
                 <NavLink to="contact" className="nav-link">
@@ -104,8 +100,6 @@ const SideMenu = () => {
               </li>
               <li
                 className="side-menu-item"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
                 title="setting"
               >
                 <NavLink to="setting" className="nav-link">
@@ -114,12 +108,10 @@ const SideMenu = () => {
               </li>
               <li
                 className="side-menu-item"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
                 title="Theme Mode"
               >
-                <div to="/" className="nav-link">
-                  <RiMoonLine className="icon" />
+                <div className="nav-link" >
+                  <Toggler/>
                 </div>
               </li>
               {/* logout */}
@@ -159,6 +151,7 @@ const Wrapper = styled.section`
     min-width: 100px;
     flex-direction: column;
     border-right: 1px solid  ${({ theme }) => theme.colors.border};
+    background-color: ${({ theme }) => theme.colors.bg.primary}
   }
   .side-menu-bar{
     height: 100%;
@@ -180,8 +173,8 @@ const Wrapper = styled.section`
       margin: 7px auto;
       cursor: pointer;
       .nav-link.active {
-        background-color: #eff1f2;
-        color: ${({ theme }) => theme.colors.primary};
+        background-color: ${({ theme }) => theme.colors.btn.light};
+        color: ${({ theme }) => theme.colors.cyan};
       }
       .nav-link {
         display: block;
@@ -191,16 +184,16 @@ const Wrapper = styled.section`
         font-size: 2rem;
         margin: 0 auto;
         width: 56px;
-        color: black;
+        color: ${({ theme }) => theme.colors.text.secondary};
         border-radius: 8px;
         &:hover {
-          color: ${({ theme }) => theme.colors.primary};
+          color: ${({ theme }) => theme.colors.cyan};
         }
         .icon {
           display: inline;
         }
         .profile-user {
-          border: 3px solid ${({ theme }) => theme.colors.primary};
+          border: 3px solid ${({ theme }) => theme.colors.cyan};
         }
       }
     }
@@ -230,7 +223,7 @@ const Wrapper = styled.section`
       z-index: 998;
     }
     .side-menu-bar {
-      background-color: white;
+      background-color: ${({ theme }) => theme.colors.bg.primary};;
       position: absolute;
       top: 0;
       left: 0;
@@ -274,16 +267,16 @@ const Wrapper = styled.section`
     .mobile-sideMenu-btn {
       display: inline-block;
       z-index: 9999;
-      border: ${({ theme }) => theme.colors.black};
+      border: ${({ theme }) => theme.colors.heading};
       .mobile-nav-icon {
         font-size: 4.2rem;
-        color: ${({ theme }) => theme.colors.black};
+        color: ${({ theme }) => theme.colors.heading};
       }
     }
     .active .mobile-navbar .mobile-nav-icon {
       display: none;
       font-size: 4.2rem;
-      color: ${({ theme }) => theme.colors.black};
+      color: ${({ theme }) => theme.colors.heading};
       z-index: 9999;
     }
     .active .mobile-navbar .close-outline {

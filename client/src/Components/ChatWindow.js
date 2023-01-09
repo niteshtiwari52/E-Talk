@@ -9,6 +9,7 @@ import EmojiPicker from "emoji-picker-react";
 import { createRef } from "react";
 import { useEffect } from "react";
 
+
 const ChatWindow = () => {
   const inputRef = createRef();
   const [message, setMessage] = useState("");
@@ -29,7 +30,8 @@ const ChatWindow = () => {
     setShowEmojis(!showEmojis);
   }
   useEffect(()=>{
-    inputRef.current.selectionEnd = cursorPosition
+    inputRef.current.selectionEnd = cursorPosition;
+    // eslint-disable-next-line
   },[cursorPosition])
   return (
     <Wrapper>
@@ -99,11 +101,11 @@ const ChatWindow = () => {
                   <div className="user-chat-content">
                     <div className="flex mb-3">
                       <div className="chat-wrap-content">
-                        <p className="mb-0 chat-content text-sm text-left">
+                        <span className="mb-0 chat-content text-sm text-left">
                           Hey, I'm going to meet a friend of mine at the
                           department store. I have to buy some presents for my
                           parents 🎁
-                        </p>
+                        </span>
                       </div>
                     </div>
                     <div className="conversation-name">
@@ -125,10 +127,10 @@ const ChatWindow = () => {
                   <div className="user-chat-content">
                     <div className="flex mb-3">
                       <div className="chat-wrap-content">
-                        <p className="mb-0 chat-content text-sm text-left">
+                        <span className="mb-0 chat-content text-sm text-left">
                           Good morning, How are you? What about our next
                           meeting?
-                        </p>
+                        </span>
                       </div>
                     </div>
                     <div className="conversation-name">
@@ -150,11 +152,11 @@ const ChatWindow = () => {
                   <div className="user-chat-content">
                     <div className="flex mb-3">
                       <div className="chat-wrap-content">
-                        <p className="mb-0 chat-content text-sm text-left">
+                        <span className="mb-0 chat-content text-sm text-left">
                           Hey, I'm going to meet a friend of mine at the
                           department store. I have to buy some presents for my
                           parents 🎁
-                        </p>
+                        </span>
                       </div>
                     </div>
                     <div className="conversation-name">
@@ -176,10 +178,10 @@ const ChatWindow = () => {
                   <div className="user-chat-content">
                     <div className="flex mb-3">
                       <div className="chat-wrap-content">
-                        <p className="mb-0 chat-content text-sm text-left">
+                        <span className="mb-0 chat-content text-sm text-left">
                           Good morning, How are you? What about our next
                           meeting?
-                        </p>
+                        </span>
                       </div>
                     </div>
                     <div className="conversation-name">
@@ -201,11 +203,11 @@ const ChatWindow = () => {
                   <div className="user-chat-content">
                     <div className="flex mb-3">
                       <div className="chat-wrap-content">
-                        <p className="mb-0 chat-content text-sm text-left">
+                        <span className="mb-0 chat-content text-sm text-left">
                           Hey, I'm going to meet a friend of mine at the
                           department store. I have to buy some presents for my
                           parents 🎁
-                        </p>
+                        </span>
                       </div>
                     </div>
                     <div className="conversation-name">
@@ -227,10 +229,10 @@ const ChatWindow = () => {
                   <div className="user-chat-content">
                     <div className="flex mb-3">
                       <div className="chat-wrap-content">
-                        <p className="mb-0 chat-content text-sm text-left">
+                        <span className="mb-0 chat-content text-sm text-left">
                           Good morning, How are you? What about our next
                           meeting?
-                        </p>
+                        </span>
                       </div>
                     </div>
                     <div className="conversation-name">
@@ -252,11 +254,11 @@ const ChatWindow = () => {
                   <div className="user-chat-content">
                     <div className="flex mb-3">
                       <div className="chat-wrap-content">
-                        <p className="mb-0 chat-content text-sm text-left">
+                        <span className="mb-0 chat-content text-sm text-left">
                           Hey, I'm going to meet a friend of mine at the
                           department store. I have to buy some presents for my
                           parents 🎁
-                        </p>
+                        </span>
                       </div>
                     </div>
                     <div className="conversation-name">
@@ -278,10 +280,10 @@ const ChatWindow = () => {
                   <div className="user-chat-content">
                     <div className="flex mb-3">
                       <div className="chat-wrap-content">
-                        <p className="mb-0 chat-content text-sm text-left">
+                        <span className="mb-0 chat-content text-sm text-left">
                           Good morning, How are you? What about our next
                           meeting?
-                        </p>
+                        </span>
                       </div>
                     </div>
                     <div className="conversation-name">
@@ -295,7 +297,6 @@ const ChatWindow = () => {
           </div>
 
           
-
           <div className="chat-input-section p-5 p-lg-6">
             <form action="">
               <div className="flex justify-between items-center">
@@ -307,7 +308,7 @@ const ChatWindow = () => {
                   </div>
                   <div className="links-list-item">
                     <div className="btn">
-                      <BiSmile onClick={handleShowEmojis} />
+                    <BiSmile onClick={handleShowEmojis} title="emoji"  />
                       {showEmojis && <div className="emoji-picker">
                         <EmojiPicker onEmojiClick={pickEmoji} autoFocusSearch={false} />
                       </div> }
@@ -350,9 +351,9 @@ const Wrapper = styled.section`
   width: 75%;
   height: 100vh;
   min-width: auto;
-  background-color: ${({ theme }) => theme.colors.bgprimary};
   overflow: hidden;
-  background: url("https://doot-light.react.themesbrand.com/static/media/pattern-05.ffd181cd.png");
+  background-color: ${({ theme }) => theme.colors.bg.secondary} ;
+  background-image: url("https://doot-light.react.themesbrand.com/static/media/pattern-05.ffd181cd.png");
   .btn {
     width: 43px;
     padding: 0;
@@ -367,6 +368,19 @@ const Wrapper = styled.section`
    overflow-y: auto;
    z-index: 100;
   bottom: 80px;
+  background-color: transparent;
+  .EmojiPickerReact {
+    background-color: ${({ theme }) => theme.colors.bg.black};
+    overflow: hidden;
+    border-color: ${({ theme }) => theme.colors.border};
+
+    li.epr-emoji-category>.epr-emoji-category-label{
+      background-color: ${({ theme }) => theme.colors.bg.primary};
+    }
+   button.epr-emoji:focus>*{
+    background-color: ${({ theme }) => theme.colors.bg.primary};
+ }
+}
   }
   .submit-btn{
     width: 50px;
@@ -380,6 +394,7 @@ const Wrapper = styled.section`
     right: 0;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: ${({ theme }) => theme.colors.bg.primary};
     button {
       position: relative;
       width: 100%;
@@ -387,7 +402,7 @@ const Wrapper = styled.section`
       margin-bottom: 20px;
       height: 30px;
       &:hover {
-        background-color: #f8f9fa;
+        background-color: ${({ theme }) => theme.colors.bg.secondary};
       }
       h5 {
         font-size: 1.1rem;
@@ -400,11 +415,11 @@ const Wrapper = styled.section`
         border-radius: 50%;
       }
       .btn-outline-primary {
-        background-color: rgba(28, 157, 234, 0.15);
-        color: ${({ theme }) => theme.colors.primary};
+        background-color: rgba(${({ theme }) => theme.colors.btn.primary}, 0.15);
+        color: ${({ theme }) => theme.colors.cyan};
       }
       .btn-outline-danger {
-        background-color: rgba(255, 78, 43, 0.15);
+        background-color: rgba(${({ theme }) => theme.colors.btn.danger}, 0.15);
         color: ${({ theme }) => theme.colors.danger};
       }
       .btn-outline-light {
@@ -425,9 +440,10 @@ const Wrapper = styled.section`
   .chat-content {
     .user-chat-topbar {
       width: 100%;
-      background-color: white;
+      background-color:  ${({ theme }) => theme.colors.bg.primary};;
       z-index: 100;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      color: ${({ theme }) => theme.colors.heading}
     }
     .chat-conversation {
       overflow-y: scroll;
@@ -453,14 +469,16 @@ const Wrapper = styled.section`
             }
             .chat-wrap-content {
               padding: 12px 20px;
-              background-color: #fff;
+              background-color: ${({ theme }) => theme.colors.bg.primary};
               position: relative;
               border-radius: 3px;
               box-shadow: 0 2px 4px rgb(15 34 58 / 12%);
+              color: ${({ theme }) => theme.colors.heading};
             }
             .conversation-name {
               font-size: 14px;
               font-weight: 500;
+              color: ${({ theme }) => theme.colors.text.secondary};
             }
           }
         }
@@ -474,7 +492,8 @@ const Wrapper = styled.section`
               margin-left: 16px;
             }
             .chat-wrap-content {
-              background-color: ${({ theme }) => theme.colors.bgPrimary};
+              color: ${({ theme }) => theme.colors.text.primary};
+              background-color: rgb(${({ theme }) => theme.colors.rgb.primary});
             }
           }
         }
@@ -482,13 +501,19 @@ const Wrapper = styled.section`
     }
     .chat-input-section {
       bottom: 0;
-      background-color: hsla(0, 0%, 100%, 0.05);
-      border-top: 1px solid #eaeaf1;
+      background-color: ${({ theme }) => theme.colors.bg.primary};
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      input{
+        color: ${({ theme }) => theme.colors.heading};
+        background-color: ${({ theme }) => theme.colors.bg.secondary};
+        &:focus{
+          background-color: ${({ theme }) => theme.colors.bg.secondary};
+        }
+      }
       .links-list-items .btn {
         color: #fff;
-        background-color: ${({ theme }) => theme.colors.primary};
-        border-color: ${({ theme }) => theme.colors.primary};
+        background-color: ${({ theme }) => theme.colors.cyan};
+        border-color: ${({ theme }) => theme.colors.cyan};
       }
     }
   }

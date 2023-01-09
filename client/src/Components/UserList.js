@@ -148,7 +148,7 @@ const UserList = () => {
                 </div>
                 <div className="data-status">
                   <p>18/12/22</p>
-                  <p className="status">Seen</p>
+                  <span className="status">Seen</span>
                 </div>
               </div>
             </li>
@@ -163,9 +163,10 @@ const Wrapper = styled.section`
   position: relative;
   .chat-main {
     height: 100vh;
+    background-color: ${({ theme }) => theme.colors.bg.primary};
     li.active {
-      background-color: #eff7fe;
-      border-left: 4px solid #1c9dea;
+      background-color: ${({ theme }) => theme.colors.bg.secondary};
+      border-left: 4px solid ${({ theme }) => theme.colors.cyan};
       transition: all 0.3s ease;
     }
     .chat-box {
@@ -176,7 +177,7 @@ const Wrapper = styled.section`
         padding-top: 8px;
         white-space: nowrap;
       }
-      p {
+      p,span {
         font-weight: 600;
         margin: 0;
         padding-top: 8px;
@@ -191,6 +192,7 @@ const Wrapper = styled.section`
         padding: 12px 12px 12px 60px;
         p {
           overflow: hidden;
+          color: ${({ theme }) => theme.colors.text.secondary};
         }
       }
       .data-status {
@@ -198,14 +200,16 @@ const Wrapper = styled.section`
         right: 0;
         text-align: right;
         h2,
-        p {
+        p,span {
           font-size: calc(11px + (12 - 11) * ((100vw - 320px) / (1920 - 320)));
+          color: ${({ theme }) => theme.colors.heading};
         }
         .status {
           padding-top: 8px;
           padding-bottom: 0px;
           letter-spacing: 0.5px;
           font-weight: 600;
+          color: ${({ theme }) => theme.colors.text.secondary};
         }
       }
     }
@@ -216,6 +220,7 @@ const Wrapper = styled.section`
     min-width: 100vw;
     .chat-main {
       width: 100vw;
+      height: calc(100vh + 60px);
       li {
         padding: 20px 20px 20px 20px;
         h2 {

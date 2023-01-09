@@ -9,9 +9,11 @@ import { signIn } from "../Redux/Reducer/Auth/auth.action";
 import { getMySelf } from "../Redux/Reducer/User/user.action";
 
 const HomePage = () => {
+
   
   
   const user = useSelector((globalState) => globalState.user.userDetails);
+
   const dispatch = useDispatch();
   
  
@@ -31,7 +33,7 @@ const HomePage = () => {
     <>
       {user?.name ? (
         <>
-          <Chat />
+          <Chat  />
         </>
       ) : (
         <>

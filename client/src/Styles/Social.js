@@ -19,8 +19,6 @@ const Social = () => {
             <img
               src="../social/facebook.svg"
               alt="facebook"
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
               title="facebook"
             />
           </Button>
@@ -34,8 +32,6 @@ const Social = () => {
             <img
               src="../social/twitter.svg"
               alt="facebook"
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
               title="facebook"
             />
           </Button>
@@ -45,8 +41,6 @@ const Social = () => {
             className="btn-light flex justify-center items-center w-full"
             type="Button"
             id="facebbok"
-            data-bs-toggle="tooltip"
-            data-bs-placement="top"
             title="facebook"
           >
             <FcGoogle />
