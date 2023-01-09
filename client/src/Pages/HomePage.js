@@ -4,19 +4,28 @@ import Welcome from "../Components/Welcome";
 import DefaultLayoutHoc from "../Layout/DefaultLayout";
 
 // redux
-import { useDispatch} from "react-redux"
+import {useSelector,  useDispatch} from "react-redux"
 import { signIn } from "../Redux/Reducer/Auth/auth.action";
+import { getMySelf } from "../Redux/Reducer/User/user.action";
 
 const HomePage = () => {
-  const user = {
-    // name: "Nitesh",
-  };
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
   
-  }, [])
+  
+  const user = useSelector((globalState) => globalState.user.userDetails);
+  const dispatch = useDispatch();
+  
+ 
+
+  // useEffect(() => {
+   
+  //   if(localStorage.ETalkUser){
+
+  //     dispatch(getMySelf()); 
+  //   }
+    
+   
+ 
+  // }, []);
   
   return (
     <>

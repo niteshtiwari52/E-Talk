@@ -13,6 +13,9 @@ import Loading from "./Components/Loading";
 import Team from "./Pages/Team";
 import Contact from "./Pages/Contact";
 import Features from "./Pages/Features";
+import { getMySelf } from "./Redux/Reducer/User/user.action";
+import { useDispatch } from "react-redux";
+import { BsWindowSidebar } from "react-icons/bs";
 
 function App() {
   const [loading, setloading] = useState(false);
@@ -22,6 +25,17 @@ function App() {
       setloading(false);
     }, 3000);
   }, []);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if(localStorage.ETalkUser){
+
+      dispatch(getMySelf()); 
+    }
+   
+ 
+  }, [localStorage]);
   const theme = {
     colors: {
       heading: "rgb(24 24 29)",

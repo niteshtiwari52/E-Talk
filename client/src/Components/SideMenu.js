@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Profiler, useState } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
@@ -6,9 +6,21 @@ import { AiOutlineSetting, AiOutlineStar } from "react-icons/ai";
 import { RiContactsLine, RiMoonLine } from "react-icons/ri";
 import { BsChatSquareDots } from "react-icons/bs";
 import { CgClose, CgMenu } from "react-icons/cg";
+import {IoLogOutOutline} from "react-icons/io5"
+
+// redux 
+import {useDispatch} from "react-redux"
+import { signOut } from "../Redux/Reducer/Auth/auth.action";
 
 const SideMenu = () => {
+  
   const [menuIcon, setMenuIcon] = useState();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(signOut());
+  }
+
   return (
     <Wrapper>
       <div
@@ -110,7 +122,20 @@ const SideMenu = () => {
                   <RiMoonLine className="icon" />
                 </div>
               </li>
-              <li className="side-menu-item">
+              {/* logout */}
+              <li
+                className="side-menu-item"
+                data-bs-toggle="tooltip"
+                data-bs-placement="right"
+                title="Logout"
+                onClick={handleLogout}
+              >
+                <div to="/" className="nav-link">
+                  <IoLogOutOutline className="icon" />
+                </div>
+              </li>
+
+              {/* <li className="side-menu-item">
                 <div className="nav-link">
                   <img
                     src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
@@ -118,7 +143,7 @@ const SideMenu = () => {
                     className="profile-user rounded-full"
                   />
                 </div>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>

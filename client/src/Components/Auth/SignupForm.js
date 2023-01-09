@@ -1,9 +1,14 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../Styles/Button";
 import Social from "../../Styles/Social";
-
+// Redux 
+import { signUp } from "../../Redux/Reducer/Auth/auth.action";
+import { getMySelf } from "../../Redux/Reducer/User/user.action";
 const SignupForm = () => {
-  const [signupDetails, setSignupDetails] = useState({
+  
+    const [userData, setUserData] = useState({
     name: "",
     email: "",
     password: "",
@@ -11,12 +16,18 @@ const SignupForm = () => {
   });
 
   const handleChange = (e) => {
-    setSignupDetails((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    
+    setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleSignUp = () => {
-    console.log(signupDetails);
-    alert("Server will add soon");
+    
+    dispatch(signUp(userData));
+    dispatch(getMySelf());
+    navigate("/");
   };
 
   return (
@@ -40,7 +51,7 @@ const SignupForm = () => {
                   autoComplete="off"
                   placeholder="Enter your Name"
                   required
-                  value={signupDetails.name}
+                  value={userData.name}
                   onChange={handleChange}
                 />
               </div>
@@ -55,7 +66,7 @@ const SignupForm = () => {
                   autoComplete="off"
                   placeholder="Email"
                   required
-                  value={signupDetails.email}
+                  value={userData.email}
                   onChange={handleChange}
                 />
               </div>
@@ -70,7 +81,7 @@ const SignupForm = () => {
                     name="password"
                     autoComplete="off"
                     placeholder="Password"
-                    value={signupDetails.password}
+                    value={userData.password}
                     onChange={handleChange}
                     style={{ paddingRight: "2.25rem" }}
                   />
@@ -107,7 +118,7 @@ const SignupForm = () => {
                     name="confirmPassword"
                     autoComplete="off"
                     placeholder="Confirm Password"
-                    value={signupDetails.confirmPassword}
+                    value={userData.confirmPassword}
                     onChange={handleChange}
                     style={{ paddingRight: "2.25rem" }}
                   />

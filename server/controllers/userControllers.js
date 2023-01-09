@@ -42,6 +42,7 @@ const registerUser = asyncHandler(async (req,res) => {
 
 const authUser = asyncHandler(async (req,res) => {
     const {email,password}=req.body;
+    console.log(req.body.email);
 
     const user = await User.findOne({email});
 
@@ -69,4 +70,16 @@ const allUsers = asyncHandler(async (req,res) => {
     res.send(users);
 })
 
-module.exports = { registerUser, authUser,allUsers };
+const getmyself = asyncHandler(async (req, res) => {
+    try {
+       
+        const userDetails = req.user;
+        return res.status(200).json({ user: { userDetails } });
+      } catch (error) {
+        return res.status(500).json({
+          error: error.message,
+        });
+      }
+});
+
+module.exports = { registerUser, authUser,allUsers, getmyself };
