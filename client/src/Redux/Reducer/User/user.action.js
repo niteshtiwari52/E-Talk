@@ -9,7 +9,7 @@ export const getMySelf = () => async (dispatch) => {
         url: `http://localhost:4000/api/user/getmyself`,
       });
   
-      console.log(User.data.user);
+     
   
       return dispatch({ type: SELF, payload: { ...User.data.user } });
     } catch (error) {

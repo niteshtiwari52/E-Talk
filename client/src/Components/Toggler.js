@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { RiMoonLine, RiSunLine } from "react-icons/ri";
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import {TOGGLE_DARKTHEME} from "../Redux/action/action"
+
+import { TOGGLE_DARKTHEME } from '../Redux/Reducer/Theme/theme.type';
 
 const Toggler = () => {
   const [toggle, setToggle] = useState(false)
   const dispatch = useDispatch();
   const togglerTheme = () =>{
+
     dispatch({type: TOGGLE_DARKTHEME});
     setToggle(true);
+    
   }
+  
   return (
     <Wrapper onClick={togglerTheme}>
         {

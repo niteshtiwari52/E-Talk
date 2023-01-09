@@ -7,7 +7,7 @@ import {SIGN_IN, SIGN_UP, SIGN_OUT} from  "./auth.type"
 // Sign IN 
 
 export const signIn = (userData) => async (dispatch) => {
-    console.log(userData)
+   
     try {
         const User = await axios({
             method : "POST",
@@ -29,7 +29,7 @@ export const signIn = (userData) => async (dispatch) => {
 //  Sign UP 
 
 export const signUp = (userData) => async (dispatch) => {
-    console.log(userData)
+    
     try {
       const User = await axios({
         method: "POST",

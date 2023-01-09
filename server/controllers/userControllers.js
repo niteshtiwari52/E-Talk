@@ -42,7 +42,7 @@ const registerUser = asyncHandler(async (req,res) => {
 
 const authUser = asyncHandler(async (req,res) => {
     const {email,password}=req.body;
-    console.log(req.body.email);
+   
 
     const user = await User.findOne({email});
 

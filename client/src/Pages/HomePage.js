@@ -12,7 +12,7 @@ const HomePage = () => {
 
   
   
-  const user = useSelector((globalState) => globalState.user.userDetails);
+  const user = useSelector((globalState) =>  globalState.user.userDetails );
 
   const dispatch = useDispatch();
   

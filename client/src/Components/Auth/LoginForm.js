@@ -15,7 +15,7 @@ const LoginForm = () => {
     password: "",
   });
   const handleChange = (e) => {
-    // console.log(e.target.name , e.target.value)
+   
     setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 

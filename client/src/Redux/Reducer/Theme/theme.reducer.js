@@ -1,11 +1,11 @@
-import * as actions from "../action/action"
+import { TOGGLE_DARKTHEME } from "./theme.type";
 const initialstate ={ 
     darkThemeEnabled: false 
 }
 
 const themeReducer = (state = initialstate, action) => {
     switch (action.type) {
-        case actions.TOGGLE_DARKTHEME:
+        case TOGGLE_DARKTHEME:
           return { ...state, darkThemeEnabled: !state.darkThemeEnabled };
     
         default:
