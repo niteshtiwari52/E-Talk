@@ -19,6 +19,41 @@ import { signOut } from "../Redux/Reducer/Auth/auth.action";
 const SideMenu = () => {
   
   const [menuIcon, setMenuIcon] = useState();
+  const sideIconsList = [
+    {
+      id : 1, 
+      icon : CgProfile,
+      title : "Profile",
+      navlinkURL: "profile"
+    },
+    {
+      id : 2, 
+      icon : AiOutlineStar,
+      title : "Favorite",
+      navlinkURL: "favourite"
+    },
+    {
+      id : 3, 
+      icon : BsChatSquareDots,
+      title : "Chats",
+      navlinkURL: "chats"
+    },
+    {
+      id : 4, 
+      icon : RiContactsLine,
+      title : "contact"     ,
+      navlinkURL: "contact"
+
+    },
+    {
+      id : 5, 
+      icon : AiOutlineSetting,
+      title : "setting",
+      navlinkURL: "setting"
+    },
+      
+    
+  ]
   const dispatch = useDispatch();
 
   const handleLogout = () => {
@@ -66,46 +101,69 @@ const SideMenu = () => {
           </div>
           <div className="side-menu-list">
             <ul className="flex flex-col justify-between gap-4">
-              <li
+              {sideIconsList.map((items , index) => (
+                <li
+                className="side-menu-item"
+                title={items.title}
+                onClick = {items.onclickFunction}
+              >
+                <NavLink to={items.navlinkURL} className="nav-link ">
+                  <items.icon className="icon" />
+                </NavLink>
+              </li>
+              ))}
+
+              {/* Profile */}
+              {/* <li
                 className="side-menu-item"
                 title="profile"
               >
                 <NavLink to="profile" className="nav-link ">
                   <CgProfile className="icon" />
                 </NavLink>
-              </li>
-              <li
+              </li> */}
+
+              {/* Favorite */}
+              {/* <li
                 className="side-menu-item"
                 title="Favorite"
               >
                 <NavLink to="favorite" className="nav-link">
                   <AiOutlineStar className="icon" />
                 </NavLink>
-              </li>
-              <li
+              </li> */}
+
+              {/* chats */}
+              {/* <li
                 className="side-menu-item"
                 title="Chats"
               >
                 <NavLink to="/" className="nav-link">
                   <BsChatSquareDots className="icon" />
                 </NavLink>
-              </li>
-              <li
+              </li> */}
+
+              {/* contact */}
+              {/* <li
                 className="side-menu-item"
                 title="contact"
               >
                 <NavLink to="contact" className="nav-link">
                   <RiContactsLine className="icon" />
                 </NavLink>
-              </li>
-              <li
+              </li> */}
+
+              {/* setting */}
+              {/* <li
                 className="side-menu-item"
                 title="setting"
               >
                 <NavLink to="setting" className="nav-link">
                   <AiOutlineSetting className="icon" />
                 </NavLink>
-              </li>
+              </li> */}
+
+              {/* Theme mode */}
               <li
                 className="side-menu-item"
                 title="Theme Mode"
@@ -114,6 +172,7 @@ const SideMenu = () => {
                   <Toggler/>
                 </div>
               </li>
+
               {/* logout */}
               <li
                 className="side-menu-item"

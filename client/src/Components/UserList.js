@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const UserList = () => {
+  const [userIndex , setUserIndex] = useState("");
   const userList = [
     {
       id: 1,
@@ -55,7 +56,7 @@ const UserList = () => {
     {
       id: 9,
       src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Rituresh",
+      name: "Rituresh ",
       message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
     },
     {
@@ -64,61 +65,15 @@ const UserList = () => {
       name: "Nitesh Tiwari",
       message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
     },
-    {
-      id: 11,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Narendra ",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 12,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Rituresh",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 13,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Nitesh Tiwari",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 14,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Narendra ",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 15,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Rituresh",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 16,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Nitesh Tiwari",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 17,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Narendra ",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 18,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Rituresh",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
-    {
-      id: 19,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Rituresh",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-    },
+    
   ];
+
+  const handleClick = (e , index) => {
+   
+    setUserIndex(index);
+
+  }
+  
 
   return (
     // <Wrapper>
@@ -127,10 +82,12 @@ const UserList = () => {
         <div className="my-4">
           {userList.map((userList, index) => (
             <li
-              key={index}
-              className={index === 0 ? "active px-5 py-2" : "px-5 py-2"}
+              key={index} 
+             
+              className={index === userIndex ? "active px-5 py-2" : "px-5 py-2"}
+             
             >
-              <div className="chat-box flex items-center">
+              <div className="chat-box flex items-center cursor-pointer "  onClick = {e => handleClick(e, index)}>
                 <div className="profile">
                   <img
                     className=" w-15 h-15 rounded-full"
@@ -140,7 +97,7 @@ const UserList = () => {
                 </div>
                 <div className="details w-3/4">
                   <h2 className="md:w-32 w-full m-0 truncate text-base">
-                    {userList.name}
+                    {userList.name} {index+1}
                   </h2>
                   <p className=" text-xs truncate whitespace-nowrap overflow-hidden">
                     {userList.message}
