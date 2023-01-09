@@ -38,8 +38,19 @@ app.use('/api/user',userRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 4000
-app.listen(PORT , ()=> {
+const PORT = process.env.PORT || 4000;
+
+const server = app.listen(PORT , ()=> {
     console.log(`Server is Running on PORT: http://localhost:${PORT}`.yellow.bold);
     
+    const io = require('socket.io')(server, {
+        pingTimeout: 60000,
+        cors: {
+            origin: "http://localhost:4000",
+        },
+    })
+    
+    io.on("connection", (socket)=>{
+        console.log('connected to socket.io')
+    });
 });
