@@ -103,6 +103,7 @@ const SideMenu = () => {
             <ul className="flex flex-col justify-between gap-4">
               {sideIconsList.map((items , index) => (
                 <li
+                key={index}
                 className="side-menu-item"
                 title={items.title}
                 onClick = {items.onclickFunction}
