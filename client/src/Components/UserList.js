@@ -65,6 +65,12 @@ const UserList = () => {
       name: "Nitesh Tiwari",
       message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
     },
+    {
+      id: 11,
+      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
+      name: "Nitesh Tiwari",
+      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
+    },
     
   ];
 
@@ -83,7 +89,6 @@ const UserList = () => {
           {userList.map((userList, index) => (
             <li
               key={index} 
-             
               className={index === userIndex ? "active px-5 py-2" : "px-5 py-2"}
              
             >
