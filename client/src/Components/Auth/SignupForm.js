@@ -26,7 +26,7 @@ const SignupForm = () => {
   const handleSignUp = () => {
     
     dispatch(signUp(userData));
-    dispatch(getMySelf());
+    // dispatch(getMySelf());
     navigate("/");
   };
 

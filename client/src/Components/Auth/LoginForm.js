@@ -3,11 +3,12 @@ import { NavLink } from "react-router-dom";
 import Social from "../../Styles/Social";
 import { Button } from "../../Styles/Button";
 
-import { useDispatch } from "react-redux"; 
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate  } from "react-router-dom";
 // Redux 
 import { signIn } from "../../Redux/Reducer/Auth/auth.action";
 import { getMySelf } from "../../Redux/Reducer/User/user.action";
+
 
 const LoginForm = () => {
   const [userData, setUserData] = useState({
@@ -27,7 +28,9 @@ const LoginForm = () => {
   const handleLogin = () => {
     
     dispatch(signIn(userData));
+   
     navigate("/");
+    
     // dispatch(getMySelf());
     setUserData({email : "" , password : ""});
     // window.location.reload();
@@ -128,6 +131,7 @@ const LoginForm = () => {
           {/* </form> */}
         </div>
       </div>
+      
     </div>
   );
 };
