@@ -7,7 +7,8 @@ const userSchema = mongoose.Schema({
     password: {type: String,required: true},
     pic: {type: String,
     default:
-        "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg", 
+    "https://static.vecteezy.com/system/resources/thumbnails/002/002/341/small_2x/man-wearing-sunglasses-avatar-character-isolated-icon-free-vector.jpg", 
+        //default Image link :  https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg
     },
     
 },
