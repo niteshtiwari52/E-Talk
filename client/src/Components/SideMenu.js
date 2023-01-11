@@ -106,7 +106,7 @@ const SideMenu = () => {
                   title={items.title}
                   onClick={() => activeTab(index+1)}
                 >
-                  <div to={items.title} className={tabIndex === (index + 1) ? "nav-link active" : "nav-link"}>
+                  <div to={items.title} className={index === 2 && tabIndex === 0 ? "nav-link active" : (tabIndex === (index + 1) ? "nav-link active" : "nav-link")}>
                     <items.icon className="icon" />
                   </div>
                 </li>
@@ -205,8 +205,9 @@ const Wrapper = styled.section`
     height: 100vh;
     min-width: 100px;
     flex-direction: column;
-    border-right: 1px solid ${({ theme }) => theme.colors.border};
+    border-right: 1px solid rgba(${({ theme }) => theme.colors.border});
     background-color: ${({ theme }) => theme.colors.bg.primary};
+    animation: fadeInLeft 1s;
   }
   .side-menu-bar {
     height: 100%;
