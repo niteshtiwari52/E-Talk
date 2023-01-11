@@ -8,13 +8,9 @@ import { BsChatSquareDots } from "react-icons/bs";
 import { CgClose, CgMenu } from "react-icons/cg";
 import Toggler from "./Toggler";
 import {IoLogOutOutline} from "react-icons/io5"
-// toastify
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { Dialog, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
+
 // redux 
-import {useDispatch , useSelector} from "react-redux"
+import {useDispatch} from "react-redux"
 import { signOut } from "../Redux/Reducer/Auth/auth.action";
 
 
@@ -23,40 +19,7 @@ const SideMenu = () => {
 
   
   const [menuIcon, setMenuIcon] = useState();
-  const [isOpen, setIsOpen] = useState(false);
-  const user = useSelector((globalState) =>  globalState.user.userDetails );
-
-  function closeModal() {
-    setIsOpen(false)
-  }
-
-  function openModal() {
-    setIsOpen(true)
-  }
-
- const handleProfile =() => {
-    // alert("profile click");
-    setIsOpen(true)
-    
-  }
-
-  const handleFavourite = () => {
-    alert("Favoorite click ")
-  }
-
-  const handleChats = () => {
-    alert("Caht click ");
-
-  }
   
-  const handleAddContact = () => {
-    alert("Add contact ")
-  }
-
-  const handleSetting = () => {
-    alert("Setting click ")
-  }
-
 
   const sideIconsList = [
     {
@@ -64,14 +27,14 @@ const SideMenu = () => {
       icon : CgProfile,
       title : "Profile",
       navlinkURL: "profile",
-      onclickFunction : handleProfile,
+      
     },
     {
       id : 2, 
       icon : AiOutlineStar,
       title : "Favorite",
       navlinkURL: "favourite",
-      onclickFunction : handleFavourite
+      
       
     },
     {
@@ -79,14 +42,14 @@ const SideMenu = () => {
       icon : BsChatSquareDots,
       title : "Chats",
       navlinkURL: "chats",
-      onclickFunction : handleChats
+      
     },
     {
       id : 4, 
       icon : RiContactsLine,
       title : "Add contact"     ,
       navlinkURL: "contact",
-      onclickFunction : handleAddContact
+      
 
     },
     {
@@ -94,7 +57,7 @@ const SideMenu = () => {
       icon : AiOutlineSetting,
       title : "setting",
       navlinkURL: "setting",
-      onclickFunction : handleSetting
+      
     },
       
     
@@ -103,22 +66,12 @@ const SideMenu = () => {
 
   const handleLogout = () => {
     dispatch(signOut());
-    toast.success('Logout Successful', {
-      toastId: 'success1',
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      });
+    
   }
 
   return (
     <Wrapper>
-      <ToastContainer />
+     
       <div
         className={
           menuIcon
@@ -257,60 +210,7 @@ const SideMenu = () => {
           </div>
         </div>
       </div>
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
-          </Transition.Child>
-
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900 text-center"
-                  >
-                    {user.name}
-                  </Dialog.Title>
-                  <div className="mt-2">
-                  <img className="w-20 h-20 rounded-full mx-auto align-center" src={user.pic} alt="Rounded avatar"/>
-                    <p className="text-lg text-gray-500 text-center">
-                     {user.email}
-                    </p>
-                  </div>
-
-                  <div className="mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex float-right rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
-                    >
-                      close
-                    </button>
-                  </div>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition>
+     
     </Wrapper>
   );
 };
