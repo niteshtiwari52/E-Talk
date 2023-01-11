@@ -56,6 +56,7 @@ const Wrapper = styled.section`
     margin-right: 20px;
     display: flex;
     width: 100vw;
+    font-size: 2rem;
     justify-content: flex-end ;
   }
 
