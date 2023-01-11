@@ -6,15 +6,17 @@ import { AiOutlineSetting, AiOutlineStar } from "react-icons/ai";
 import { RiContactsLine } from "react-icons/ri";
 import { BsChatSquareDots } from "react-icons/bs";
 import { CgClose, CgMenu } from "react-icons/cg";
-
 import Toggler from "./Toggler";
 
+
 import { IoLogOutOutline } from "react-icons/io5";
+
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../Redux/Reducer/Auth/auth.action";
 import { toggleDarkTheme } from "../Redux/Reducer/Tab/tabAction";
+
 
 const SideMenu = () => {
   const [menuIcon, setMenuIcon] = useState();
@@ -50,16 +52,20 @@ const SideMenu = () => {
       id: 5,
       icon: AiOutlineSetting,
       title: "Setting",
+
     },
   ];
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(signOut());
+
   };
+
 
   return (
     <Wrapper>
+     
       <div
         className={
           menuIcon
@@ -101,6 +107,7 @@ const SideMenu = () => {
             <ul className="flex flex-col justify-between gap-4">
               {sideIconsList.map((items, index) => (
                 <li
+
                   key={index}
                   className="side-menu-item"
                   title={items.title}
@@ -110,6 +117,7 @@ const SideMenu = () => {
                     <items.icon className="icon" />
                   </div>
                 </li>
+
               ))}
 
               {/* Profile */}
@@ -195,6 +203,7 @@ const SideMenu = () => {
           </div>
         </div>
       </div>
+     
     </Wrapper>
   );
 };
