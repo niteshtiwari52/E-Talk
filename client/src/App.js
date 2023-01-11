@@ -19,11 +19,11 @@ import { useSelector } from "react-redux";
 
 import { getMySelf } from "./Redux/Reducer/User/user.action";
 import { useDispatch } from "react-redux";
-import { BsWindowSidebar } from "react-icons/bs";
 
 
 function App() {
   const [loading, setloading] = useState(false);
+  const dispatch = useDispatch();
   const darkThemeEnabled = useSelector((state) => state.themeReducer.darkThemeEnabled);
 
   useEffect(() => {
@@ -33,17 +33,11 @@ function App() {
     }, 3000);
   }, []);
 
-
-
-  const dispatch = useDispatch();
-
   useEffect(() => {
     if(localStorage.ETalkUser){
-
       dispatch(getMySelf()); 
     }
-   
- 
+    // eslint-disable-next-line
   }, [localStorage]);
  
   return (

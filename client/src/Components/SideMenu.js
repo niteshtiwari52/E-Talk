@@ -1,4 +1,4 @@
-import React, { Profiler, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
@@ -7,67 +7,61 @@ import { RiContactsLine } from "react-icons/ri";
 import { BsChatSquareDots } from "react-icons/bs";
 import { CgClose, CgMenu } from "react-icons/cg";
 import Toggler from "./Toggler";
-import {IoLogOutOutline} from "react-icons/io5"
 
-// redux 
-import {useDispatch} from "react-redux"
+
+import { IoLogOutOutline } from "react-icons/io5";
+
+
+// redux
+import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../Redux/Reducer/Auth/auth.action";
+import { toggleDarkTheme } from "../Redux/Reducer/Tab/tabAction";
 
 
-
-const SideMenu = () => { 
-
-  
+const SideMenu = () => {
   const [menuIcon, setMenuIcon] = useState();
-  
+
+  const tabIndex = useSelector((state)=> state.tabReducer);
+
+  const activeTab = (index) => {
+    dispatch(toggleDarkTheme(index))
+  };
 
   const sideIconsList = [
     {
-      id : 1, 
-      icon : CgProfile,
-      title : "Profile",
-      navlinkURL: "profile",
-      
+      id: 1,
+      icon: CgProfile,
+      title: "Profile",
     },
     {
-      id : 2, 
-      icon : AiOutlineStar,
-      title : "Favorite",
-      navlinkURL: "favourite",
-      
-      
+      id: 2,
+      icon: AiOutlineStar,
+      title: "Favourite",
     },
     {
-      id : 3, 
-      icon : BsChatSquareDots,
-      title : "Chats",
-      navlinkURL: "chats",
-      
+      id: 3,
+      icon: BsChatSquareDots,
+      title: "Chats",
     },
     {
-      id : 4, 
-      icon : RiContactsLine,
-      title : "Add contact"     ,
-      navlinkURL: "contact",
-      
+      id: 4,
+      icon: RiContactsLine,
+      title: "Contacts",
+    },
+    {
+      id: 5,
+      icon: AiOutlineSetting,
+      title: "Setting",
 
     },
-    {
-      id : 5, 
-      icon : AiOutlineSetting,
-      title : "setting",
-      navlinkURL: "setting",
-      
-    },
-      
-    
-  ]
+  ];
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(signOut());
-    
-  }
+
+  };
+
 
   return (
     <Wrapper>
@@ -111,17 +105,19 @@ const SideMenu = () => {
           </div>
           <div className="side-menu-list">
             <ul className="flex flex-col justify-between gap-4">
-              {sideIconsList.map((items , index) => (
+              {sideIconsList.map((items, index) => (
                 <li
-                key={index}
-                className="side-menu-item"
-                title={items.title}
-                onClick = {items.onclickFunction}
-              >
-                <div className="nav-link ">
-                  <items.icon className="icon" />
-                </div>
-              </li>
+
+                  key={index}
+                  className="side-menu-item"
+                  title={items.title}
+                  onClick={() => activeTab(index+1)}
+                >
+                  <div to={items.title} className={tabIndex === (index + 1) ? "nav-link active" : "nav-link"}>
+                    <items.icon className="icon" />
+                  </div>
+                </li>
+
               ))}
 
               {/* Profile */}
@@ -175,12 +171,9 @@ const SideMenu = () => {
               </li> */}
 
               {/* Theme mode */}
-              <li
-                className="side-menu-item"
-                title="Theme Mode"
-              >
-                <div className="nav-link" >
-                  <Toggler/>
+              <li className="side-menu-item" title="Theme Mode">
+                <div className="nav-link">
+                  <Toggler />
                 </div>
               </li>
 
@@ -221,10 +214,10 @@ const Wrapper = styled.section`
     height: 100vh;
     min-width: 100px;
     flex-direction: column;
-    border-right: 1px solid  ${({ theme }) => theme.colors.border};
-    background-color: ${({ theme }) => theme.colors.bg.primary}
+    border-right: 1px solid ${({ theme }) => theme.colors.border};
+    background-color: ${({ theme }) => theme.colors.bg.primary};
   }
-  .side-menu-bar{
+  .side-menu-bar {
     height: 100%;
   }
   .sideMenu-brand-box {
@@ -271,6 +264,8 @@ const Wrapper = styled.section`
   }
   .mobile-navbar {
     display: none;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   }
   .mobile-sideMenu-btn {
     background-color: transparent;
@@ -293,8 +288,20 @@ const Wrapper = styled.section`
       min-height: 80px;
       z-index: 998;
     }
+    .side-menu-list {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      ul {
+        height: 80%;
+        .nav-link {
+          font-size: 3rem !important;
+        }
+      }
+    }
     .side-menu-bar {
-      background-color: ${({ theme }) => theme.colors.bg.primary};;
+      background-color: ${({ theme }) => theme.colors.bg.primary};
       position: absolute;
       top: 0;
       left: 0;
@@ -302,7 +309,7 @@ const Wrapper = styled.section`
       transition: all 1s linear;
       z-index: 999;
       max-width: 100px;
-      box-shadow: 0 2px 4px rgb(15 34 58 / 12%);
+      box-shadow: 0px 0px 10px rgb(0 0 0);
       height: 100vh;
       min-width: 100px;
     }

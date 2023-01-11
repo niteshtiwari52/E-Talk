@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate  } from "react-router-dom";
 // Redux 
 import { signIn } from "../../Redux/Reducer/Auth/auth.action";
-import { getMySelf } from "../../Redux/Reducer/User/user.action";
 
 
 const LoginForm = () => {
