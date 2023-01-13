@@ -29,15 +29,15 @@ const ChatWindow = () => {
   const handleShowEmojis = () =>{
     setShowEmojis(!showEmojis);
   }
-  useEffect(()=>{
-    inputRef.current.selectionEnd = cursorPosition;
-    // eslint-disable-next-line
-  },[cursorPosition])
+  // useEffect(()=>{
+  //   inputRef.current.selectionEnd = cursorPosition;
+  //   // eslint-disable-next-line
+  // },[cursorPosition])
   return (
     <Wrapper>
 
 
-      {/* <div className="chat-welcome-section overflow-x-hidden flex justify-center items-center">
+      <div className="chat-welcome-section overflow-x-hidden flex justify-center items-center">
         <div className="flex justify-center items-center p-4">
            <div className="w-1/2 flex flex-col justify-center items-center text-center">
            <div className="avatar mx-auto mb-4">
@@ -54,10 +54,10 @@ const ChatWindow = () => {
           <Button>Get Started</Button>
            </div>
         </div>
-      </div> */}
+      </div>
 
       
-      <div className="chat-content flex">
+      {/* <div className="chat-content flex">
         <div className="w-full h-full position-relative">
 
           <div className="user-chat-topbar p-3 p-lg-4 absolute">
@@ -341,7 +341,7 @@ const ChatWindow = () => {
             </form>
           </div>
         </div>
-      </div>
+      </div> */}
 
       
     </Wrapper>

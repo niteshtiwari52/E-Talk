@@ -17,8 +17,9 @@ import { darkTheme, lightTheme} from "./Components/Themes"
 import { useSelector } from "react-redux";
 
 
-import { getMySelf } from "./Redux/Reducer/User/user.action";
 import { useDispatch } from "react-redux";
+import { getMySelf } from "./Redux/Reducer/User/user.action";
+import {fetchChats} from "./Redux/Reducer/Chat/chat.action"
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
   useEffect(() => {
     if(localStorage.ETalkUser){
       dispatch(getMySelf()); 
+      dispatch(fetchChats())
     }
     // eslint-disable-next-line
   }, [localStorage]);

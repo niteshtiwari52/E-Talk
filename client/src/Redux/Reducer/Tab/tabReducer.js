@@ -1,6 +1,6 @@
 import { TOGGLE_TAB } from "./tabType";
 
-const initialstate = 0
+const initialstate = 3
 
 const tabReducer = (state = initialstate, action) => {
   switch (action.type) {

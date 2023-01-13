@@ -113,62 +113,14 @@ const SideMenu = () => {
                   title={items.title}
                   onClick={() => activeTab(index+1)}
                 >
+
                   <div to={items.title} className={index === 2 && tabIndex === 0 ? "nav-link active" : (tabIndex === (index + 1) ? "nav-link active" : "nav-link")}>
+
                     <items.icon className="icon" />
                   </div>
                 </li>
 
               ))}
-
-              {/* Profile */}
-              {/* <li
-                className="side-menu-item"
-                title="profile"
-              >
-                <NavLink to="profile" className="nav-link ">
-                  <CgProfile className="icon" />
-                </NavLink>
-              </li> */}
-
-              {/* Favorite */}
-              {/* <li
-                className="side-menu-item"
-                title="Favorite"
-              >
-                <NavLink to="favorite" className="nav-link">
-                  <AiOutlineStar className="icon" />
-                </NavLink>
-              </li> */}
-
-              {/* chats */}
-              {/* <li
-                className="side-menu-item"
-                title="Chats"
-              >
-                <NavLink to="/" className="nav-link">
-                  <BsChatSquareDots className="icon" />
-                </NavLink>
-              </li> */}
-
-              {/* contact */}
-              {/* <li
-                className="side-menu-item"
-                title="contact"
-              >
-                <NavLink to="contact" className="nav-link">
-                  <RiContactsLine className="icon" />
-                </NavLink>
-              </li> */}
-
-              {/* setting */}
-              {/* <li
-                className="side-menu-item"
-                title="setting"
-              >
-                <NavLink to="setting" className="nav-link">
-                  <AiOutlineSetting className="icon" />
-                </NavLink>
-              </li> */}
 
               {/* Theme mode */}
               <li className="side-menu-item" title="Theme Mode">
@@ -189,16 +141,6 @@ const SideMenu = () => {
                   <IoLogOutOutline className="icon" />
                 </div>
               </li>
-
-              {/* <li className="side-menu-item">
-                <div className="nav-link">
-                  <img
-                    src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
-                    alt=""
-                    className="profile-user rounded-full"
-                  />
-                </div>
-              </li> */}
             </ul>
           </div>
         </div>
