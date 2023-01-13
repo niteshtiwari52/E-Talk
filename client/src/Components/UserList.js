@@ -1,88 +1,105 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
-const UserList = () => {
-  const [userIndex , setUserIndex] = useState("");
-  const userList = [
-    {
-      id: 1,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Nitesh Tiwari",
-      message: "Hello kabnuiewhiuebwfui tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-      status: "seen",
-    },
-    {
-      id: 2,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Narendra ",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-      status: "Failed",
-    },
-    {
-      id: 3,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Rituresh",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-      status: "seen",
-    },
-    {
-      id: 4,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Nitesh Tiwari",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-      status: "Failed",
-    },
-    {
-      id: 5,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Narendra ",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-      status: "seen",
-    },
-    {
-      id: 6,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Rituresh",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-      status: "seen",
-    },
-    {
-      id: 7,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Nitesh Tiwari",
-      message: "Hello kabnuiewhiuebwfui tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-      status: "seen",
-    },
-    {
-      id: 8,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Narendra ",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-      status: "seen",
-    },
-    {
-      id: 9,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Rituresh ",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-      status: "seen",
-    },
-    {
-      id: 10,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Nitesh Tiwari",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-      status: "seen",
-    },
-    {
-      id: 11,
-      src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-      name: "Nitesh Tiwari",
-      message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-      status: "seen",
-    },
+  const UserList = () => {
+    const [userIndex , setUserIndex] = useState("");
+    const [userList , setUserList] = useState([]);
     
-  ];
+    const chat = useSelector((globalState) => globalState.chat.chats);
+
+
+    // console.log({...chat})
+    // console.log(userList)
+    
+    useEffect(() => {
+    setUserList(chat)
+   ;
+      
+    }, []);
+    
+
+
+  // const userList = [
+  //   {
+  //     id: 1,
+  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
+  //     name: "Nitesh Tiwari",
+  //     message: "Hello kabnuiewhiuebwfui tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
+  //     status: "seen",
+  //   },
+  //   {
+  //     id: 2,
+  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
+  //     name: "Narendra ",
+  //     message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
+  //     status: "Failed",
+  //   },
+  //   {
+  //     id: 3,
+  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
+  //     name: "Rituresh",
+  //     message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
+  //     status: "seen",
+  //   },
+  //   {
+  //     id: 4,
+  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
+  //     name: "Nitesh Tiwari",
+  //     message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
+  //     status: "Failed",
+  //   },
+  //   {
+  //     id: 5,
+  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
+  //     name: "Narendra ",
+  //     message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
+  //     status: "seen",
+  //   },
+  //   {
+  //     id: 6,
+  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
+  //     name: "Rituresh",
+  //     message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
+  //     status: "seen",
+  //   },
+  //   {
+  //     id: 7,
+  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
+  //     name: "Nitesh Tiwari",
+  //     message: "Hello kabnuiewhiuebwfui tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
+  //     status: "seen",
+  //   },
+  //   {
+  //     id: 8,
+  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
+  //     name: "Narendra ",
+  //     message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
+  //     status: "seen",
+  //   },
+  //   {
+  //     id: 9,
+  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
+  //     name: "Rituresh ",
+  //     message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
+  //     status: "seen",
+  //   },
+  //   {
+  //     id: 10,
+  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
+  //     name: "Nitesh Tiwari",
+  //     message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
+  //     status: "seen",
+  //   },
+  //   {
+  //     id: 11,
+  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
+  //     name: "Nitesh Tiwari",
+  //     message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
+  //     status: "seen",
+  //   },
+    
+  // ];
 
   const handleClick = (e , index) => {
    
@@ -106,13 +123,13 @@ const UserList = () => {
                 <div className="profile">
                   <img
                     className=" w-15 h-15 rounded-full"
-                    src={userList.src}
+                    src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
                     alt="user_logo"
                   />
                 </div>
                 <div className="details w-3/4">
                   <h2 className="md:w-32 w-full m-0 truncate text-base">
-                    {userList.name} {index+1}
+                    {userList.chatName}
                   </h2>
                   <p className=" text-xs truncate whitespace-nowrap overflow-hidden">
                     {userList.message}

@@ -8,9 +8,6 @@ export const getMySelf = () => async (dispatch) => {
         method: "GET",
         url: `http://localhost:4000/api/user/getmyself`,
       });
-  
-     
-  
       return dispatch({ type: SELF, payload: { ...User.data.user } });
     } catch (error) {
       return dispatch({ type: "ERROR", payload: error });
