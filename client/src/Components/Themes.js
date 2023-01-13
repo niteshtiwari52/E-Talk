@@ -33,7 +33,7 @@ export const lightTheme = {
       },
       
       "hr": "#ffffff",
-      "border": "#eff1f2",
+      "border": "239, 241, 242",
       "gradient": "linear-gradient(145deg,#1ca9fe,#1c6ee9);",
     },
     media: {
@@ -76,7 +76,7 @@ export const lightTheme = {
       },
       
       "hr": "#ffffff",
-      "border": "#5c5c5c",
+      "border": "92, 92, 92",
       "gradient": "linear-gradient(145deg,#1ca9fe,#1c6ee9);",
     },
     media: {

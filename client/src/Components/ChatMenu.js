@@ -42,6 +42,7 @@ const Wrapper = styled.section`
   z-index: 9;
   overflow: hidden;
   background-color: ${({ theme }) => theme.colors.bg.primary};
+  border-right: 1px solid rgba(${({ theme }) => theme.colors.border}, 0.3);
   animation: fadeInLeft 1s;
   /* overflow-x: hidden;
   overflow-y: scroll; */
@@ -55,8 +56,7 @@ const Wrapper = styled.section`
   .chat-menu {
     padding: 1rem 1rem;
     background-color: ${({ theme }) => theme.colors.bg.primary};
-    border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-    border-right: 1px solid ${({ theme }) => theme.colors.border};
+    border-bottom: 1px solid rgba(${({ theme }) => theme.colors.border}, 0.3);
     input {
       color: ${({ theme }) => theme.colors.heading};
       background-color: ${({ theme }) => theme.colors.bg.primary};
@@ -76,17 +76,7 @@ const Wrapper = styled.section`
         /* background-color: rgb(226, 232, 240); */
       }
     }
-    @keyframes fadeInLeft {
-  0% {
-    opacity: 0;
-    transform: translate3d(-70%, 0, 0);
-  }
 
-  100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
   }
 
   @media (max-width: ${({ theme }) => theme.media.mobile}) {
@@ -98,7 +88,6 @@ const Wrapper = styled.section`
 
     .chat-menu {
       padding: 2rem 1.5rem;
-      border-right: none
     }
     input {
       font-size: 1.5rem;
