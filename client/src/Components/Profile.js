@@ -19,7 +19,7 @@ const Profile = () => {
           <div className="intro flex items-center flex-col py-3">
             <div className="user-profile-img rounded-full overflow-hidden">
               <img
-                src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
+                src={user.pic}
                 alt="profile"
               />
             </div>

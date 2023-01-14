@@ -26,14 +26,14 @@ export const signIn = (userData) => async (dispatch) => {
     }
 };
 
-//  Sign UP 
+// Sign UP 
 
 export const signUp = (userData) => async (dispatch) => {
     
     try {
       const User = await axios({
         method: "POST",
-        url: "http://localhost:4000/api/user/",
+        url: "http://localhost:4000/api/user",
         data: {...userData },
       });
   
