@@ -113,6 +113,18 @@ export const GlobalStyle = createGlobalStyle`
     background-color: ${({ theme }) => theme.colors.btnlight};
     border-color: ${({ theme }) => theme.colors.btnlight};
   }
+
+  @keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-70%, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
   
   
   @media (max-width: ${({ theme }) => theme.media.mobile}) {

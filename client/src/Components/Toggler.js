@@ -1,38 +1,40 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useState } from 'react';
 import { RiMoonLine, RiSunLine } from "react-icons/ri";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-
 import { TOGGLE_DARKTHEME } from '../Redux/Reducer/Theme/theme.type';
 
 const Toggler = () => {
-  const [toggle, setToggle] = useState(false)
+  const [toggle, setToggle] = useState(false);
+  const darkThemeEnabled = useSelector((state) => state.themeReducer.darkThemeEnabled);
   const dispatch = useDispatch();
+  
   const togglerTheme = () =>{
-
     dispatch({type: TOGGLE_DARKTHEME});
-    setToggle(true);
-    
+    darkThemeEnabled === true ? setToggle(true) : setToggle(false);
   }
   
   return (
     <Wrapper onClick={togglerTheme}>
         {
-          toggle ? <RiMoonLine className="icon" /> : <RiSunLine className="icon" />
+          toggle === true ? <RiMoonLine className="icon" /> : <RiSunLine className="icon" />
         }
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div`
-        display: flex;
+        display: block;
         justify-content: center;
         align-items: center;
         text-align: center;
-        font-size: 2rem;
         color: ${({ theme }) => theme.colors.text.secondary};
         border-radius: 8px;
+        cursor: pointer;
+        &:hover{
+          color: ${({ theme }) => theme.colors.cyan};
+        }
 `
 
 

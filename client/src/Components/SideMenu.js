@@ -1,4 +1,4 @@
-import React, { Profiler, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
@@ -6,62 +6,66 @@ import { AiOutlineSetting, AiOutlineStar } from "react-icons/ai";
 import { RiContactsLine } from "react-icons/ri";
 import { BsChatSquareDots } from "react-icons/bs";
 import { CgClose, CgMenu } from "react-icons/cg";
-
 import Toggler from "./Toggler";
 
-import {IoLogOutOutline} from "react-icons/io5"
 
-// redux 
-import {useDispatch} from "react-redux"
+import { IoLogOutOutline } from "react-icons/io5";
+
+
+// redux
+import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../Redux/Reducer/Auth/auth.action";
+import { toggleDarkTheme } from "../Redux/Reducer/Tab/tabAction";
 
 
 const SideMenu = () => {
-  
   const [menuIcon, setMenuIcon] = useState();
+
+  const tabIndex = useSelector((state)=> state.tabReducer);
+
+  const activeTab = (index) => {
+    dispatch(toggleDarkTheme(index))
+  };
+
   const sideIconsList = [
     {
-      id : 1, 
-      icon : CgProfile,
-      title : "Profile",
-      navlinkURL: "profile"
+      id: 1,
+      icon: CgProfile,
+      title: "Profile",
     },
     {
-      id : 2, 
-      icon : AiOutlineStar,
-      title : "Favorite",
-      navlinkURL: "favourite"
+      id: 2,
+      icon: AiOutlineStar,
+      title: "Favourite",
     },
     {
-      id : 3, 
-      icon : BsChatSquareDots,
-      title : "Chats",
-      navlinkURL: "chats"
+      id: 3,
+      icon: BsChatSquareDots,
+      title: "Chats",
     },
     {
-      id : 4, 
-      icon : RiContactsLine,
-      title : "contact"     ,
-      navlinkURL: "contact"
+      id: 4,
+      icon: RiContactsLine,
+      title: "Contacts",
+    },
+    {
+      id: 5,
+      icon: AiOutlineSetting,
+      title: "Setting",
 
     },
-    {
-      id : 5, 
-      icon : AiOutlineSetting,
-      title : "setting",
-      navlinkURL: "setting"
-    },
-      
-    
-  ]
+  ];
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(signOut());
-  }
+
+  };
+
 
   return (
     <Wrapper>
+     
       <div
         className={
           menuIcon
@@ -101,75 +105,27 @@ const SideMenu = () => {
           </div>
           <div className="side-menu-list">
             <ul className="flex flex-col justify-between gap-4">
-              {sideIconsList.map((items , index) => (
+              {sideIconsList.map((items, index) => (
                 <li
-                className="side-menu-item"
-                title={items.title}
-                onClick = {items.onclickFunction}
-              >
-                <NavLink to={items.navlinkURL} className="nav-link ">
-                  <items.icon className="icon" />
-                </NavLink>
-              </li>
+
+                  key={index}
+                  className="side-menu-item"
+                  title={items.title}
+                  onClick={() => activeTab(index+1)}
+                >
+
+                  <div to={items.title} className={index === 2 && tabIndex === 0 ? "nav-link active" : (tabIndex === (index + 1) ? "nav-link active" : "nav-link")}>
+
+                    <items.icon className="icon" />
+                  </div>
+                </li>
+
               ))}
 
-              {/* Profile */}
-              {/* <li
-                className="side-menu-item"
-                title="profile"
-              >
-                <NavLink to="profile" className="nav-link ">
-                  <CgProfile className="icon" />
-                </NavLink>
-              </li> */}
-
-              {/* Favorite */}
-              {/* <li
-                className="side-menu-item"
-                title="Favorite"
-              >
-                <NavLink to="favorite" className="nav-link">
-                  <AiOutlineStar className="icon" />
-                </NavLink>
-              </li> */}
-
-              {/* chats */}
-              {/* <li
-                className="side-menu-item"
-                title="Chats"
-              >
-                <NavLink to="/" className="nav-link">
-                  <BsChatSquareDots className="icon" />
-                </NavLink>
-              </li> */}
-
-              {/* contact */}
-              {/* <li
-                className="side-menu-item"
-                title="contact"
-              >
-                <NavLink to="contact" className="nav-link">
-                  <RiContactsLine className="icon" />
-                </NavLink>
-              </li> */}
-
-              {/* setting */}
-              {/* <li
-                className="side-menu-item"
-                title="setting"
-              >
-                <NavLink to="setting" className="nav-link">
-                  <AiOutlineSetting className="icon" />
-                </NavLink>
-              </li> */}
-
               {/* Theme mode */}
-              <li
-                className="side-menu-item"
-                title="Theme Mode"
-              >
-                <div className="nav-link" >
-                  <Toggler/>
+              <li className="side-menu-item" title="Theme Mode">
+                <div className="nav-link">
+                  <Toggler />
                 </div>
               </li>
 
@@ -185,20 +141,11 @@ const SideMenu = () => {
                   <IoLogOutOutline className="icon" />
                 </div>
               </li>
-
-              {/* <li className="side-menu-item">
-                <div className="nav-link">
-                  <img
-                    src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
-                    alt=""
-                    className="profile-user rounded-full"
-                  />
-                </div>
-              </li> */}
             </ul>
           </div>
         </div>
       </div>
+     
     </Wrapper>
   );
 };
@@ -209,10 +156,11 @@ const Wrapper = styled.section`
     height: 100vh;
     min-width: 100px;
     flex-direction: column;
-    border-right: 1px solid  ${({ theme }) => theme.colors.border};
-    background-color: ${({ theme }) => theme.colors.bg.primary}
+    border-right: 1px solid rgba(${({ theme }) => theme.colors.border});
+    background-color: ${({ theme }) => theme.colors.bg.primary};
+    animation: fadeInLeft 1s;
   }
-  .side-menu-bar{
+  .side-menu-bar {
     height: 100%;
   }
   .sideMenu-brand-box {
@@ -259,6 +207,8 @@ const Wrapper = styled.section`
   }
   .mobile-navbar {
     display: none;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   }
   .mobile-sideMenu-btn {
     background-color: transparent;
@@ -281,8 +231,20 @@ const Wrapper = styled.section`
       min-height: 80px;
       z-index: 998;
     }
+    .side-menu-list {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      ul {
+        height: 80%;
+        .nav-link {
+          font-size: 3rem !important;
+        }
+      }
+    }
     .side-menu-bar {
-      background-color: ${({ theme }) => theme.colors.bg.primary};;
+      background-color: ${({ theme }) => theme.colors.bg.primary};
       position: absolute;
       top: 0;
       left: 0;
@@ -290,7 +252,7 @@ const Wrapper = styled.section`
       transition: all 1s linear;
       z-index: 999;
       max-width: 100px;
-      box-shadow: 0 2px 4px rgb(15 34 58 / 12%);
+      box-shadow: 0px 0px 10px rgb(0 0 0);
       height: 100vh;
       min-width: 100px;
     }

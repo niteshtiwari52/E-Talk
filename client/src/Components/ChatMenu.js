@@ -1,29 +1,35 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import Searchbar from "./Searchbar";
-import UserList from "./UserList";
+import Profile from "./Profile";
+import Favourite from "./Favourite";
+import Contacts from "./Contacts"
+import Setting from "./Setting";
+import Default from "./Default";
+import { useSelector } from "react-redux";
+
 const ChatMenu = () => {
-  const [SearchOpen, setSearchOpen] = useState(false);
-
+  const tabIndex = useSelector((state)=> state.tabReducer);
+  console.log(tabIndex)
   return (
-    <Wrapper className="chat-menu-section">
-      <div className="chat-menu flex flex-wrap items-center justify-between w-full  ">
-        {SearchOpen ? (
-          <> </>
-        ) : (
-          <>
-            <div>
-              <h1 className=" text-2xl m-0">Chat</h1>
-              <p className=" text-gray-400 mb-0">Start New Conversation</p>
-            </div>
-          </>
-        )}
-
-        <Searchbar State={SearchOpen} setState={setSearchOpen} />
+    <Wrapper className="chat-menu-section ">
+   
+    <div className="tab-content">
+      <div className={tabIndex === 1 ? "tab-pane active" : "tab-pane "}>
+        <Profile />
       </div>
-
-      {/* User list  */}
-      <UserList />
+      <div className={tabIndex === 2 ? "tab-pane active" : "tab-pane "}>
+      <Favourite />
+      </div>
+      <div className={tabIndex === 3 ||  tabIndex === 0 ? "tab-pane active" : "tab-pane"}>
+      <Default />
+      </div>
+      <div className={tabIndex === 4 ? "tab-pane active" : "tab-pane "}>
+        <Contacts/>
+      </div>
+      <div className={tabIndex === 5 ? "tab-pane active" : "tab-pane "}>
+        <Setting/>
+      </div>
+    </div>
     </Wrapper>
   );
 };
@@ -36,11 +42,21 @@ const Wrapper = styled.section`
   z-index: 9;
   overflow: hidden;
   background-color: ${({ theme }) => theme.colors.bg.primary};
+  border-right: 1px solid rgba(${({ theme }) => theme.colors.border}, 0.3);
+  animation: fadeInLeft 1s;
   /* overflow-x: hidden;
   overflow-y: scroll; */
+  .tab-pane{
+    display: none;
+  }
+  .tab-pane.active{
+    display: block;
+  }
+
   .chat-menu {
     padding: 1rem 1rem;
     background-color: ${({ theme }) => theme.colors.bg.primary};
+    border-bottom: 1px solid rgba(${({ theme }) => theme.colors.border}, 0.3);
     input {
       color: ${({ theme }) => theme.colors.heading};
       background-color: ${({ theme }) => theme.colors.bg.primary};
@@ -60,6 +76,7 @@ const Wrapper = styled.section`
         /* background-color: rgb(226, 232, 240); */
       }
     }
+
   }
 
   @media (max-width: ${({ theme }) => theme.media.mobile}) {
@@ -71,7 +88,6 @@ const Wrapper = styled.section`
 
     .chat-menu {
       padding: 2rem 1.5rem;
-      box-shadow: 0 10px 10px rgb(15 34 58 / 12%);
     }
     input {
       font-size: 1.5rem;
