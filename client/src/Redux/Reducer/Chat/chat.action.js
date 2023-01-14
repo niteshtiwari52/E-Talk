@@ -15,3 +15,13 @@ export const fetchChats = () => async (dispatch) => {
         return dispatch({type : "ERROR" , payload : error})
     }
 }
+
+export const fetchUser = () => async(dispatch) => {
+    try {
+
+        
+        
+    } catch (error) {
+        return dispatch({type : "ERROR" , payload : error})
+    }
+}

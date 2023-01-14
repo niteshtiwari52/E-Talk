@@ -5,9 +5,11 @@ import { useSelector } from "react-redux";
   const UserList = () => {
     const [userIndex , setUserIndex] = useState("");
     const [userList , setUserList] = useState([]);
+  
     
     const chat = useSelector((globalState) => globalState.chat.chats);
-
+    
+    // console.log(chat)
 
     // console.log({...chat})
     // console.log(userList)
@@ -123,7 +125,7 @@ import { useSelector } from "react-redux";
                 <div className="profile">
                   <img
                     className=" w-15 h-15 rounded-full"
-                    src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
+                    src={chat[index].users[0].pic}
                     alt="user_logo"
                   />
                 </div>

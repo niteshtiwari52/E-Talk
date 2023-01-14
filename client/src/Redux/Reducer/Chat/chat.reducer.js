@@ -1,7 +1,9 @@
-import {FETCH_CHATS} from "./chat.type"
+import { fetchUser } from "./chat.action";
+import {FETCH_CHATS , FETCH_USER} from "./chat.type"
 const initialState = {
   chats: [],
-  trail : {}
+  newUser : [] , 
+ 
 };
 
 const chatReducer = (state =initialState, action) => {
@@ -12,6 +14,13 @@ const chatReducer = (state =initialState, action) => {
         ...state,
         chats: action.payload,
       };
+
+    case FETCH_USER : 
+      return {
+        ...state, 
+        newUser : action.payload,
+      }
+
    
     default:
       return {
