@@ -17,10 +17,17 @@ import { getSender, getSenderPic } from "../HelperFunction/chat.Helper";
     // console.log(chatList)
     
     useEffect(() => {
-    setchatList(chat);
+      setchatList(chat);      
+    }, [chat]);
+
+    useEffect(() => {
       console.log(selectedChat)
-      // console.log(selectedChat._id)
-    }, [selectedChat]);
+      // alert(selectedChat._id)  
+     
+    }, [selectedChat])
+    
+   
+    
 
   const handleClick = (item) => {
    

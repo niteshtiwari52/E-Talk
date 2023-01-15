@@ -15,7 +15,7 @@ import { IoLogOutOutline } from "react-icons/io5";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../Redux/Reducer/Auth/auth.action";
-import { toggleDarkTheme } from "../Redux/Reducer/Tab/tabAction";
+import { toggleTab } from "../Redux/Reducer/Tab/tabAction";
 
 
 const SideMenu = () => {
@@ -24,7 +24,7 @@ const SideMenu = () => {
   const tabIndex = useSelector((state)=> state.tabReducer);
 
   const activeTab = (index) => {
-    dispatch(toggleDarkTheme(index))
+    dispatch(toggleTab(index))
   };
 
   const sideIconsList = [
