@@ -24,7 +24,6 @@ import { getSender, getSenderPic } from "../HelperFunction/chat.Helper";
 
   const handleClick = (item) => {
    
-   
     setSelectedChat(item);
     console.log(item)
     console.log(item._id)
