@@ -44,9 +44,9 @@ import { getSender, getSenderPic } from "../HelperFunction/chat.Helper";
     // <Wrapper>
     <Wrapper>
      <ul className="chat-main h-full overflow-x-hidden overflow-y-scroll">
-      {chatList.length !== 0 ? (
+      {(chatList.length !== 0) ? (
       <div className="my-4">         
-          {chatList.map((item) => (
+          {chatList.map((item , index) => (
 
             <li
             onClick = {()=> setSelectedChat(item)}
@@ -72,7 +72,33 @@ import { getSender, getSenderPic } from "../HelperFunction/chat.Helper";
                     {item.message}
                   </p>
                 </div>
-                <div className="data-status">
+                <div className="data-status h-full">
+                {
+                  chat[index].isGroupChat ? 
+                  <div className="flex -space-x-4">
+                    <img
+                      className="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800 hover:z-10"
+                      src={chat[index].users[0].pic}
+                      alt=""
+                    />
+                    <img
+                      className="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800 hover:z-10"
+                      src={chat[index].users[1].pic}
+                      alt=""
+                    />
+                    <img
+                      className="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800 hover:z-10"
+                      src={chat[index].users[2].pic}
+                      alt=""
+                    />
+                   {chat[index].users.length > 3 ? <div
+                      className="flex items-center justify-center w-8 h-8 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800"
+                    >
+                      {chat[index].users.length - 3}
+                    </div> : <></>}
+                  </div>
+                  :  <></>
+                }
                   <p>18/12/22</p>
                   {item.status === "seen" ?
                     <span className="status text-green-400">{item.status}</span> 
@@ -117,7 +143,8 @@ const Wrapper = styled.section`
         padding-top: 8px;
         white-space: nowrap;
       }
-      p,span {
+      p,
+      span {
         font-weight: 600;
         margin: 0;
         padding-top: 8px;
@@ -139,8 +166,10 @@ const Wrapper = styled.section`
         position: absolute;
         right: 0;
         text-align: right;
+        padding: 12px 0px 12px 0px;
         h2,
-        p,span {
+        p,
+        span {
           font-size: calc(11px + (12 - 11) * ((100vw - 320px) / (1920 - 320)));
         }
         .status {
