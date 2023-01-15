@@ -9,7 +9,8 @@ import { useSelector } from "react-redux";
 
 const ChatMenu = () => {
   const tabIndex = useSelector((state)=> state.tabReducer);
-  console.log(tabIndex)
+
+  
   return (
     <Wrapper className="chat-menu-section ">
    
@@ -60,6 +61,7 @@ const Wrapper = styled.section`
     input {
       color: ${({ theme }) => theme.colors.heading};
       background-color: ${({ theme }) => theme.colors.bg.primary};
+      border-bottom: 1px solid ${({ theme }) => theme.colors.heading};
       &:hover {
         background-color: ${({ theme }) => theme.colors.bg.primary};
       }

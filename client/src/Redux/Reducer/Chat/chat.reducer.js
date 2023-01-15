@@ -1,4 +1,4 @@
-import { fetchUser } from "./chat.action";
+// import { fetchUser } from "./chat.action";
 import {FETCH_CHATS , FETCH_USER} from "./chat.type"
 const initialState = {
   chats: [],

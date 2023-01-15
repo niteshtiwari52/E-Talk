@@ -68,6 +68,7 @@ export const lightTheme = {
         "secondary": "#2e2e2e",
       },
 
+
       btn:{
       "primary":"28, 157, 234",
       "secondary": "22 163 74",
