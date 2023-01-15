@@ -3,19 +3,74 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { AiOutlineSetting, AiOutlineStar } from "react-icons/ai";
-import { RiContactsLine, RiMoonLine } from "react-icons/ri";
+import { RiContactsLine } from "react-icons/ri";
 import { BsChatSquareDots } from "react-icons/bs";
 import { CgClose, CgMenu } from "react-icons/cg";
+import Toggler from "./Toggler";
+
+
+import { IoLogOutOutline } from "react-icons/io5";
+
+
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { signOut } from "../Redux/Reducer/Auth/auth.action";
+import { toggleDarkTheme } from "../Redux/Reducer/Tab/tabAction";
+
 
 const SideMenu = () => {
   const [menuIcon, setMenuIcon] = useState();
+
+  const tabIndex = useSelector((state)=> state.tabReducer);
+
+  const activeTab = (index) => {
+    dispatch(toggleDarkTheme(index))
+  };
+
+  const sideIconsList = [
+    {
+      id: 1,
+      icon: CgProfile,
+      title: "Profile",
+    },
+    {
+      id: 2,
+      icon: AiOutlineStar,
+      title: "Favourite",
+    },
+    {
+      id: 3,
+      icon: BsChatSquareDots,
+      title: "Chats",
+    },
+    {
+      id: 4,
+      icon: RiContactsLine,
+      title: "Contacts",
+    },
+    {
+      id: 5,
+      icon: AiOutlineSetting,
+      title: "Setting",
+
+    },
+  ];
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(signOut());
+
+  };
+
+
   return (
     <Wrapper>
+     
       <div
         className={
           menuIcon
-            ? "bg-white side-menu active flex justify-between"
-            : "bg-white side-menu flex justify-between"
+            ? " side-menu active flex justify-between"
+            : " side-menu flex justify-between"
         }
       >
         <div className=" mobile-navbar overflow-y-auto">
@@ -50,79 +105,47 @@ const SideMenu = () => {
           </div>
           <div className="side-menu-list">
             <ul className="flex flex-col justify-between gap-4">
-              <li
-                className="side-menu-item"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
-                title="profile"
-              >
-                <NavLink to="profile" className="nav-link ">
-                  <CgProfile className="icon" />
-                </NavLink>
-              </li>
-              <li
-                className="side-menu-item"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
-                title="Favorite"
-              >
-                <NavLink to="favorite" className="nav-link">
-                  <AiOutlineStar className="icon" />
-                </NavLink>
-              </li>
-              <li
-                className="side-menu-item"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
-                title="Chats"
-              >
-                <NavLink to="/" className="nav-link">
-                  <BsChatSquareDots className="icon" />
-                </NavLink>
-              </li>
-              <li
-                className="side-menu-item"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
-                title="contact"
-              >
-                <NavLink to="contact" className="nav-link">
-                  <RiContactsLine className="icon" />
-                </NavLink>
-              </li>
-              <li
-                className="side-menu-item"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
-                title="setting"
-              >
-                <NavLink to="setting" className="nav-link">
-                  <AiOutlineSetting className="icon" />
-                </NavLink>
-              </li>
-              <li
-                className="side-menu-item"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
-                title="Theme Mode"
-              >
-                <div to="/" className="nav-link">
-                  <RiMoonLine className="icon" />
+              {sideIconsList.map((items, index) => (
+                <li
+
+                  key={index}
+                  className="side-menu-item"
+                  title={items.title}
+                  onClick={() => activeTab(index+1)}
+                >
+
+                  <div to={items.title} className={index === 2 && tabIndex === 0 ? "nav-link active" : (tabIndex === (index + 1) ? "nav-link active" : "nav-link")}>
+
+                    <items.icon className="icon" />
+                  </div>
+                </li>
+
+              ))}
+
+              {/* Theme mode */}
+              <li className="side-menu-item" title="Theme Mode">
+                <div className="nav-link">
+                  <Toggler />
                 </div>
               </li>
-              <li className="side-menu-item">
-                <div className="nav-link">
-                  <img
-                    src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
-                    alt=""
-                    className="profile-user rounded-full"
-                  />
+
+              {/* logout */}
+              <li
+                className="side-menu-item"
+                data-bs-toggle="tooltip"
+                data-bs-placement="right"
+                title="Logout"
+                onClick={handleLogout}
+              >
+                <div to="/" className="nav-link">
+                  <IoLogOutOutline className="icon" />
                 </div>
               </li>
             </ul>
           </div>
         </div>
       </div>
+     
     </Wrapper>
   );
 };
@@ -133,9 +156,11 @@ const Wrapper = styled.section`
     height: 100vh;
     min-width: 100px;
     flex-direction: column;
-    border-right: 1px solid  ${({ theme }) => theme.colors.border};
+    border-right: 1px solid rgba(${({ theme }) => theme.colors.border});
+    background-color: ${({ theme }) => theme.colors.bg.primary};
+    animation: fadeInLeft 1s;
   }
-  .side-menu-bar{
+  .side-menu-bar {
     height: 100%;
   }
   .sideMenu-brand-box {
@@ -155,8 +180,8 @@ const Wrapper = styled.section`
       margin: 7px auto;
       cursor: pointer;
       .nav-link.active {
-        background-color: #eff1f2;
-        color: ${({ theme }) => theme.colors.primary};
+        background-color: ${({ theme }) => theme.colors.btn.light};
+        color: ${({ theme }) => theme.colors.cyan};
       }
       .nav-link {
         display: block;
@@ -166,22 +191,24 @@ const Wrapper = styled.section`
         font-size: 2rem;
         margin: 0 auto;
         width: 56px;
-        color: black;
+        color: ${({ theme }) => theme.colors.text.secondary};
         border-radius: 8px;
         &:hover {
-          color: ${({ theme }) => theme.colors.primary};
+          color: ${({ theme }) => theme.colors.cyan};
         }
         .icon {
           display: inline;
         }
         .profile-user {
-          border: 3px solid ${({ theme }) => theme.colors.primary};
+          border: 3px solid ${({ theme }) => theme.colors.cyan};
         }
       }
     }
   }
   .mobile-navbar {
     display: none;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   }
   .mobile-sideMenu-btn {
     background-color: transparent;
@@ -204,8 +231,20 @@ const Wrapper = styled.section`
       min-height: 80px;
       z-index: 998;
     }
+    .side-menu-list {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      ul {
+        height: 80%;
+        .nav-link {
+          font-size: 3rem !important;
+        }
+      }
+    }
     .side-menu-bar {
-      background-color: white;
+      background-color: ${({ theme }) => theme.colors.bg.primary};
       position: absolute;
       top: 0;
       left: 0;
@@ -213,7 +252,7 @@ const Wrapper = styled.section`
       transition: all 1s linear;
       z-index: 999;
       max-width: 100px;
-      box-shadow: 0 2px 4px rgb(15 34 58 / 12%);
+      box-shadow: 0px 0px 10px rgb(0 0 0);
       height: 100vh;
       min-width: 100px;
     }
@@ -249,16 +288,16 @@ const Wrapper = styled.section`
     .mobile-sideMenu-btn {
       display: inline-block;
       z-index: 9999;
-      border: ${({ theme }) => theme.colors.black};
+      border: ${({ theme }) => theme.colors.heading};
       .mobile-nav-icon {
         font-size: 4.2rem;
-        color: ${({ theme }) => theme.colors.black};
+        color: ${({ theme }) => theme.colors.heading};
       }
     }
     .active .mobile-navbar .mobile-nav-icon {
       display: none;
       font-size: 4.2rem;
-      color: ${({ theme }) => theme.colors.black};
+      color: ${({ theme }) => theme.colors.heading};
       z-index: 9999;
     }
     .active .mobile-navbar .close-outline {

@@ -1,4 +1,5 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import ChatMenu from "./ChatMenu";
 import ChatWindow from "./ChatWindow";
@@ -8,10 +9,11 @@ const Chat = () => {
   return (
     <>
       <Wrapper className="flex justify-start w-full">
-        <SideMenu />
-        {/* <UserList /> */}
-        <ChatMenu /> {/*this contain all the user list */}
-        <ChatWindow /> {/** This contain our chat window. */}
+       <SideMenu  />
+       <ChatMenu  />
+       <ChatWindow />
+
+       
       </Wrapper>
     </>
   );

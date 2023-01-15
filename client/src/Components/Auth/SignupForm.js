@@ -1,9 +1,14 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../Styles/Button";
 import Social from "../../Styles/Social";
-
+// Redux 
+import { signUp } from "../../Redux/Reducer/Auth/auth.action";
+import { getMySelf } from "../../Redux/Reducer/User/user.action";
 const SignupForm = () => {
-  const [signupDetails, setSignupDetails] = useState({
+  
+    const [userData, setUserData] = useState({
     name: "",
     email: "",
     password: "",
@@ -11,36 +16,42 @@ const SignupForm = () => {
   });
 
   const handleChange = (e) => {
-    setSignupDetails((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    
+    setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleSignUp = () => {
-    console.log(signupDetails);
-    alert("Server will add soon");
+    
+    dispatch(signUp(userData));
+    // dispatch(getMySelf());
+    navigate("/");
   };
 
   return (
-    <div className="auth-page-content col-span-2 flex flex-col justify-center items-center bg-white">
+    <div className="auth-page-content col-span-2 flex flex-col justify-center items-center">
       <div className="xl:min-w-[450px] px-8">
         <div className="mb-8"></div>
         <div className="mb-8">
           <h3 className="mb-1 text-center">Sign up</h3>
           <p className="text-center">Get your free E-Talk account now..</p>
         </div>
-        <div className="bg-white p-8 card">
+        <div className=" p-8 card">
           {/* <form action="#"> */}
           <div className="form-container vertical">
             <div className="form-item vertical">
               <label className="form-label mb-2">Name</label>
               <div className="">
                 <input
-                  className="input input-md h-11 focus:ring-green-600 focus-within:ring-green-600 focus-within:border-green-600 focus:border-green-600"
+                  className="input input-md h-11"
                   type="text"
                   name="name"
                   autoComplete="off"
                   placeholder="Enter your Name"
                   required
-                  value={signupDetails.name}
+                  value={userData.name}
                   onChange={handleChange}
                 />
               </div>
@@ -49,13 +60,13 @@ const SignupForm = () => {
               <label className="form-label mb-2">Email</label>
               <div className="">
                 <input
-                  className="input input-md h-11 focus:ring-green-600 focus-within:ring-green-600 focus-within:border-green-600 focus:border-green-600"
+                  className="input input-md h-11"
                   type="email"
                   name="email"
                   autoComplete="off"
                   placeholder="Email"
                   required
-                  value={signupDetails.email}
+                  value={userData.email}
                   onChange={handleChange}
                 />
               </div>
@@ -65,12 +76,12 @@ const SignupForm = () => {
               <div className="input-suffix-left">
                 <span className="input-wrapper ">
                   <input
-                    className="input input-md h-11 focus:ring-green-600 focus-within:ring-green-600 focus-within:border-green-600 focus:border-green-600"
+                    className="input input-md h-11"
                     type="password"
                     name="password"
                     autoComplete="off"
                     placeholder="Password"
-                    value={signupDetails.password}
+                    value={userData.password}
                     onChange={handleChange}
                     style={{ paddingRight: "2.25rem" }}
                   />
@@ -102,12 +113,12 @@ const SignupForm = () => {
               <div className="">
                 <span className="input-wrapper ">
                   <input
-                    className="input input-md h-11 focus:ring-green-600 focus-within:ring-green-600 focus-within:border-green-600 focus:border-green-600"
+                    className="input input-md h-11"
                     type="password"
                     name="confirmPassword"
                     autoComplete="off"
                     placeholder="Confirm Password"
-                    value={signupDetails.confirmPassword}
+                    value={userData.confirmPassword}
                     onChange={handleChange}
                     style={{ paddingRight: "2.25rem" }}
                   />

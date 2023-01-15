@@ -3,8 +3,11 @@ import { NavLink } from "react-router-dom";
 import Social from "../../Styles/Social";
 import { Button } from "../../Styles/Button";
 
-import { useDispatch } from "react-redux"; 
+import { useDispatch } from "react-redux";
+import { useNavigate  } from "react-router-dom";
+// Redux 
 import { signIn } from "../../Redux/Reducer/Auth/auth.action";
+
 
 const LoginForm = () => {
   const [userData, setUserData] = useState({
@@ -12,38 +15,43 @@ const LoginForm = () => {
     password: "",
   });
   const handleChange = (e) => {
-    // console.log(e.target.name , e.target.value)
+   
     setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
 
   const handleLogin = () => {
-    // console.log(userData);
-    alert(userData);
+    
     dispatch(signIn(userData));
+   
+    navigate("/");
+    
+    // dispatch(getMySelf());
     setUserData({email : "" , password : ""});
+    // window.location.reload();
 
   };
 
   return (
-    <div className="auth-page-content col-span-2 flex flex-col justify-center items-center bg-white">
+    <div className=" auth-page-content col-span-2 flex flex-col justify-center items-center ">
       <div className="xl:min-w-[450px] px-8">
         <div className="mb-8"></div>
         <div className="mb-8">
           <h3 className="mb-1 text-center">Welcome back !</h3>
           <p className="text-center">Sign in to continue...</p>
         </div>
-        <div className="bg-white p-8 card">
+        <div className=" p-8 card">
           {/* <form> */}
           <div className="form-container vertical mb-2">
             <div className="form-item vertical">
               <label className="form-label mb-2">User Name or Email</label>
-              <div className="">
+              <div>
                 <input
-                  className="input input-md h-11 focus:ring-green-600 focus-within:ring-green-600 focus-within:border-green-600 focus:border-green-600"
+                  className="input input-md h-11"
                   type="email"
                   name="email"
                   autoComplete="off"
@@ -58,7 +66,7 @@ const LoginForm = () => {
                 <label className="form-label">Password</label>
                 <span>
                   <NavLink
-                    className="text-gray-600 hover:underline"
+                    className=" hover:underline"
                     to="/forgot-password"
                   >
                     Forgot Password?
@@ -68,7 +76,7 @@ const LoginForm = () => {
               <div className="">
                 <span className="input-wrapper ">
                   <input
-                    className="input input-md h-11 focus:ring-green-600 focus-within:ring-green-600 focus-within:border-green-600 focus:border-green-600"
+                    className="input input-md h-11"
                     type="password"
                     name="password"
                     autoComplete="off"
@@ -103,7 +111,7 @@ const LoginForm = () => {
             <div className=" mb-6">
               <label className="checkbox-label mb-0">
                 <input
-                  className="checkbox text-green-600"
+                  className="checkbox"
                   type="checkbox"
                   name=""
                   value=""
@@ -122,6 +130,7 @@ const LoginForm = () => {
           {/* </form> */}
         </div>
       </div>
+      
     </div>
   );
 };

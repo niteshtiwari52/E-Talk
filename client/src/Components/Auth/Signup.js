@@ -2,10 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import SignupForm from "./SignupForm";
 import { NavLink } from "react-router-dom";
-
+import Toggler from "../Toggler";
 const Signup = () => {
   return (
     <Wrapper className="login-page-bg">
+      <div className="toggle-icon">
+   <Toggler/>
+   </div>
       <div className="h-full flex justify-center items-center">
         <div className="py-6">
           <div className="px-8 flex flex-col justify-center items-center">
@@ -37,19 +40,43 @@ const Wrapper = styled.section`
   position: relative;
   width: 100vw;
   height: auto;
-  background-color: #f7f7ff;
+  background-color:  ${({ theme }) => theme.colors.bg.secondary};
   .logo {
     img {
       height: 50px;
     }
   }
-
+  .toggle-icon{
+    position: absolute;
+    top: 10px;
+    right: 0;
+    margin-right: 20px;
+    display: flex;
+    width: 100vw;
+    justify-content: flex-end ;
+  }
   .auth-page-content {
     height: calc(100% - 48px);
     margin: 24px;
 
     .card {
       border-radius: 0.25rem;
+    }
+    background-color: ${({ theme }) => theme.colors.bg.primary};
+    a{
+      color: ${({ theme }) => theme.colors.text.secondary}
+    }
+    input{
+      background-color:  ${({ theme }) => theme.colors.btn.light};
+      border-color: ${({ theme }) => theme.colors.border};
+      &:focus{
+        background-color:  ${({ theme }) => theme.colors.btn.light};
+        outline-color: ${({ theme }) => theme.colors.btn.light};
+        border-color: ${({ theme }) => theme.colors.border};
+      }
+    }
+    p,label{
+      color: ${({ theme }) => theme.colors.text.secondary}
     }
   }
   .signin-other-title {

@@ -1,32 +1,28 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Chat from "../Components/Chat";
 import Welcome from "../Components/Welcome";
 import DefaultLayoutHoc from "../Layout/DefaultLayout";
 
+
 // redux
-import { useDispatch} from "react-redux"
-import { signIn } from "../Redux/Reducer/Auth/auth.action";
+import {useSelector} from "react-redux"
 
 const HomePage = () => {
-  const user = {
-    // name: "Nitesh",
-  };
 
-  const dispatch = useDispatch();
+  const user = useSelector((globalState) =>  globalState.user.userDetails );
 
-  useEffect(() => {
-  
-  }, [])
-  
+
   return (
     <>
       {user?.name ? (
         <>
-          <Chat />
+          <Chat  />
+         
         </>
       ) : (
         <>
           <Welcome />
+         
         </>
       )}
     </>

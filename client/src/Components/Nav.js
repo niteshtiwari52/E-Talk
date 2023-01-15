@@ -3,6 +3,7 @@ import { CgClose, CgMenu } from 'react-icons/cg';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '../Styles/Button';
+import Toggler from './Toggler';
 
 function Nav() {
     const [menuIcon, setMenuIcon] = useState();
@@ -57,6 +58,9 @@ function Nav() {
                 <Button className='button'>signup</Button>
             </NavLink>
         </li>
+        <li className="navbar-link">
+          <Toggler/>
+        </li>
       </ul>
 
       {/* two button for open and close of menu */}
@@ -82,6 +86,13 @@ function Nav() {
     .navbar-lists {
       gap: 2.8rem;
       .navbar-link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 2rem;
+        color: ${({ theme }) => theme.colors.text.secondary};
+        border-radius: 8px;
         &:link,
         &:visited {
           display: inline-block;
@@ -89,24 +100,24 @@ function Nav() {
           font-size: 1.1rem;
           font-weight: 500;
           text-transform: uppercase;
-          color: ${({ theme }) => theme.colors.black};
+          color: ${({ theme }) => theme.colors.heading};
           transition: color 0.3s linear;
         }
         &:hover,
         &:active {
-          color: ${({ theme }) => theme.colors.primary};
+          color: ${({ theme }) => theme.colors.cyan};
         }
 
         .button{
             font-size: 1.1rem;
             width: 100px;
             border-radius: 20px;
-            color: ${({ theme }) => theme.colors.black};
-            border: solid 2px  ${({ theme }) => theme.colors.black};
+            color: ${({ theme }) => theme.colors.heading};
+            border: solid 2px  ${({ theme }) => theme.colors.heading};
 
             &:hover{
-                color: ${({ theme }) => theme.colors.primary};
-            border: solid 2px  ${({ theme }) => theme.colors.primary};
+                color: ${({ theme }) => theme.colors.cyan};
+            border: solid 2px  ${({ theme }) => theme.colors.cyan};
             }
         }
       }
@@ -128,16 +139,16 @@ function Nav() {
       .mobile-navbar-btn {
         display: inline-block;
         z-index: 9999;
-        border: ${({ theme }) => theme.colors.black};
+        border: ${({ theme }) => theme.colors.heading};
         .mobile-nav-icon {
           font-size: 4.2rem;
-          color: ${({ theme }) => theme.colors.black};
+          color: ${({ theme }) => theme.colors.heading};
         }
       }
       .active .mobile-nav-icon {
         display: none;
         font-size: 4.2rem;
-        color: ${({ theme }) => theme.colors.black};
+        color: ${({ theme }) => theme.colors.heading};
         z-index: 9999;
       }
       .active .close-outline {

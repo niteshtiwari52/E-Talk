@@ -23,11 +23,14 @@ const Error = () => {
 const Wrapper = styled.section`
   width: 100vw;
   height: 100vh;
+  background-color: ${({ theme }) => theme.colors.bg.secondary};
+  
   h1 {
     font-size: 10rem;
   }
   p {
     font-size: 2rem;
+    color: ${({ theme }) => theme.colors.text.secondary};;
   }
   .button {
     width: auto;
