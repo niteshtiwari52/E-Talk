@@ -134,24 +134,24 @@ const UserList = () => {
                 <div className="data-status h-full">
                 {
                   chat[index].isGroupChat ? 
-                  <div class="flex -space-x-4">
+                  <div className="flex -space-x-4">
                     <img
-                      class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800 hover:z-10"
+                      className="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800 hover:z-10"
                       src={chat[index].users[0].pic}
                       alt=""
                     />
                     <img
-                      class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800 hover:z-10"
+                      className="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800 hover:z-10"
                       src={chat[index].users[1].pic}
                       alt=""
                     />
                     <img
-                      class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800 hover:z-10"
+                      className="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800 hover:z-10"
                       src={chat[index].users[2].pic}
                       alt=""
                     />
                    {chat[index].users.length > 3 ? <div
-                      class="flex items-center justify-center w-8 h-8 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800"
+                      className="flex items-center justify-center w-8 h-8 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800"
                     >
                       {chat[index].users.length - 3}
                     </div> : <></>}

@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import {BiGroup} from "react-icons/bi";
 
 const Group = () => {
-    let [isOpen, setIsOpen] = useState(true)
+    let [isOpen, setIsOpen] = useState(false)
 
     function closeModal() {
       setIsOpen(false)
@@ -58,12 +58,12 @@ const Group = () => {
                 </div>
 
                 <div className='flex flex-col mb-3'>
-                <label for="addgroupdescription-input" class="form-label">Description</label>
-                <textarea class="form-control" id="addgroupdescription-input" rows="3" placeholder="Enter Description"></textarea>
+                <label htmlFor="addgroupdescription-input" className="form-label">Description</label>
+                <textarea className="form-control" id="addgroupdescription-input" rows="3" placeholder="Enter Description"></textarea>
                 </div>
 
                 <div className='flex flex-col mb-4'>
-                <label class="form-label">Group Members</label>
+                <label className="form-label">Group Members</label>
                 </div>
 
                 
