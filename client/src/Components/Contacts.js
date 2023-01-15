@@ -1,39 +1,36 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import {Button} from "../Styles/Button"
-import {useDispatch , useSelector} from "react-redux"
+import { Button } from "../Styles/Button";
+import { useDispatch, useSelector } from "react-redux";
 import { createChat, fetchUser } from "../Redux/Reducer/Chat/chat.action";
+import { AiOutlinePlus } from "react-icons/ai";
 
 const Contacts = () => {
   const dispatch = useDispatch();
 
-
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
 
-  const result = useSelector((globalState) => globalState.chat.newUser)
+  const result = useSelector((globalState) => globalState.chat.newUser);
 
   const handleChange = (e) => {
-    setSearch(e.target.value)
-  }
+    setSearch(e.target.value);
+  };
 
   useEffect(() => {
-   setSearchResult(result)
-  
-   
-  }, [result])
-  
+    setSearchResult(result);
+  }, [result]);
 
   const handleClick = () => {
-    if(!search){
+    if (!search) {
       alert("Please Enter valid Email or Name");
       return;
     }
-    dispatch(fetchUser(search));    
-  }
+    dispatch(fetchUser(search));
+  };
   const createNewChat = (item) => {
     dispatch(createChat(item._id));
-  }
+  };
 
   return (
     <Wrapper className="contacts-tab dynamic-sidebar">
@@ -46,44 +43,91 @@ const Contacts = () => {
       </div>
       <div className="details p-4">
         <div className="mt-3 flex justify-center items-center">
-        <div className="flex justify-around items-center w-1/2">
-                <input
-                    type="text"
-                    className="w-96 px-4 mr-3 py-2 focus:outline-none "
-                    placeholder="Enter Email or Name"
-                    value={search}
-                    onChange={handleChange}
-                />
-                <Button className="btn p-3 text-white rounded " onClick={handleClick}>
-                    Get
-                </Button>
-            </div>
+          <div className="flex justify-around items-center w-1/2">
+            <input
+              type="text"
+              className="w-96 px-4 mr-3 py-2 focus:outline-none "
+              placeholder="Enter Email or Name"
+              value={search}
+              onChange={handleChange}
+            />
+            <Button
+              className="btn p-3 text-white rounded "
+              onClick={handleClick}
+            >
+              Get
+            </Button>
+          </div>
         </div>
         {/* searched user rendering */}
-        {(searchResult.length !== 0) ? (
-          searchResult.map((item) => (
-            <div className="border-2 border-red-500 m-3 p-2" onClick={createNewChat(item)} >{item.name}</div>
-          ))
-        ) : ("")}
+        <div className="my-4">
+          {searchResult.length !== 0
+            ? searchResult.map((item, index) => (
+                <li className="px-2 py-2 " key={index}>
+                  <div className="search-user-box flex items-center">
+                    <div className="profile absolute left-0 ">
+                      <img
+                        className="w-12 h-12 rounded-full"
+                        src={searchResult[index].pic}
+                        alt="pic"
+                      />
+                    </div>
+
+                    <div className="details w-3/4">
+                      <h2 className="md:w-32 w-full m-0 text-base">
+                        {item.name}
+                      </h2>
+                    </div>
+
+                    <div
+                      className="user-add flex justify-center items-center cursor-pointer rounded-full p-2"
+                      onClick={createNewChat(item)}>
+                      <AiOutlinePlus />
+                    </div>
+                  </div>
+                </li>
+              ))
+            : <></>}
+        </div>
       </div>
     </Wrapper>
   );
 };
 const Wrapper = styled.div`
- animation: fadeInLeft 1s;
+  animation: fadeInLeft 1s;
 
- input {
+  input {
     color: ${({ theme }) => theme.colors.heading};
     background-color: ${({ theme }) => theme.colors.bg.primary};
     border-bottom: 1px solid ${({ theme }) => theme.colors.heading};
-    &:focus{
+    &:focus {
       background-color: none;
     }
-}
-.btn{
-  background-color:  ${({ theme }) => theme.colors.cyan};
-}
-
+  }
+  .btn {
+    background-color: ${({ theme }) => theme.colors.cyan};
+  }
+  .search-user-box {
+    position: relative;
+    .profile {
+      width: 50px;
+      height: 50px;
+    }
+    .details {
+      padding: 12px 12px 12px 60px;
+    }
+    .user-add {
+      position: absolute;
+      right: 0;
+      text-align: right;
+      padding: 12px 0px 12px 0px;
+      width: 40px;
+      height: 40px;
+      &:hover {
+        background-color: ${({ theme }) => theme.colors.bg.secondary};
+      }
+    }
+  }
 `;
 
 export default Contacts;
