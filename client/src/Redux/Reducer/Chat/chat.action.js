@@ -8,7 +8,7 @@ export const fetchChats = () => async (dispatch) => {
             method : "GET",
             url : "http://localhost:4000/api/chat",
         });
-        console.log(chats.data);
+        // console.log(chats.data);
         
         return dispatch({type : FETCH_CHATS , payload : chats.data })
     } catch (error) {

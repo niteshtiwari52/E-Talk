@@ -1,6 +1,10 @@
 import { TOGGLE_TAB } from "./tabType";
 
-export const toggleDarkTheme = (index ) => ({
+export const toggleTab = (index ) => ({
     type: TOGGLE_TAB,
     payload: index,
   });
+// export const toggleDarkTheme = (index ) => ({
+//     type: TOGGLE_TAB,
+//     payload: index,
+//   });

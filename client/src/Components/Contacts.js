@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button } from "../Styles/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { createChat, fetchUser } from "../Redux/Reducer/Chat/chat.action";
+import { createChat, fetchChats, fetchUser } from "../Redux/Reducer/Chat/chat.action";
 import { AiOutlinePlus } from "react-icons/ai";
+import { toggleTab } from "../Redux/Reducer/Tab/tabAction";
 
 const Contacts = () => {
   const dispatch = useDispatch();
@@ -28,8 +29,11 @@ const Contacts = () => {
     }
     dispatch(fetchUser(search));
   };
-  const createNewChat = (item) => {
-    dispatch(createChat(item._id));
+
+  const createNewChat = async (item) => {
+   await dispatch(createChat(item._id));
+   await dispatch(fetchChats());
+   await dispatch(toggleTab(3));
   };
 
   return (
@@ -81,8 +85,8 @@ const Contacts = () => {
 
                     <div
                       className="user-add flex justify-center items-center cursor-pointer rounded-full p-2"
-                      onClick={createNewChat(item)}>
-                      <AiOutlinePlus />
+                      >
+                      <AiOutlinePlus onClick={()=>createNewChat(item)}/>
                     </div>
                   </div>
                 </li>
