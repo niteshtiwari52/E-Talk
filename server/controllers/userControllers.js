@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler');
 const User = require('../models/userModel');
 const generateToken = require('../config/generateToken');
 
-
+// signup new user
 const registerUser = asyncHandler(async (req,res) => {
     const {name,email,password,pic} = req. body;
 
@@ -40,6 +40,7 @@ const registerUser = asyncHandler(async (req,res) => {
     }
 });
 
+// sign in user
 const authUser = asyncHandler(async (req,res) => {
     const {email,password}=req.body;
    
@@ -57,6 +58,7 @@ const authUser = asyncHandler(async (req,res) => {
     }
 });
 
+// Search user
 const allUsers = asyncHandler(async (req,res) => {
     const keyword = req.query.search ? {
         $or: [
@@ -70,6 +72,7 @@ const allUsers = asyncHandler(async (req,res) => {
     res.send(users);
 })
 
+// get my self
 const getmyself = asyncHandler(async (req, res) => {
     try {
        

@@ -20,22 +20,23 @@ app.use(helmet());
 app.use(express.json()); //to accept json data
 
 app.use(express.json());
+
 app.get("/", (req, res) => {
   res.json({
     message: "Welcome to E-Talk Server",
   });
 });
 
-app.get("/api/chat", (req, res) => {
+// app.get("/api/chat", (req, res) => {
   
-  res.send(chats);
-});
+//   res.send(chats);
+// });
 
-app.get("/api/chat/:id", (req, res) => {
-  console.log(req.params.id);
-  const singleChat = chats.find((c) => c._id === req.params.id);
-  res.send(singleChat);
-});
+// app.get("/api/chat/:id", (req, res) => {
+//   console.log(req.params.id);
+//   const singleChat = chats.find((c) => c._id === req.params.id);
+//   res.send(singleChat);
+// });
 
 app.use("/api/chat", chatRoutes);
 app.use("/api/user", userRoutes);

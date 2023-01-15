@@ -3,6 +3,9 @@ import styled from "styled-components";
 import Searchbar from "./Searchbar";
 import UserList from "./UserList";
 
+import Group from "./modal/Group";
+
+
 const Default = () => {
   const [SearchOpen, setSearchOpen] = useState(false);
   return (
@@ -19,7 +22,13 @@ const Default = () => {
           </>
         )}
 
+        <div className="flex justify-center items-center">
         <Searchbar State={SearchOpen} setState={setSearchOpen} />
+
+
+        <Group />
+
+        </div>
       </div>
 
       {/* User list  */}
@@ -30,5 +39,10 @@ const Default = () => {
 };
 const Wrapper = styled.div`
   animation: fadeInLeft 1s;
+  .group-icon{
+    &:hover {
+      background-color: ${({ theme }) => theme.colors.bg.secondary};
+    }
+  }
 `;
 export default Default;
