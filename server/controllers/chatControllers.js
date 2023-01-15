@@ -7,7 +7,6 @@ const User = require("../models/userModel");
 //@access          Protected
 const accessChat = asyncHandler(async (req, res) => {
   const { userId } = req.body;
-
   if (!userId) {
     console.log("UserId param not sent with request");
     return res.sendStatus(400);
@@ -79,8 +78,8 @@ const fetchChats = asyncHandler(async (req, res) => {
 //@access          Protected
 const createGroupChat = asyncHandler(async (req, res) => {
   // console.log(req);
-  console.log(req.body.chatName, req.body.users);
-  if (!req.body.users || !req.body.chatName) {
+  console.log(req.body.name, req.body.users);
+  if (!req.body.users || !req.body.name) {
     return res.status(400).send({ message: "Please Fill all the feilds" });
   }
 

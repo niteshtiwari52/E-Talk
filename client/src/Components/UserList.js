@@ -2,23 +2,20 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
-  const UserList = () => {
-    const [userIndex , setUserIndex] = useState("");
-    const [userList , setUserList] = useState([]);
-    
-    const chat = useSelector((globalState) => globalState.chat.chats);
+const UserList = () => {
+  const [userIndex, setUserIndex] = useState("");
+  const [userList, setUserList] = useState([]);
 
+  const chat = useSelector((globalState) => globalState.chat.chats);
 
-    // console.log({...chat})
-    // console.log(userList)
-    
-    useEffect(() => {
-    setUserList(chat)
-   ;
-      
-    }, []);
-    
+  // console.log(chat)
 
+  // console.log({...chat})
+  // console.log(userList)
+
+  useEffect(() => {
+    setUserList(chat);
+  }, [chat]);
 
   // const userList = [
   //   {
@@ -98,15 +95,12 @@ import { useSelector } from "react-redux";
   //     message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
   //     status: "seen",
   //   },
-    
+
   // ];
 
-  const handleClick = (e , index) => {
-   
+  const handleClick = (e, index) => {
     setUserIndex(index);
-
-  }
-  
+  };
 
   return (
     // <Wrapper>
@@ -115,15 +109,17 @@ import { useSelector } from "react-redux";
         <div className="my-4">
           {userList.map((userList, index) => (
             <li
-              key={index} 
-              className={index === userIndex ? "active px-5 py-2" : "px-5 py-2"}
-             
+              key={index}
+              className={index === userIndex ? "active px-2 py-2" : "px-2 py-2"}
             >
-              <div className="chat-box flex items-center cursor-pointer "  onClick = {e => handleClick(e, index)}>
+              <div
+                className="chat-box flex items-center cursor-pointer "
+                onClick={(e) => handleClick(e, index)}
+              >
                 <div className="profile">
                   <img
                     className=" w-15 h-15 rounded-full"
-                    src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
+                    src={chat[index].users[0].pic}
                     alt="user_logo"
                   />
                 </div>
@@ -132,17 +128,46 @@ import { useSelector } from "react-redux";
                     {userList.chatName}
                   </h2>
                   <p className=" text-xs truncate whitespace-nowrap overflow-hidden">
-                    {userList.message}
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio, itaque.
                   </p>
                 </div>
-                <div className="data-status">
+                <div className="data-status h-full">
+                {
+                  chat[index].isGroupChat ? 
+                  <div class="flex -space-x-4">
+                    <img
+                      class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800 hover:z-10"
+                      src={chat[index].users[0].pic}
+                      alt=""
+                    />
+                    <img
+                      class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800 hover:z-10"
+                      src={chat[index].users[1].pic}
+                      alt=""
+                    />
+                    <img
+                      class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800 hover:z-10"
+                      src={chat[index].users[2].pic}
+                      alt=""
+                    />
+                   {chat[index].users.length > 3 ? <div
+                      class="flex items-center justify-center w-8 h-8 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800"
+                    >
+                      {chat[index].users.length - 3}
+                    </div> : <></>}
+                  </div>
+                  :  <></>
+                }
                   <p>18/12/22</p>
-                  {userList.status === "seen" ?
-                    <span className="status text-green-400">{userList.status}</span> 
-                    :
-                    <span className="status text-red-500">{userList.status}</span> 
-                  }
-                  
+                  {userList.status === "seen" ? (
+                    <span className="status text-green-400">
+                    {userList.status}
+                    </span>
+                  ) : (
+                    <span className="status text-red-500">
+                    {userList.status}
+                    </span>
+                  )}
                 </div>
               </div>
             </li>
@@ -171,7 +196,8 @@ const Wrapper = styled.section`
         padding-top: 8px;
         white-space: nowrap;
       }
-      p,span {
+      p,
+      span {
         font-weight: 600;
         margin: 0;
         padding-top: 8px;
@@ -193,8 +219,10 @@ const Wrapper = styled.section`
         position: absolute;
         right: 0;
         text-align: right;
+        padding: 12px 0px 12px 0px;
         h2,
-        p,span {
+        p,
+        span {
           font-size: calc(11px + (12 - 11) * ((100vw - 320px) / (1920 - 320)));
         }
         .status {

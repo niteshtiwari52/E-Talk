@@ -13,7 +13,7 @@ const Searchbar = ({ State, setState }) => {
     <>
       {State ? (
         <>
-          <div className="input-group flex w-full justify-between overflow-hidden">
+          <div className="input-group flex w-4/5 justify-between overflow-hidden">
             <div className=" relative">
               <BiSearch
                 className="icon absolute top-6 left-1"
@@ -23,7 +23,7 @@ const Searchbar = ({ State, setState }) => {
             </div>
             <input
               type="text"
-              className="pl-9 px-5 py-5 focus:outline-none"
+              className="w-3/4 pl-9 px-5 py-5 focus:outline-none"
               placeholder="Search..."
             />
             <div className=" flex items-center p-2 cursor-pointer ">

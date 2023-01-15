@@ -20,7 +20,7 @@ const Profile = () => {
             <div className="user-profile-img rounded-full overflow-hidden">
               <img
                 src={user.pic}
-                alt="profile"
+                alt={user.name}
               />
             </div>
             <div className="user-name py-4 text-center w-full">
@@ -30,7 +30,7 @@ const Profile = () => {
           <div className="intro mt-3 flex items-start flex-col p-4 rounded">
 
             <div className="description text-gray-500">
-              <p>Lorem ipsum, dolor sit amet consec adipisicing elit. Suscipit neque ex esse vitae eligendi aliquam.</p>
+              <p>Free all time</p>
             </div>
 
            
