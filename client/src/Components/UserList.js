@@ -1,156 +1,100 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import { getSender, getSenderPic } from "../HelperFunction/chat.Helper";
 
   const UserList = () => {
-    const [userIndex , setUserIndex] = useState("");
-    const [userList , setUserList] = useState([]);
+    const [selectedChat , setSelectedChat] = useState();
+    const [chatList , setchatList] = useState([]);
   
     
     const chat = useSelector((globalState) => globalState.chat.chats);
+    const loggedUser = useSelector((globalState) => globalState.user.userDetails)
     
     // console.log(chat)
 
     // console.log({...chat})
-    // console.log(userList)
+    // console.log(chatList)
     
     useEffect(() => {
-    setUserList(chat)
-   ;
-      
-    }, []);
-    
+    setchatList(chat);
+      console.log(selectedChat)
+      // console.log(selectedChat._id)
+    }, [selectedChat]);
 
-
-  // const userList = [
-  //   {
-  //     id: 1,
-  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-  //     name: "Nitesh Tiwari",
-  //     message: "Hello kabnuiewhiuebwfui tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-  //     status: "seen",
-  //   },
-  //   {
-  //     id: 2,
-  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-  //     name: "Narendra ",
-  //     message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-  //     status: "Failed",
-  //   },
-  //   {
-  //     id: 3,
-  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-  //     name: "Rituresh",
-  //     message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-  //     status: "seen",
-  //   },
-  //   {
-  //     id: 4,
-  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-  //     name: "Nitesh Tiwari",
-  //     message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-  //     status: "Failed",
-  //   },
-  //   {
-  //     id: 5,
-  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-  //     name: "Narendra ",
-  //     message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-  //     status: "seen",
-  //   },
-  //   {
-  //     id: 6,
-  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-  //     name: "Rituresh",
-  //     message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-  //     status: "seen",
-  //   },
-  //   {
-  //     id: 7,
-  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-  //     name: "Nitesh Tiwari",
-  //     message: "Hello kabnuiewhiuebwfui tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-  //     status: "seen",
-  //   },
-  //   {
-  //     id: 8,
-  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-  //     name: "Narendra ",
-  //     message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-  //     status: "seen",
-  //   },
-  //   {
-  //     id: 9,
-  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-  //     name: "Rituresh ",
-  //     message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-  //     status: "seen",
-  //   },
-  //   {
-  //     id: 10,
-  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-  //     name: "Nitesh Tiwari",
-  //     message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-  //     status: "seen",
-  //   },
-  //   {
-  //     id: 11,
-  //     src: "https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg",
-  //     name: "Nitesh Tiwari",
-  //     message: "Hello kab tak yejmoepwijowei  kopewjopcomplete ho jayega ? ",
-  //     status: "seen",
-  //   },
-    
-  // ];
-
-  const handleClick = (e , index) => {
+  const handleClick = (item) => {
    
-    setUserIndex(index);
+   
+    setSelectedChat(item);
+    console.log(item)
+    console.log(item._id)
 
   }
+
+  // const getSender = (loggedUser , users) => {
+  //   return users[0]._id === loggedUser._id ? users[1].name : users[0].name;
+  // }
+  // const getSenderPic = (loggedUser , users) => {
+  //   return users[0]._id === loggedUser._id ? users[1].pic : users[0].pic;
+
+  // }
   
 
   return (
     // <Wrapper>
     <Wrapper>
-      <ul className="chat-main h-full overflow-x-hidden overflow-y-scroll">
-        <div className="my-4">
-          {userList.map((userList, index) => (
+     <ul className="chat-main h-full overflow-x-hidden overflow-y-scroll">
+      {chatList.length !== 0 ? (
+      <div className="my-4">         
+          {chatList.map((item) => (
+
             <li
-              key={index} 
-              className={index === userIndex ? "active px-5 py-2" : "px-5 py-2"}
+            onClick = {()=> setSelectedChat(item)}
+              key={item._id} 
+              className={(selectedChat === item) ? "active px-5 py-2" : "px-5 py-2"}
              
             >
-              <div className="chat-box flex items-center cursor-pointer "  onClick = {e => handleClick(e, index)}>
+              
+              <div className="chat-box flex items-center cursor-pointer"  >
                 <div className="profile">
                   <img
-                    className=" w-15 h-15 rounded-full"
-                    src={chat[index].users[0].pic}
+                    className=" w-12 h-12 rounded-full"
+                    // src={chat[index].users[0].pic}
+                    src={!item.isGroupChat ? getSenderPic(loggedUser , item.users) : ("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6wQvepXb0gM_Ft1QUOs6UyYJjPOmA-gq5Yw&usqp=CAU")}
                     alt="user_logo"
                   />
                 </div>
                 <div className="details w-3/4">
                   <h2 className="md:w-32 w-full m-0 truncate text-base">
-                    {userList.chatName}
+                    {!item.isGroupChat ? getSender(loggedUser , item.users) : (item.chatName)}
                   </h2>
                   <p className=" text-xs truncate whitespace-nowrap overflow-hidden">
-                    {userList.message}
+                    {item.message}
                   </p>
                 </div>
                 <div className="data-status">
                   <p>18/12/22</p>
-                  {userList.status === "seen" ?
-                    <span className="status text-green-400">{userList.status}</span> 
+                  {item.status === "seen" ?
+                    <span className="status text-green-400">{item.status}</span> 
                     :
-                    <span className="status text-red-500">{userList.status}</span> 
+                    <span className="status text-red-500">{item.status}</span> 
                   }
                   
                 </div>
               </div>
             </li>
           ))}
-        </div>
+        </div>) : (
+          <div className="my-4">
+            <p className="text-lg text-gray-400 w-full first-letter: mx-auto"> No Chat availabe</p>
+          </div>
+        )}
+        
       </ul>
+
+        
+   
+     
     </Wrapper>
     // </Wrapper>
   );

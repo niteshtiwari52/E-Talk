@@ -1,10 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useDispatch , useSelector } from "react-redux"; 
+import { createChat, fetchUser } from "../Redux/Reducer/Chat/chat.action";
 
 const Contacts = () => {
 
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
+
+  const dispatch = useDispatch() ;
+  
+  const result = useSelector((globalState) => globalState.chat.newUser);
+  // console.log(result)
+  useEffect(() => {
+    setSearchResult(result);
+    // console.log(searchResult)
+  
+   
+  }, [result])
+  
 
   const handleChange = (e) => {
     setSearch(e.target.value)
@@ -15,11 +29,10 @@ const Contacts = () => {
       alert("Please Enter valid Email or Name");
       return;
     }
-
-    
-
-
-    
+    dispatch(fetchUser(search));    
+  }
+  const createNewChat = (item) => {
+    dispatch(createChat(item._id));
   }
 
   return (
@@ -33,7 +46,7 @@ const Contacts = () => {
       </div>
       <div className="details">
         <div className="mt-3">
-          <div className="flex items-center">
+          <div className="flex flex-col items-center">
             {/* search bar */}
           <div className="flex items-center">
             <div className="flex border border-purple-200 rounded">
@@ -48,8 +61,25 @@ const Contacts = () => {
                     Get User
                 </button>
             </div>
-        </div>
+          </div>    
+            
           </div>
+          {/* user list */}
+          <div className="mt-3">
+          <div className="flex flex-col">
+            <p className=" text-center">List of User</p>
+            {searchResult.length !==0 ? (
+              searchResult.map((item)=> (
+                <div className="p-4 m-2 border-2 border-solid border-red-500" key={item._id} onClick={()=>createNewChat(item)}>{item.name}</div>
+
+              ))
+            ) : (
+             ""
+            ) }
+          </div>
+            </div>  
+          
+         
         </div>
       </div>
     </Wrapper>
