@@ -58,7 +58,7 @@ function Nav() {
                 <Button className='button'>signup</Button>
             </NavLink>
         </li>
-        <li className="navbar-link">
+        <li className="navbar-link mode-toggler">
           <Toggler/>
         </li>
       </ul>
@@ -75,7 +75,13 @@ function Nav() {
           className="mobile-nav-icon close-outline"
           onClick={() => setMenuIcon(false)}
         />
+       
       </div>
+
+      <div className="mobile-navbar-btn ml-10">
+        <Toggler className="mobile-nav-icon" />
+      </div>
+      
     </div>
   </Navbar>
   )
@@ -122,6 +128,7 @@ function Nav() {
         }
       }
     }
+
     .mobile-navbar-btn {
       display: none;
       background-color: transparent;
@@ -139,9 +146,9 @@ function Nav() {
       .mobile-navbar-btn {
         display: inline-block;
         z-index: 9999;
+        font-size: 4.2rem;
         border: ${({ theme }) => theme.colors.heading};
         .mobile-nav-icon {
-          font-size: 4.2rem;
           color: ${({ theme }) => theme.colors.heading};
         }
       }
@@ -160,7 +167,7 @@ function Nav() {
         position: absolute;
         top: 0;
         left: 0;
-        background-color: #fff;
+        background-color:${({ theme }) => theme.colors.bg.secondary};
         display: flex;
         justify-content: center;
         align-items: center;
@@ -184,6 +191,9 @@ function Nav() {
         transition: all 0.5s linear;
         .navbar-link {
           font-size: 4.2rem;
+        }
+        .mode-toggler{
+          display: none
         }
       }
     }

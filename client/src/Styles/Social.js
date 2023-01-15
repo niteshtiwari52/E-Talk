@@ -6,44 +6,19 @@ import { Button } from "./Button";
 const Social = () => {
   return (
     <Wrapper className="mt-6 text-center">
-      <div className="signin-other-title">
+      <div className="signin-other-title flex flex-col">
+      <span className="text-gray-500">or</span>
         <h5 className="mb-4 title font-semibold">Sign in With</h5>
       </div>
-      <div className="grid grid-rows-1 grid-flow-col gap-3">
-        <div className="flex justify-center items-center">
-          <Button
-            className="btn-light flex justify-center items-center w-full"
-            type="button"
-            id="facebbok"
-          >
-            <img
-              src="../social/facebook.svg"
-              alt="facebook"
-              title="facebook"
-            />
-          </Button>
-        </div>
+      <div className="grid grid-rows-1 grid-flow-col gap-3 bg-gray-600">
         <div>
           <Button
             className="btn-light flex justify-center items-center w-full"
             type="Button"
-            id="facebbok"
+            id="google"
+            title="google"
           >
-            <img
-              src="../social/twitter.svg"
-              alt="facebook"
-              title="facebook"
-            />
-          </Button>
-        </div>
-        <div>
-          <Button
-            className="btn-light flex justify-center items-center w-full"
-            type="Button"
-            id="facebbok"
-            title="facebook"
-          >
-            <FcGoogle />
+            <FcGoogle className="text-xl" />
           </Button>
         </div>
       </div>
@@ -52,9 +27,6 @@ const Social = () => {
 };
 
 const Wrapper = styled.section`
-  img {
-    width: 1rem;
-  }
 `;
 
 export default Social;

@@ -22,7 +22,7 @@ export const GlobalStyle = createGlobalStyle`
   box-shadow: inset 0 0 6px ${({ theme }) => theme.colors.border};
 }
 .App{
-  background-color: ${({ theme }) => theme.colors.bg.primary};
+  background-color: ${({ theme }) => theme.colors.bg.secondary};
   color: ${({ theme }) => theme.colors.heading}
 }
   

@@ -11,7 +11,6 @@
   --tw-translate-y: -50%;
   display: flex;
   position: absolute;
-  top: 50%;
 }
 
 .input-wrapper {
