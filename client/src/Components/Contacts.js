@@ -1,26 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import {Button} from "../Styles/Button"
+import {useDispatch , useSelector} from "react-redux"
+import { createChat, fetchUser } from "../Redux/Reducer/Chat/chat.action";
 
 const Contacts = () => {
+  const dispatch = useDispatch();
+
 
   const [search, setSearch] = useState("");
-  // const [searchResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState([]);
+
+  const result = useSelector((globalState) => globalState.chat.newUser)
 
   const handleChange = (e) => {
     setSearch(e.target.value)
   }
+
+  useEffect(() => {
+   setSearchResult(result)
+  
+   
+  }, [result])
+  
 
   const handleClick = () => {
     if(!search){
       alert("Please Enter valid Email or Name");
       return;
     }
-
-    
-
-
-    
+    dispatch(fetchUser(search));    
+  }
+  const createNewChat = (item) => {
+    dispatch(createChat(item._id));
   }
 
   return (
@@ -47,6 +59,12 @@ const Contacts = () => {
                 </Button>
             </div>
         </div>
+        {/* searched user rendering */}
+        {(searchResult.length !== 0) ? (
+          searchResult.map((item) => (
+            <div className="border-2 border-red-500 m-3 p-2" onClick={createNewChat(item)} >{item.name}</div>
+          ))
+        ) : ("")}
       </div>
     </Wrapper>
   );
