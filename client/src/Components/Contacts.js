@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button } from "../Styles/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { createChat, fetchChats, fetchUser } from "../Redux/Reducer/Chat/chat.action";
+import {
+  createChat,
+  fetchChats,
+  fetchUser,
+} from "../Redux/Reducer/Chat/chat.action";
 import { AiOutlinePlus } from "react-icons/ai";
 import { toggleTab } from "../Redux/Reducer/Tab/tabAction";
 
@@ -28,12 +32,14 @@ const Contacts = () => {
       return;
     }
     dispatch(fetchUser(search));
+    setSearch("");
   };
 
   const createNewChat = async (item) => {
-   await dispatch(createChat(item._id));
-   await dispatch(fetchChats());
-   await dispatch(toggleTab(3));
+    await dispatch(createChat(item._id));
+    await dispatch(fetchChats());
+    setSearchResult([]);
+    await dispatch(toggleTab(3));
   };
 
   return (
@@ -65,33 +71,33 @@ const Contacts = () => {
         </div>
         {/* searched user rendering */}
         <div className="my-4">
-          {searchResult.length !== 0
-            ? searchResult.map((item, index) => (
-                <li className="px-2 py-2 " key={index}>
-                  <div className="search-user-box flex items-center">
-                    <div className="profile absolute left-0 ">
-                      <img
-                        className="w-12 h-12 rounded-full"
-                        src={searchResult[index].pic}
-                        alt="pic"
-                      />
-                    </div>
-
-                    <div className="details w-3/4">
-                      <h2 className="md:w-32 w-full m-0 text-base">
-                        {item.name}
-                      </h2>
-                    </div>
-
-                    <div
-                      className="user-add flex justify-center items-center cursor-pointer rounded-full p-2"
-                      >
-                      <AiOutlinePlus onClick={()=>createNewChat(item)}/>
-                    </div>
+          {searchResult.length !== 0 ? (
+            searchResult.map((item, index) => (
+              <li className="px-2 py-2 " key={index}>
+                <div className="search-user-box flex items-center">
+                  <div className="profile absolute left-0 ">
+                    <img
+                      className="w-12 h-12 rounded-full"
+                      src={searchResult[index].pic}
+                      alt="pic"
+                    />
                   </div>
-                </li>
-              ))
-            : <></>}
+
+                  <div className="details w-3/4">
+                    <h2 className="md:w-32 w-full m-0 text-base">
+                      {item.name}
+                    </h2>
+                  </div>
+
+                  <div className="user-add flex justify-center items-center cursor-pointer rounded-full p-2">
+                    <AiOutlinePlus onClick={() => createNewChat(item)} />
+                  </div>
+                </div>
+              </li>
+            ))
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </Wrapper>
