@@ -11,7 +11,6 @@ const Contacts = ({
   searchResult,
   createNewChat,
 }) => {
-
   return (
     <>
       <Wrapper className="contacts-tab dynamic-sidebar">
@@ -61,7 +60,10 @@ const Contacts = ({
                     </div>
 
                     <div className="user-add flex justify-center items-center cursor-pointer rounded-full p-2">
-                      <AiOutlinePlus title="Add" onClick={() => createNewChat(item, index)} />
+                      <AiOutlinePlus
+                        title="Add"
+                        onClick={() => createNewChat(item, index)}
+                      />
                     </div>
                   </div>
                 </li>
@@ -81,7 +83,6 @@ const Contacts = ({
 };
 const Wrapper = styled.div`
   animation: fadeInLeft 1s;
-
   input {
     color: ${({ theme }) => theme.colors.heading};
     background-color: ${({ theme }) => theme.colors.bg.primary};

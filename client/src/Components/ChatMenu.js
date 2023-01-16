@@ -42,10 +42,10 @@ const ChatMenu = () => {
   };
 
   const createNewChat = async (item) => {
-      toast.success("contact successfully added");
-      await dispatch(createChat(item._id));
-      await dispatch(fetchChats());
-      await dispatch(toggleTab(3));
+    toast.success("contact successfully added");
+    await dispatch(createChat(item._id));
+    await dispatch(fetchChats());
+    await dispatch(toggleTab(3));
   };
 
   return (
@@ -102,7 +102,6 @@ const Wrapper = styled.section`
   .tab-pane.active {
     display: block;
   }
-
   .chat-menu {
     padding: 1rem 1rem;
     background-color: ${({ theme }) => theme.colors.bg.primary};
@@ -118,7 +117,6 @@ const Wrapper = styled.section`
     .icon {
       color: ${({ theme }) => theme.colors.heading};
     }
-
     .search-icon {
       background-color: ${({ theme }) => theme.colors.bg.primary};
       /* background-color: rgb(241, 245, 249); */
@@ -128,14 +126,12 @@ const Wrapper = styled.section`
       }
     }
   }
-
   @media (max-width: ${({ theme }) => theme.media.mobile}) {
     padding: 1.5rem 0;
     margin-top: 60px;
     position: relative;
     max-width: 100vw;
     min-width: 100vw;
-
     .chat-menu {
       padding: 2rem 1.5rem;
     }
