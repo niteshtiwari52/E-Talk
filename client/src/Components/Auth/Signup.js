@@ -16,7 +16,7 @@ const Signup = () => {
               <img src="/images/logo.png" alt="E-Talk logo" />
             </div>
             <SignupForm />
-            <div className="mt-6 text-center">
+            <div className="mt-2 text-center">
               <p>
                 {" "}
                 <span>Already have an account?</span>

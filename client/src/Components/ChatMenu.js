@@ -1,37 +1,86 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Profile from "./Profile";
 import Favourite from "./Favourite";
-import Contacts from "./Contacts"
+import Contacts from "./Contacts";
 import Setting from "./Setting";
 import Default from "./Default";
-import { useSelector } from "react-redux";
+
+import { toggleTab } from "../Redux/Reducer/Tab/tabAction";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createChat,
+  fetchChats,
+  fetchUser,
+} from "../Redux/Reducer/Chat/chat.action";
+import { ToastContainer, toast } from "react-toastify";
 
 const ChatMenu = () => {
-  const tabIndex = useSelector((state)=> state.tabReducer);
+  const tabIndex = useSelector((state) => state.tabReducer);
 
-  
+  const dispatch = useDispatch();
+
+  const [search, setSearch] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
+
+  const result = useSelector((globalState) => globalState.chat.newUser);
+
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  useEffect(() => {
+    setSearchResult(result);
+  }, [result]);
+
+  const handleClick = () => {
+    if (!search) {
+      toast.warning("Please Enter valid Email or Name");
+      return;
+    }
+    dispatch(fetchUser(search));
+  };
+
+  const createNewChat = async (item) => {
+    toast.success("contact successfully added");
+    await dispatch(createChat(item._id));
+    await dispatch(fetchChats());
+    await dispatch(toggleTab(3));
+  };
+
   return (
-    <Wrapper className="chat-menu-section ">
-   
-    <div className="tab-content">
-      <div className={tabIndex === 1 ? "tab-pane active" : "tab-pane "}>
-        <Profile />
-      </div>
-      <div className={tabIndex === 2 ? "tab-pane active" : "tab-pane "}>
-      <Favourite />
-      </div>
-      <div className={tabIndex === 3 ||  tabIndex === 0 ? "tab-pane active" : "tab-pane"}>
-      <Default />
-      </div>
-      <div className={tabIndex === 4 ? "tab-pane active" : "tab-pane "}>
-        <Contacts/>
-      </div>
-      <div className={tabIndex === 5 ? "tab-pane active" : "tab-pane "}>
-        <Setting/>
-      </div>
-    </div>
-    </Wrapper>
+    <>
+      <ToastContainer />
+      <Wrapper className="chat-menu-section ">
+        <div className="tab-content">
+          <div className={tabIndex === 1 ? "tab-pane active" : "tab-pane "}>
+            <Profile />
+          </div>
+          <div className={tabIndex === 2 ? "tab-pane active" : "tab-pane "}>
+            <Favourite />
+          </div>
+          <div
+            className={
+              tabIndex === 3 || tabIndex === 0 ? "tab-pane active" : "tab-pane"
+            }
+          >
+            <Default />
+          </div>
+          <div className={tabIndex === 4 ? "tab-pane active" : "tab-pane "}>
+            <Contacts
+              search={search}
+              handleChange={handleChange}
+              handleClick={handleClick}
+              searchResult={searchResult}
+              createNewChat={createNewChat}
+            />
+          </div>
+          <div className={tabIndex === 5 ? "tab-pane active" : "tab-pane "}>
+            <Setting />
+          </div>
+        </div>
+      </Wrapper>
+    </>
   );
 };
 
@@ -47,13 +96,12 @@ const Wrapper = styled.section`
   animation: fadeInLeft 1s;
   /* overflow-x: hidden;
   overflow-y: scroll; */
-  .tab-pane{
+  .tab-pane {
     display: none;
   }
-  .tab-pane.active{
+  .tab-pane.active {
     display: block;
   }
-
   .chat-menu {
     padding: 1rem 1rem;
     background-color: ${({ theme }) => theme.colors.bg.primary};
@@ -69,7 +117,6 @@ const Wrapper = styled.section`
     .icon {
       color: ${({ theme }) => theme.colors.heading};
     }
-
     .search-icon {
       background-color: ${({ theme }) => theme.colors.bg.primary};
       /* background-color: rgb(241, 245, 249); */
@@ -78,16 +125,13 @@ const Wrapper = styled.section`
         /* background-color: rgb(226, 232, 240); */
       }
     }
-
   }
-
   @media (max-width: ${({ theme }) => theme.media.mobile}) {
     padding: 1.5rem 0;
     margin-top: 60px;
     position: relative;
     max-width: 100vw;
     min-width: 100vw;
-
     .chat-menu {
       padding: 2rem 1.5rem;
     }

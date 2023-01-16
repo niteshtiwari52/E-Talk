@@ -1,33 +1,47 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { Button } from "../../Styles/Button";
 import Social from "../../Styles/Social";
-// Redux 
+import { AiFillEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// Redux
 import { signUp } from "../../Redux/Reducer/Auth/auth.action";
 import { getMySelf } from "../../Redux/Reducer/User/user.action";
+
 const SignupForm = () => {
-  
-    const [userData, setUserData] = useState({
+  const [showPassword, setShowPassword] = useState(false);
+  const [showconfirmPassword, setShowconfirmPassword] = useState(false);
+
+  const userRegistered = () => {
+    
+
+  };
+
+  const [userData, setUserData] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
 
+  // console.log(userData)
+
   const handleChange = (e) => {
-    
     setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleSignUp = () => {
-    
-    dispatch(signUp(userData));
+    if(userData.email && userData.password && userData.name && userData.confirmPassword){
+      dispatch(signUp(userData));
+    }else{
+      toast.error("Please Fill the Data");
+    }
     // dispatch(getMySelf());
-    navigate("/");
+
   };
 
   return (
@@ -38,7 +52,7 @@ const SignupForm = () => {
           <h3 className="mb-1 text-center">Sign up</h3>
           <p className="text-center">Get your free E-Talk account now..</p>
         </div>
-        <div className=" p-8 card">
+        <div className=" px-8 pb-8 card">
           {/* <form action="#"> */}
           <div className="form-container vertical">
             <div className="form-item vertical">
@@ -77,7 +91,7 @@ const SignupForm = () => {
                 <span className="input-wrapper ">
                   <input
                     className="input input-md h-11"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     name="password"
                     autoComplete="off"
                     placeholder="Password"
@@ -85,24 +99,19 @@ const SignupForm = () => {
                     onChange={handleChange}
                     style={{ paddingRight: "2.25rem" }}
                   />
-                  <div className="input-suffix-end">
-                    <span className="cursor-pointer text-xl">
-                      <svg
-                        stroke="currentColor"
-                        fill="none"
-                        strokeWidth="0"
-                        viewBox="0 0 24 24"
-                        height="1em"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
-                        ></path>
-                      </svg>
+                  <div className="input-suffix-end flex justify-center items-center h-full">
+                    <span className="cursor-pointer text-xl mb-0">
+                      {showPassword ? (
+                        <AiFillEye
+                          className="eye-icon-fill"
+                          onClick={() => setShowPassword(false)}
+                        />
+                      ) : (
+                        <AiOutlineEyeInvisible
+                          className="eye-icon-line"
+                          onClick={() => setShowPassword(true)}
+                        />
+                      )}
                     </span>
                   </div>
                 </span>
@@ -114,7 +123,7 @@ const SignupForm = () => {
                 <span className="input-wrapper ">
                   <input
                     className="input input-md h-11"
-                    type="password"
+                    type={showconfirmPassword ? "text" : "password"}
                     name="confirmPassword"
                     autoComplete="off"
                     placeholder="Confirm Password"
@@ -122,33 +131,27 @@ const SignupForm = () => {
                     onChange={handleChange}
                     style={{ paddingRight: "2.25rem" }}
                   />
-                  <div className="input-suffix-end">
-                    <span className="cursor-pointer text-xl">
-                      <svg
-                        stroke="currentColor"
-                        fill="none"
-                        strokeWidth="0"
-                        viewBox="0 0 24 24"
-                        height="1em"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
-                        ></path>
-                      </svg>
+                  <div className="input-suffix-end flex justify-center items-center h-full">
+                    <span className="cursor-pointer text-xl mb-0">
+                      {showconfirmPassword ? (
+                        <AiFillEye
+                          className="eye-icon-fill"
+                          onClick={() => setShowconfirmPassword(false)}
+                        />
+                      ) : (
+                        <AiOutlineEyeInvisible
+                          className="eye-icon-line"
+                          onClick={() => setShowconfirmPassword(true)}
+                        />
+                      )}
                     </span>
                   </div>
                 </span>
               </div>
             </div>
-            <div className="flex justify-between mb-6"></div>
             <Button
               className="button bg-green-600 hover:bg-green-500 active:bg-green-700 text-white radius-round h-11 px-8 py-2 w-full"
-              onClick={handleSignUp}
+              onClick={()=>handleSignUp()}
             >
               Register
             </Button>
@@ -157,6 +160,7 @@ const SignupForm = () => {
           {/* </form> */}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
