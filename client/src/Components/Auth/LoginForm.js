@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import Social from "../../Styles/Social";
 import { Button } from "../../Styles/Button";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // Redux
 import { signIn } from "../../Redux/Reducer/Auth/auth.action";
@@ -12,6 +12,7 @@ import ShowPasswordToggle from "../ShowPasswordToggle";
 
 const LoginForm = () => {
   const [Icon, InputType] = ShowPasswordToggle();
+  const user = useSelector((globalState) =>  globalState.user.userDetails );
 
 
   const [userData, setUserData] = useState({
@@ -25,7 +26,7 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // console.log(userData);
+
   
   const handleLogin = () => {
     if (userData.email && userData.password){

@@ -13,11 +13,6 @@ const SignupForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showconfirmPassword, setShowconfirmPassword] = useState(false);
 
-  const userRegistered = () => {
-    
-
-  };
-
   const [userData, setUserData] = useState({
     name: "",
     email: "",

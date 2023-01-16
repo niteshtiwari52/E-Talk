@@ -41,15 +41,11 @@ const ChatMenu = () => {
     dispatch(fetchUser(search));
   };
 
-  const createNewChat = async (item, index) => {
-    if (searchResult[index].id === item.id) {
-      toast.error("contact already exist");
-    } else {
+  const createNewChat = async (item) => {
       toast.success("contact successfully added");
       await dispatch(createChat(item._id));
       await dispatch(fetchChats());
       await dispatch(toggleTab(3));
-    }
   };
 
   return (
