@@ -12,6 +12,7 @@ const Header = () => {
         </div>
     </NavLink>
     <Nav/>
+    
     </MainHeader>
   )
 }

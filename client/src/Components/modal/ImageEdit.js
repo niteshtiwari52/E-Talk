@@ -7,7 +7,6 @@ function ImageEdit() {
     const user = useSelector((globalState) => globalState.user.userDetails);
     let [isOpen, setIsOpen] = useState(false);
     const [image, setImage] = useState(null);
-    console.log(image)
 
   function closeModal() {
     setIsOpen(false);
