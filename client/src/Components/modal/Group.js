@@ -11,6 +11,7 @@ import {
 } from "../../Redux/Reducer/Chat/chat.action";
 import { AiOutlinePlus } from "react-icons/ai";
 import { toggleTab } from "../../Redux/Reducer/Tab/tabAction";
+import { ToastContainer, toast } from "react-toastify";
 
 const Group = () => {
   const dispatch = useDispatch();
@@ -21,20 +22,6 @@ const Group = () => {
   const [searchResult, setSearchResult] = useState([]);
 
   const result = useSelector((globalState) => globalState.chat.newUser);
-
-  useEffect(() => {
-    // console.log(selectedUser);
-
-    setSearchResult(result);
-  }, [result, selectedUser]);
-
-  useEffect(() => {
-    if (!search) {
-      dispatch(fetchUserClear());
-      return;
-    }
-    dispatch(fetchUser(search));
-  }, [search]);
 
   function closeModal() {
     setGroupChatName("")
@@ -50,7 +37,8 @@ const Group = () => {
 
   const addUserTogroup = (userToAdd) => {
     if (selectedUser.includes(userToAdd)) {
-      alert(`${userToAdd.name} already added`);
+      toast.error(`${userToAdd.name} already added`,{
+        autoClose: 1000,});
       return;
     }
 
@@ -70,7 +58,8 @@ const Group = () => {
       users: JSON.stringify(selectedUser.map((user) => user._id)),
     };
     if (!groupInfo.name || JSON.parse(groupInfo.users).length < 2) {
-      alert("please provide Group Name and  at least 2 users");
+      toast.error("Please provide Group Name and at least 2 users",{
+        autoClose: 1000,});
       return;
     }
     await dispatch(createGroupChat(groupInfo));
@@ -94,14 +83,27 @@ const Group = () => {
   //   dispatch(fetchUser(search));
   // };
 
+  useEffect(() => {
+    // console.log(selectedUser);
+
+    setSearchResult(result);
+  }, [result, selectedUser]);
+
+  useEffect(() => {
+    if (!search) {
+      dispatch(fetchUserClear());
+      return;
+    }
+    dispatch(fetchUser(search));
+  }, [search]);
+
   return (
     <>
-      {" "}
       <div className="group-icon rounded-full p-2 " onClick={() => openModal()}>
         <BiGroup className="icon text-2xl cursor-pointer" />
       </div>
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+      <Transition className="box" appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="dialog-box relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -114,8 +116,8 @@ const Group = () => {
             <div className="fixed inset-0 bg-black bg-opacity-25" />
           </Transition.Child>
 
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
+          <div className="dialog-wrapper fixed inset-0 overflow-y-auto">
+            <div className="dialog-container flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -125,7 +127,7 @@ const Group = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="dialog-panel w-full max-w-md transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
                     className="text-lg text-center font-medium leading-6 text-gray-900"
@@ -164,7 +166,7 @@ const Group = () => {
                           type="text"
                           id="base-input"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          placeholder="Add User e.g. you , John , Jane"
+                          placeholder="Add User e.g. John , Jane"
                           value={search}
                           onChange={(e) => setSearch(e.target.value)}
                         />
@@ -212,11 +214,12 @@ const Group = () => {
                         </div>
 
                         {/* searched user render */}
-                        <div className="my-4">
+                        <div className="user-list my-4 overflow-y-scroll">
+                        <div className="h-full">
                           {searchResult.length !== 0 ? (
                             searchResult.map((item, index) => (
                               <li className="px-2 py-2 " key={item._id}>
-                                <div className="search-user-box flex items-center">
+                                <div className="search-user-box relative flex justify-between items-center">
                                   <div className="profile absolute left-0 ">
                                     <img
                                       className="w-12 h-12 rounded-full"
@@ -240,8 +243,11 @@ const Group = () => {
                               </li>
                             ))
                           ) : (
-                            <></>
+                            <><div className={search == "" && searchResult.length === 0  ? "hidden" : "text-center"}>
+                            <span className="text-gray-500">No Contact Found</span>
+                            </div></>
                           )}
+                        </div>
                         </div>
                       </div>
                     </div>
@@ -250,7 +256,7 @@ const Group = () => {
                   <div className="modal-footer flex justify-end mt-3">
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent  px-4 py-2 text-sm font-medium text-cyan-500 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="close-btn mr-4 inline-flex justify-center rounded-md border border-transparent  px-4 py-2 text-sm font-medium text-cyan-500  focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
                       Close
@@ -273,5 +279,7 @@ const Group = () => {
     </>
   );
 };
+
+
 
 export default Group;

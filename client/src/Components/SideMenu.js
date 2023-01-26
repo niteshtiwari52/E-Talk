@@ -114,7 +114,7 @@ const SideMenu = () => {
                   onClick={() => activeTab(index+1)}
                 >
 
-                  <div to={items.title} className={index === 2 && tabIndex === 0 ? "nav-link active" : (tabIndex === (index + 1) ? "nav-link active" : "nav-link")}>
+                  <div to={items.title} className={index === 2 && tabIndex === 0 ? "nav-link active" : (tabIndex === (index + 1) ? "nav-link active" : "nav-link")} onClick={() => setMenuIcon(false)}>
 
                     <items.icon className="icon" />
                   </div>
@@ -273,7 +273,7 @@ const Wrapper = styled.section`
     .active .side-menu-bar {
       transform: translateX(0%);
       transform-origin: left;
-      transition: all 1s linear;
+      transition: all 0.5s linear;
     }
     .mobile-navbar {
       position: relative;

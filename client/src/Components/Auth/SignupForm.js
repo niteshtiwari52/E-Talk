@@ -13,11 +13,6 @@ const SignupForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showconfirmPassword, setShowconfirmPassword] = useState(false);
 
-  const userRegistered = () => {
-    
-
-  };
-
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -38,7 +33,9 @@ const SignupForm = () => {
     if(userData.email && userData.password && userData.name && userData.confirmPassword){
       dispatch(signUp(userData));
     }else{
-      toast.error("Please Fill the Data");
+      toast.error("Please Fill the Data",{
+        autoClose: 1000,
+      });
     }
     // dispatch(getMySelf());
 

@@ -21,9 +21,8 @@ const Default = () => {
           </>
         )}
 
-        <div className="flex justify-center items-center">
+        <div className={SearchOpen ? "flex justify-center items-center w-full" : "flex justify-center items-center" }>
           <Searchbar State={SearchOpen} setState={setSearchOpen} />
-
           <Group />
         </div>
       </div>

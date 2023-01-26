@@ -1,19 +1,19 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import { Button } from "../Styles/Button";
 import { BiDotsHorizontalRounded, BiSmile } from "react-icons/bi";
 import { IoMdSend } from "react-icons/io";
 import Dropdown from "./Dropdown";
-import { useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 import { createRef } from "react";
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getSender, getSenderPic } from "../HelperFunction/chat.Helper";
 
 const ChatWindow = () => {
   const inputRef = createRef();
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState([]);
+
+
   const [showEmojis, setShowEmojis] = useState(false);
   const [cursorPosition, setCursorPosition] = useState();
   const [sender, setSender] = useState();
@@ -36,10 +36,6 @@ const ChatWindow = () => {
   const handleShowEmojis = () => {
     setShowEmojis(!showEmojis);
   };
-  // useEffect(() => {
-  //   inputRef.current.selectionEnd = cursorPosition;
-  //   eslint - disable - next - line;
-  // }, [cursorPosition]);
 
   useEffect(() => {
     setSender(senderUser);
@@ -52,332 +48,332 @@ const ChatWindow = () => {
 
   return (
     <Wrapper>
-      {!sender ? (
-        <>
-          <div className="chat-welcome-section overflow-x-hidden flex justify-center items-center">
-            <div className="flex justify-center items-center p-4">
-              <div className="w-1/2 flex flex-col justify-center items-center text-center">
-                <div className="avatar mx-auto mb-4">
-                  <div className=" rounded-full">
-                    <img src="./images/logo2.png" alt="logo" className="w-10" />
-                  </div>
+    {!sender ? (
+      <>
+        <div className="chat-welcome-section overflow-x-hidden flex justify-center items-center">
+          <div className="flex justify-center items-center p-4">
+            <div className="w-1/2 flex flex-col justify-center items-center text-center">
+              <div className="avatar mx-auto mb-4">
+                <div className=" rounded-full">
+                  <img src="./images/logo2.png" alt="logo" className="w-10" />
                 </div>
-                <h4>Welcome to E-Talk Chat App</h4>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Deserunt sint optio iusto quia libero inventore tempora nisi
-                  porro maxime labore!
-                </p>
-                <Button>Get Started</Button>
               </div>
+              <h4>Welcome to E-Talk Chat App</h4>
+              <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Deserunt sint optio iusto quia libero inventore tempora nisi
+                porro maxime labore!
+              </p>
+              <Button>Get Started</Button>
             </div>
           </div>
-        </>
-      ) : (
-        <>
-          <div className="chat-content flex">
-            <div className="w-full h-full position-relative">
-              <div className="user-chat-topbar p-3 p-lg-4 absolute">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <div className="chat-avatar mr-4">
+        </div>
+      </>
+    ) : (
+      <>
+        <div className="chat-content flex">
+          <div className="w-full h-full position-relative">
+            <div className="user-chat-topbar p-3 p-lg-4 absolute">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <div className="chat-avatar mr-4">
+                    <img
+                      // src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
+                      src={
+                        !sender.isGroupChat
+                          ? getSenderPic(loggedUser, sender.users)
+                          : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6wQvepXb0gM_Ft1QUOs6UyYJjPOmA-gq5Yw&usqp=CAU"
+                      }
+                      alt="profile"
+                      className=" w-12 h-12 rounded-full"
+                    />
+                  </div>
+                  <div className="overflow-hidden">
+                    <h6 className="mb-0">
+                      {sender.isGroupChat
+                        ? sender.chatName
+                        : getSender(loggedUser, sender.users)}
+                    </h6>
+                    <p className="mb-0 truncate">
+                      {/* status to be set later */}
+                      <small>
+                        {sender.isGroupChat ? (
+                          sender.users.map((item) => item.name + " ")
+                        ) : (
+                          <>Active</>
+                        )}
+                      </small>
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center">
+                  <div className="dropdown relative">
+                    <Dropdown />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="chat-conversation p-3 p-lg-4">
+              <ul className="chat-conversation-list">
+                <li className="chat-list">
+                  <div className="conversation-list">
+                    <div className="chat-avatar mr-4 ">
                       <img
-                        // src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
-                        src={
-                          !sender.isGroupChat
-                            ? getSenderPic(loggedUser, sender.users)
-                            : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6wQvepXb0gM_Ft1QUOs6UyYJjPOmA-gq5Yw&usqp=CAU"
-                        }
-                        alt="profile"
-                        className=" w-12 h-12 rounded-full"
+                        src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
+                        alt=""
+                        className="rounded-full"
                       />
                     </div>
-                    <div className="overflow-hidden">
-                      <h6 className="mb-0">
-                        {sender.isGroupChat
-                          ? sender.chatName
-                          : getSender(loggedUser, sender.users)}
-                      </h6>
-                      <p className="mb-0 truncate">
-                        {/* status to be set later */}
-                        <small>
-                          {sender.isGroupChat ? (
-                            sender.users.map((item) => item.name + " ")
-                          ) : (
-                            <>Active</>
-                          )}
-                        </small>
-                      </p>
+                    <div className="user-chat-content">
+                      <div className="flex mb-3">
+                        <div className="chat-wrap-content">
+                          <span className="mb-0 chat-content text-sm text-left">
+                            Hey, I'm going to meet a friend of mine at the
+                            department store. I have to buy some presents for
+                            my parents 🎁
+                          </span>
+                        </div>
+                      </div>
+                      <div className="conversation-name">
+                        Nitesh
+                        <small className="ml-2 mb-0">06:00 PM</small>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex items-center">
-                    <div className="dropdown relative">
-                      <Dropdown />
+                </li>
+                <li className="chat-list right">
+                  <div className="conversation-list">
+                    <div className="chat-avatar mr-4 ">
+                      <img
+                        src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
+                        alt=""
+                        className="rounded-full"
+                      />
+                    </div>
+                    <div className="user-chat-content">
+                      <div className="flex mb-3">
+                        <div className="chat-wrap-content">
+                          <span className="mb-0 chat-content text-sm text-left">
+                            Good morning, How are you? What about our next
+                            meeting?
+                          </span>
+                        </div>
+                      </div>
+                      <div className="conversation-name">
+                        Narender
+                        <small className="ml-2 mb-0">06:00 PM</small>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li className="chat-list">
+                  <div className="conversation-list">
+                    <div className="chat-avatar mr-4 ">
+                      <img
+                        src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
+                        alt=""
+                        className="rounded-full"
+                      />
+                    </div>
+                    <div className="user-chat-content">
+                      <div className="flex mb-3">
+                        <div className="chat-wrap-content">
+                          <span className="mb-0 chat-content text-sm text-left">
+                            Hey, I'm going to meet a friend of mine at the
+                            department store. I have to buy some presents for
+                            my parents 🎁
+                          </span>
+                        </div>
+                      </div>
+                      <div className="conversation-name">
+                        Nitesh
+                        <small className="ml-2 mb-0">06:00 PM</small>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li className="chat-list right">
+                  <div className="conversation-list">
+                    <div className="chat-avatar mr-4 ">
+                      <img
+                        src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
+                        alt=""
+                        className="rounded-full"
+                      />
+                    </div>
+                    <div className="user-chat-content">
+                      <div className="flex mb-3">
+                        <div className="chat-wrap-content">
+                          <span className="mb-0 chat-content text-sm text-left">
+                            Good morning, How are you? What about our next
+                            meeting?
+                          </span>
+                        </div>
+                      </div>
+                      <div className="conversation-name">
+                        Narender
+                        <small className="ml-2 mb-0">06:00 PM</small>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li className="chat-list">
+                  <div className="conversation-list">
+                    <div className="chat-avatar mr-4 ">
+                      <img
+                        src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
+                        alt=""
+                        className="rounded-full"
+                      />
+                    </div>
+                    <div className="user-chat-content">
+                      <div className="flex mb-3">
+                        <div className="chat-wrap-content">
+                          <span className="mb-0 chat-content text-sm text-left">
+                            Hey, I'm going to meet a friend of mine at the
+                            department store. I have to buy some presents for
+                            my parents 🎁
+                          </span>
+                        </div>
+                      </div>
+                      <div className="conversation-name">
+                        Nitesh
+                        <small className="ml-2 mb-0">06:00 PM</small>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li className="chat-list right">
+                  <div className="conversation-list">
+                    <div className="chat-avatar mr-4 ">
+                      <img
+                        src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
+                        alt=""
+                        className="rounded-full"
+                      />
+                    </div>
+                    <div className="user-chat-content">
+                      <div className="flex mb-3">
+                        <div className="chat-wrap-content">
+                          <span className="mb-0 chat-content text-sm text-left">
+                            Good morning, How are you? What about our next
+                            meeting?
+                          </span>
+                        </div>
+                      </div>
+                      <div className="conversation-name">
+                        Narender
+                        <small className="ml-2 mb-0">06:00 PM</small>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li className="chat-list">
+                  <div className="conversation-list">
+                    <div className="chat-avatar mr-4 ">
+                      <img
+                        src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
+                        alt=""
+                        className="rounded-full"
+                      />
+                    </div>
+                    <div className="user-chat-content">
+                      <div className="flex mb-3">
+                        <div className="chat-wrap-content">
+                          <span className="mb-0 chat-content text-sm text-left">
+                            Hey, I'm going to meet a friend of mine at the
+                            department store. I have to buy some presents for
+                            my parents 🎁
+                          </span>
+                        </div>
+                      </div>
+                      <div className="conversation-name">
+                        Nitesh
+                        <small className="ml-2 mb-0">06:00 PM</small>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li className="chat-list right">
+                  <div className="conversation-list">
+                    <div className="chat-avatar mr-4 ">
+                      <img
+                        src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
+                        alt=""
+                        className="rounded-full"
+                      />
+                    </div>
+                    <div className="user-chat-content">
+                      <div className="flex mb-3">
+                        <div className="chat-wrap-content">
+                          <span className="mb-0 chat-content text-sm text-left">
+                            Good morning, How are you? What about our next
+                            meeting?
+                          </span>
+                        </div>
+                      </div>
+                      <div className="conversation-name">
+                        Narender
+                        <small className="ml-2 mb-0">06:00 PM</small>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div className="chat-input-section p-5 p-lg-6">
+              <form action="">
+                <div className="flex justify-between items-center">
+                  <div className="chat-input flex">
+                    <div className="links-list-item">
+                      <div className="btn">
+                        <BiDotsHorizontalRounded />
+                      </div>
+                    </div>
+                    <div className="links-list-item">
+                      <div className="btn">
+                        <BiSmile onClick={handleShowEmojis} title="emoji" />
+                        {showEmojis && (
+                          <div className="emoji-picker">
+                            <EmojiPicker
+                              onEmojiClick={pickEmoji}
+                              autoFocusSearch={false}
+                            />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="position-relative w-full">
+                    <input
+                      placeholder="Type Your message..."
+                      autoComplete="off"
+                      id="chat-input"
+                      className="w-full py-3 px-5 focus:outline-none"
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      ref={inputRef}
+                    />
+                  </div>
+
+                  <div className="chat-input-links ml-2">
+                    <div className="links-list-items ml-5 ">
+                      <Button className="btn submit-btn flex justify-center items-center">
+                        <IoMdSend />
+                      </Button>
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="chat-conversation p-3 p-lg-4">
-                <ul className="chat-conversation-list">
-                  <li className="chat-list">
-                    <div className="conversation-list">
-                      <div className="chat-avatar mr-4 ">
-                        <img
-                          src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
-                          alt=""
-                          className="rounded-full"
-                        />
-                      </div>
-                      <div className="user-chat-content">
-                        <div className="flex mb-3">
-                          <div className="chat-wrap-content">
-                            <span className="mb-0 chat-content text-sm text-left">
-                              Hey, I'm going to meet a friend of mine at the
-                              department store. I have to buy some presents for
-                              my parents 🎁
-                            </span>
-                          </div>
-                        </div>
-                        <div className="conversation-name">
-                          Nitesh
-                          <small className="ml-2 mb-0">06:00 PM</small>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="chat-list right">
-                    <div className="conversation-list">
-                      <div className="chat-avatar mr-4 ">
-                        <img
-                          src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
-                          alt=""
-                          className="rounded-full"
-                        />
-                      </div>
-                      <div className="user-chat-content">
-                        <div className="flex mb-3">
-                          <div className="chat-wrap-content">
-                            <span className="mb-0 chat-content text-sm text-left">
-                              Good morning, How are you? What about our next
-                              meeting?
-                            </span>
-                          </div>
-                        </div>
-                        <div className="conversation-name">
-                          Narender
-                          <small className="ml-2 mb-0">06:00 PM</small>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="chat-list">
-                    <div className="conversation-list">
-                      <div className="chat-avatar mr-4 ">
-                        <img
-                          src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
-                          alt=""
-                          className="rounded-full"
-                        />
-                      </div>
-                      <div className="user-chat-content">
-                        <div className="flex mb-3">
-                          <div className="chat-wrap-content">
-                            <span className="mb-0 chat-content text-sm text-left">
-                              Hey, I'm going to meet a friend of mine at the
-                              department store. I have to buy some presents for
-                              my parents 🎁
-                            </span>
-                          </div>
-                        </div>
-                        <div className="conversation-name">
-                          Nitesh
-                          <small className="ml-2 mb-0">06:00 PM</small>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="chat-list right">
-                    <div className="conversation-list">
-                      <div className="chat-avatar mr-4 ">
-                        <img
-                          src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
-                          alt=""
-                          className="rounded-full"
-                        />
-                      </div>
-                      <div className="user-chat-content">
-                        <div className="flex mb-3">
-                          <div className="chat-wrap-content">
-                            <span className="mb-0 chat-content text-sm text-left">
-                              Good morning, How are you? What about our next
-                              meeting?
-                            </span>
-                          </div>
-                        </div>
-                        <div className="conversation-name">
-                          Narender
-                          <small className="ml-2 mb-0">06:00 PM</small>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="chat-list">
-                    <div className="conversation-list">
-                      <div className="chat-avatar mr-4 ">
-                        <img
-                          src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
-                          alt=""
-                          className="rounded-full"
-                        />
-                      </div>
-                      <div className="user-chat-content">
-                        <div className="flex mb-3">
-                          <div className="chat-wrap-content">
-                            <span className="mb-0 chat-content text-sm text-left">
-                              Hey, I'm going to meet a friend of mine at the
-                              department store. I have to buy some presents for
-                              my parents 🎁
-                            </span>
-                          </div>
-                        </div>
-                        <div className="conversation-name">
-                          Nitesh
-                          <small className="ml-2 mb-0">06:00 PM</small>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="chat-list right">
-                    <div className="conversation-list">
-                      <div className="chat-avatar mr-4 ">
-                        <img
-                          src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
-                          alt=""
-                          className="rounded-full"
-                        />
-                      </div>
-                      <div className="user-chat-content">
-                        <div className="flex mb-3">
-                          <div className="chat-wrap-content">
-                            <span className="mb-0 chat-content text-sm text-left">
-                              Good morning, How are you? What about our next
-                              meeting?
-                            </span>
-                          </div>
-                        </div>
-                        <div className="conversation-name">
-                          Narender
-                          <small className="ml-2 mb-0">06:00 PM</small>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="chat-list">
-                    <div className="conversation-list">
-                      <div className="chat-avatar mr-4 ">
-                        <img
-                          src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
-                          alt=""
-                          className="rounded-full"
-                        />
-                      </div>
-                      <div className="user-chat-content">
-                        <div className="flex mb-3">
-                          <div className="chat-wrap-content">
-                            <span className="mb-0 chat-content text-sm text-left">
-                              Hey, I'm going to meet a friend of mine at the
-                              department store. I have to buy some presents for
-                              my parents 🎁
-                            </span>
-                          </div>
-                        </div>
-                        <div className="conversation-name">
-                          Nitesh
-                          <small className="ml-2 mb-0">06:00 PM</small>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="chat-list right">
-                    <div className="conversation-list">
-                      <div className="chat-avatar mr-4 ">
-                        <img
-                          src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
-                          alt=""
-                          className="rounded-full"
-                        />
-                      </div>
-                      <div className="user-chat-content">
-                        <div className="flex mb-3">
-                          <div className="chat-wrap-content">
-                            <span className="mb-0 chat-content text-sm text-left">
-                              Good morning, How are you? What about our next
-                              meeting?
-                            </span>
-                          </div>
-                        </div>
-                        <div className="conversation-name">
-                          Narender
-                          <small className="ml-2 mb-0">06:00 PM</small>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="chat-input-section p-5 p-lg-6">
-                <form action="">
-                  <div className="flex justify-between items-center">
-                    <div className="chat-input flex">
-                      <div className="links-list-item">
-                        <div className="btn">
-                          <BiDotsHorizontalRounded />
-                        </div>
-                      </div>
-                      <div className="links-list-item">
-                        <div className="btn">
-                          <BiSmile onClick={handleShowEmojis} title="emoji" />
-                          {showEmojis && (
-                            <div className="emoji-picker">
-                              <EmojiPicker
-                                onEmojiClick={pickEmoji}
-                                autoFocusSearch={false}
-                              />
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="position-relative w-full">
-                      <input
-                        placeholder="Type Your message..."
-                        autoComplete="off"
-                        id="chat-input"
-                        className="w-full py-3 px-5 focus:outline-none"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        ref={inputRef}
-                      />
-                    </div>
-
-                    <div className="chat-input-links ml-2">
-                      <div className="links-list-items ml-5 ">
-                        <Button className="btn submit-btn flex justify-center items-center">
-                          <IoMdSend />
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
+              </form>
             </div>
           </div>
-        </>
-      )}
-    </Wrapper>
+        </div>
+      </>
+    )}
+  </Wrapper>
   );
 };
 

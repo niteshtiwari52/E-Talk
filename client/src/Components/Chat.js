@@ -4,10 +4,11 @@ import styled from "styled-components";
 import ChatMenu from "./ChatMenu";
 import ChatWindow from "./ChatWindow";
 import SideMenu from "./SideMenu";
-
+import { ToastContainer} from "react-toastify";
 const Chat = () => {
   return (
     <>
+     <ToastContainer />
       <Wrapper className="flex justify-start w-full">
         <SideMenu />
         <ChatMenu />
