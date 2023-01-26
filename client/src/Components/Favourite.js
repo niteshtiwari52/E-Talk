@@ -10,13 +10,15 @@ const Favourite = () => {
         </div>
         <div className="icon text-right"></div>
       </div>
-      <div className="details"></div>
+      <div className="details">
+        <p className="text-center">This Feature will be available Soon</p>
+      </div>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
- animation: fadeInLeft 1s;
+  animation: fadeInLeft 1s;
 `;
 
 export default Favourite;

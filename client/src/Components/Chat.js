@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import ChatMenu from "./ChatMenu";
@@ -10,18 +10,16 @@ const Chat = () => {
     <>
      <ToastContainer />
       <Wrapper className="flex justify-start w-full">
-       <SideMenu  />
-       <ChatMenu  />
-       <ChatWindow />
-
-       
+        <SideMenu />
+        <ChatMenu />
+        <ChatWindow />
       </Wrapper>
     </>
   );
 };
 const Wrapper = styled.section`
-     overflow: hidden;
-     height: 100vh;
-`
+  overflow: hidden;
+  height: 100vh;
+`;
 
 export default Chat;
