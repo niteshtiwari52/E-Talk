@@ -1,5 +1,10 @@
 import axios from "axios";
-import { FETCH_CHATS, FETCH_USER, FETCH_USER_CLEAR } from "./chat.type";
+import {
+  FETCH_CHATS,
+  FETCH_USER,
+  FETCH_USER_CLEAR,
+  SELECT_CHAT,
+} from "./chat.type";
 
 // fetching all the chats for a particaular user
 export const fetchChats = () => async (dispatch) => {
@@ -70,6 +75,31 @@ export const createGroupChat = (groupInfo) => async (dispatch) => {
     return dispatch({
       type: "CREAT_GROUP_CHAT",
       payload: newCreatedGroupChat.data,
+    });
+  } catch (error) {
+    return dispatch({ type: "ERROR", payload: error });
+  }
+};
+
+// selected chat
+
+export const selectChatAction = (item) => async (dispatch) => {
+  try {
+    return dispatch({
+      type: "SELECT_CHAT",
+      payload: item,
+    });
+  } catch (error) {
+    return dispatch({ type: "ERROR", payload: error });
+  }
+};
+// clear selected chat
+
+export const clearSelectChatAction = () => async (dispatch) => {
+  try {
+    return dispatch({
+      type: "CLEAR_SELECT_CHAT",
+      payload: "",
     });
   } catch (error) {
     return dispatch({ type: "ERROR", payload: error });

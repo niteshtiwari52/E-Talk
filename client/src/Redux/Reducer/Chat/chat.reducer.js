@@ -1,16 +1,19 @@
 import { fetchUser } from "./chat.action";
 import {
+  CLEAR_SELECT_CHAT,
   CREATE_CHAT,
   CREATE_GROUP_CHAT,
   FETCH_CHATS,
   FETCH_USER,
   FETCH_USER_CLEAR,
+  SELECT_CHAT,
 } from "./chat.type";
 const initialState = {
   chats: [],
   newUser: [],
   createdChat: {},
   createdGroupChat: {},
+  selectedChat: {},
 };
 
 const chatReducer = (state = initialState, action) => {
@@ -43,6 +46,17 @@ const chatReducer = (state = initialState, action) => {
       return {
         ...state,
         createdGroupChat: action.payload,
+      };
+
+    case SELECT_CHAT:
+      return {
+        ...state,
+        selectedChat: action.payload,
+      };
+    case CLEAR_SELECT_CHAT:
+      return {
+        ...state,
+        selectedChat: action.payload,
       };
 
     default:
