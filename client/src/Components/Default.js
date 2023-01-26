@@ -5,7 +5,6 @@ import UserList from "./UserList";
 
 import Group from "./modal/Group";
 
-
 const Default = () => {
   const [SearchOpen, setSearchOpen] = useState(false);
   return (
@@ -22,24 +21,20 @@ const Default = () => {
           </>
         )}
 
-        <div className="flex justify-center items-center">
-        <Searchbar State={SearchOpen} setState={setSearchOpen} />
-
-
-        <Group />
-
+        <div className={SearchOpen ? "flex justify-center items-center w-full" : "flex justify-center items-center" }>
+          <Searchbar State={SearchOpen} setState={setSearchOpen} />
+          <Group />
         </div>
       </div>
 
       {/* User list  */}
       <UserList />
-      
     </Wrapper>
   );
 };
 const Wrapper = styled.div`
   animation: fadeInLeft 1s;
-  .group-icon{
+  .group-icon {
     &:hover {
       background-color: ${({ theme }) => theme.colors.bg.secondary};
     }

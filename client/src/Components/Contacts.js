@@ -43,7 +43,7 @@ const Contacts = ({
           <div className="my-4">
             {searchResult.length !== 0 ? (
               searchResult.map((item, index) => (
-                <li className="px-2 sm:px-24 lg:px-2 py-2 " key={index}>
+                <li className="px-2 lg:px-2 py-2 " key={index}>
                   <div className="search-user-box flex items-center">
                     <div className="profile absolute left-0 ">
                       <img
@@ -59,19 +59,25 @@ const Contacts = ({
                       </h2>
                     </div>
 
-                    <div className="user-add flex justify-center items-center cursor-pointer rounded-full p-2">
-                      <AiOutlinePlus
-                        title="Add"
-                        onClick={() => createNewChat(item, index)}
-                      />
+                    <div
+                      className="user-add flex justify-center items-center cursor-pointer rounded-full p-2"
+                      onClick={() => createNewChat(item, index)}
+                    >
+                      <AiOutlinePlus title="Add" />
                     </div>
                   </div>
                 </li>
               ))
             ) : (
               <>
-                <div className="text-center w-full">
-                  <span className="text-gray-500 mr-10">Search User</span>
+                <div
+                  className={
+                    search == "" && searchResult.length == 0
+                      ? "hidden"
+                      : "text-center w-full"
+                  }
+                >
+                  <span className="text-gray-500 mr-10">User Not Found</span>
                 </div>
               </>
             )}

@@ -33,7 +33,9 @@ const SignupForm = () => {
     if(userData.email && userData.password && userData.name && userData.confirmPassword){
       dispatch(signUp(userData));
     }else{
-      toast.error("Please Fill the Data");
+      toast.error("Please Fill the Data",{
+        autoClose: 1000,
+      });
     }
     // dispatch(getMySelf());
 

@@ -22,10 +22,56 @@ export const GlobalStyle = createGlobalStyle`
   box-shadow: inset 0 0 6px ${({ theme }) => theme.colors.border};
 }
 .App{
+  position: relative;
   background-color: ${({ theme }) => theme.colors.bg.secondary};
   color: ${({ theme }) => theme.colors.heading}
 }
-  
+
+.box{
+  position: absolute;
+  z-index: 100;
+}
+
+.dialog-wrapper {
+  .dialog-container{
+    background-color: rgba(${({ theme }) => theme.colors.border},0.5)
+  }
+  .dialog-panel{
+  background-color: ${({ theme }) => theme.colors.bg.primary};
+  .user-list{
+      max-height: 190px;
+    }
+  .search-user-box {
+    .profile {
+        position: absolute;
+        left: 0;
+        width: 50px;
+        height: 50px;
+      }
+      .details {
+        padding: 12px 12px 12px 60px;
+        }
+        .user-add{
+          color: ${({ theme }) => theme.colors.heading};
+          &:hover{
+            background-color: ${({ theme }) => theme.colors.bg.secondary};
+          }
+        }
+  }
+  .close-btn{
+    &:hover{
+      color: black;
+      background-color: rgb(6, 182, 212);
+    }
+  }
+  h3,h5,label{
+    color: ${({ theme }) => theme.colors.heading}
+  }
+  input{
+    background-color: ${({ theme }) => theme.colors.bg.secondary};
+  }
+}
+  }
   button,
   input,
   label,

@@ -6,7 +6,7 @@ import { Button } from '../Styles/Button';
 import Toggler from './Toggler';
 
 function Nav() {
-    const [menuIcon, setMenuIcon] = useState();
+    const [menuIcon, setMenuIcon] = useState(false);
   return (
     <Navbar>
     <div className={menuIcon ? "navbar active" : "navbar"}>

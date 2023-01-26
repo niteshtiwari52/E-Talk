@@ -30,7 +30,6 @@ import { getSender, getSenderPic } from "../HelperFunction/chat.Helper";
     
 
   const handleClick = (item) => {
-   
     setSelectedChat(item);
     console.log(item)
     console.log(item._id)
@@ -100,7 +99,7 @@ import { getSender, getSenderPic } from "../HelperFunction/chat.Helper";
                    {chat[index].users.length > 3 ? <div
                       className="flex items-center justify-center w-8 h-8 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800"
                     >
-                      {chat[index].users.length - 3}
+                      {`+${chat[index].users.length - 3}`}
                     </div> : <></>}
                   </div>
                   :  <></>

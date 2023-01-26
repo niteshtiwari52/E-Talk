@@ -13,17 +13,18 @@ import {
   fetchChats,
   fetchUser,
 } from "../Redux/Reducer/Chat/chat.action";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const ChatMenu = () => {
-  const tabIndex = useSelector((state) => state.tabReducer);
-
-  const dispatch = useDispatch();
-
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
 
+  const tabIndex = useSelector((state) => state.tabReducer);
   const result = useSelector((globalState) => globalState.chat.newUser);
+
+  // const chat = useSelector((globalState) => globalState.chat.chats);
+
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setSearch(e.target.value);
@@ -35,14 +36,18 @@ const ChatMenu = () => {
 
   const handleClick = () => {
     if (!search) {
-      toast.warning("Please Enter valid Email or Name");
+      toast.warning("Please Enter valid Email or Name", {
+        autoClose: 1000,
+      });
       return;
     }
     dispatch(fetchUser(search));
   };
 
   const createNewChat = async (item) => {
-    toast.success("contact successfully added");
+    toast.success("contact successfully added", {
+      autoClose: 1000,
+    });
     await dispatch(createChat(item._id));
     await dispatch(fetchChats());
     await dispatch(toggleTab(3));
@@ -50,7 +55,6 @@ const ChatMenu = () => {
 
   return (
     <>
-      <ToastContainer />
       <Wrapper className="chat-menu-section ">
         <div className="tab-content">
           <div className={tabIndex === 1 ? "tab-pane active" : "tab-pane "}>
@@ -115,6 +119,7 @@ const Wrapper = styled.section`
       }
     }
     .icon {
+      font-size: 1.5rem;
       color: ${({ theme }) => theme.colors.heading};
     }
     .search-icon {
@@ -134,6 +139,9 @@ const Wrapper = styled.section`
     min-width: 100vw;
     .chat-menu {
       padding: 2rem 1.5rem;
+      .icon {
+        font-size: 2rem;
+      }
     }
     input {
       font-size: 1.5rem;

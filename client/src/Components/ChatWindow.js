@@ -1,18 +1,20 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import { Button } from "../Styles/Button";
 import { BiDotsHorizontalRounded, BiSmile } from "react-icons/bi";
 import { IoMdSend } from "react-icons/io";
 import Dropdown from "./Dropdown";
-import { useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 import { createRef } from "react";
-import { useEffect } from "react";
+
+
 
 
 const ChatWindow = () => {
   const inputRef = createRef();
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState([]);
+
+
   const [showEmojis, setShowEmojis] = useState(false);
   const [cursorPosition, setCursorPosition] = useState();
 
@@ -29,15 +31,19 @@ const ChatWindow = () => {
   const handleShowEmojis = () =>{
     setShowEmojis(!showEmojis);
   }
+
+  
+
   // useEffect(()=>{
   //   inputRef.current.selectionEnd = cursorPosition;
   //   // eslint-disable-next-line
   // },[cursorPosition])
+
   return (
     <Wrapper>
 
 
-      <div className="chat-welcome-section overflow-x-hidden flex justify-center items-center">
+      {/* <div className="chat-welcome-section overflow-x-hidden flex justify-center items-center">
         <div className="flex justify-center items-center p-4">
            <div className="w-1/2 flex flex-col justify-center items-center text-center">
            <div className="avatar mx-auto mb-4">
@@ -54,7 +60,7 @@ const ChatWindow = () => {
           <Button>Get Started</Button>
            </div>
         </div>
-      </div>
+      </div> */}
 
       
       {/* <div className="chat-content flex">
@@ -332,7 +338,7 @@ const ChatWindow = () => {
 
                 <div className="chat-input-links ml-2">
                   <div className="links-list-items ml-5 ">
-                    <Button className="btn submit-btn flex justify-center items-center">
+                    <Button className="btn submit-btn flex justify-center items-center" onClick={sendMeassage}>
                       <IoMdSend />
                     </Button>
                   </div>

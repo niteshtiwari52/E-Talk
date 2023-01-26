@@ -38,7 +38,9 @@ const LoginForm = () => {
       // dispatch(getMySelf());
       setUserData({ email: "", password: "" });
     } else {
-      toast.error("Please Fill the Data");
+      toast.error("Please Fill the Data",{
+        autoClose: 1000,
+      });
     }
   };
 
@@ -111,7 +113,7 @@ const LoginForm = () => {
           {/* </form> */}
         </div>
       </div>
-      <ToastContainer className="absolute z-30" />
+      <ToastContainer />
     </div>
    
     </>
