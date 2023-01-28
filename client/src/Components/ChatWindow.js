@@ -19,10 +19,7 @@ const ChatWindow = () => {
   const [message, setMessage] = useState([]);
 
   // message data require for sending data
-  const [newMessage, setNewMessage] = useState({
-    content: "",
-    chatId: "",
-  });
+  const [newMessage, setNewMessage] = useState("");
 
   const [showEmojis, setShowEmojis] = useState(false);
   const [cursorPosition, setCursorPosition] = useState();
@@ -31,7 +28,9 @@ const ChatWindow = () => {
   const senderUser = useSelector(
     (globalState) => globalState.chat.selectedChat
   );
+
   const loggedUser = useSelector((globalState) => globalState.user.userDetails);
+
   const allMessage = useSelector(
     (globalState) => globalState.message.allMessages
   );
@@ -39,23 +38,25 @@ const ChatWindow = () => {
   const pickEmoji = (emojiData, event) => {
     const ref = inputRef.current;
     ref.focus();
-    const start = message.substring(0, ref.selectionStart);
-    const end = message.substring(ref.selectionStart);
+    const start = newMessage.substring(0, ref.selectionStart);
+    const end = newMessage.substring(ref.selectionStart);
     let msg = start + emojiData.emoji + end;
-    setMessage(msg);
+    setNewMessage(msg);
     setCursorPosition(start.length + emojiData.emoji.length);
   };
 
   const handleShowEmojis = () => {
     setShowEmojis(!showEmojis);
   };
-
+  console.log(sender);
   useEffect(() => {
     setSender(senderUser);
+    
   }, [senderUser]);
 
   useEffect(() => {
     console.log(sender);
+
     // console.log(senderUser);
   }, [sender]);
 
@@ -67,10 +68,7 @@ const ChatWindow = () => {
   }, [message]);
 
   const handleChange = (e) => {
-    setNewMessage((prev) => ({
-      ...prev,
-      [newMessage.content]: e.target.value,
-    }));
+    setNewMessage(e.target.value);
   };
 
   const handleClick = () => {
@@ -411,7 +409,6 @@ const ChatWindow = () => {
               </div>
 
               <div className="chat-input-section p-5 p-lg-6">
-                <form action="">
                   <div className="flex justify-between items-center">
                     <div className="chat-input flex">
                       <div className="links-list-item">
@@ -440,8 +437,8 @@ const ChatWindow = () => {
                         autoComplete="off"
                         id="chat-input"
                         className="w-full py-3 px-5 focus:outline-none"
-                        value={newMessage.content}
-                        onChange={handleChange}
+                        value={newMessage}
+                        onChange={()=>handleChange}
                         ref={inputRef}
                       />
                     </div>
@@ -449,12 +446,11 @@ const ChatWindow = () => {
                     <div className="chat-input-links ml-2">
                       <div className="links-list-items ml-5 ">
                         <Button className="btn submit-btn flex justify-center items-center">
-                          <IoMdSend onClick={() => handleClick} />
+                          <IoMdSend onClick={handleClick} />
                         </Button>
                       </div>
                     </div>
                   </div>
-                </form>
               </div>
             </div>
           </div>
