@@ -6,6 +6,7 @@ import {
   clearSelectChatAction,
   selectChatAction,
 } from "../Redux/Reducer/Chat/chat.action";
+import { getAllChats } from "../Redux/Reducer/Message/message.action";
 
 const UserList = () => {
   const dispatch = useDispatch();
@@ -25,12 +26,15 @@ const UserList = () => {
   }, [chat]);
 
   useEffect(() => {
-    // console.log(selectedChat);
+    console.log(selectedChat);
     // dispatch(clearSelectChatAction());
+    // if (selectedChat ? dispatch(getAllChats(selectedChat._id)) : "")
+
     dispatch(selectChatAction(selectedChat));
+    dispatch(getAllChats(selectedChat));
+
     // alert(selectedChat._id)
   }, [selectedChat]);
-
 
   return (
     // <Wrapper>
@@ -121,7 +125,6 @@ const UserList = () => {
         )}
       </ul>
     </Wrapper>
-
   );
 };
 const Wrapper = styled.section`
