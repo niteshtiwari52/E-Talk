@@ -12,17 +12,20 @@ import {
   getSenderPic,
   isMyMessage,
 } from "../HelperFunction/chat.Helper";
+import { useDispatch } from "react-redux";
+import {
+  getAllChats,
+  sendMessge,
+} from "../Redux/Reducer/Message/message.action";
 
 const ChatWindow = () => {
+  const dispatch = useDispatch();
   const inputRef = createRef();
   // all the message for a particular chat
   const [message, setMessage] = useState([]);
 
   // message data require for sending data
-  const [newMessage, setNewMessage] = useState({
-    content: "",
-    chatId: "",
-  });
+  const [newMessage, setNewMessage] = useState("");
 
   const [showEmojis, setShowEmojis] = useState(false);
   const [cursorPosition, setCursorPosition] = useState();
@@ -67,14 +70,23 @@ const ChatWindow = () => {
   }, [message]);
 
   const handleChange = (e) => {
-    setNewMessage((prev) => ({
-      ...prev,
-      [newMessage.content]: e.target.value,
-    }));
+    setNewMessage(e.target.value);
   };
 
-  const handleClick = () => {
-    console.log(newMessage);
+  const handleClick = async () => {
+    console.log(newMessage, sender._id);
+    // alert("Hello");
+    if (!newMessage) {
+      alert("Empty Message can't be send");
+      return;
+    }
+    const messageData = {
+      chatId: sender._id,
+      content: newMessage,
+    };
+    setNewMessage("");
+    await dispatch(sendMessge(messageData));
+    await dispatch(getAllChats(sender));
   };
 
   return (
@@ -149,7 +161,7 @@ const ChatWindow = () => {
                 <ul className="chat-conversation-list">
                   {message.map((item) =>
                     isMyMessage(loggedUser, item) ? (
-                      <li className="chat-list right">
+                      <li key={item._id} className="chat-list right">
                         <div className="conversation-list">
                           <div className="chat-avatar mr-4 ">
                             <img
@@ -174,11 +186,11 @@ const ChatWindow = () => {
                         </div>
                       </li>
                     ) : (
-                      <li className="chat-list">
+                      <li key={item._id} className="chat-list">
                         <div className="conversation-list">
                           <div className="chat-avatar mr-4 ">
                             <img
-                              src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
+                              src={item.sender.pic}
                               alt=""
                               className="rounded-full"
                             />
@@ -411,50 +423,48 @@ const ChatWindow = () => {
               </div>
 
               <div className="chat-input-section p-5 p-lg-6">
-                <form action="">
-                  <div className="flex justify-between items-center">
-                    <div className="chat-input flex">
-                      <div className="links-list-item">
-                        <div className="btn">
-                          <BiDotsHorizontalRounded />
-                        </div>
-                      </div>
-                      <div className="links-list-item">
-                        <div className="btn">
-                          <BiSmile onClick={handleShowEmojis} title="emoji" />
-                          {showEmojis && (
-                            <div className="emoji-picker">
-                              <EmojiPicker
-                                onEmojiClick={pickEmoji}
-                                autoFocusSearch={false}
-                              />
-                            </div>
-                          )}
-                        </div>
+                <div className="flex justify-between items-center">
+                  <div className="chat-input flex">
+                    <div className="links-list-item">
+                      <div className="btn">
+                        <BiDotsHorizontalRounded />
                       </div>
                     </div>
-
-                    <div className="position-relative w-full">
-                      <input
-                        placeholder="Type Your message..."
-                        autoComplete="off"
-                        id="chat-input"
-                        className="w-full py-3 px-5 focus:outline-none"
-                        value={newMessage.content}
-                        onChange={handleChange}
-                        ref={inputRef}
-                      />
-                    </div>
-
-                    <div className="chat-input-links ml-2">
-                      <div className="links-list-items ml-5 ">
-                        <Button className="btn submit-btn flex justify-center items-center">
-                          <IoMdSend onClick={() => handleClick} />
-                        </Button>
+                    <div className="links-list-item">
+                      <div className="btn">
+                        <BiSmile onClick={handleShowEmojis} title="emoji" />
+                        {showEmojis && (
+                          <div className="emoji-picker">
+                            <EmojiPicker
+                              onEmojiClick={pickEmoji}
+                              autoFocusSearch={false}
+                            />
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
-                </form>
+
+                  <div className="position-relative w-full">
+                    <input
+                      placeholder="Type Your message..."
+                      autoComplete="off"
+                      id="chat-input"
+                      className="w-full py-3 px-5 focus:outline-none"
+                      value={newMessage}
+                      onChange={handleChange}
+                      ref={inputRef}
+                    />
+                  </div>
+
+                  <div className="chat-input-links ml-2" onClick={handleClick}>
+                    <div className="links-list-items ml-5 ">
+                      <Button className="btn submit-btn flex justify-center items-center">
+                        <IoMdSend />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
