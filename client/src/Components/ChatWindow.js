@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import styled from "styled-components";
 import { Button } from "../Styles/Button";
 import { BiDotsHorizontalRounded, BiSmile } from "react-icons/bi";
 import { IoMdSend } from "react-icons/io";
 import Dropdown from "./Dropdown";
-import EmojiPicker from "emoji-picker-react";
+import Picker from "@emoji-mart/react";
 import { createRef } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import {
   getSender,
   getSenderPic,
-  getTime,
   isMyMessage,
 } from "../HelperFunction/chat.Helper";
 import { useDispatch } from "react-redux";
@@ -19,61 +18,45 @@ import {
   getAllChats,
   sendMessge,
 } from "../Redux/Reducer/Message/message.action";
-import { fetchChats } from "../Redux/Reducer/Chat/chat.action";
+import { Menu, Transition } from "@headlessui/react";
+
+
 
 const ChatWindow = () => {
+  const senderUser = useSelector(
+    (globalState) => globalState.chat.selectedChat
+  );
+  const loggedUser = useSelector((globalState) => globalState.user.userDetails);
+
+  const theme = useSelector((state) => state.themeReducer.darkThemeEnabled);
+
+  const allMessage = useSelector(
+    (globalState) => globalState.message.allMessages
+  );
   const dispatch = useDispatch();
   const inputRef = createRef();
+
   // all the message for a particular chat
   const [message, setMessage] = useState([]);
 
   // message data require for sending data
   const [newMessage, setNewMessage] = useState("");
 
-  const [showEmojis, setShowEmojis] = useState(false);
-  const [cursorPosition, setCursorPosition] = useState();
   const [sender, setSender] = useState();
+  
+  const [cursorPosition, setCursorPosition] = useState(0);
 
-  const senderUser = useSelector(
-    (globalState) => globalState.chat.selectedChat
-  );
-
-  const loggedUser = useSelector((globalState) => globalState.user.userDetails);
-
-  const allMessage = useSelector(
-    (globalState) => globalState.message.allMessages
-  );
 
   const pickEmoji = (emojiData, event) => {
     const ref = inputRef.current;
     ref.focus();
     const start = newMessage.substring(0, ref.selectionStart);
     const end = newMessage.substring(ref.selectionStart);
-    let msg = start + emojiData.emoji + end;
+    let msg = start + emojiData.native + end;
     setNewMessage(msg);
-    setCursorPosition(start.length + emojiData.emoji.length);
+    setCursorPosition(start.length + emojiData.native.length);
   };
 
-  const handleShowEmojis = () => {
-    setShowEmojis(!showEmojis);
-  };
-  useEffect(() => {
-    setSender(senderUser);
-    
-  }, [senderUser]);
-
-  useEffect(() => {
-    console.log(sender);
-
-    // console.log(senderUser);
-  }, [sender]);
-
-  useEffect(() => {
-    setMessage(allMessage);
-  }, [allMessage]);
-  useEffect(() => {
-    console.log(message);
-  }, [message]);
 
   const handleChange = (e) => {
     setNewMessage(e.target.value);
@@ -95,6 +78,29 @@ const ChatWindow = () => {
     await dispatch(getAllChats(sender));
     // await dispatch(fetchChats());
   };
+
+  useEffect(() => {
+    setSender(senderUser);
+  }, [senderUser]);
+
+  useEffect(() => {
+    console.log(sender);
+
+    // console.log(senderUser);
+  }, [sender]);
+
+  useEffect(() => {
+    if(inputRef.current !== null){
+      inputRef.current.selectionEnd = cursorPosition
+    }
+  }, [cursorPosition])
+
+  useEffect(() => {
+    setMessage(allMessage);
+  }, [allMessage]);
+  useEffect(() => {
+    console.log(message);
+  }, [message]);
 
   return (
     <Wrapper>
@@ -123,6 +129,7 @@ const ChatWindow = () => {
         <>
           <div className="chat-content flex">
             <div className="w-full h-full position-relative">
+            
               <div className="user-chat-topbar p-3 p-lg-4 absolute">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
@@ -146,9 +153,11 @@ const ChatWindow = () => {
                       </h6>
                       <p className="mb-0 truncate">
                         {/* status to be set later */}
-                        <small>
+                        <small className="truncate">
                           {sender.isGroupChat ? (
-                            sender.users.map((item) => item.name + " ")
+                            sender.users.map((item, index) => 
+                                (index ? ", ": " ") + item.name
+                                )
                           ) : (
                             <>Active</>
                           )}
@@ -168,73 +177,79 @@ const ChatWindow = () => {
                 <ul className="chat-conversation-list">
                   {message.map((item) =>
                     isMyMessage(loggedUser, item) ? (
-                      <li key={item._id} className="chat-list right">
-                        <div className="conversation-list">
-                          <div className="chat-avatar mr-4 ">
-                            <img
-                              src={item.sender.pic}
-                              alt=""
-                              className="rounded-full"
-                            />
-                          </div>
-                          <div className="user-chat-content">
-                            <div className="flex mb-3">
-                              <div className="chat-wrap-content">
-                                <span className="mb-0 chat-content text-sm text-left">
-                                  {item.content}
-                                </span>
-                              </div>
+                      <>
+                        <li key={item._id} className="chat-list right">
+                          <div className="conversation-list">
+                            <div className="chat-avatar mr-4">
+                              <img
+                                src={item.sender.pic}
+                                alt=""
+                                className="rounded-full"
+                              />
                             </div>
-                            <div className="conversation-name">
-                              <span className="text-xs">
-                                {item.sender.name}
-                              </span>
+                            <div className="user-chat-content">
+                              <div className="flex mb-3 justify-end">
+                                <div className="chat-wrap-content">
+                                  <span className="mb-0 chat-content text-sm text-left">
+                                    {item.content}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="conversation-name ">
+                                <small className=" mb-0">
+                                  {/* {getTime(item.createdAt)} */}
+                                  {moment(item.createdAt)
+                                    .format("h:mm a")
+                                    .toUpperCase()}
+                                </small>
 
-                              <small className="ml-2 mb-0">
-                                {/* {getTime(item.createdAt)} */}
-                                {moment(item.createdAt).format(
-                                  "DD/MMM/YYYY , h:mm a"
-                                )}
-                              </small>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    ) : (
-                      <li key={item._id} className="chat-list">
-                        <div className="conversation-list">
-                          <div className="chat-avatar mr-4 ">
-                            <img
-                              src={item.sender.pic}
-                              alt=""
-                              className="rounded-full"
-                            />
-                          </div>
-                          <div className="user-chat-content">
-                            <div className="flex mb-3">
-                              <div className="chat-wrap-content">
-                                <span className="mb-0 chat-content text-sm text-left">
-                                  {item.content}
+                                <span className="ml-2 text-xs user-name">
+                                  {item.sender.name}
                                 </span>
                               </div>
                             </div>
-                            <div className="conversation-name">
-                              <span className="text-xs">
-                                {item.sender.name}
-                              </span>
-                              <small className="ml-2 mb-0">
-                                {/* {getTime(item.createdAt)} */}
-                                {moment(item.createdAt).format(
-                                  "DD/MMM/YYYY , h:mm a"
-                                )}
-                              </small>
+                          </div>
+                        </li>
+                      </>
+                    ) : (
+                      <>
+                        <li key={item._id} className="chat-list">
+                          <div className="conversation-list">
+                            <div className="chat-avatar mr-4">
+                              <img
+                                src={item.sender.pic}
+                                alt=""
+                                className="rounded-full"
+                              />
+                            </div>
+                            <div className="user-chat-content">
+                              <div className="flex mb-3">
+                                <div className="chat-wrap-content">
+                                  <span className="mb-0 chat-content text-sm text-left">
+                                    {item.content}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="conversation-name">
+                                <span className="text-xs">
+                                  {item.sender.name}
+                                </span>
+                                <small className="ml-2 mb-0">
+                                  {/* {getTime(item.createdAt)} */}
+                                  {moment(item.createdAt)
+                                    .format("DD/MMM/YYYY , h:mm a")
+                                    .toUpperCase()}
+                                </small>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </li>
+                        </li>
+                      </>
                     )
                   )}
+
                   {/* left side chat */}
+
                   {/* <li className="chat-list">
                     <div className="conversation-list">
                       <div className="chat-avatar mr-4 ">
@@ -261,7 +276,9 @@ const ChatWindow = () => {
                       </div>
                     </div>
                   </li> */}
+
                   {/* right side chat  */}
+
                   {/* <li className="chat-list right">
                     <div className="conversation-list">
                       <div className="chat-avatar mr-4 ">
@@ -448,21 +465,33 @@ const ChatWindow = () => {
                 <div className="flex justify-between items-center">
                   <div className="chat-input flex">
                     <div className="links-list-item">
-                      <div className="btn">
+                      <div className="btn dot-btn">
                         <BiDotsHorizontalRounded />
                       </div>
                     </div>
                     <div className="links-list-item">
-                      <div className="btn">
-                        <BiSmile onClick={handleShowEmojis} title="emoji" />
-                        {showEmojis && (
-                          <div className="emoji-picker">
-                            <EmojiPicker
-                              onEmojiClick={pickEmoji}
-                              autoFocusSearch={false}
-                            />
-                          </div>
-                        )}
+                      <div className="btn emoji-btn mr-2">
+                        <Menu>
+                          <Menu.Button className="flex justify-center items-center">
+                            <BiSmile title="emoji" />
+                          </Menu.Button>
+                          <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                          >
+                            <Menu.Items className="emoji-picker">
+                              <Picker
+                                theme={!theme ? "light" : "dark"}
+                                onEmojiSelect={pickEmoji}
+                              />
+                            </Menu.Items>
+                          </Transition>
+                        </Menu>
                       </div>
                     </div>
                   </div>
@@ -517,20 +546,8 @@ const Wrapper = styled.section`
     max-height: 100%;
     overflow-y: auto;
     z-index: 100;
+    left: 10px;
     bottom: 80px;
-    background-color: transparent;
-    .EmojiPickerReact {
-      background-color: ${({ theme }) => theme.colors.bg.black};
-      overflow: hidden;
-      border-color: ${({ theme }) => theme.colors.border};
-
-      li.epr-emoji-category > .epr-emoji-category-label {
-        background-color: ${({ theme }) => theme.colors.bg.primary};
-      }
-      button.epr-emoji:focus > * {
-        background-color: ${({ theme }) => theme.colors.bg.primary};
-      }
-    }
   }
   .submit-btn {
     width: 50px;
@@ -615,19 +632,23 @@ const Wrapper = styled.section`
             margin-bottom: 24px;
             display: inline-flex;
             position: relative;
-            align-items: flex-end;
+            align-items: flex-start;
+            justify-content: center;
             max-width: 80%;
+            .user-name {
+              color: ${({ theme }) => theme.colors.heading};
+            }
             .chat-avatar {
-                overflow: hidden;
-                border-radius: 100%;
-                width: 3rem;
-                height: 3rem;
+              overflow: hidden;
+              border-radius: 100%;
+              width: 3rem;
+              height: 3rem;
             }
             .chat-wrap-content {
               padding: 12px 20px;
               background-color: ${({ theme }) => theme.colors.bg.primary};
               position: relative;
-              border-radius: 3px;
+              border-radius: 30px 0 25px 30px;
               box-shadow: 0 2px 4px rgb(15 34 58 / 12%);
               color: ${({ theme }) => theme.colors.heading};
             }
@@ -648,7 +669,7 @@ const Wrapper = styled.section`
               margin-left: 16px;
             }
             .chat-wrap-content {
-              color: ${({ theme }) => theme.colors.text.primary};
+              color: ${({ theme }) => theme.colors.heading};
               background-color: rgb(${({ theme }) => theme.colors.rgb.primary});
             }
           }
@@ -667,10 +688,28 @@ const Wrapper = styled.section`
           background-color: ${({ theme }) => theme.colors.bg.secondary};
         }
       }
-      .links-list-items .btn {
-        color: #fff;
-        background-color: ${({ theme }) => theme.colors.cyan};
-        border-color: ${({ theme }) => theme.colors.cyan};
+      .dot-btn,
+      .emoji-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 3rem;
+        height: 3rem;
+        &:hover {
+          color: ${({ theme }) => theme.colors.cyan};
+          background-color: ${({ theme }) => theme.colors.bg.secondary};
+        }
+        border-radius: 100%;
+      }
+      .links-list-items {
+        .btn {
+          color: #fff;
+          background-color: ${({ theme }) => theme.colors.cyan};
+          &:hover {
+            background-color: rgb(${({ theme }) => theme.colors.rgb.cyan}, 0.8);
+          }
+          border-color: ${({ theme }) => theme.colors.cyan};
+        }
       }
     }
   }

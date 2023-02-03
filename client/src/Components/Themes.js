@@ -14,7 +14,7 @@ export const lightTheme = {
       },
 
       "rgb":{
-      "primary": "173,216,255",
+      "primary": "111, 201, 252",
       "secondary": "78,172,109",
       "cyan": "28,157,234",
       },
@@ -58,7 +58,7 @@ export const lightTheme = {
       },
 
       "rgb":{
-      "primary": "173,216,255",
+      "primary": "0, 128, 201",
       "secondary": "78,172,109",
       "cyan": "28,157,234",
       },

@@ -17,7 +17,7 @@ const UserList = () => {
   const chat = useSelector((globalState) => globalState.chat.chats);
   const loggedUser = useSelector((globalState) => globalState.user.userDetails);
 
-  // console.log(chat)
+  // console.log(loggedUser)
 
   // console.log({...chat})
   // console.log(chatList)
@@ -72,9 +72,11 @@ const UserList = () => {
                     </h2>
                     <p className=" text-xs truncate whitespace-nowrap overflow-hidden">
                       <span className="text-xs">
-                        {item.latestMessage.sender.name}:
+                        {item.latestMessage != null ? `${item.latestMessage.sender.name === loggedUser.name ? "You" : item.latestMessage.sender.name}:` : ""}
                       </span>
-                      {item.latestMessage.content}
+                      <span className="text-xs truncate">
+                      {" "}{item.latestMessage != null ? item.latestMessage.content : ""}
+                      </span>
                     </p>
                   </div>
                   <div className="data-status h-full avatar-group">
@@ -106,11 +108,13 @@ const UserList = () => {
                     ) : (
                       <></>
                     )}
+
                     <p>
-                      {moment(item.latestMessage.createdAt).format(
-                        "DD/MM/YYYY"
-                      )}
+                      {item.latestMessage ? moment( item.latestMessage.createdAt ).format(
+                        "DD/MM/YY"
+                      ): ""}
                     </p>
+
                     {item.status === "seen" ? (
                       <span className="status text-green-400">
                         {item.status}
@@ -118,6 +122,7 @@ const UserList = () => {
                     ) : (
                       <span className="status text-red-500">{item.status}</span>
                     )}
+
                   </div>
                 </div>
               </li>
@@ -182,9 +187,13 @@ const Wrapper = styled.section`
         right: 0;
         text-align: right;
         padding: 12px 0px 12px 0px;
+        h2,p{
+          color: ${({ theme }) => theme.colors.text.secondary};
+        }
         h2,
         p,
         span {
+          
           font-size: calc(11px + (12 - 11) * ((100vw - 320px) / (1920 - 320)));
         }
         .status {
