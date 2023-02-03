@@ -14,3 +14,15 @@ export const isMyMessage = (loggedUser, message) => {
   }
   return false;
 };
+
+// getting time
+export const getTime = (createdAt) => {
+  const date = new Date(createdAt);
+  const dateString = date.toLocaleDateString();
+  const timeString = date.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  // return `${timeString}`;
+  return `${dateString} ${timeString}`;
+};

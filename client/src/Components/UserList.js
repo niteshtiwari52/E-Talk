@@ -7,6 +7,7 @@ import {
   selectChatAction,
 } from "../Redux/Reducer/Chat/chat.action";
 import { getAllChats } from "../Redux/Reducer/Message/message.action";
+import moment from "moment";
 
 const UserList = () => {
   const dispatch = useDispatch();
@@ -70,7 +71,10 @@ const UserList = () => {
                         : item.chatName}
                     </h2>
                     <p className=" text-xs truncate whitespace-nowrap overflow-hidden">
-                      {item.message}
+                      <span className="text-xs">
+                        {item.latestMessage.sender.name}:
+                      </span>
+                      {item.latestMessage.content}
                     </p>
                   </div>
                   <div className="data-status h-full avatar-group">
@@ -102,7 +106,11 @@ const UserList = () => {
                     ) : (
                       <></>
                     )}
-                    <p>18/12/22</p>
+                    <p>
+                      {moment(item.latestMessage.createdAt).format(
+                        "DD/MM/YYYY"
+                      )}
+                    </p>
                     {item.status === "seen" ? (
                       <span className="status text-green-400">
                         {item.status}

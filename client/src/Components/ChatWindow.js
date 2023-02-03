@@ -7,9 +7,11 @@ import Dropdown from "./Dropdown";
 import EmojiPicker from "emoji-picker-react";
 import { createRef } from "react";
 import { useSelector } from "react-redux";
+import moment from "moment";
 import {
   getSender,
   getSenderPic,
+  getTime,
   isMyMessage,
 } from "../HelperFunction/chat.Helper";
 import { useDispatch } from "react-redux";
@@ -17,6 +19,7 @@ import {
   getAllChats,
   sendMessge,
 } from "../Redux/Reducer/Message/message.action";
+import { fetchChats } from "../Redux/Reducer/Chat/chat.action";
 
 const ChatWindow = () => {
   const dispatch = useDispatch();
@@ -90,6 +93,7 @@ const ChatWindow = () => {
     setNewMessage("");
     await dispatch(sendMessge(messageData));
     await dispatch(getAllChats(sender));
+    // await dispatch(fetchChats());
   };
 
   return (
@@ -182,8 +186,16 @@ const ChatWindow = () => {
                               </div>
                             </div>
                             <div className="conversation-name">
-                              {item.sender.name}
-                              <small className="ml-2 mb-0">06:00 PM</small>
+                              <span className="text-xs">
+                                {item.sender.name}
+                              </span>
+
+                              <small className="ml-2 mb-0">
+                                {/* {getTime(item.createdAt)} */}
+                                {moment(item.createdAt).format(
+                                  "DD/MMM/YYYY , h:mm a"
+                                )}
+                              </small>
                             </div>
                           </div>
                         </div>
@@ -207,8 +219,15 @@ const ChatWindow = () => {
                               </div>
                             </div>
                             <div className="conversation-name">
-                              {item.sender.name}
-                              <small className="ml-2 mb-0">06:00 PM</small>
+                              <span className="text-xs">
+                                {item.sender.name}
+                              </span>
+                              <small className="ml-2 mb-0">
+                                {/* {getTime(item.createdAt)} */}
+                                {moment(item.createdAt).format(
+                                  "DD/MMM/YYYY , h:mm a"
+                                )}
+                              </small>
                             </div>
                           </div>
                         </div>
