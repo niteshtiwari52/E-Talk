@@ -6,19 +6,20 @@ import styled from 'styled-components';
 import { TOGGLE_DARKTHEME } from '../Redux/Reducer/Theme/theme.type';
 
 const Toggler = () => {
-  const [toggle, setToggle] = useState(false);
   const darkThemeEnabled = useSelector((state) => state.themeReducer.darkThemeEnabled);
+  const [toggle, setToggle] = useState(darkThemeEnabled);
   const dispatch = useDispatch();
   
   const togglerTheme = () =>{
     dispatch({type: TOGGLE_DARKTHEME});
-    darkThemeEnabled === true ? setToggle(true) : setToggle(false);
+    setToggle(!darkThemeEnabled);
   }
-  
+  console.log(darkThemeEnabled)
+  console.log(toggle)
   return (
     <Wrapper onClick={togglerTheme}>
         {
-          toggle === true ? <RiMoonLine className="icon" /> : <RiSunLine className="icon" />
+          toggle === false ? <RiMoonLine className="icon" /> : <RiSunLine className="icon" />
         }
     </Wrapper>
   )

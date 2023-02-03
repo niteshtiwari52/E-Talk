@@ -73,26 +73,26 @@ const UserList = () => {
                       {item.message}
                     </p>
                   </div>
-                  <div className="data-status h-full">
+                  <div className="data-status h-full avatar-group">
                     {chat[index].isGroupChat ? (
                       <div className="flex -space-x-4">
                         <img
-                          className="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800 hover:z-10"
+                          className="w-8 h-8 border-2 bg-white  rounded-full  hover:z-10"
                           src={chat[index].users[0].pic}
                           alt=""
                         />
                         <img
-                          className="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800 hover:z-10"
+                          className="w-8 h-8 border-2 bg-white  rounded-full  hover:z-10"
                           src={chat[index].users[1].pic}
                           alt=""
                         />
                         <img
-                          className="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800 hover:z-10"
+                          className="w-8 h-8 border-2 bg-white  rounded-full  hover:z-10"
                           src={chat[index].users[2].pic}
                           alt=""
                         />
                         {chat[index].users.length > 3 ? (
-                          <div className="flex items-center justify-center w-8 h-8 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800">
+                          <div className="flex items-center justify-center w-8 h-8 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600">
                             {`+${chat[index].users.length - 3}`}
                           </div>
                         ) : (
@@ -162,6 +162,11 @@ const Wrapper = styled.section`
         p {
           overflow: hidden;
           color: ${({ theme }) => theme.colors.text.secondary};
+        }
+      }
+      .avatar-group{
+        img{
+          border-color: rgb(${({ theme }) => theme.colors.img_border});
         }
       }
       .data-status {
