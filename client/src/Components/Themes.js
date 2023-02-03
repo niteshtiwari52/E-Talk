@@ -14,7 +14,7 @@ export const lightTheme = {
       },
 
       "rgb":{
-      "primary": "173,216,255",
+      "primary": "111, 201, 252",
       "secondary": "78,172,109",
       "cyan": "28,157,234",
       },
@@ -34,6 +34,7 @@ export const lightTheme = {
       
       "hr": "#ffffff",
       "border": "239, 241, 242",
+      "img_border": "255, 255, 255",
       "gradient": "linear-gradient(145deg,#1ca9fe,#1c6ee9);",
     },
     media: {
@@ -57,7 +58,7 @@ export const lightTheme = {
       },
 
       "rgb":{
-      "primary": "173,216,255",
+      "primary": "0, 128, 201",
       "secondary": "78,172,109",
       "cyan": "28,157,234",
       },
@@ -78,6 +79,7 @@ export const lightTheme = {
       
       "hr": "#ffffff",
       "border": "92, 92, 92",
+      "img_border": "31, 41, 55",
       "gradient": "linear-gradient(145deg,#1ca9fe,#1c6ee9);",
     },
     media: {

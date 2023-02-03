@@ -10,8 +10,7 @@ import {
   fetchUserClear,
 } from "../../Redux/Reducer/Chat/chat.action";
 import { AiOutlinePlus } from "react-icons/ai";
-import { toggleTab } from "../../Redux/Reducer/Tab/tabAction";
-import { ToastContainer, toast } from "react-toastify";
+import {toast } from "react-toastify";
 
 const Group = () => {
   const dispatch = useDispatch();
@@ -243,7 +242,7 @@ const Group = () => {
                               </li>
                             ))
                           ) : (
-                            <><div className={search == "" && searchResult.length === 0  ? "hidden" : "text-center"}>
+                            <><div className={search === "" && searchResult.length === 0  ? "hidden" : "text-center"}>
                             <span className="text-gray-500">No Contact Found</span>
                             </div></>
                           )}

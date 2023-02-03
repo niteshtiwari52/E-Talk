@@ -17,7 +17,7 @@ const UserList = () => {
   const chat = useSelector((globalState) => globalState.chat.chats);
   const loggedUser = useSelector((globalState) => globalState.user.userDetails);
 
-  // console.log(chat)
+  // console.log(loggedUser)
 
   // console.log({...chat})
   // console.log(chatList)
@@ -72,31 +72,33 @@ const UserList = () => {
                     </h2>
                     <p className=" text-xs truncate whitespace-nowrap overflow-hidden">
                       <span className="text-xs">
-                        {item.latestMessage.sender.name}:
+                        {item.latestMessage != null ? `${item.latestMessage.sender.name === loggedUser.name ? "You" : item.latestMessage.sender.name}:` : ""}
                       </span>
-                      {item.latestMessage.content}
+                      <span className="text-xs truncate">
+                      {" "}{item.latestMessage != null ? item.latestMessage.content : ""}
+                      </span>
                     </p>
                   </div>
-                  <div className="data-status h-full">
+                  <div className="data-status h-full avatar-group">
                     {chat[index].isGroupChat ? (
                       <div className="flex -space-x-4">
                         <img
-                          className="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800 hover:z-10"
+                          className="w-8 h-8 border-2 bg-white  rounded-full  hover:z-10"
                           src={chat[index].users[0].pic}
                           alt=""
                         />
                         <img
-                          className="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800 hover:z-10"
+                          className="w-8 h-8 border-2 bg-white  rounded-full  hover:z-10"
                           src={chat[index].users[1].pic}
                           alt=""
                         />
                         <img
-                          className="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800 hover:z-10"
+                          className="w-8 h-8 border-2 bg-white  rounded-full  hover:z-10"
                           src={chat[index].users[2].pic}
                           alt=""
                         />
                         {chat[index].users.length > 3 ? (
-                          <div className="flex items-center justify-center w-8 h-8 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600 dark:border-gray-800">
+                          <div className="flex items-center justify-center w-8 h-8 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600">
                             {`+${chat[index].users.length - 3}`}
                           </div>
                         ) : (
@@ -106,11 +108,13 @@ const UserList = () => {
                     ) : (
                       <></>
                     )}
+
                     <p>
-                      {moment(item.latestMessage.createdAt).format(
-                        "DD/MM/YYYY"
-                      )}
+                      {item.latestMessage ? moment( item.latestMessage.createdAt ).format(
+                        "DD/MM/YY"
+                      ): ""}
                     </p>
+
                     {item.status === "seen" ? (
                       <span className="status text-green-400">
                         {item.status}
@@ -118,6 +122,7 @@ const UserList = () => {
                     ) : (
                       <span className="status text-red-500">{item.status}</span>
                     )}
+
                   </div>
                 </div>
               </li>
@@ -172,14 +177,23 @@ const Wrapper = styled.section`
           color: ${({ theme }) => theme.colors.text.secondary};
         }
       }
+      .avatar-group{
+        img{
+          border-color: rgb(${({ theme }) => theme.colors.img_border});
+        }
+      }
       .data-status {
         position: absolute;
         right: 0;
         text-align: right;
         padding: 12px 0px 12px 0px;
+        h2,p{
+          color: ${({ theme }) => theme.colors.text.secondary};
+        }
         h2,
         p,
         span {
+          
           font-size: calc(11px + (12 - 11) * ((100vw - 320px) / (1920 - 320)));
         }
         .status {
