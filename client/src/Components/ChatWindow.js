@@ -20,8 +20,6 @@ import {
 } from "../Redux/Reducer/Message/message.action";
 import { Menu, Transition } from "@headlessui/react";
 
-
-
 const ChatWindow = () => {
   const senderUser = useSelector(
     (globalState) => globalState.chat.selectedChat
@@ -43,9 +41,8 @@ const ChatWindow = () => {
   const [newMessage, setNewMessage] = useState("");
 
   const [sender, setSender] = useState();
-  
-  const [cursorPosition, setCursorPosition] = useState(0);
 
+  const [cursorPosition, setCursorPosition] = useState(0);
 
   const pickEmoji = (emojiData, event) => {
     const ref = inputRef.current;
@@ -56,7 +53,6 @@ const ChatWindow = () => {
     setNewMessage(msg);
     setCursorPosition(start.length + emojiData.native.length);
   };
-
 
   const handleChange = (e) => {
     setNewMessage(e.target.value);
@@ -90,10 +86,10 @@ const ChatWindow = () => {
   }, [sender]);
 
   useEffect(() => {
-    if(inputRef.current !== null){
-      inputRef.current.selectionEnd = cursorPosition
+    if (inputRef.current !== null) {
+      inputRef.current.selectionEnd = cursorPosition;
     }
-  }, [cursorPosition])
+  }, [cursorPosition]);
 
   useEffect(() => {
     setMessage(allMessage);
@@ -108,19 +104,15 @@ const ChatWindow = () => {
         <>
           <div className="chat-welcome-section overflow-x-hidden flex justify-center items-center">
             <div className="flex justify-center items-center p-4">
-              <div className="w-1/2 flex flex-col justify-center items-center text-center">
+              <div className=" flex flex-col justify-center items-center text-center">
                 <div className="avatar mx-auto mb-4">
                   <div className=" rounded-full">
                     <img src="./images/logo2.png" alt="logo" className="w-10" />
                   </div>
                 </div>
                 <h4>Welcome to E-Talk Chat App</h4>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Deserunt sint optio iusto quia libero inventore tempora nisi
-                  porro maxime labore!
-                </p>
-                <Button>Get Started</Button>
+                <p>Click on user to start chat.</p>
+                {/* <Button>Get Started</Button> */}
               </div>
             </div>
           </div>
@@ -129,7 +121,6 @@ const ChatWindow = () => {
         <>
           <div className="chat-content flex">
             <div className="w-full h-full position-relative">
-            
               <div className="user-chat-topbar p-3 p-lg-4 absolute">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
@@ -155,9 +146,9 @@ const ChatWindow = () => {
                         {/* status to be set later */}
                         <small className="truncate">
                           {sender.isGroupChat ? (
-                            sender.users.map((item, index) => 
-                                (index ? ", ": " ") + item.name
-                                )
+                            sender.users.map(
+                              (item, index) => (index ? ", " : " ") + item.name
+                            )
                           ) : (
                             <>Active</>
                           )}
@@ -204,7 +195,8 @@ const ChatWindow = () => {
                                 </small>
 
                                 <span className="ml-2 text-xs user-name">
-                                  {item.sender.name}
+                                  {/* {item.sender.name} */}
+                                  you
                                 </span>
                               </div>
                             </div>

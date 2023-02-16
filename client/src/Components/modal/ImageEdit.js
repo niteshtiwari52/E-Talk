@@ -25,11 +25,11 @@ function ImageEdit() {
   }
 
   const uploadImage = async () => {
-    setLoading(true);
     if (selectedImage === null) {
       alert("Please select an image");
       return;
     }
+    setLoading(true);
     await dispatch(uploadProfilePicture(selectedImage));
     setLoading(false);
     closeModal();
