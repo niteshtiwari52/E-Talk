@@ -190,7 +190,7 @@ const ChatWindow = () => {
                                 <small className=" mb-0">
                                   {/* {getTime(item.createdAt)} */}
                                   {moment(item.createdAt)
-                                    .format("h:mm a")
+                                    .format("DD/MMM/YYYY , h:mm a")
                                     .toUpperCase()}
                                 </small>
 
@@ -223,7 +223,7 @@ const ChatWindow = () => {
                                 </div>
                               </div>
                               <div className="conversation-name">
-                                <span className="text-xs">
+                                <span className="ml-2 text-xs user-name">
                                   {item.sender.name}
                                 </span>
                                 <small className="ml-2 mb-0">
