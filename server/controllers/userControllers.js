@@ -1,8 +1,10 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const generateToken = require("../config/generateToken");
+const jwt = require("jsonwebtoken");
 
 const cloudinary = require("../utils/cloudinary");
+const sendEmail = require("../utils/sendEmail");
 
 // signup new user
 const registerUser = asyncHandler(async (req, res) => {
@@ -26,18 +28,120 @@ const registerUser = asyncHandler(async (req, res) => {
     password,
     pic,
   });
+  // const user = await User({
+  //   name,
+  //   email,
+  //   password,
+  //   pic,
+  // }).save();
 
   if (user) {
+    // res.status(201).json({
+    //   _id: user._id,
+    //   name: user.name,
+    //   email: user.email,
+    //   pic: user.pic,
+    //   token: generateToken(user._id),
+    // });
+    const token = generateToken(user._id);
+    // const url = `http://localhost:4000/api/user/${user.id}/verify/${token}`;
+    const url = `http://localhost:3000/verify-email/${token}`;
+    const options = {
+      name: user.name,
+      email: user.email,
+      subject: "Verify Email",
+      verification_Link: url,
+    };
+    await sendEmail(options);
+
     res.status(201).json({
       _id: user._id,
       name: user.name,
       email: user.email,
       pic: user.pic,
-      token: generateToken(user._id),
+      token: generateToken(user._id, "30d"),
+      message: "An Email is sent to your Email. Please Verify Your Email",
     });
   } else {
     res.status(400);
     throw new Error("Failed to create the User");
+  }
+});
+
+// Resend verication link
+const resendVerificationLink = asyncHandler(async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      res.status(201).json({
+        message: "Invalid Email",
+      });
+      return;
+    }
+
+    const token = generateToken(user._id, "120s");
+    const url = `http://localhost:3000/verify-email/${token}`;
+    // const url = `http://localhost:3000/email/verify/${user.id}`;
+    // const url = `http://localhost:3000/email/verify/${user.id}/verify/${token}`;
+    const options = {
+      name: user.name,
+      email: user.email,
+      subject: "Verify Email",
+      verification_Link: url,
+    };
+    await sendEmail(options);
+
+    res.status(201).json({
+      verificationURL: url,
+      message: `An Email is sent to your Email ${user.email}. Please Verify Your Email`,
+    });
+  } catch (error) {
+    res.status(400).send({ message: "Internal Server Error" });
+  }
+});
+
+// verify Email
+const verifyEmail = asyncHandler(async (req, res) => {
+  try {
+    const { token } = req.body;
+    // console.log(token);
+    // const user = await User.findOne(token);
+    // const user = await User.findOne({ _id: req.body.id });
+
+    //decodes token id
+    const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+    // console.log(token);
+    // if (!decoded) {
+    //   res.status(404).json({
+    //     message: "Invalid varification link",
+    //   });
+    //   return;
+    // }
+    // console.log("decoded result : ", decoded.id);
+
+    const user = await User.findOne({ _id: decoded.id });
+    // console.log(user);
+    if (!user) {
+      return res.status(400).send({ message: "Invalid link" });
+    }
+    const data = {
+      is_verified: true,
+    };
+    const updatedUser = await User.findByIdAndUpdate(user._id, data, {
+      new: true,
+    });
+
+    res.status(200).send({
+      message: "Email verified successfully",
+      updatedUser,
+      success: true,
+    });
+  } catch (error) {
+    res
+      .status(400)
+      .send({ message: "Invalid Verification Link", success: false });
   }
 });
 
@@ -124,8 +228,10 @@ const uploadProfileImage = asyncHandler(async (req, res) => {
 
 module.exports = {
   registerUser,
+  verifyEmail,
   authUser,
   allUsers,
   getmyself,
   uploadProfileImage,
+  resendVerificationLink,
 };
