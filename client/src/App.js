@@ -15,17 +15,33 @@ import Features from "./Pages/Features";
 
 import { darkTheme, lightTheme} from "./Components/Themes"
 import { useSelector } from "react-redux";
+// import io from "socket.io-client";
+// import socketIOClient from "socket.io-client";
+
+
+
 
 
 import { useDispatch } from "react-redux";
 import { getMySelf } from "./Redux/Reducer/User/user.action";
 import {fetchChats} from "./Redux/Reducer/Chat/chat.action"
 
+// const ENDPOINT = "http://localhost:4000";
 
 function App() {
+  // const [response, setResponse] = useState("");
   const [loading, setloading] = useState(false);
   const dispatch = useDispatch();
   const darkThemeEnabled = useSelector((state) => state.themeReducer.darkThemeEnabled);
+
+
+  // useEffect(() => {
+  //   const socket = socketIOClient(ENDPOINT);
+  //   socket.on("FromAPI", data => {
+  //     setResponse(data);
+  //   });
+  // }, []);
+
 
   useEffect(() => {
     setloading(true);

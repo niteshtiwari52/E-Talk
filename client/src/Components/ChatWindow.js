@@ -20,6 +20,7 @@ import {
 } from "../Redux/Reducer/Message/message.action";
 import { Menu, Transition } from "@headlessui/react";
 
+
 const ChatWindow = () => {
   const senderUser = useSelector(
     (globalState) => globalState.chat.selectedChat
@@ -42,7 +43,7 @@ const ChatWindow = () => {
 
   const [sender, setSender] = useState();
 
-  const [cursorPosition, setCursorPosition] = useState(0);
+  // const [cursorPosition, setCursorPosition] = useState(0);
 
   const pickEmoji = (emojiData, event) => {
     const ref = inputRef.current;
@@ -51,7 +52,7 @@ const ChatWindow = () => {
     const end = newMessage.substring(ref.selectionStart);
     let msg = start + emojiData.native + end;
     setNewMessage(msg);
-    setCursorPosition(start.length + emojiData.native.length);
+    // setCursorPosition(start.length + emojiData.native.length);
   };
 
   const handleChange = (e) => {
@@ -85,11 +86,11 @@ const ChatWindow = () => {
     // console.log(senderUser);
   }, [sender]);
 
-  useEffect(() => {
-    if (inputRef.current !== null) {
-      inputRef.current.selectionEnd = cursorPosition;
-    }
-  }, [cursorPosition]);
+  // useEffect(() => {
+  //   if (inputRef.current !== null) {
+  //     inputRef.current.selectionEnd = cursorPosition;
+  //   }
+  // }, [cursorPosition]);
 
   useEffect(() => {
     setMessage(allMessage);
