@@ -158,7 +158,7 @@ const Wrapper = styled.section`
     flex-direction: column;
     border-right: 1px solid rgba(${({ theme }) => theme.colors.border});
     background-color: ${({ theme }) => theme.colors.bg.primary};
-    animation: fadeInLeft 1s;
+    animation: fadeInLeft 1s ease-in-out;
   }
   .side-menu-bar {
     height: 100%;
@@ -229,7 +229,7 @@ const Wrapper = styled.section`
       max-height: 80px;
       max-width: 100vw;
       min-height: 80px;
-      z-index: 998;
+      z-index: 30;
     }
     .side-menu-list {
       height: 100%;
@@ -249,8 +249,8 @@ const Wrapper = styled.section`
       top: 0;
       left: 0;
       transform: translateX(-100%);
-      transition: all 1s linear;
-      z-index: 999;
+      transition: all 0.1s linear;
+      z-index: 20;
       max-width: 100px;
       box-shadow: 0px 0px 10px rgb(0 0 0);
       height: 100vh;
@@ -273,7 +273,7 @@ const Wrapper = styled.section`
     .active .side-menu-bar {
       transform: translateX(0%);
       transform-origin: left;
-      transition: all 0.5s linear;
+      transition: all 0.1s linear;
     }
     .mobile-navbar {
       position: relative;
@@ -287,7 +287,7 @@ const Wrapper = styled.section`
     }
     .mobile-sideMenu-btn {
       display: inline-block;
-      z-index: 9999;
+      z-index: 20;
       border: ${({ theme }) => theme.colors.heading};
       .mobile-nav-icon {
         font-size: 4.2rem;
@@ -298,7 +298,7 @@ const Wrapper = styled.section`
       display: none;
       font-size: 4.2rem;
       color: ${({ theme }) => theme.colors.heading};
-      z-index: 9999;
+      z-index: 20;
     }
     .active .mobile-navbar .close-outline {
       display: inline-block;

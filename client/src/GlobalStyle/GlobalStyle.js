@@ -73,7 +73,24 @@ export const GlobalStyle = createGlobalStyle`
 }
   }
 
+  .user-profile-sidebar {
+    .dialog-wrapper {
+      .dialog-container {
+    background: none;
+    .dialog-panel{
+      background-color: ${({ theme }) => theme.colors.bg.secondary};
+      box-shadow: 0 0 10px rgb(${({ theme }) => theme.colors.bg.secondary});
 
+      .sidebar{
+        color: ${({ theme }) => theme.colors.heading};
+        .sidebar-active{
+          background-color: ${({ theme }) => theme.colors.bg.secondary};
+        }
+      }
+    }
+   }
+    }
+  }
 
   button,
   input,
@@ -174,11 +191,13 @@ export const GlobalStyle = createGlobalStyle`
     transform: translate3d(0, 0, 0);
   }
 }
-  
+
+
+
   
   @media (max-width: ${({ theme }) => theme.media.mobile}) {
     html {
-      font-size: 70%;
+      font-size: 80%;
     }
   
     .grid {
@@ -188,5 +207,20 @@ export const GlobalStyle = createGlobalStyle`
     .grid-cols-2 {
       grid-template-columns: 1fr;
     }
+    .user-chat-show{
+    position: absolute;
+    top: 0px;
+    width: 100vw;
+    z-index: 40;
+    transform: translateX(100vw);
+    transition: transform 0.25s ease-in-out;
+    }
   }
+  .fadeInRight2{
+    transform: translateX(100vw);
+  }
+.fadeInRight{
+    transform: translateX(0);
+  }
+
 `;

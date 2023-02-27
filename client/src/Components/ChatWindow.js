@@ -18,9 +18,12 @@ import {
   getAllChats,
   sendMessge,
 } from "../Redux/Reducer/Message/message.action";
-import { Menu, Transition } from "@headlessui/react";
+import { Dialog, Menu, Transition } from "@headlessui/react";
+import Profile from "./SlideMenu/Profile";
+import {MdOutlineArrowBackIos} from "react-icons/md"
 
 const ChatWindow = () => {
+
   const senderUser = useSelector(
     (globalState) => globalState.chat.selectedChat
   );
@@ -41,6 +44,17 @@ const ChatWindow = () => {
   const [newMessage, setNewMessage] = useState("");
 
   const [sender, setSender] = useState();
+
+
+  let [isOpen, setIsOpen] = useState(false)
+
+  function closeModal() {
+    setIsOpen(false)
+  }
+
+  function openModal() {
+    setIsOpen(true)
+  }
 
   const [cursorPosition, setCursorPosition] = useState(0);
 
@@ -75,6 +89,11 @@ const ChatWindow = () => {
     // await dispatch(fetchChats());
   };
 
+  const userChathidden = () =>{
+    document.getElementById("user-chat").classList.remove("fadeInRight")
+       document.getElementById("user-chat").classList.add("fadeInRight2")
+  }
+
   useEffect(() => {
     setSender(senderUser);
   }, [senderUser]);
@@ -99,7 +118,7 @@ const ChatWindow = () => {
   }, [message]);
 
   return (
-    <Wrapper>
+    <Wrapper className="" id="user-chat">
       {!sender ? (
         <>
           <div className="chat-welcome-section overflow-x-hidden flex justify-center items-center">
@@ -119,11 +138,18 @@ const ChatWindow = () => {
         </>
       ) : (
         <>
-          <div className="chat-content flex">
+          <div className="chat-content flex" >
             <div className="w-full h-full position-relative">
+               {/* user-chat-topbar */}
               <div className="user-chat-topbar p-3 p-lg-4 absolute">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center">
+                  
+                  <div className="flex items-center justify-center">
+                  <div className="arrow-icon md:hidden ml-5 mr-5 cursor-pointer text-2xl p-2 rounded-full" onClick={userChathidden}>
+                    <MdOutlineArrowBackIos/>
+                  </div>
+                  
+                  <div className="flex items-center" onClick={openModal}>
                     <div className="chat-avatar mr-4">
                       <img
                         // src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
@@ -156,11 +182,14 @@ const ChatWindow = () => {
                       </p>
                     </div>
                   </div>
+                  </div>
+
                   <div className="flex items-center">
                     <div className="dropdown relative">
-                      <Dropdown />
+                      <Dropdown openModal={openModal} />
                     </div>
                   </div>
+
                 </div>
               </div>
 
@@ -462,9 +491,8 @@ const ChatWindow = () => {
                       </div>
                     </div>
                     <div className="links-list-item">
-                      <div className="btn emoji-btn mr-2">
                         <Menu>
-                          <Menu.Button className="flex justify-center items-center">
+                          <Menu.Button className="flex justify-center items-center btn emoji-btn mr-2">
                             <BiSmile title="emoji" />
                           </Menu.Button>
                           <Transition
@@ -484,7 +512,6 @@ const ChatWindow = () => {
                             </Menu.Items>
                           </Transition>
                         </Menu>
-                      </div>
                     </div>
                   </div>
 
@@ -513,6 +540,38 @@ const ChatWindow = () => {
           </div>
         </>
       )}
+
+      <div className="absolute h-full w-full">
+        <div className="flex items-center justify-center">
+        <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="user-profile-sidebar absolute z-50" onClose={closeModal}>
+     
+          <div className="dialog-wrapper z-50 fixed inset-0 overflow-y-auto">
+            <div className="dialog-container  flex min-h-full items-start justify-end text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-in-out duration-300 transform"
+                enterFrom="translate-x-full scale-95"
+                enterTo="translate-x-100 "
+                leave="ease-in-out duration-300 transform"
+                leaveFrom="translate-x-100"
+                leaveTo="translate-x-full"
+              >
+                <Dialog.Panel className="dialog-panel z-50 w-full h-screen max-w-md transform  text-white text-left shadow-xl transition-all">
+
+                <Profile closeModal={closeModal} />
+
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+     
+        </div>
+      </div>
+
+
     </Wrapper>
   );
 };
@@ -600,10 +659,13 @@ const Wrapper = styled.section`
     padding: 30px 30px 0;
   }
   .chat-content {
+    .arrow-icon{
+      background-color: ${({ theme }) => theme.colors.bg.secondary};
+    }
     .user-chat-topbar {
       width: 100%;
       background-color: ${({ theme }) => theme.colors.bg.primary};
-      z-index: 100;
+      z-index: 50;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       color: ${({ theme }) => theme.colors.heading};
       border-bottom: 1px solid rgba(${({ theme }) => theme.colors.border}, 0.3);
@@ -705,9 +767,9 @@ const Wrapper = styled.section`
       }
     }
   }
-  @media (max-width: ${({ theme }) => theme.media.mobile}) {
-    display: none;
-  }
+
+
+
 `;
 
 export default ChatWindow;

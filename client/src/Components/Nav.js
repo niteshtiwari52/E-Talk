@@ -59,7 +59,7 @@ function Nav() {
             </NavLink>
         </li>
         <li className="navbar-link mode-toggler">
-          <Toggler/>
+          <Toggler setMenuIcon={setMenuIcon} />
         </li>
       </ul>
 

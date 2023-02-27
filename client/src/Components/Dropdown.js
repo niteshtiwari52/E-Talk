@@ -6,9 +6,11 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { useSelector } from "react-redux";
 
 import { Menu, Transition } from "@headlessui/react";
+import Profile from "./SlideMenu/Profile";
 
-const Dropdown = () => {
+const Dropdown = (props) => {
   const [sender, setSender] = useState();
+
 
   const senderUser = useSelector(
     (globalState) => globalState.chat.selectedChat
@@ -18,6 +20,8 @@ const Dropdown = () => {
     setSender(senderUser);
   }, [senderUser]);
   return (
+    <>
+
     <Menu>
       <Menu.Button className="btn">
         <BiDotsVerticalRounded />
@@ -40,6 +44,7 @@ const Dropdown = () => {
                     ? "active flex items-center justify-between"
                     : " flex items-center justify-between"
                 }`}
+                onClick={props.openModal}
               >
                 <div className="icon-btn btn-outline-primary mr-4">
                   <CgProfile className="icon inline" />
@@ -90,6 +95,8 @@ const Dropdown = () => {
         </Menu.Items>
       </Transition>
     </Menu>
+    </>
+    
   );
 };
 

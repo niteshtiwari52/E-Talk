@@ -17,10 +17,10 @@ const UserList = () => {
   const chat = useSelector((globalState) => globalState.chat.chats);
   const loggedUser = useSelector((globalState) => globalState.user.userDetails);
 
-  // console.log(loggedUser)
-
-  // console.log({...chat})
-  // console.log(chatList)
+  const userChatShow = () =>{
+    document.getElementById("user-chat").classList.add("user-chat-show","fadeInRight")
+    
+}
 
   useEffect(() => {
     setchatList(chat);
@@ -42,10 +42,10 @@ const UserList = () => {
     <Wrapper>
       <ul className="chat-main h-full overflow-x-hidden overflow-y-scroll">
         {chatList.length !== 0 ? (
-          <div className="my-4">
+          <div className="my-4" onClick={()=>userChatShow()}>
             {chatList.map((item, index) => (
               <li
-                onClick={() => setSelectedChat(item)}
+                onClick={()=>setSelectedChat(item)}
                 key={item._id}
                 className={
                   selectedChat === item ? "active px-5 py-2" : "px-5 py-2"
