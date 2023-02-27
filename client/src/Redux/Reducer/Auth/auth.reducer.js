@@ -1,33 +1,56 @@
-// action Type 
+// action Type
 
-import { SIGN_IN , SIGN_UP , SIGN_OUT } from "./auth.type"; 
+import {
+  SIGN_IN,
+  SIGN_UP,
+  SIGN_OUT,
+  USER_VERIFICATION,
+  VERIFY_TOKEN,
+  ERROR,
+} from "./auth.type";
 
 const intialState = {};
 
-const authReducer = (state = intialState, action ) => {
-    switch (action.type) {
-        case SIGN_IN:
-            return{
-                ...state,
-                ...action.payload,
-            };
-        case SIGN_UP:
-            return{
-                ...state,
-                ...action.payload,
-            };
+const authReducer = (state = intialState, action) => {
+  switch (action.type) {
+    case SIGN_IN:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case SIGN_UP:
+      return {
+        ...state,
+        ...action.payload,
+      };
 
-        case SIGN_OUT : 
-            return{
-                ...state,
-            }
-            
-    
-        default:
-            return{
-                ...state,
-            };
-    }
+    case SIGN_OUT:
+      return {
+        ...state,
+      };
+
+    case USER_VERIFICATION:
+      return {
+        ...state,
+        ...action.payload,
+      };
+
+    case VERIFY_TOKEN:
+      return {
+        ...state,
+        ...action.payload,
+      };
+
+    case ERROR:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    default:
+      return {
+        ...state,
+      };
+  }
 };
 
 export default authReducer;

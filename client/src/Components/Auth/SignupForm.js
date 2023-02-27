@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 // Redux
 import { signUp } from "../../Redux/Reducer/Auth/auth.action";
 import { getMySelf } from "../../Redux/Reducer/User/user.action";
+import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,18 +28,23 @@ const SignupForm = () => {
   };
 
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSignUp = () => {
-    if(userData.email && userData.password && userData.name && userData.confirmPassword){
+    if (
+      userData.email &&
+      userData.password &&
+      userData.name &&
+      userData.confirmPassword
+    ) {
       dispatch(signUp(userData));
-    }else{
-      toast.error("Please Fill the Data",{
+      navigate("/verification");
+    } else {
+      toast.error("Please Fill the Data", {
         autoClose: 1000,
       });
     }
     // dispatch(getMySelf());
-
   };
 
   return (
@@ -148,7 +154,7 @@ const SignupForm = () => {
             </div>
             <Button
               className="button bg-green-600 hover:bg-green-500 active:bg-green-700 text-white radius-round h-11 px-8 py-2 w-full"
-              onClick={()=>handleSignUp()}
+              onClick={() => handleSignUp()}
             >
               Register
             </Button>
