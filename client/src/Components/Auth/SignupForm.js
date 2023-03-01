@@ -17,6 +17,7 @@ const SignupForm = () => {
   const [userData, setUserData] = useState({
     name: "",
     email: "",
+    contact: "",
     password: "",
     confirmPassword: "",
   });
@@ -84,6 +85,21 @@ const SignupForm = () => {
                   placeholder="Email"
                   required
                   value={userData.email}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div className="form-item vertical">
+              <label className="form-label mb-2">Mobile</label>
+              <div className="">
+                <input
+                  className="input input-md h-11"
+                  type="number"
+                  name="contact"
+                  autoComplete="off"
+                  placeholder="+91-phone no.."
+                  required
+                  value={userData.contact}
                   onChange={handleChange}
                 />
               </div>

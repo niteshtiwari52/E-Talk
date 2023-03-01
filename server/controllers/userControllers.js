@@ -8,9 +8,9 @@ const sendEmail = require("../utils/sendEmail");
 
 // signup new user
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, pic } = req.body;
+  const { name, email, password,contact, pic } = req.body;
 
-  if (!name || !email || !password) {
+  if (!name || !email || !password || !contact) {
     res.status(400);
     throw new Error("Please Enter all the Feilds");
   }
@@ -26,31 +26,24 @@ const registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password,
+    contact ,
     pic,
   });
-  // const user = await User({
-  //   name,
-  //   email,
-  //   password,
-  //   pic,
-  // }).save();
 
   if (user) {
-    // res.status(201).json({
-    //   _id: user._id,
-    //   name: user.name,
-    //   email: user.email,
-    //   pic: user.pic,
-    //   token: generateToken(user._id),
-    // });
-    const token = generateToken(user._id);
-    // const url = `http://localhost:4000/api/user/${user.id}/verify/${token}`;
+    const token = generateToken(user._id, "120s");
     const url = `http://localhost:3000/verify-email/${token}`;
     const options = {
       name: user.name,
       email: user.email,
       subject: "Verify Email",
       verification_Link: url,
+      message_Content:
+        "<p> Hi " +
+        user.name +
+        ",<br /> Please verify your E-Talk Account by clicking on the verification link. This Verification link is valid for 2:00 minutes <br /> <a href =" +
+        url +
+        " >Verify</a></p> ",
     };
     await sendEmail(options);
 
@@ -83,13 +76,17 @@ const resendVerificationLink = asyncHandler(async (req, res) => {
 
     const token = generateToken(user._id, "120s");
     const url = `http://localhost:3000/verify-email/${token}`;
-    // const url = `http://localhost:3000/email/verify/${user.id}`;
-    // const url = `http://localhost:3000/email/verify/${user.id}/verify/${token}`;
     const options = {
       name: user.name,
       email: user.email,
       subject: "Verify Email",
       verification_Link: url,
+      message_Content:
+        "<p> Hi " +
+        user.name +
+        ",<br /> Please verify your E-Talk Account by clicking on the verification link. This Verification link is valid for 2:00 minutes <br /> <a href =" +
+        url +
+        " >Verify</a></p> ",
     };
     await sendEmail(options);
 
@@ -106,20 +103,9 @@ const resendVerificationLink = asyncHandler(async (req, res) => {
 const verifyEmail = asyncHandler(async (req, res) => {
   try {
     const { token } = req.body;
-    // console.log(token);
-    // const user = await User.findOne(token);
-    // const user = await User.findOne({ _id: req.body.id });
 
     //decodes token id
     const decoded = await jwt.verify(token, process.env.JWT_SECRET);
-    // console.log(token);
-    // if (!decoded) {
-    //   res.status(404).json({
-    //     message: "Invalid varification link",
-    //   });
-    //   return;
-    // }
-    // console.log("decoded result : ", decoded.id);
 
     const user = await User.findOne({ _id: decoded.id });
     // console.log(user);
@@ -150,7 +136,6 @@ const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
-
   if (user && (await user.matchPassword(password))) {
     res.json({
       _id: user._id,
@@ -158,6 +143,29 @@ const authUser = asyncHandler(async (req, res) => {
       email: user.email,
       pic: user.pic,
       token: generateToken(user._id),
+    });
+  }
+  if (!user.is_verified) {
+    const token = generateToken(user._id, "120s");
+    const url = `http://localhost:3000/verify-email/${token}`;
+
+    const options = {
+      name: user.name,
+      email: user.email,
+      subject: "Verify Email",
+      verification_Link: url,
+      message_Content:
+        "<p> Hi " +
+        user.name +
+        ",<br /> Please verify your E-Talk Account by clicking on the verification link. This Verification link is valid for 2:00 minutes <br /> <a href =" +
+        url +
+        " >Verify</a></p> ",
+    };
+    await sendEmail(options);
+
+    return res.status(201).json({
+      verificationURL: url,
+      message: `An Email is sent to your Email ${user.email}. Please Verify Your Email`,
     });
   }
 });
@@ -189,15 +197,108 @@ const getmyself = asyncHandler(async (req, res) => {
   }
 });
 
+// Forgot password
+const forgotPassword = asyncHandler(async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({
+        message: "User Not Found",
+      });
+    }
+
+    const password_Reset_Token = generateToken(user._id, "300s");
+    const password_Reset_URL = `http://localhost:3000/forgot-password/${password_Reset_Token}`;
+    const options = {
+      name: user.name,
+      email: user.email,
+      subject: "Forgot-Password",
+      message_Content:
+        "<p> Hi " +
+        user.name +
+        ",<br /> You can Reset your Password by clicking on the Reset password. This password Reset link will be active only for 5:00 minutes <br /> <a href =" +
+        password_Reset_URL +
+        " >Reset password</a></p> ",
+    };
+
+    await sendEmail(options);
+    res.status(201).json({
+      passwordResetLink: password_Reset_URL,
+      message: `Your Password Reset Link has been sent to your Email ${user.email} . Please check you Spam or Junk Folder.`,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: error.message,
+    });
+  }
+});
+
+// Reset password
+const resetPassword = asyncHandler(async (req, res) => {
+  try {
+    const { token, newPassword } = req.body;
+
+    //decodes token id
+    const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+
+    let user = await User.findOne({ _id: decoded.id }).select("password");
+    console.log(user);
+    if (!user) {
+      return res.status(400).send({ message: "Invalid link" });
+    }
+    // const data = {
+    //   is_verified: true,
+    // };
+    // user = await User.findByIdAndUpdate(user._id, data, {
+    //   new: true,
+    // });
+    user.password = newPassword;
+    user = await user.save();
+
+    res.status(200).send({
+      message: "Password changed successfully",
+      success: true,
+      user,
+    });
+  } catch (error) {
+    res.status(400).send({
+      message: "password Reset Link has been expired",
+      success: false,
+    });
+  }
+});
+
+// update profile name or about status
+
+const updateProfile = asyncHandler(async (req, res) => {
+  try {
+    const { name, about } = req.body;
+    let user = await User.findById(req.user._id).select("-password");
+    // console.log(req.user);
+    const data = {
+      name: name || user.name,
+      about: about || user.about,
+    };
+    user = await User.findByIdAndUpdate(user._id, data, { new: true });
+    return res.status(200).json({
+      message: "your profile update successfully.",
+      user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: error.message,
+    });
+  }
+});
+
 // upload profile image
 const uploadProfileImage = asyncHandler(async (req, res) => {
   try {
     const file = req.file;
 
     let user = await User.findById(req.user.id);
-    // console.log(req.file);
-    // console.log(user);
-    // console.log(req.user.id);
     // delete exsisting image from cloudinary
     if (user.cloudinary_id) {
       await cloudinary.uploader.destroy(user.cloudinary_id);
@@ -218,9 +319,6 @@ const uploadProfileImage = asyncHandler(async (req, res) => {
       result,
       user,
     });
-    // console.log(req.user._id);
-    // database image url upadte
-    // return res.status(200).json({ uploadedImage });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -234,4 +332,7 @@ module.exports = {
   getmyself,
   uploadProfileImage,
   resendVerificationLink,
+  forgotPassword,
+  resetPassword,
+  updateProfile,
 };

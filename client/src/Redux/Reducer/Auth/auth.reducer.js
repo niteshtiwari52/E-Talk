@@ -7,6 +7,8 @@ import {
   USER_VERIFICATION,
   VERIFY_TOKEN,
   ERROR,
+  FORGOT_PASSWORD,
+  RESET_PASSWORD,
 } from "./auth.type";
 
 const intialState = {};
@@ -36,6 +38,18 @@ const authReducer = (state = intialState, action) => {
       };
 
     case VERIFY_TOKEN:
+      return {
+        ...state,
+        ...action.payload,
+      };
+
+    case FORGOT_PASSWORD:
+      return {
+        ...state,
+        ...action.payload,
+      };
+
+    case RESET_PASSWORD:
       return {
         ...state,
         ...action.payload,

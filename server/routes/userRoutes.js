@@ -10,6 +10,9 @@ const {
   uploadProfileImage,
   verifyEmail,
   resendVerificationLink,
+  forgotPassword,
+  updateProfile,
+  resetPassword,
 } = require("../controllers/userControllers");
 const { protect } = require("../middleware/authMiddleware");
 
@@ -23,8 +26,11 @@ const upload = multer({ storage });
 router.route("/").post(registerUser).get(protect, allUsers);
 router.route("/getmyself").get(protect, getmyself);
 router.route("/login").post(authUser);
-router.route("/resend/verificationlink").post(protect, resendVerificationLink);
+router.route("/resend/verificationlink").post(resendVerificationLink);
 router.route("/verify").put(verifyEmail);
+router.route("/forgotpassword").post(forgotPassword);
+router.route("/resetpassword").post(resetPassword);
+router.route("/updateprofile").put(protect, updateProfile);
 router
   .route("/profilepic")
   .put(protect, upload.single("image"), uploadProfileImage);
