@@ -6,7 +6,8 @@ const colors = require("colors");
 const chatRoutes = require("./routes/chatRoutes");
 const userRoutes = require("./routes/userRoutes");
 const messageRoutes = require("./routes/messageRoutes");
-import cors from "cors";
+import { Socket } from "dgram";
+// import cors from "cors";
 import helmet from "helmet";
 
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
@@ -15,7 +16,34 @@ dotenv.config();
 const app = express();
 connectDB();
 
-app.use(cors({ origin: "http://localhost:3000" }));
+// socket.io implement
+
+const http = require("http");
+const {Server} = require("socket.io");
+const cors = require("cors");
+
+app.use(cors());
+
+const server = http.createServer(app);
+
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log(`User Connected: ${socket.id}`);
+
+  socket.on("send_message", (data) => {
+     socket.broadcast.emit("receive_message", data)
+
+    //  socket.on('message', (data) => {
+    //   console.log(`New message from ${socket.id}: ${data}`);
+  });
+});
+
 app.use(helmet());
 app.use(express.json()); //to accept json data
 
@@ -46,8 +74,11 @@ app.use(notFound);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
+
+server.listen(PORT, () => {
   console.log(
     `Server is Running on PORT: http://localhost:${PORT}`.yellow.bold
   );
 });
+
+  

@@ -1,14 +1,32 @@
 "use strict";
 
-var _express = _interopRequireDefault(require("express"));
-var _data = require("./data/data");
-var _db = _interopRequireDefault(require("./config/db"));
+var _cors = _interopRequireDefault(require("cors"));
+var _helmet = _interopRequireDefault(require("helmet"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const express = require("express");
 const dotenv = require("dotenv");
+const connectDB = require("./config/db");
+const {
+  chats
+} = require("./data/data");
+const colors = require("colors");
+const chatRoutes = require("./routes/chatRoutes");
+const userRoutes = require("./routes/userRoutes");
+const messageRoutes = require("./routes/messageRoutes");
+const {
+  notFound,
+  errorHandler
+} = require("./middleware/errorMiddleware");
 dotenv.config();
-(0, _db.default)();
-const app = (0, _express.default)();
-app.use(_express.default.json());
+const app = express();
+connectDB();
+app.use((0, _cors.default)({
+  origin: "http://localhost:3000"
+}));
+app.use((0, _helmet.default)());
+app.use(express.json()); //to accept json data
+
+app.use(express.json());
 app.get("/", (req, res) => {
   res.json({
     message: "Welcome to E-Talk Server"

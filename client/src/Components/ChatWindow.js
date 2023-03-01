@@ -19,6 +19,8 @@ import {
   sendMessge,
 } from "../Redux/Reducer/Message/message.action";
 import { Menu, Transition } from "@headlessui/react";
+// import {setMessageReceived} from "../App"
+
 
 const ChatWindow = () => {
   const senderUser = useSelector(
@@ -42,7 +44,7 @@ const ChatWindow = () => {
 
   const [sender, setSender] = useState();
 
-  const [cursorPosition, setCursorPosition] = useState(0);
+  // const [cursorPosition, setCursorPosition] = useState(0);
 
   const pickEmoji = (emojiData, event) => {
     const ref = inputRef.current;
@@ -51,7 +53,7 @@ const ChatWindow = () => {
     const end = newMessage.substring(ref.selectionStart);
     let msg = start + emojiData.native + end;
     setNewMessage(msg);
-    setCursorPosition(start.length + emojiData.native.length);
+    // setCursorPosition(start.length + emojiData.native.length);
   };
 
   const handleChange = (e) => {
@@ -85,11 +87,11 @@ const ChatWindow = () => {
     // console.log(senderUser);
   }, [sender]);
 
-  useEffect(() => {
-    if (inputRef.current !== null) {
-      inputRef.current.selectionEnd = cursorPosition;
-    }
-  }, [cursorPosition]);
+  // useEffect(() => {
+  //   if (inputRef.current !== null) {
+  //     inputRef.current.selectionEnd = cursorPosition;
+  //   }
+  // }, [cursorPosition]);
 
   useEffect(() => {
     setMessage(allMessage);
@@ -502,9 +504,16 @@ const ChatWindow = () => {
 
                   <div className="chat-input-links ml-2" onClick={handleClick}>
                     <div className="links-list-items ml-5 ">
+                      {/* <input placeholder="Message..."
+                      onChange={(event) => {
+                        setMessage(event.target.value);
+                      }}
+                      /> */}
                       <Button className="btn submit-btn flex justify-center items-center">
                         <IoMdSend />
                       </Button>
+                      {/* <h1>Message:</h1> */}
+                      {/* {setMessageReceived} */}
                     </div>
                   </div>
                 </div>

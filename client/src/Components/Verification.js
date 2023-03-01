@@ -9,7 +9,7 @@ import { getMySelf } from "../Redux/Reducer/User/user.action";
 import { userVerification } from "../Redux/Reducer/Auth/auth.action";
 
 const Verification = () => {
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState(true);
   let [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState(
     "Your Email is not Verified. A verification link has been sent to your Email. Check your Email to verify your Account"
