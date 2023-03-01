@@ -38,6 +38,9 @@ io.on("connection", (socket) => {
 
   socket.on("send_message", (data) => {
      socket.broadcast.emit("receive_message", data)
+
+    //  socket.on('message', (data) => {
+    //   console.log(`New message from ${socket.id}: ${data}`);
   });
 });
 

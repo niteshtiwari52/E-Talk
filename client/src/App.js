@@ -49,7 +49,7 @@ useEffect(() => {
   socket.on("receive_message", (data) => {
     setMessageReceived(data.message);
   });
-}, []);
+}, [socket]);
 
   useEffect(() => {
     setloading(true);
