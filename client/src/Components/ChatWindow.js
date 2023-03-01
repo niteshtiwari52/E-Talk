@@ -19,6 +19,7 @@ import {
   sendMessge,
 } from "../Redux/Reducer/Message/message.action";
 import { Menu, Transition } from "@headlessui/react";
+// import {setMessageReceived} from "../App"
 
 
 const ChatWindow = () => {
@@ -503,9 +504,16 @@ const ChatWindow = () => {
 
                   <div className="chat-input-links ml-2" onClick={handleClick}>
                     <div className="links-list-items ml-5 ">
+                      {/* <input placeholder="Message..."
+                      onChange={(event) => {
+                        setMessage(event.target.value);
+                      }}
+                      /> */}
                       <Button className="btn submit-btn flex justify-center items-center">
                         <IoMdSend />
                       </Button>
+                      {/* <h1>Message:</h1> */}
+                      {/* {setMessageReceived} */}
                     </div>
                   </div>
                 </div>

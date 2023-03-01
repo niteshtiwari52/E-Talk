@@ -15,7 +15,7 @@ import Features from "./Pages/Features";
 
 import { darkTheme, lightTheme } from "./Components/Themes";
 import { useSelector } from "react-redux";
-// import io from "socket.io-client";
+import io from "socket.io-client";
 // import socketIOClient from "socket.io-client";
 
 
@@ -27,25 +27,29 @@ import { fetchChats } from "./Redux/Reducer/Chat/chat.action";
 import Verification from "./Components/Verification";
 import Verify from "./Components/Verify";
 
+const socket = io.connect("http://localhost:4000");
+
 function App() {
-  // const [response, setResponse] = useState("");
+  const [message, setMessage] = useState("");
+  const [messageReceived, setMessageReceived] = useState("");
   const [loading, setloading] = useState(false);
   const [status, setStatus] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const sendMessage = () => {
+    socket.emit("send_message", { message });
+  }
   const darkThemeEnabled = useSelector(
     (state) => state.themeReducer.darkThemeEnabled
   );
   const user = useSelector((globalState) => globalState.user.userDetails);
 
-
-  // useEffect(() => {
-  //   const socket = socketIOClient(ENDPOINT);
-  //   socket.on("FromAPI", data => {
-  //     setResponse(data);
-  //   });
-  // }, []);
-
+useEffect(() => {
+  socket.on("receive_message", (data) => {
+    setMessageReceived(data.message);
+  });
+}, []);
 
   useEffect(() => {
     setloading(true);
