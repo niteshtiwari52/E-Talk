@@ -24,25 +24,25 @@ const cors = require("cors");
 
 app.use(cors());
 
-const server = http.createServer(app);
+// const server = http.createServer(app);
 
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
-  },
-});
+// const io = new Server(server, {
+//   cors: {
+//     origin: "http://localhost:3000",
+//     methods: ["GET", "POST"],
+//   },
+// });
 
-io.on("connection", (socket) => {
-  console.log(`User Connected: ${socket.id}`);
+// io.on("connection", (socket) => {
+//   console.log(`User Connected: ${socket.id}`);
 
-  socket.on("send_message", (data) => {
-     socket.broadcast.emit("receive_message", data)
+//   socket.on("send_message", (data) => {
+//      socket.broadcast.emit("receive_message", data)
 
-    //  socket.on('message', (data) => {
-    //   console.log(`New message from ${socket.id}: ${data}`);
-  });
-});
+//     //  socket.on('message', (data) => {
+//     //   console.log(`New message from ${socket.id}: ${data}`);
+//   });
+// });
 
 app.use(helmet());
 app.use(express.json()); //to accept json data
@@ -75,7 +75,7 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 4000;
 
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(
     `Server is Running on PORT: http://localhost:${PORT}`.yellow.bold
   );
