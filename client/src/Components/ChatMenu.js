@@ -109,7 +109,7 @@ const Wrapper = styled.section`
   .chat-menu {
     padding: 1rem 1rem;
     background-color: ${({ theme }) => theme.colors.bg.primary};
-    border-bottom: 1px solid rgba(${({ theme }) => theme.colors.border}, 0.3);
+    border-bottom: 1px solid rgba(${({ theme }) => theme.colors.border});
     input {
       color: ${({ theme }) => theme.colors.heading};
       background-color: ${({ theme }) => theme.colors.bg.primary};
