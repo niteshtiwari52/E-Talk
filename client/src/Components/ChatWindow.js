@@ -17,12 +17,36 @@ import { useDispatch } from "react-redux";
 import {
   getAllChats,
   sendMessge,
+  updateGetAllChats,
 } from "../Redux/Reducer/Message/message.action";
+
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import Profile from "./SlideMenu/Profile";
 import {MdOutlineArrowBackIos} from "react-icons/md"
 
 const ChatWindow = () => {
+
+import { Menu, Transition } from "@headlessui/react";
+import io from "socket.io-client";
+
+const ENDPOINT = "http://localhost:4000";
+var socket, selectedChatCompare;
+
+const ChatWindow = () => {
+  const dispatch = useDispatch();
+  const inputRef = createRef();
+  // all the message for a particular chat
+  const [message, setMessage] = useState([]);
+
+  // message data require for sending data
+  const [newMessage, setNewMessage] = useState("");
+
+  const [sender, setSender] = useState();
+
+  const [cursorPosition, setCursorPosition] = useState(0);
+
+  const [socketConnected, setSocketConnected] = useState(false);
+
 
   const senderUser = useSelector(
     (globalState) => globalState.chat.selectedChat
@@ -34,16 +58,31 @@ const ChatWindow = () => {
   const allMessage = useSelector(
     (globalState) => globalState.message.allMessages
   );
-  const dispatch = useDispatch();
-  const inputRef = createRef();
 
-  // all the message for a particular chat
-  const [message, setMessage] = useState([]);
+  const createdMessage = useSelector(
+    (globalState) => globalState.message.createdMessage
+  );
 
-  // message data require for sending data
-  const [newMessage, setNewMessage] = useState("");
+  useEffect(() => {
+    socket = io(ENDPOINT);
+    socket.emit("setup", loggedUser);
+    socket.on("connection", () => setSocketConnected(true));
+  }, []);
 
-  const [sender, setSender] = useState();
+  useEffect(() => {
+    socket.on("message recieved", (newMessageRecieved) => {
+      if (
+        !selectedChatCompare ||
+        selectedChatCompare._id !== newMessageRecieved.chat._id
+      ) {
+        // we will give notification
+        console.log(newMessageRecieved);
+      } else {
+        // setMessage([...message, newMessageRecieved]);
+        // dispatch(getAllChats(sender));
+        // execute a dispatch action for update message in redux store
+        // if(newMessageRecieved){
+
 
 
   let [isOpen, setIsOpen] = useState(false)
@@ -58,6 +97,34 @@ const ChatWindow = () => {
 
   const [cursorPosition, setCursorPosition] = useState(0);
 
+        //   dispatch(updateGetAllChats());
+        // }
+
+        console.log(message);
+        dispatch(updateGetAllChats(newMessageRecieved));
+
+        console.log(message);
+      }
+    });
+  });
+  useEffect(() => {
+    setSender(senderUser);
+  }, [senderUser]);
+
+  // useEffect(()=> {
+
+  // }, [createdMessage])
+
+  useEffect(() => {
+    console.log(sender);
+    // dispatch(getAllChats(sender));
+
+    // we will decide we have to give notification to user or render the new msg
+    selectedChatCompare = sender;
+    // console.log(senderUser);
+  }, [sender]);
+
+
   const pickEmoji = (emojiData, event) => {
     const ref = inputRef.current;
     ref.focus();
@@ -68,10 +135,63 @@ const ChatWindow = () => {
     setCursorPosition(start.length + emojiData.native.length);
   };
 
+  useEffect(() => {
+    if (inputRef.current !== null) {
+      inputRef.current.selectionEnd = cursorPosition;
+    }
+  }, [cursorPosition]);
+
+  useEffect(() => {
+    socket = io(ENDPOINT);
+    socket.emit("setup", loggedUser);
+    socket.on("connection", () => setSocketConnected(true));
+  }, []);
+
+  useEffect(() => {
+   
+
+    
+     socket.on("message recieved", (newMessageRecieved) => {
+      if (
+        !selectedChatCompare ||
+        selectedChatCompare._id !== newMessageRecieved.chat._id
+      ) {
+        // we will give notification
+        console.log(newMessageRecieved);
+      } else {
+        // setMessage([...message, newMessageRecieved]);
+        // dispatch(getAllChats(sender));
+        // execute a dispatch action for update message in redux store
+        // if(newMessageRecieved){
+
+         
+        // }
+
+        console.log(message);
+        
+          dispatch(updateGetAllChats(newMessageRecieved));
+          // new issue in update state in redux store : rendering recieved msg multiple times
+       
+
+        console.log(message);
+      }
+    });
+  
+  });
+  useEffect(() => {
+    setMessage(allMessage);
+    socket.emit("join chat", sender);
+  }, [allMessage]);
+  useEffect(() => {
+    console.log(message);
+  }, [message]);
+
+  // for input changing
   const handleChange = (e) => {
     setNewMessage(e.target.value);
   };
 
+  // Sending message
   const handleClick = async () => {
     console.log(newMessage, sender._id);
     // alert("Hello");
@@ -85,7 +205,14 @@ const ChatWindow = () => {
     };
     setNewMessage("");
     await dispatch(sendMessge(messageData));
-    await dispatch(getAllChats(sender));
+    // await dispatch(getAllChats(sender));
+
+    console.log(createdMessage);
+    // socket.emit("new message", createdMessage);
+    // await dispatch(getAllChats(sender));
+
+    // setMessage([...message, createdMessage]);
+    console.log(message);
     // await dispatch(fetchChats());
   };
 
@@ -95,27 +222,15 @@ const ChatWindow = () => {
   }
 
   useEffect(() => {
-    setSender(senderUser);
-  }, [senderUser]);
+    socket.emit("new message", createdMessage);
+    //  dispatch(getAllChats(sender));
+    // execute a dispatch action for update message in redux store
+    dispatch(updateGetAllChats(createdMessage));
+    // if(createdMessage){
 
-  useEffect(() => {
-    console.log(sender);
-
-    // console.log(senderUser);
-  }, [sender]);
-
-  useEffect(() => {
-    if (inputRef.current !== null) {
-      inputRef.current.selectionEnd = cursorPosition;
-    }
-  }, [cursorPosition]);
-
-  useEffect(() => {
-    setMessage(allMessage);
-  }, [allMessage]);
-  useEffect(() => {
-    console.log(message);
-  }, [message]);
+    // setMessage([...message, createdMessage]);
+    // }
+  }, [createdMessage]);
 
   return (
     <Wrapper className="" id="user-chat">
@@ -196,7 +311,7 @@ const ChatWindow = () => {
               <div className="chat-conversation p-3 p-lg-4">
                 <ul className="chat-conversation-list">
                   {message.map((item) =>
-                    isMyMessage(loggedUser, item) ? (
+                    isMyMessage(loggedUser, item) && item.sender.pic ? (
                       <>
                         <li key={item._id} className="chat-list right">
                           <div className="conversation-list">
@@ -268,217 +383,6 @@ const ChatWindow = () => {
                       </>
                     )
                   )}
-
-                  {/* left side chat */}
-
-                  {/* <li className="chat-list">
-                    <div className="conversation-list">
-                      <div className="chat-avatar mr-4 ">
-                        <img
-                          src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
-                          alt=""
-                          className="rounded-full"
-                        />
-                      </div>
-                      <div className="user-chat-content">
-                        <div className="flex mb-3">
-                          <div className="chat-wrap-content">
-                            <span className="mb-0 chat-content text-sm text-left">
-                              Hey, I'm going to meet a friend of mine at the
-                              department store. I have to buy some presents for
-                              my parents 🎁
-                            </span>
-                          </div>
-                        </div>
-                        <div className="conversation-name">
-                          Nitesh
-                          <small className="ml-2 mb-0">06:00 PM</small>
-                        </div>
-                      </div>
-                    </div>
-                  </li> */}
-
-                  {/* right side chat  */}
-
-                  {/* <li className="chat-list right">
-                    <div className="conversation-list">
-                      <div className="chat-avatar mr-4 ">
-                        <img
-                          src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
-                          alt=""
-                          className="rounded-full"
-                        />
-                      </div>
-                      <div className="user-chat-content">
-                        <div className="flex mb-3">
-                          <div className="chat-wrap-content">
-                            <span className="mb-0 chat-content text-sm text-left">
-                              Good morning, How are you? What about our next
-                              meeting?
-                            </span>
-                          </div>
-                        </div>
-                        <div className="conversation-name">
-                          Narender
-                          <small className="ml-2 mb-0">06:00 PM</small>
-                        </div>
-                      </div>
-                    </div>
-                  </li> */}
-
-                  {/* <li className="chat-list">
-                    <div className="conversation-list">
-                      <div className="chat-avatar mr-4 ">
-                        <img
-                          src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
-                          alt=""
-                          className="rounded-full"
-                        />
-                      </div>
-                      <div className="user-chat-content">
-                        <div className="flex mb-3">
-                          <div className="chat-wrap-content">
-                            <span className="mb-0 chat-content text-sm text-left">
-                              Hey, I'm going to meet a friend of mine at the
-                              department store. I have to buy some presents for
-                              my parents 🎁
-                            </span>
-                          </div>
-                        </div>
-                        <div className="conversation-name">
-                          Nitesh
-                          <small className="ml-2 mb-0">06:00 PM</small>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="chat-list right">
-                    <div className="conversation-list">
-                      <div className="chat-avatar mr-4 ">
-                        <img
-                          src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
-                          alt=""
-                          className="rounded-full"
-                        />
-                      </div>
-                      <div className="user-chat-content">
-                        <div className="flex mb-3">
-                          <div className="chat-wrap-content">
-                            <span className="mb-0 chat-content text-sm text-left">
-                              Good morning, How are you? What about our next
-                              meeting?
-                            </span>
-                          </div>
-                        </div>
-                        <div className="conversation-name">
-                          Narender
-                          <small className="ml-2 mb-0">06:00 PM</small>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="chat-list">
-                    <div className="conversation-list">
-                      <div className="chat-avatar mr-4 ">
-                        <img
-                          src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
-                          alt=""
-                          className="rounded-full"
-                        />
-                      </div>
-                      <div className="user-chat-content">
-                        <div className="flex mb-3">
-                          <div className="chat-wrap-content">
-                            <span className="mb-0 chat-content text-sm text-left">
-                              Hey, I'm going to meet a friend of mine at the
-                              department store. I have to buy some presents for
-                              my parents 🎁
-                            </span>
-                          </div>
-                        </div>
-                        <div className="conversation-name">
-                          Nitesh
-                          <small className="ml-2 mb-0">06:00 PM</small>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="chat-list right">
-                    <div className="conversation-list">
-                      <div className="chat-avatar mr-4 ">
-                        <img
-                          src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
-                          alt=""
-                          className="rounded-full"
-                        />
-                      </div>
-                      <div className="user-chat-content">
-                        <div className="flex mb-3">
-                          <div className="chat-wrap-content">
-                            <span className="mb-0 chat-content text-sm text-left">
-                              Good morning, How are you? What about our next
-                              meeting?
-                            </span>
-                          </div>
-                        </div>
-                        <div className="conversation-name">
-                          Narender
-                          <small className="ml-2 mb-0">06:00 PM</small>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="chat-list">
-                    <div className="conversation-list">
-                      <div className="chat-avatar mr-4 ">
-                        <img
-                          src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
-                          alt=""
-                          className="rounded-full"
-                        />
-                      </div>
-                      <div className="user-chat-content">
-                        <div className="flex mb-3">
-                          <div className="chat-wrap-content">
-                            <span className="mb-0 chat-content text-sm text-left">
-                              Hey, I'm going to meet a friend of mine at the
-                              department store. I have to buy some presents for
-                              my parents 🎁
-                            </span>
-                          </div>
-                        </div>
-                        <div className="conversation-name">
-                          Nitesh
-                          <small className="ml-2 mb-0">06:00 PM</small>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="chat-list right">
-                    <div className="conversation-list">
-                      <div className="chat-avatar mr-4 ">
-                        <img
-                          src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
-                          alt=""
-                          className="rounded-full"
-                        />
-                      </div>
-                      <div className="user-chat-content">
-                        <div className="flex mb-3">
-                          <div className="chat-wrap-content">
-                            <span className="mb-0 chat-content text-sm text-left">
-                              Good morning, How are you? What about our next
-                              meeting?
-                            </span>
-                          </div>
-                        </div>
-                        <div className="conversation-name">
-                          Narender
-                          <small className="ml-2 mb-0">06:00 PM</small>
-                        </div>
-                      </div>
-                    </div>
-                  </li> */}
                 </ul>
               </div>
 
@@ -770,6 +674,6 @@ const Wrapper = styled.section`
 
 
 
-`;
+;
 
 export default ChatWindow;

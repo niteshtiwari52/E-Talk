@@ -1,4 +1,4 @@
-import { SELF, CLEAR_USER } from "./user.type";
+import { SELF, CLEAR_USER, UPDATE_PROFILE } from "./user.type";
 
 const initialState = {
   user: {},
@@ -6,7 +6,6 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-   
     case SELF:
       return {
         ...state,
@@ -15,6 +14,11 @@ const userReducer = (state = initialState, action) => {
     case CLEAR_USER:
       return {
         user: {},
+      };
+    case UPDATE_PROFILE:
+      return {
+        ...state,
+        ...action.payload,
       };
     default:
       return {

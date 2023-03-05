@@ -14,12 +14,7 @@ const sendEmail = async (options) => {
     from: process.env.SMPT_MAIL,
     to: options.email,
     subject: options.subject,
-    html:
-      "<p> Hi " +
-      options.name +
-      ",<br /> Please verify your E-Talk Account by clicking on the verification link. This Verification link is valid for 2:00 minutes <br /> <a href =" +
-      options.verification_Link +
-      " >Verify</a></p> ",
+    html: options.message_Content,
   };
   const mailInfo = await transporter.sendMail(mailOptions, (error, result) => {
     if (error) {

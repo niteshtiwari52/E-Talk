@@ -1,5 +1,9 @@
 import axios from "axios";
-import { SEND_MESSAGE, GET_ALL_MESSAGE } from "./message.type";
+import {
+  SEND_MESSAGE,
+  GET_ALL_MESSAGE,
+  UPDATE_GET_ALL_MESSAGE,
+} from "./message.type";
 
 // get all messages
 export const getAllChats = (selectedChat) => async (dispatch) => {
@@ -14,6 +18,23 @@ export const getAllChats = (selectedChat) => async (dispatch) => {
     return dispatch({ type: "ERROR", payload: error });
   }
   //   }
+};
+
+// updateing get all message
+export const updateGetAllChats = (messageRecived) => async (dispatch) => {
+  try {
+    console.log(messageRecived);
+    if(!messageRecived.sender){
+      return ;
+    }
+    const updatedAllMessage = messageRecived;
+    return dispatch({
+      type: UPDATE_GET_ALL_MESSAGE,
+      payload: updatedAllMessage,
+    });
+  } catch (error) {
+    return dispatch({ type: "ERROR", payload: error });
+  }
 };
 
 // send message
