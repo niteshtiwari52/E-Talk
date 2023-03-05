@@ -15,18 +15,12 @@ import Features from "./Components/Features";
 
 import { darkTheme, lightTheme } from "./Components/Themes";
 import { useSelector } from "react-redux";
-// import io from "socket.io-client";
-// import socketIOClient from "socket.io-client";
-
-
-
 
 import { useDispatch } from "react-redux";
 import { getMySelf } from "./Redux/Reducer/User/user.action";
 import { fetchChats } from "./Redux/Reducer/Chat/chat.action";
 import Verification from "./Components/Verification";
 import Verify from "./Components/Verify";
-
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -40,26 +34,14 @@ AOS.init({
 
 
 function App() {
-  // const [message, setMessage] = useState("");
-  // const [messageReceived, setMessageReceived] = useState("");
   const [loading, setloading] = useState(false);
   const [status, setStatus] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // const sendMessage = () => {
-  //   socket.emit("send_message", { message });
-  // }
   const darkThemeEnabled = useSelector(
     (state) => state.themeReducer.darkThemeEnabled
   );
   const user = useSelector((globalState) => globalState.user.userDetails);
-
-// useEffect(() => {
-//   socket.on("receive_message", (data) => {
-//     setMessageReceived(data.message);
-//   });
-// }, [socket]);
 
   useEffect(() => {
     setloading(true);
@@ -113,3 +95,4 @@ function App() {
 }
 
 export default App;
+
