@@ -96,10 +96,14 @@ const Wrapper = styled.div`
     }
      
   }
+  .setting-block{
+    border-bottom: 1px solid rgba(${({ theme }) => theme.colors.border});
+  }
 
   .user-profile {
     position: relative;
-    background-color: ${({ theme }) => theme.colors.bg.secondary};
+    background-color: ${({ theme }) => theme.colors.bg.primary};
+
    
     .profile-photo-edit {
       position: absolute;

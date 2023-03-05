@@ -9,7 +9,7 @@ const Chat = () => {
   return (
     <>
      <ToastContainer />
-      <Wrapper className="flex justify-start w-full">
+      <Wrapper className="flex justify-start w-screen">
         <SideMenu />
         <ChatMenu />
         <ChatWindow />
