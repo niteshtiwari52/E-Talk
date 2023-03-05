@@ -5,18 +5,19 @@ import { getSender, getSenderPic } from "../HelperFunction/chat.Helper";
 import {
   clearSelectChatAction,
   selectChatAction,
-  
 } from "../Redux/Reducer/Chat/chat.action";
 import { getAllChats } from "../Redux/Reducer/Message/message.action";
 import moment from "moment";
 
 const UserList = () => {
   const dispatch = useDispatch();
+ 
   const [selectedChat, setSelectedChat] = useState();
   const [chatList, setchatList] = useState([]);
 
   const chat = useSelector((globalState) => globalState.chat.chats);
   const loggedUser = useSelector((globalState) => globalState.user.userDetails);
+  const user = useSelector((globalState) => globalState.user.userDetails);
 
   const userChatShow = () =>{
     document.getElementById("user-chat").classList.add("user-chat-show","fadeInRight")
@@ -33,6 +34,8 @@ const UserList = () => {
     // if (selectedChat ? dispatch(getAllChats(selectedChat._id)) : "")
 
     dispatch(selectChatAction(selectedChat));
+    console.log(selectedChat);
+
     dispatch(getAllChats(selectedChat));
 
     // alert(selectedChat._id)
@@ -73,10 +76,19 @@ const UserList = () => {
                     </h2>
                     <p className=" text-xs truncate whitespace-nowrap overflow-hidden">
                       <span className="text-xs">
-                        {item.latestMessage != null ? `${item.latestMessage.sender.name === loggedUser.name ? "You" : item.latestMessage.sender.name}:` : ""}
+                        {item.latestMessage != null
+                          ? `${
+                              item.latestMessage.sender.name === loggedUser.name
+                                ? "You"
+                                : item.latestMessage.sender.name
+                            }:`
+                          : ""}
                       </span>
                       <span className="text-xs truncate">
-                      {" "}{item.latestMessage != null ? item.latestMessage.content : ""}
+                        {" "}
+                        {item.latestMessage != null
+                          ? item.latestMessage.content
+                          : ""}
                       </span>
                     </p>
                   </div>
@@ -111,9 +123,11 @@ const UserList = () => {
                     )}
 
                     <p>
-                      {item.latestMessage ? moment( item.latestMessage.createdAt ).format(
-                        "DD/MM/YY"
-                      ): ""}
+                      {item.latestMessage
+                        ? moment(item.latestMessage.createdAt).format(
+                            "DD/MM/YY"
+                          )
+                        : ""}
                     </p>
 
                     {item.status === "seen" ? (
@@ -123,7 +137,6 @@ const UserList = () => {
                     ) : (
                       <span className="status text-red-500">{item.status}</span>
                     )}
-
                   </div>
                 </div>
               </li>
@@ -178,8 +191,8 @@ const Wrapper = styled.section`
           color: ${({ theme }) => theme.colors.text.secondary};
         }
       }
-      .avatar-group{
-        img{
+      .avatar-group {
+        img {
           border-color: rgb(${({ theme }) => theme.colors.img_border});
         }
       }
@@ -188,13 +201,13 @@ const Wrapper = styled.section`
         right: 0;
         text-align: right;
         padding: 12px 0px 12px 0px;
-        h2,p{
+        h2,
+        p {
           color: ${({ theme }) => theme.colors.text.secondary};
         }
         h2,
         p,
         span {
-          
           font-size: calc(11px + (12 - 11) * ((100vw - 320px) / (1920 - 320)));
         }
         .status {

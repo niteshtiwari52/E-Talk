@@ -54,7 +54,7 @@ function ImageEdit() {
   };
 
   // useEffect(() => {
-  //   console.log(selectedImage);
+    // console.log(selectedImage);
   // }, [selectedImage]);
 
   return (

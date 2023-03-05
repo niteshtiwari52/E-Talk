@@ -8,6 +8,8 @@ import {
   SIGN_OUT,
   USER_VERIFICATION,
   VERIFY_TOKEN,
+  FORGOT_PASSWORD,
+  RESET_PASSWORD,
 } from "./auth.type";
 
 // Sign IN
@@ -92,6 +94,44 @@ export const verifyEmailLink = (token) => async (dispatch) => {
     return dispatch({ type: VERIFY_TOKEN, payload: verificationStatus.data });
   } catch (error) {
     return dispatch({ type: "ERROR", payload: error.response.data });
+  }
+};
+
+// Forgot password
+export const forgotPassword = (data) => async (dispatch) => {
+  try {
+    // console.log(data.email);
+    const forgotPasswordStatus = await axios({
+      method: "POST",
+      url: "http://localhost:4000/api/user/forgotpassword",
+      data: { ...data },
+    });
+
+    return dispatch({
+      type: FORGOT_PASSWORD,
+      payload: forgotPasswordStatus.data,
+    });
+  } catch (error) {
+    return dispatch({ type: "ERROR", payload: error });
+  }
+};
+
+// Reset password
+export const resetPassword = (data) => async (dispatch) => {
+  try {
+    // console.log(data.email);
+    const resetPasswordStatus = await axios({
+      method: "POST",
+      url: "http://localhost:4000/api/user/resetpassword",
+      data: { ...data },
+    });
+
+    return dispatch({
+      type: RESET_PASSWORD,
+      payload: resetPasswordStatus.data,
+    });
+  } catch (error) {
+    return dispatch({ type: "ERROR", payload: error });
   }
 };
 
