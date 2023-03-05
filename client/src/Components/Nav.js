@@ -1,202 +1,239 @@
-import React, { useState } from 'react';
-import { CgClose, CgMenu } from 'react-icons/cg';
-import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
-import { Button } from '../Styles/Button';
-import Toggler from './Toggler';
+import React, { useState } from "react";
+import { CgClose, CgMenu } from "react-icons/cg";
+import { NavLink } from "react-router-dom";
+import { Link } from "react-scroll";
+import styled from "styled-components";
+import { Button } from "../Styles/Button";
+import Toggler from "./Toggler";
 
 function Nav() {
-    const [menuIcon, setMenuIcon] = useState(false);
+  const [menuIcon, setMenuIcon] = useState(false);
+
   return (
     <Navbar>
-    <div className={menuIcon ? "navbar active" : "navbar"}>
-      <ul className="navbar-lists flex items-center">
-        <li>
-          <NavLink
-            to="/"
-            className="navbar-link "
-            onClick={() => setMenuIcon(false)}>
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/features"
-            className="navbar-link "
-            onClick={() => setMenuIcon(false)}>
-           Features
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/team"
-            className="navbar-link "
-            onClick={() => setMenuIcon(false)}>
-            Team
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/contact"
-            className="navbar-link "
-            onClick={() => setMenuIcon(false)}>
-            Contact
-          </NavLink>
-        </li>
-        <li>
-            <NavLink    
-            to="/auth"
-            className="navbar-link">
-                <Button className='button'>Login</Button>
-            </NavLink>
-        </li>
-        <li>
-            <NavLink
-            to="/auth/signup"
-            className="navbar-link"
+      <div className={menuIcon ? "navbar active" : "navbar"}>
+        <ul className="navbar-lists flex items-center">
+          <li>
+            <Link
+              to="home"
+              className="navbar-link "
+              activeClass="active"
+              smooth={true}
+              duration={500}
+              onClick={() => setMenuIcon(false)}
             >
-                <Button className='button'>signup</Button>
+              Home
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              to="features"
+              activeClass="active"
+              smooth={true}
+              offset={-50}
+              duration={500}
+              className="navbar-link "
+              onClick={() => setMenuIcon(false)}
+            >
+              Features
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              to="team"
+              activeClass="active"
+              smooth={true}
+              offset={-50}
+              duration={500}
+              className="navbar-link "
+              onClick={() => setMenuIcon(false)}
+            >
+              Team
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              to="contact"
+              activeClass="active"
+              smooth={true}
+              offset={-50}
+              duration={500}
+              className="navbar-link "
+              onClick={() => setMenuIcon(false)}
+            >
+              Contact
+            </Link>
+          </li>
+
+          <li>
+            <NavLink to="/auth" className="navbar-link">
+              <Button className="button">Login</Button>
             </NavLink>
-        </li>
-        <li className="navbar-link mode-toggler">
-          <Toggler setMenuIcon={setMenuIcon} />
-        </li>
-      </ul>
+          </li>
 
-      {/* two button for open and close of menu */}
-      <div className="mobile-navbar-btn">
-        <CgMenu
-          name="menu-outline"
-          className="mobile-nav-icon"
-          onClick={() => setMenuIcon(true)}
-        />
-        <CgClose
-          name="close-outline"
-          className="mobile-nav-icon close-outline"
-          onClick={() => setMenuIcon(false)}
-        />
-       
-      </div>
+          <li>
+            <NavLink to="/auth/signup" className="navbar-link">
+              <Button className="button">signup</Button>
+            </NavLink>
+          </li>
 
-      <div className="mobile-navbar-btn ml-10">
-        <Toggler className="mobile-nav-icon" />
+          <li>
+            <div className="navbar-link mode-toggler">
+              <Toggler setMenuIcon={setMenuIcon} />
+            </div>
+          </li>
+        </ul>
+
+        {/* two button for open and close of menu */}
+        <div className="mobile-navbar-btn">
+          <CgMenu
+            name="menu-outline"
+            className="mobile-nav-icon"
+            onClick={() => setMenuIcon(true)}
+          />
+          <CgClose
+            name="close-outline"
+            className="mobile-nav-icon close-outline"
+            onClick={() => setMenuIcon(false)}
+          />
+        </div>
+
+        <div className="mobile-navbar-btn ml-10">
+          <Toggler className="mobile-nav-icon" />
+        </div>
       </div>
-      
-    </div>
-  </Navbar>
-  )
+    </Navbar>
+  );
 }
 
-
-  const Navbar = styled.nav`
-    .navbar-lists {
-      gap: 2.8rem;
-      .navbar-link {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        font-size: 2rem;
-        color: ${({ theme }) => theme.colors.text.secondary};
-        border-radius: 8px;
-        &:link,
-        &:visited {
-          display: inline-block;
-          text-decoration: none;
-          font-size: 1.1rem;
-          font-weight: 500;
-          text-transform: uppercase;
-          color: ${({ theme }) => theme.colors.heading};
-          transition: color 0.3s linear;
-        }
-        &:hover,
-        &:active {
-          color: ${({ theme }) => theme.colors.cyan};
-        }
-
-        .button{
-            font-size: 1.1rem;
-            width: 100px;
-            border-radius: 20px;
-            color: ${({ theme }) => theme.colors.heading};
-            border: solid 2px  ${({ theme }) => theme.colors.heading};
-
-            &:hover{
-                color: ${({ theme }) => theme.colors.cyan};
-            border: solid 2px  ${({ theme }) => theme.colors.cyan};
-            }
-        }
-      }
-    }
-
-    .mobile-navbar-btn {
-      display: none;
-      background-color: transparent;
+const Navbar = styled.nav`
+  .navbar-lists {
+    gap: 2rem;
+    .navbar-link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 1.2rem;
+      line-height: 1.5rem;
+      color: ${({ theme }) => theme.colors.white};
+      padding: 0.5rem 0rem;
       cursor: pointer;
-      border: none;
-    }
-    .mobile-nav-icon[name="close-outline"] {
-      display: none;
-    }
-    .close-outline {
-      display: none;
-    }
+      text-decoration: none;
+      font-weight: 500;
+      text-transform: uppercase;
+      transition: color 0.3s linear;
+      &:link,
+      &:visited {
+        font-size: 1rem;
+      }
+      &:hover,
+      &:active {
+        transition: color 0.3s linear;
+        border-bottom: 2px solid ${({ theme }) => theme.colors.white};
+        color: ${({ theme }) => theme.colors.white};
+      }
 
-    @media (max-width: ${({ theme }) => theme.media.mobile}) {
-      .mobile-navbar-btn {
-        display: inline-block;
-        z-index: 9999;
-        font-size: 4.2rem;
-        border: ${({ theme }) => theme.colors.heading};
-        .mobile-nav-icon {
-          color: ${({ theme }) => theme.colors.heading};
+      .button {
+        font-size: 1.1rem;
+        width: 100px;
+        border-radius: 20px;
+        color: ${({ theme }) => theme.colors.white};
+        border: solid 2px ${({ theme }) => theme.colors.white};
+
+        &:hover {
+          color: ${({ theme }) => theme.colors.white};
+          border: solid 2px ${({ theme }) => theme.colors.white};
         }
       }
-      .active .mobile-nav-icon {
-        display: none;
-        font-size: 4.2rem;
+    }
+  }
+
+  .navbar-lists li {
+    &:nth-child(5),
+    &:nth-child(6),
+    &:nth-child(7) {
+      .navbar-link {
+        &:hover {
+          border: none;
+        }
+      }
+    }
+    &:nth-child(7){
+      font-size: 1.5rem;
+    }
+  }
+
+  .mobile-navbar-btn {
+    display: none;
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+  }
+  .mobile-nav-icon[name="close-outline"] {
+    display: none;
+  }
+  .close-outline {
+    display: none;
+  }
+
+  @media (max-width: 980px) {
+    .mobile-navbar-btn {
+      display: inline-block;
+      z-index: 9999;
+      font-size: 3.2rem;
+      border: ${({ theme }) => theme.colors.heading};
+      .mobile-nav-icon {
         color: ${({ theme }) => theme.colors.heading};
-        z-index: 9999;
-      }
-      .active .close-outline {
-        display: inline-block;
-      }
-      .navbar-lists {
-        width: 100vw;
-        height: 100vh;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color:${({ theme }) => theme.colors.bg.secondary};
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        visibility: hidden;
-        opacity: 0;
-        transform: translateX(100%);
-        /* transform-origin: top; */
-        transition: all 0.5s linear;
-
-        .button{
-         display: none;
-        }
-      }
-      .active .navbar-lists {
-        visibility: visible;
-        opacity: 1;
-        transform: translateX(0);
-        z-index: 999;
-        transform-origin: right;
-        transition: all 0.5s linear;
-        .navbar-link {
-          font-size: 4.2rem;
-        }
-        .mode-toggler{
-          display: none
-        }
       }
     }
-  `;
+    .active .mobile-nav-icon {
+      display: none;
+      color: ${({ theme }) => theme.colors.heading};
+      z-index: 9999;
+    }
+    .active .close-outline {
+      display: flex;
+    }
+    .navbar-lists {
+      width: 100vw;
+      position: absolute;
+      top: 100px;
+      right: 0;
+      background-color: ${({ theme }) => theme.colors.bg2.primary};
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateX(100%);
+      /* transform-origin: top; */
 
-export default Nav
+      .button {
+        display: none;
+      }
+    }
+    .active .navbar-lists {
+      visibility: visible;
+      opacity: 1;
+      transform: translateX(0);
+      z-index: 999;
+      transform-origin: right;
+      width: 100vw;
+
+      .navbar-link {
+        font-size: 2.2rem;
+        color: ${({ theme }) => theme.colors.heading};
+      }
+      .mode-toggler {
+        display: none;
+      }
+    }
+  }
+`;
+
+export default Nav;

@@ -547,7 +547,7 @@ const ChatWindow = () => {
         <Dialog as="div" className="user-profile-sidebar absolute z-50" onClose={closeModal}>
      
           <div className="dialog-wrapper z-50 fixed inset-0 overflow-y-auto">
-            <div className="dialog-container  flex min-h-full items-start justify-end text-center">
+            <div className="dialog-container flex min-h-full items-start justify-end text-center">
               <Transition.Child
                 as={Fragment}
                 enter="ease-in-out duration-300 transform"
@@ -557,7 +557,7 @@ const ChatWindow = () => {
                 leaveFrom="translate-x-100"
                 leaveTo="translate-x-full"
               >
-                <Dialog.Panel className="dialog-panel z-50 w-full h-screen max-w-md transform  text-white text-left shadow-xl transition-all">
+                <Dialog.Panel className="dialog-panel z-50  h-screen max-w-sm transform  text-white text-left shadow-xl transition-all">
 
                 <Profile closeModal={closeModal} />
 
@@ -578,7 +578,7 @@ const ChatWindow = () => {
 
 const Wrapper = styled.section`
   position: relative;
-  width: 75%;
+  width: 100%;
   height: 100vh;
   min-width: auto;
   overflow: hidden;

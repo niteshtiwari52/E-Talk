@@ -6,25 +6,26 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
-  }
-  body{
     scroll-behavior: smooth;
   }
+
   ::-webkit-scrollbar {
     background-color: initial;
     width: 5px;
 }
 ::-webkit-scrollbar-thumb {
   background-color: rgba(${({ theme }) => theme.colors.rgb.cyan}, .2);
-    border-radius: 6px;
+    border-radius: 10px;
 }
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px ${({ theme }) => theme.colors.border};
 }
+
 .App{
   position: relative;
-  background-color: ${({ theme }) => theme.colors.bg.secondary};
-  color: ${({ theme }) => theme.colors.heading}
+  background-color: ${({ theme }) => theme.colors.bg.primary};
+  color: ${({ theme }) => theme.colors.heading};
+  overflow-x: hidden;
 }
 
 .box{
@@ -34,6 +35,7 @@ export const GlobalStyle = createGlobalStyle`
 
 .dialog-wrapper {
   .dialog-container{
+    
     background-color: rgba(${({ theme }) => theme.colors.border},0.5)
   }
   .dialog-panel{
@@ -78,13 +80,13 @@ export const GlobalStyle = createGlobalStyle`
       .dialog-container {
     background: none;
     .dialog-panel{
-      background-color: ${({ theme }) => theme.colors.bg.secondary};
+      background-color: ${({ theme }) => theme.colors.bg.primary};
       box-shadow: 0 0 10px rgb(${({ theme }) => theme.colors.bg.secondary});
 
       .sidebar{
         color: ${({ theme }) => theme.colors.heading};
         .sidebar-active{
-          background-color: ${({ theme }) => theme.colors.bg.secondary};
+          background-color: ${({ theme }) => theme.colors.bg.primary};
         }
       }
     }
@@ -180,6 +182,8 @@ export const GlobalStyle = createGlobalStyle`
     border-color: ${({ theme }) => theme.colors.btnlight};
   }
 
+  
+
   @keyframes fadeInLeft {
   0% {
     opacity: 0;
@@ -215,12 +219,12 @@ export const GlobalStyle = createGlobalStyle`
     transform: translateX(100vw);
     transition: transform 0.25s ease-in-out;
     }
-  }
   .fadeInRight2{
     transform: translateX(100vw);
   }
 .fadeInRight{
     transform: translateX(0);
+  }
   }
 
 `;

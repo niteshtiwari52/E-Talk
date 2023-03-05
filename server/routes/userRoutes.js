@@ -23,7 +23,7 @@ const upload = multer({ storage });
 router.route("/").post(registerUser).get(protect, allUsers);
 router.route("/getmyself").get(protect, getmyself);
 router.route("/login").post(authUser);
-router.route("/resend/verificationlink").post(protect, resendVerificationLink);
+router.route("/resend/verificationlink").post(resendVerificationLink);
 router.route("/verify").put(verifyEmail);
 router
   .route("/profilepic")

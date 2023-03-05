@@ -5,7 +5,7 @@ import DefaultLayoutHoc from "../Layout/DefaultLayout";
 
 
 // redux
-import {useSelector} from "react-redux"
+import {useSelector} from "react-redux";
 
 const HomePage = () => {
 
@@ -22,7 +22,7 @@ const HomePage = () => {
       ) : (
         <>
           <Welcome />
-         
+          
         </>
       )}
     </>

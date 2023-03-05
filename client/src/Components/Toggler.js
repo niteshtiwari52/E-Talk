@@ -14,8 +14,6 @@ const Toggler = (props) => {
     dispatch({type: TOGGLE_DARKTHEME});
     setToggle(!darkThemeEnabled);
   }
-  console.log(darkThemeEnabled)
-  console.log(toggle)
   return (
     <Wrapper onClick={togglerTheme}>
         {
@@ -32,12 +30,8 @@ const Wrapper = styled.div`
         justify-content: center;
         align-items: center;
         text-align: center;
-        color: ${({ theme }) => theme.colors.text.secondary};
         border-radius: 8px;
         cursor: pointer;
-        &:hover{
-          color: ${({ theme }) => theme.colors.cyan};
-        }
 `
 
 

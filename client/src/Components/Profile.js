@@ -5,6 +5,7 @@ import {useSelector} from "react-redux"
 
 const Profile = () => {
   const user = useSelector((globalState) =>  globalState.user.userDetails );
+  console.log(user)
   return (
     <Wrapper className="profile-tab dynamic-sidebar">
       <div className="relative chat-menu flex flex-wrap items-center justify-between w-full ">
@@ -33,15 +34,14 @@ const Profile = () => {
               <p>Free all time</p>
             </div>
 
-           
-
+          
             <div className="flex justify-between w-full mt-2">
               <div className="grid place-items-center text-gray-500 text-3xl">
               <MdOutlineEmail />
               </div>
               <div className="w-4/5">
               <span className="text-gray-500">Email Address</span>
-              <p>{user.email}</p>
+              <p className="w-full break-words">{user.email}</p>
               </div>
             </div>
 
@@ -62,7 +62,8 @@ const Wrapper = styled.div`
     }
   }
   .intro{
-    background-color: ${({ theme }) => theme.colors.bg.secondary};
+    border-bottom: 1px solid rgba(${({ theme }) => theme.colors.border});
+    background-color: ${({ theme }) => theme.colors.bg.primary};
   }
   @media (max-width: ${({ theme }) => theme.media.mobile}) {
     .details{

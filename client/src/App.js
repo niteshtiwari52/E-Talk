@@ -9,9 +9,9 @@ import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./GlobalStyle/GlobalStyle";
 import { useEffect, useState } from "react";
 import Loading from "./Components/Loading";
-import Team from "./Pages/Team";
-import Contact from "./Pages/Contact";
-import Features from "./Pages/Features";
+import Team from "./Components/Team";
+import Contact from "./Components/Contact";
+import Features from "./Components/Features";
 
 import { darkTheme, lightTheme } from "./Components/Themes";
 import { useSelector } from "react-redux";
@@ -21,6 +21,14 @@ import { getMySelf } from "./Redux/Reducer/User/user.action";
 import { fetchChats } from "./Redux/Reducer/Chat/chat.action";
 import Verification from "./Components/Verification";
 import Verify from "./Components/Verify";
+
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init({
+  once: true,
+  duration: 2000,
+  offset: 100,
+});
 
 function App() {
   const [loading, setloading] = useState(false);
@@ -60,7 +68,7 @@ function App() {
   return (
     <ThemeProvider theme={darkThemeEnabled ? darkTheme : lightTheme}>
       <GlobalStyle />
-      <div className="App">
+      <div className="App w-screen">
         {loading ? (
           <Loading />
         ) : (

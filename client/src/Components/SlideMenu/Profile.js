@@ -18,7 +18,7 @@ const Profile = (props) => {
 
   return sender ? (
     <>
-      <Wrapper className="sidebar h-full flex justify-center ">
+      <Wrapper className="sidebar w-full h-full flex justify-center ">
       
         <div className="overflow-scroll sidebar-active">
           <div className="contact-profile p-10">
