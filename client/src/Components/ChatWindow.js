@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import {
   getAllChats,
   sendMessge,
+  updateGetAllChats,
 } from "../Redux/Reducer/Message/message.action";
 import { Menu, Transition } from "@headlessui/react";
 import io from "socket.io-client";
@@ -37,8 +38,6 @@ const ChatWindow = () => {
 
   const [cursorPosition, setCursorPosition] = useState(0);
 
-  
-
   const [socketConnected, setSocketConnected] = useState(false);
 
   const senderUser = useSelector(
@@ -56,6 +55,36 @@ const ChatWindow = () => {
     (globalState) => globalState.message.createdMessage
   );
 
+  useEffect(() => {
+    socket = io(ENDPOINT);
+    socket.emit("setup", loggedUser);
+    socket.on("connection", () => setSocketConnected(true));
+  }, []);
+
+  useEffect(() => {
+    socket.on("message recieved", (newMessageRecieved) => {
+      if (
+        !selectedChatCompare ||
+        selectedChatCompare._id !== newMessageRecieved.chat._id
+      ) {
+        // we will give notification
+        console.log(newMessageRecieved);
+      } else {
+        // setMessage([...message, newMessageRecieved]);
+        // dispatch(getAllChats(sender));
+        // execute a dispatch action for update message in redux store
+        // if(newMessageRecieved){
+
+        //   dispatch(updateGetAllChats());
+        // }
+
+        console.log(message);
+        dispatch(updateGetAllChats(newMessageRecieved));
+
+        console.log(message);
+      }
+    });
+  });
   useEffect(() => {
     setSender(senderUser);
   }, [senderUser]);
@@ -96,27 +125,43 @@ const ChatWindow = () => {
   }, []);
 
   useEffect(() => {
+   
+
+    
+     socket.on("message recieved", (newMessageRecieved) => {
+      if (
+        !selectedChatCompare ||
+        selectedChatCompare._id !== newMessageRecieved.chat._id
+      ) {
+        // we will give notification
+        console.log(newMessageRecieved);
+      } else {
+        // setMessage([...message, newMessageRecieved]);
+        // dispatch(getAllChats(sender));
+        // execute a dispatch action for update message in redux store
+        // if(newMessageRecieved){
+
+         
+        // }
+
+        console.log(message);
+        
+          dispatch(updateGetAllChats(newMessageRecieved));
+          // new issue in update state in redux store : rendering recieved msg multiple times
+       
+
+        console.log(message);
+      }
+    });
+  
+  });
+  useEffect(() => {
     setMessage(allMessage);
     socket.emit("join chat", sender);
   }, [allMessage]);
   useEffect(() => {
     console.log(message);
   }, [message]);
-
-  // useEffect(() => {
-  //   socket.on("message recieved", (newMessageRecieved) => {
-  //     if (
-  //       !selectedChatCompare ||
-  //       selectedChatCompare._id !== newMessageRecieved.chat._id
-  //     ) {
-  //       // we will give notification
-  //     } else {
-  //       // setMessage([...message, newMessageRecieved]);
-  //       dispatch(getAllChats(sender));
-  //       console.log(message);
-  //     }
-  //   });
-  // });
 
   // for input changing
   const handleChange = (e) => {
@@ -138,11 +183,10 @@ const ChatWindow = () => {
     setNewMessage("");
     await dispatch(sendMessge(messageData));
     // await dispatch(getAllChats(sender));
-   
-      console.log(createdMessage)
-      // socket.emit("new message", createdMessage);
-      // await dispatch(getAllChats(sender));
-    
+
+    console.log(createdMessage);
+    // socket.emit("new message", createdMessage);
+    // await dispatch(getAllChats(sender));
 
     // setMessage([...message, createdMessage]);
     console.log(message);
@@ -152,12 +196,13 @@ const ChatWindow = () => {
   useEffect(() => {
     socket.emit("new message", createdMessage);
     //  dispatch(getAllChats(sender));
+    // execute a dispatch action for update message in redux store
+    dispatch(updateGetAllChats(createdMessage));
     // if(createdMessage){
 
-    //   setMessage([...message, createdMessage]);
+    // setMessage([...message, createdMessage]);
     // }
-  }, [createdMessage])
-  
+  }, [createdMessage]);
 
   return (
     <Wrapper>
@@ -228,7 +273,7 @@ const ChatWindow = () => {
               <div className="chat-conversation p-3 p-lg-4">
                 <ul className="chat-conversation-list">
                   {message.map((item) =>
-                    isMyMessage(loggedUser, item) ? (
+                    isMyMessage(loggedUser, item) && item.sender.pic ? (
                       <>
                         <li key={item._id} className="chat-list right">
                           <div className="conversation-list">
