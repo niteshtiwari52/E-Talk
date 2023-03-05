@@ -24,9 +24,7 @@ import { Dialog, Menu, Transition } from "@headlessui/react";
 import Profile from "./SlideMenu/Profile";
 import {MdOutlineArrowBackIos} from "react-icons/md"
 
-const ChatWindow = () => {
 
-import { Menu, Transition } from "@headlessui/react";
 import io from "socket.io-client";
 
 const ENDPOINT = "http://localhost:4000";
@@ -46,6 +44,16 @@ const ChatWindow = () => {
   const [cursorPosition, setCursorPosition] = useState(0);
 
   const [socketConnected, setSocketConnected] = useState(false);
+  let [isOpen, setIsOpen] = useState(false)
+
+  function closeModal() {
+    setIsOpen(false)
+  }
+
+  function openModal() {
+    setIsOpen(true)
+  }
+
 
 
   const senderUser = useSelector(
@@ -85,17 +93,7 @@ const ChatWindow = () => {
 
 
 
-  let [isOpen, setIsOpen] = useState(false)
-
-  function closeModal() {
-    setIsOpen(false)
-  }
-
-  function openModal() {
-    setIsOpen(true)
-  }
-
-  const [cursorPosition, setCursorPosition] = useState(0);
+  
 
         //   dispatch(updateGetAllChats());
         // }
@@ -674,6 +672,6 @@ const Wrapper = styled.section`
 
 
 
-;
+`;
 
 export default ChatWindow;
