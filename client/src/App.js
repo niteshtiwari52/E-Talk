@@ -22,8 +22,10 @@ import { fetchChats } from "./Redux/Reducer/Chat/chat.action";
 import Verification from "./Components/Verification";
 import Verify from "./Components/Verify";
 
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import AOS from "aos";
+import "aos/dist/aos.css";
+import ForgotPassword from "./Components/Auth/ForgotPassword";
+import ResetPassword from "./Components/Auth/ResetPassword";
 AOS.init({
   once: true,
   duration: 2000,
@@ -31,7 +33,6 @@ AOS.init({
 });
 
 // const socket = io.connect("http://localhost:4000");
-
 
 function App() {
   const [loading, setloading] = useState(false);
@@ -79,6 +80,8 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/verification" element={<Verification />} />
             <Route path="/verify-email/:token" element={<Verify />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/features" element={<Features />} />
             <Route path="/team" element={<Team />} />
             <Route path="/contact" element={<Contact />} />
@@ -95,4 +98,3 @@ function App() {
 }
 
 export default App;
-

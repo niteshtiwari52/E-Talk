@@ -51,3 +51,15 @@ export const sendMessge = (messageData) => async (dispatch) => {
     return dispatch({ type: "ERROR", payload: error });
   }
 };
+
+// clear all message
+export const clearSelectedMessage = () => async (dispatch) => {
+  try {
+    return dispatch({
+      type: "CLEAR_ALL_MESSAGE",
+      payload: "",
+    });
+  } catch (error) {
+    return dispatch({ type: "ERROR", payload: error });
+  }
+};

@@ -10,6 +10,7 @@ import {
   VERIFY_TOKEN,
   FORGOT_PASSWORD,
   RESET_PASSWORD,
+  CLEAR_AUTH_STORE,
 } from "./auth.type";
 
 // Sign IN
@@ -112,24 +113,38 @@ export const forgotPassword = (data) => async (dispatch) => {
       payload: forgotPasswordStatus.data,
     });
   } catch (error) {
-    return dispatch({ type: "ERROR", payload: error });
+    return dispatch({ type: "ERROR", payload: error.response.data });
   }
 };
 
 // Reset password
-export const resetPassword = (data) => async (dispatch) => {
+export const resetPassword = (userData) => async (dispatch) => {
   try {
+    // const { token, password } = userData;
     // console.log(data.email);
+    // const data = {
+    //   token: token,
+    //   password: password,
+    // };
     const resetPasswordStatus = await axios({
       method: "POST",
       url: "http://localhost:4000/api/user/resetpassword",
-      data: { ...data },
+      data: userData,
     });
 
     return dispatch({
       type: RESET_PASSWORD,
       payload: resetPasswordStatus.data,
     });
+  } catch (error) {
+    return dispatch({ type: "ERROR", payload: error.response.data });
+  }
+};
+
+// clar auth store
+export const clearAuthStore = () => async (dispatch) => {
+  try {
+    return dispatch({ type: CLEAR_AUTH_STORE, payload: {} });
   } catch (error) {
     return dispatch({ type: "ERROR", payload: error });
   }
