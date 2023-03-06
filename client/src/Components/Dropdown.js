@@ -23,7 +23,7 @@ const Dropdown = (props) => {
     <>
 
     <Menu>
-      <Menu.Button className="btn">
+      <Menu.Button className="btn flex justify-center">
         <BiDotsVerticalRounded />
       </Menu.Button>
       <Transition

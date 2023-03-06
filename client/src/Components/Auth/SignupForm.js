@@ -174,7 +174,7 @@ const SignupForm = () => {
             >
               Register
             </Button>
-            <Social />
+            {/* <Social /> */}
           </div>
           {/* </form> */}
         </div>

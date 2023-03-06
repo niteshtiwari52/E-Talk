@@ -20,7 +20,7 @@ const Profile = (props) => {
     <>
       <Wrapper className="sidebar w-full h-full flex justify-center ">
       
-        <div className="overflow-scroll sidebar-active">
+        <div className="overflow-hidden sidebar-active">
           <div className="contact-profile p-10">
 
           <div className="p-1 flex items-center justify-end cursor-pointer">

@@ -25,6 +25,7 @@ import Profile from "./SlideMenu/Profile";
 import {MdOutlineArrowBackIos} from "react-icons/md"
 
 import io from "socket.io-client";
+import { useRef } from "react";
 
 
 const ENDPOINT = "http://localhost:4000";
@@ -32,6 +33,9 @@ var socket, selectedChatCompare;
 const ChatWindow = () => {
   const dispatch = useDispatch();
   const inputRef = createRef();
+  
+  const messageEndRef = useRef(null)
+
   // all the message for a particular chat
   const [message, setMessage] = useState([]);
 
@@ -243,6 +247,14 @@ const ChatWindow = () => {
   };
 
   useEffect(() => {
+     messageEndRef.current?.scrollIntoView({ 
+      behaviour: "smooth"
+    }
+     );
+  }, [message, newMessage])
+  
+
+  useEffect(() => {
     socket.emit("new message", createdMessage);
     //  dispatch(getAllChats(sender));
     // execute a dispatch action for update message in redux store
@@ -406,17 +418,21 @@ const ChatWindow = () => {
                       </>
                     )
                   )}
+                  <div ref={messageEndRef}></div>
                 </ul>
               </div>
 
               <div className="chat-input-section p-5 p-lg-6">
                 <div className="flex justify-between items-center">
+                
                   <div className="chat-input flex">
-                    <div className="links-list-item">
+                    {/* 3 dot button button */}
+                    {/* <div className="links-list-item">
                       <div className="btn dot-btn">
                         <BiDotsHorizontalRounded />
                       </div>
-                    </div>
+                    </div> */}
+                    {/* emoji button */}
                     <div className="links-list-item">
                       <Menu>
                         <Menu.Button className="flex justify-center items-center btn emoji-btn mr-2">
@@ -441,7 +457,7 @@ const ChatWindow = () => {
                       </Menu>
                     </div>
                   </div>
-
+                  {/* input field */}
                   <div className="position-relative w-full">
                     <input
                       placeholder="Type Your message..."
@@ -453,7 +469,7 @@ const ChatWindow = () => {
                       ref={inputRef}
                     />
                   </div>
-
+                   {/* submit button */}
                   <div className="chat-input-links ml-2" onClick={handleClick}>
                     <div className="links-list-items ml-5 ">
                       <Button className="btn submit-btn flex justify-center items-center">
@@ -468,7 +484,7 @@ const ChatWindow = () => {
         </>
       )}
 
-      <div className="absolute h-full w-full">
+      <div className="absolute">
         <div className="flex items-center justify-center">
           <Transition appear show={isOpen} as={Fragment}>
             <Dialog
@@ -476,7 +492,7 @@ const ChatWindow = () => {
               className="user-profile-sidebar absolute z-50"
               onClose={closeModal}
             >
-              <div className="dialog-wrapper z-50 fixed inset-0 overflow-y-auto">
+              <div className="dialog-wrapper z-50 fixed inset-0">
                 <div className="dialog-container flex min-h-full items-start justify-end text-center">
                   <Transition.Child
                     as={Fragment}
@@ -508,7 +524,7 @@ const Wrapper = styled.section`
   min-width: auto;
   overflow: hidden;
   background-color: ${({ theme }) => theme.colors.bg.secondary};
-  background-image: url("https://doot-light.react.themesbrand.com/static/media/pattern-05.ffd181cd.png");
+  background-image: url("/images/pattern-05.png");
   .btn {
     width: 43px;
     padding: 0;
@@ -598,7 +614,7 @@ const Wrapper = styled.section`
     }
     .chat-conversation {
       overflow-y: scroll;
-      height: calc(100vh - 80px);
+      height: calc(100vh - 90px);
       .chat-conversation-list {
         margin-top: 90px;
         padding-bottom: 24px;

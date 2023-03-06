@@ -1,17 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { RxCross1 } from "react-icons/rx";
 
-const Searchbar = ({ State, setState }) => {
+const Searchbar = ({ searchOpen, setSearchOpen, setQuary }) => {
 
+  const searchUser = (e) =>{
+    setQuary(e.target.value)
+  }
 
-  const handleChange = () => {
-    setState((prev) => !prev);
+  const handleChange = (e) => {
+    setSearchOpen((prev) => !prev);
+     setQuary("");
   };
 
   return (
     <>
-      {State ? (
+      {searchOpen ? (
         <>
           <div className="input-group flex w-full justify-between overflow-hidden">
             <div className=" relative">
@@ -21,9 +25,10 @@ const Searchbar = ({ State, setState }) => {
               />
             </div>
             <input
-              type="text"
               className="w-3/4 pl-9 px-5 py-5 focus:outline-none"
+              id="searchInput"
               placeholder="Search..."
+              onChange={(e) => searchUser(e)}
             />
             <div className="flex items-center p-2 cursor-pointer ">
               <RxCross1 className="icon" onClick={handleChange} />
@@ -33,7 +38,7 @@ const Searchbar = ({ State, setState }) => {
       ) : (
         <>
           <div className="search-icon p-2 rounded-full flex justify-center items-center cursor-pointer">
-            <BiSearch className="icon" onClick={handleChange} />
+            <BiSearch className="icon" onClick={(e)=>handleChange(e)} />
           </div>
         </>
       )}
