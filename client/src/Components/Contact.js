@@ -7,7 +7,6 @@ const Contact = () => {
     <Wrapper id="contact">
       <div className="custom-container">
         <div className="wrapper w-full lg:flex lg:space-x-[30px]">
-
           <div className="feedback-content lg:w-1/2 w-full">
             <div className="title" data-aos="fade-right">
               <h1>Feel free to drop us your feedback</h1>
@@ -31,19 +30,16 @@ const Contact = () => {
               </div>
 
               <div className="input mt-5">
-               <input type="text" name="" id="" />
+                <input type="text" name="" id="" />
               </div>
 
               <div className="input mt-5">
-                 <input type="text" />
-                </div>
+                <input type="text" />
+              </div>
 
-                <div className="suggestion">
-
-                  <textarea name="" id="" cols="30" rows="10"></textarea>
-                </div>
-
-
+              <div className="suggestion">
+                <textarea name="" id="" cols="30" rows="10"></textarea>
+              </div>
             </div>
           </div>
         </div>
@@ -53,7 +49,7 @@ const Contact = () => {
         <div className="svg-1">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
             <path
-              fill-opacity="1"
+              fillOpacity="1"
               d="M0,0L48,32C96,64,192,128,288,133.3C384,139,480,85,576,64C672,43,768,53,864,69.3C960,85,1056,107,1152,112C1248,117,1344,107,1392,101.3L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
             ></path>
           </svg>
@@ -81,7 +77,7 @@ const Contact = () => {
           }}
           opacity={0.02}
         />
-           <Wave
+        <Wave
           className="svg-4"
           paused={false}
           options={{
@@ -113,38 +109,37 @@ const Wrapper = styled.section`
     width: 100%;
     height: 100%;
     .svg-1 {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0%;
-    left: 0%;
-    svg {
-      fill: ${({ theme }) => theme.colors.bg2.secondary};
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0%;
+      left: 0%;
+      svg {
+        fill: ${({ theme }) => theme.colors.bg2.secondary};
+      }
+    }
+
+    .svg-2,
+    .svg-3,
+    .svg-4 {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
+    .svg-2 {
+      top: 80%;
+      left: 0%;
+    }
+
+    .svg-3 {
+      top: 75%;
+      left: 0%;
+    }
+    .svg-4 {
+      top: 70%;
+      left: 0%;
     }
   }
-
-  .svg-2, .svg-3, .svg-4{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-  }
-  .svg-2 {
-    top: 80%;
-    left: 0%;
-  }
-
-  .svg-3 {
-    top: 75%;
-    left: 0%;
-  }
-  .svg-4 {
-    top: 70%;
-    left: 0%;
-  }
-  
-  }
-
-
 
   .custom-container {
     height: 100%;
@@ -186,9 +181,6 @@ const Wrapper = styled.section`
       }
     }
   }
-
-  
-
 
   @media only screen and (max-width: 992px) {
     .feedback-content {

@@ -17,7 +17,7 @@ export const getMySelf = () => async (dispatch) => {
 export const updateUserProfile = (userData) => async (dispatch) => {
   try {
     const User = await axios({
-      method: "POST",
+      method: "PUT",
       url: `http://localhost:4000/api/user/updateprofile`,
       data: { ...userData },
     });

@@ -9,6 +9,7 @@ import {
   ERROR,
   FORGOT_PASSWORD,
   RESET_PASSWORD,
+  CLEAR_AUTH_STORE,
 } from "./auth.type";
 
 const intialState = {};
@@ -55,6 +56,12 @@ const authReducer = (state = intialState, action) => {
         ...action.payload,
       };
 
+    case CLEAR_AUTH_STORE:
+      return {
+       
+        ...action.payload
+
+      };
     case ERROR:
       return {
         ...state,
