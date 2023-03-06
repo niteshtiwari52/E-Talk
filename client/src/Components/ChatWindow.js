@@ -159,8 +159,8 @@ const ChatWindow = () => {
   };
 
   const closeChat = async () => {
-    // await dispatch(clearSelectChatAction());
-    // await dispatch(clearSelectedMessage());
+    await dispatch(clearSelectChatAction());
+    await dispatch(clearSelectedMessage());
   };
 
   useEffect(() => {

@@ -19,6 +19,7 @@ const UserList = ({ searchOpen, query }) => {
   const chat = useSelector((globalState) => globalState.chat.chats);
   const loggedUser = useSelector((globalState) => globalState.user.userDetails);
   const user = useSelector((globalState) => globalState.user.userDetails);
+  const result = useSelector((globalState) => globalState.chat.selectedChat);
 
   const userChatShow = () => {
     document
@@ -43,7 +44,6 @@ const UserList = ({ searchOpen, query }) => {
     // alert(selectedChat._id)
   }, [selectedChat]);
 
-
   return (
     // <Wrapper>
     <Wrapper>
@@ -52,13 +52,21 @@ const UserList = ({ searchOpen, query }) => {
           <div className="my-4" onClick={() => userChatShow()}>
             {chatList
               .filter((item) => {
-                return query.toLowerCase() === "" || searchOpen === false ? item : (!item.isGroupChat ? getSender(loggedUser, item.users) : item.chatName).toLowerCase().includes(query.toLowerCase()) ;
-              }).map((item, index) => (
+                return query.toLowerCase() === "" || searchOpen === false
+                  ? item
+                  : (!item.isGroupChat
+                      ? getSender(loggedUser, item.users)
+                      : item.chatName
+                    )
+                      .toLowerCase()
+                      .includes(query.toLowerCase());
+              })
+              .map((item, index) => (
                 <li
                   onClick={() => setSelectedChat(item)}
                   key={item._id}
                   className={
-                    selectedChat === item
+                    result === item
                       ? "chat-box-wrapper active px-5 py-2"
                       : "chat-box-wrapper px-5 py-2"
                   }
@@ -177,7 +185,7 @@ const UserList = ({ searchOpen, query }) => {
 const Wrapper = styled.section`
   position: relative;
 
-  mark{
+  mark {
     background-color: ${({ theme }) => theme.colors.cyan};
   }
   .chat-main {

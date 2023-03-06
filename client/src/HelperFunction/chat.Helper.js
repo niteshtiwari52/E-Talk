@@ -1,14 +1,18 @@
 // To get the sender
 export const getSender = (loggedUser, users) => {
+  if (!users) {
+    return;
+  }
   return users[0]._id === loggedUser._id ? users[1].name : users[0].name;
 };
 
 // To get the sender pic
 export const getSenderPic = (loggedUser, users) => {
-  if (!loggedUser._id || !users[0]._id){
+  console.log(users);
+  if (!loggedUser._id || !users) {
     return;
   }
-    return users[0]._id === loggedUser._id ? users[1].pic : users[0].pic;
+  return users[0]._id === loggedUser._id ? users[1].pic : users[0].pic;
 };
 
 export const isMyMessage = (loggedUser, message) => {
