@@ -42,7 +42,7 @@ const Wrapper = styled.section`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 100%;
+  height: 100vh;
   background-color:  ${({ theme }) => theme.colors.bg.secondary};
   .logo {
     img {

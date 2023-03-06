@@ -18,6 +18,7 @@
     "react": "^18.2.0",
     "react-awesome-shapes": "^0.1.12",
     "react-dom": "^18.2.0",
+    "react-highlight-words": "^0.20.0",
     "react-icons": "^4.7.1",
     "react-intersection-observer": "^9.4.3",
     "react-redux": "^8.0.5",
