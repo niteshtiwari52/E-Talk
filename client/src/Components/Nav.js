@@ -212,9 +212,8 @@ const Navbar = styled.nav`
       opacity: 0;
       transform: translateX(100%);
       /* transform-origin: top; */
-
-      .button {
-        display: none;
+      .button{
+        font-size: 2.3rem !important;
       }
     }
     .active .navbar-lists {

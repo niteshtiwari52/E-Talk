@@ -255,7 +255,7 @@ const Wrapper = styled.section`
     min-width: 100vw;
     .chat-main {
       width: 100vw;
-      height: calc(100vh + 60px);
+      height: calc(100vh - 186px);
       li {
         padding: 20px 20px 20px 20px;
         h2 {

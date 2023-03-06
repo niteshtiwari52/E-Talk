@@ -155,13 +155,10 @@ const ChatWindow = () => {
 
   const userChathidden = () => {
     document.getElementById("user-chat").classList.remove("fadeInRight");
+    document.getElementById("user-chat").classList.remove("user-chat-show");
     document.getElementById("user-chat").classList.add("fadeInRight2");
   };
 
-  const closeChat = async () => {
-    // await dispatch(clearSelectChatAction());
-    // await dispatch(clearSelectedMessage());
-  };
 
   useEffect(() => {
      messageEndRef.current?.scrollIntoView({ 
@@ -207,7 +204,7 @@ const ChatWindow = () => {
                       className="arrow-icon md:hidden ml-5 mr-5 cursor-pointer text-2xl p-2 rounded-full"
                       onClick={userChathidden}
                     >
-                      <MdOutlineArrowBackIos onClick={closeChat} />
+                      <MdOutlineArrowBackIos />
                     </div>
 
                     <div className="flex items-center" onClick={openModal}>
