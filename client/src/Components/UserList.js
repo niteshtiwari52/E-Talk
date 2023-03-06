@@ -8,10 +8,11 @@ import {
 } from "../Redux/Reducer/Chat/chat.action";
 import { getAllChats } from "../Redux/Reducer/Message/message.action";
 import moment from "moment";
+import Highlighter from "react-highlight-words";
 
-const UserList = () => {
+const UserList = ({ searchOpen, query }) => {
   const dispatch = useDispatch();
- 
+
   const [selectedChat, setSelectedChat] = useState();
   const [chatList, setchatList] = useState([]);
 
@@ -19,10 +20,11 @@ const UserList = () => {
   const loggedUser = useSelector((globalState) => globalState.user.userDetails);
   const user = useSelector((globalState) => globalState.user.userDetails);
 
-  const userChatShow = () =>{
-    document.getElementById("user-chat").classList.add("user-chat-show","fadeInRight")
-    
-}
+  const userChatShow = () => {
+    document
+      .getElementById("user-chat")
+      .classList.add("user-chat-show", "fadeInRight");
+  };
 
   useEffect(() => {
     setchatList(chat);
@@ -41,106 +43,124 @@ const UserList = () => {
     // alert(selectedChat._id)
   }, [selectedChat]);
 
+
   return (
     // <Wrapper>
     <Wrapper>
       <ul className="chat-main h-full overflow-x-hidden overflow-y-scroll">
         {chatList.length !== 0 ? (
-          <div className="my-4" onClick={()=>userChatShow()}>
-            {chatList.map((item, index) => (
-              <li
-                onClick={()=>setSelectedChat(item)}
-                key={item._id}
-                className={
-                  selectedChat === item ? "active px-5 py-2" : "px-5 py-2"
-                }
-              >
-                <div className="chat-box flex items-center cursor-pointer">
-                  <div className="profile">
-                    <img
-                      className=" w-12 h-12 rounded-full"
-                      // src={chat[index].users[0].pic}
-                      src={
-                        !item.isGroupChat
-                          ? getSenderPic(loggedUser, item.users)
-                          : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6wQvepXb0gM_Ft1QUOs6UyYJjPOmA-gq5Yw&usqp=CAU"
-                      }
-                      alt="user_logo"
-                    />
-                  </div>
-                  <div className="details w-3/4">
-                    <h2 className="md:w-32 w-full m-0 truncate text-base">
-                      {!item.isGroupChat
-                        ? getSender(loggedUser, item.users)
-                        : item.chatName}
-                    </h2>
-                    <p className=" text-xs truncate whitespace-nowrap overflow-hidden">
-                      <span className="text-xs">
-                        {item.latestMessage != null
-                          ? `${
-                              item.latestMessage.sender.name === loggedUser.name
-                                ? "You"
-                                : item.latestMessage.sender.name
-                            }:`
-                          : ""}
-                      </span>
-                      <span className="text-xs truncate">
-                        {" "}
-                        {item.latestMessage != null
-                          ? item.latestMessage.content
-                          : ""}
-                      </span>
-                    </p>
-                  </div>
-                  <div className="data-status h-full avatar-group">
-                    {chat[index].isGroupChat ? (
-                      <div className="flex -space-x-4">
-                        <img
-                          className="w-8 h-8 border-2 bg-white  rounded-full  hover:z-10"
-                          src={chat[index].users[0].pic}
-                          alt=""
-                        />
-                        <img
-                          className="w-8 h-8 border-2 bg-white  rounded-full  hover:z-10"
-                          src={chat[index].users[1].pic}
-                          alt=""
-                        />
-                        <img
-                          className="w-8 h-8 border-2 bg-white  rounded-full  hover:z-10"
-                          src={chat[index].users[2].pic}
-                          alt=""
-                        />
-                        {chat[index].users.length > 3 ? (
-                          <div className="flex items-center justify-center w-8 h-8 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600">
-                            {`+${chat[index].users.length - 3}`}
-                          </div>
-                        ) : (
-                          <></>
-                        )}
-                      </div>
-                    ) : (
-                      <></>
-                    )}
+          <div className="my-4" onClick={() => userChatShow()}>
+            {chatList
+              .filter((item) => {
+                return query.toLowerCase() === "" || searchOpen === false ? item : (!item.isGroupChat ? getSender(loggedUser, item.users) : item.chatName).toLowerCase().includes(query.toLowerCase()) ;
+              }).map((item, index) => (
+                <li
+                  onClick={() => setSelectedChat(item)}
+                  key={item._id}
+                  className={
+                    selectedChat === item
+                      ? "chat-box-wrapper active px-5 py-2"
+                      : "chat-box-wrapper px-5 py-2"
+                  }
+                >
+                  <div className="chat-box flex items-center cursor-pointer">
+                    <div className="profile">
+                      <img
+                        className=" w-12 h-12 rounded-full"
+                        // src={chat[index].users[0].pic}
+                        src={
+                          !item.isGroupChat
+                            ? getSenderPic(loggedUser, item.users)
+                            : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6wQvepXb0gM_Ft1QUOs6UyYJjPOmA-gq5Yw&usqp=CAU"
+                        }
+                        alt="user_logo"
+                      />
+                    </div>
+                    <div className="details w-3/4">
+                      <Highlighter
+                        searchWords={[query]}
+                        autoEscape={true}
+                        textToHighlight={
+                          !item.isGroupChat
+                            ? getSender(loggedUser, item.users)
+                            : item.chatName
+                        }
+                        className="md:w-32 w-full m-0 truncate text-base"
+                      >
+                        {!item.isGroupChat
+                          ? getSender(loggedUser, item.users)
+                          : item.chatName}
+                      </Highlighter>
+                      <p className=" text-xs truncate whitespace-nowrap overflow-hidden">
+                        <span className="text-xs">
+                          {item.latestMessage != null
+                            ? `${
+                                item.latestMessage.sender.name ===
+                                loggedUser.name
+                                  ? "You"
+                                  : item.latestMessage.sender.name
+                              }:`
+                            : ""}
+                        </span>
+                        <span className="text-xs truncate">
+                          {" "}
+                          {item.latestMessage != null
+                            ? item.latestMessage.content
+                            : ""}
+                        </span>
+                      </p>
+                    </div>
+                    <div className="data-status h-full avatar-group">
+                      {chat[index].isGroupChat ? (
+                        <div className="flex -space-x-4">
+                          <img
+                            className="w-8 h-8 border-2 bg-white  rounded-full  hover:z-10"
+                            src={chat[index].users[0].pic}
+                            alt=""
+                          />
+                          <img
+                            className="w-8 h-8 border-2 bg-white  rounded-full  hover:z-10"
+                            src={chat[index].users[1].pic}
+                            alt=""
+                          />
+                          <img
+                            className="w-8 h-8 border-2 bg-white  rounded-full  hover:z-10"
+                            src={chat[index].users[2].pic}
+                            alt=""
+                          />
+                          {chat[index].users.length > 3 ? (
+                            <div className="flex items-center justify-center w-8 h-8 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600">
+                              {`+${chat[index].users.length - 3}`}
+                            </div>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                      ) : (
+                        <></>
+                      )}
 
-                    <p>
-                      {item.latestMessage
-                        ? moment(item.latestMessage.createdAt).format(
-                            "DD/MM/YY"
-                          )
-                        : ""}
-                    </p>
+                      <p>
+                        {item.latestMessage
+                          ? moment(item.latestMessage.createdAt).format(
+                              "DD/MM/YY"
+                            )
+                          : ""}
+                      </p>
 
-                    {item.status === "seen" ? (
-                      <span className="status text-green-400">
-                        {item.status}
-                      </span>
-                    ) : (
-                      <span className="status text-red-500">{item.status}</span>
-                    )}
+                      {item.status === "seen" ? (
+                        <span className="status text-green-400">
+                          {item.status}
+                        </span>
+                      ) : (
+                        <span className="status text-red-500">
+                          {item.status}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </li>
-            ))}
+                </li>
+              ))}
           </div>
         ) : (
           <div className="my-4">
@@ -156,6 +176,10 @@ const UserList = () => {
 };
 const Wrapper = styled.section`
   position: relative;
+
+  mark{
+    background-color: ${({ theme }) => theme.colors.cyan};
+  }
   .chat-main {
     height: 100vh;
     background-color: ${({ theme }) => theme.colors.bg.primary};
@@ -163,6 +187,12 @@ const Wrapper = styled.section`
       background-color: ${({ theme }) => theme.colors.bg.secondary};
       border-left: 4px solid ${({ theme }) => theme.colors.cyan};
       transition: all 0.3s ease;
+    }
+    .chat-box-wrapper {
+      &:nth-child(1) {
+        border-top: none;
+      }
+      border-top: 1px solid ${({ theme }) => theme.colors.border2.primary};
     }
     .chat-box {
       position: relative;

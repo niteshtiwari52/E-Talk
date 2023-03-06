@@ -6,11 +6,13 @@ import UserList from "./UserList";
 import Group from "./modal/Group";
 
 const Default = () => {
-  const [SearchOpen, setSearchOpen] = useState(false);
+  const [query, setQuary] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
+  
   return (
     <Wrapper className="default dynamic-sidebar">
       <div className="chat-menu flex flex-wrap items-center justify-between w-full  ">
-        {SearchOpen ? (
+        {searchOpen ? (
           <> </>
         ) : (
           <>
@@ -21,14 +23,14 @@ const Default = () => {
           </>
         )}
 
-        <div className={SearchOpen ? "flex justify-center items-center w-full" : "flex justify-center items-center" }>
-          <Searchbar State={SearchOpen} setState={setSearchOpen} />
+        <div className={searchOpen ? "flex justify-center items-center w-full" : "flex justify-center items-center" }>
+          <Searchbar searchOpen={searchOpen} setSearchOpen={setSearchOpen} setQuary={setQuary}/>
           <Group />
         </div>
       </div>
 
       {/* User list  */}
-      <UserList />
+      <UserList query={query} searchOpen={searchOpen} setSearchOpen={setSearchOpen} />
     </Wrapper>
   );
 };

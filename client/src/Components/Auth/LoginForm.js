@@ -92,7 +92,7 @@ const LoginForm = () => {
                   </span>
                 </div>
               </div>
-              <div className=" mb-6">
+              {/* <div className=" mb-6">
                 <label className="checkbox-label mb-0">
                   <input
                     className="checkbox"
@@ -102,14 +102,14 @@ const LoginForm = () => {
                   />
                   <span className="ml-2">Remember Me</span>
                 </label>
-              </div>
+              </div> */}
               <Button
                 className="button bg-green-600 hover:bg-green-500 active:bg-green-700 text-white radius-round h-11 px-8 py-2 w-full"
                 onClick={handleLogin}
               >
                 Log In
               </Button>
-              <Social />
+              {/* <Social /> */}
             </div>
             {/* </form> */}
           </div>
