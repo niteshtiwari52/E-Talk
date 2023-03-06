@@ -15,6 +15,7 @@ import {
 } from "../HelperFunction/chat.Helper";
 import { useDispatch } from "react-redux";
 import {
+  clearSelectedMessage,
   getAllChats,
   sendMessge,
   updateGetAllChats,
@@ -22,11 +23,10 @@ import {
 
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import Profile from "./SlideMenu/Profile";
-import {MdOutlineArrowBackIos} from "react-icons/md"
-
+import { MdOutlineArrowBackIos } from "react-icons/md";
 import io from "socket.io-client";
 import { useRef } from "react";
-
+import { clearSelectChatAction } from "../Redux/Reducer/Chat/chat.action";
 
 const ENDPOINT = "http://localhost:4000";
 var socket, selectedChatCompare;
@@ -38,29 +38,25 @@ const ChatWindow = () => {
 
   // all the message for a particular chat
   const [message, setMessage] = useState([]);
-
   // message data require for sending data
   const [newMessage, setNewMessage] = useState("");
-
   const [sender, setSender] = useState();
-
   const [cursorPosition, setCursorPosition] = useState(0);
-
   const [socketConnected, setSocketConnected] = useState(false);
-
+  let [isOpen, setIsOpen] = useState(false);
+  const [count, setCount] = useState(0);
 
   const senderUser = useSelector(
     (globalState) => globalState.chat.selectedChat
   );
   const loggedUser = useSelector((globalState) => globalState.user.userDetails);
-
   const theme = useSelector((state) => state.themeReducer.darkThemeEnabled);
-
   const allMessage = useSelector(
     (globalState) => globalState.message.allMessages
   );
-
-  let [isOpen, setIsOpen] = useState(false);
+  const createdMessage = useSelector(
+    (globalState) => globalState.message.createdMessage
+  );
 
   function closeModal() {
     setIsOpen(false);
@@ -70,19 +66,11 @@ const ChatWindow = () => {
     setIsOpen(true);
   }
 
-
-
-  const createdMessage = useSelector(
-    (globalState) => globalState.message.createdMessage
-  );
-
   useEffect(() => {
     setSender(senderUser);
   }, [senderUser]);
 
-  useEffect(()=> {
-
-  // }, [createdMessage])
+  useEffect(() => {
     socket = io(ENDPOINT);
     socket.emit("setup", loggedUser);
     socket.on("connection", () => setSocketConnected(true));
@@ -97,43 +85,28 @@ const ChatWindow = () => {
         // we will give notification
         console.log(newMessageRecieved);
       } else {
-        // setMessage([...message, newMessageRecieved]);
-        // dispatch(getAllChats(sender));
-        // execute a dispatch action for update message in redux store
-        // if(newMessageRecieved){
-
-
-
-
-  
-
-        //   dispatch(updateGetAllChats());
-        // }
-
+        setTimeout(() => {
+          setCount(count + 1);
+        }, 1000)
         console.log(message);
         dispatch(updateGetAllChats(newMessageRecieved));
-
+        return;
         console.log(message);
       }
     });
   });
+
   useEffect(() => {
     setSender(senderUser);
   }, [senderUser]);
 
-  // useEffect(()=> {
-
-  // }, [createdMessage])
-
   useEffect(() => {
     console.log(sender);
     // dispatch(getAllChats(sender));
-
     // we will decide we have to give notification to user or render the new msg
     selectedChatCompare = sender;
     // console.log(senderUser);
   }, [sender]);
-
 
   const pickEmoji = (emojiData, event) => {
     const ref = inputRef.current;
@@ -152,64 +125,12 @@ const ChatWindow = () => {
   }, [cursorPosition]);
 
   useEffect(() => {
-    socket = io(ENDPOINT);
-    socket.emit("setup", loggedUser);
-    socket.on("connection", () => setSocketConnected(true));
-  }, []);
-
-  useEffect(() => {
-   
-
-    
-     socket.on("message recieved", (newMessageRecieved) => {
-      if (
-        !selectedChatCompare ||
-        selectedChatCompare._id !== newMessageRecieved.chat._id
-      ) {
-        // we will give notification
-        console.log(newMessageRecieved);
-      } else {
-        // setMessage([...message, newMessageRecieved]);
-        // dispatch(getAllChats(sender));
-        // execute a dispatch action for update message in redux store
-        // if(newMessageRecieved){
-
-         
-        // }
-
-        console.log(message);
-        
-          dispatch(updateGetAllChats(newMessageRecieved));
-          // new issue in update state in redux store : rendering recieved msg multiple times
-       
-
-        console.log(message);
-      }
-    });
-  
-  });
-  useEffect(() => {
     setMessage(allMessage);
     socket.emit("join chat", sender);
   }, [allMessage]);
   useEffect(() => {
     console.log(message);
   }, [message]);
-
-  useEffect(() => {
-    socket.on("message recieved", (newMessageRecieved) => {
-      if (
-        !selectedChatCompare ||
-        selectedChatCompare._id !== newMessageRecieved.chat._id
-      ) {
-        // we will give notification
-      } else {
-        // setMessage([...message, newMessageRecieved]);
-        dispatch(getAllChats(sender));
-        console.log(message);
-      }
-    });
-  });
 
   // for input changing
   const handleChange = (e) => {
@@ -230,20 +151,16 @@ const ChatWindow = () => {
     };
     setNewMessage("");
     await dispatch(sendMessge(messageData));
-    // await dispatch(getAllChats(sender));
-
-    console.log(createdMessage);
-    // socket.emit("new message", createdMessage);
-    // await dispatch(getAllChats(sender));
-
-    // setMessage([...message, createdMessage]);
-    console.log(message);
-    // await dispatch(fetchChats());
   };
 
   const userChathidden = () => {
     document.getElementById("user-chat").classList.remove("fadeInRight");
     document.getElementById("user-chat").classList.add("fadeInRight2");
+  };
+
+  const closeChat = async () => {
+    // await dispatch(clearSelectChatAction());
+    // await dispatch(clearSelectedMessage());
   };
 
   useEffect(() => {
@@ -256,13 +173,7 @@ const ChatWindow = () => {
 
   useEffect(() => {
     socket.emit("new message", createdMessage);
-    //  dispatch(getAllChats(sender));
-    // execute a dispatch action for update message in redux store
     dispatch(updateGetAllChats(createdMessage));
-    // if(createdMessage){
-
-    // setMessage([...message, createdMessage]);
-    // }
   }, [createdMessage]);
 
   return (
@@ -296,7 +207,7 @@ const ChatWindow = () => {
                       className="arrow-icon md:hidden ml-5 mr-5 cursor-pointer text-2xl p-2 rounded-full"
                       onClick={userChathidden}
                     >
-                      <MdOutlineArrowBackIos />
+                      <MdOutlineArrowBackIos onClick={closeChat} />
                     </div>
 
                     <div className="flex items-center" onClick={openModal}>

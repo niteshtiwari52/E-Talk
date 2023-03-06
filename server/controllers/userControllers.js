@@ -8,7 +8,7 @@ const sendEmail = require("../utils/sendEmail");
 
 // signup new user
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password,contact, pic } = req.body;
+  const { name, email, password, contact, pic } = req.body;
 
   if (!name || !email || !password || !contact) {
     res.status(400);
@@ -26,7 +26,7 @@ const registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password,
-    contact ,
+    contact,
     pic,
   });
 
@@ -210,7 +210,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     }
 
     const password_Reset_Token = generateToken(user._id, "300s");
-    const password_Reset_URL = `http://localhost:3000/forgot-password/${password_Reset_Token}`;
+    const password_Reset_URL = `http://localhost:3000/reset-password/${password_Reset_Token}`;
     const options = {
       name: user.name,
       email: user.email,

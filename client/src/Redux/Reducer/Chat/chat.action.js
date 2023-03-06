@@ -99,9 +99,17 @@ export const clearSelectChatAction = () => async (dispatch) => {
   try {
     return dispatch({
       type: "CLEAR_SELECT_CHAT",
-      payload: "",
+      payload: {},
     });
   } catch (error) {
     return dispatch({ type: "ERROR", payload: error });
   }
 };
+
+// export const clearUser = () => async (dispatch) => {
+//   try {
+//     return dispatch({ type: CLEAR_USER, payload: {} });
+//   } catch (error) {
+//     return dispatch({ type: "ERROR", payload: error });
+//   }
+// };
