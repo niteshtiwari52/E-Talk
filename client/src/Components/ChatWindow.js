@@ -30,6 +30,7 @@ import { clearSelectChatAction } from "../Redux/Reducer/Chat/chat.action";
 
 const ENDPOINT = "http://localhost:4000";
 var socket, selectedChatCompare;
+
 const ChatWindow = () => {
   const dispatch = useDispatch();
   const inputRef = createRef();
@@ -91,7 +92,7 @@ const ChatWindow = () => {
         console.log(message);
         dispatch(updateGetAllChats(newMessageRecieved));
         return;
-        console.log(message);
+        // console.log(message);
       }
     });
   });
@@ -155,14 +156,20 @@ const ChatWindow = () => {
 
   const userChathidden = () => {
     document.getElementById("user-chat").classList.remove("fadeInRight");
+    document.getElementById("user-chat").classList.remove("user-chat-show");
     document.getElementById("user-chat").classList.add("fadeInRight2");
   };
 
-  const closeChat = async () => {
-    await dispatch(clearSelectChatAction());
-    await dispatch(clearSelectedMessage());
+  const closeChat = () => {
+    const element = document.querySelectorAll("#chat-box-wrapper");
+    element.forEach((element)=>{
+      element.classList.remove("active");
+    })
+    // await dispatch(clearSelectChatAction());
+    // await dispatch(clearSelectedMessage());
   };
 
+  // for automatic scrolling down last message
   useEffect(() => {
      messageEndRef.current?.scrollIntoView({ 
       behaviour: "smooth"
@@ -204,10 +211,10 @@ const ChatWindow = () => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center justify-center">
                     <div
-                      className="arrow-icon md:hidden ml-5 mr-5 cursor-pointer text-2xl p-2 rounded-full"
+                      className="arrow-icon ml-5 mr-5 cursor-pointer text-2xl p-2 rounded-full"
                       onClick={userChathidden}
                     >
-                      <MdOutlineArrowBackIos onClick={closeChat} />
+                      <MdOutlineArrowBackIos onClick={closeChat}/>
                     </div>
 
                     <div className="flex items-center" onClick={openModal}>
@@ -583,7 +590,7 @@ const Wrapper = styled.section`
       }
     }
     .chat-input-section {
-      bottom: 0;
+      position: relative;
       background-color: ${({ theme }) => theme.colors.bg.primary};
       border-top: 1px solid rgba(${({ theme }) => theme.colors.border}, 0.3);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -619,6 +626,14 @@ const Wrapper = styled.section`
       }
     }
   }
+
+  @media screen and (min-width: 800px) {
+    .arrow-icon{
+      display: none;
+    }
+  }
 `;
+
+
 
 export default ChatWindow;

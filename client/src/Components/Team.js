@@ -87,13 +87,13 @@ const Team = () => {
                     <h3>{item.name}</h3>
                     <h4>{item.role}</h4>
                     <div className="link-btn flex justify-center items-center w-full h-full">
-                      <button className="btn">
-                        <a href={item.link}>
+                      <button className="btn" title="portfolio">
+                        <a href={item.link} >
                           <BsFillBriefcaseFill />
                         </a>
                       </button>
-                      <button className="btn">
-                        <a href={item.link}>
+                      <button className="btn" title="linkedin">
+                        <a href={item.link} >
                           <FaLinkedinIn />
                         </a>
                       </button>

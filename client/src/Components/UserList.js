@@ -18,13 +18,12 @@ const UserList = ({ searchOpen, query }) => {
 
   const chat = useSelector((globalState) => globalState.chat.chats);
   const loggedUser = useSelector((globalState) => globalState.user.userDetails);
-  const user = useSelector((globalState) => globalState.user.userDetails);
   const result = useSelector((globalState) => globalState.chat.selectedChat);
 
   const userChatShow = () => {
-    document
-      .getElementById("user-chat")
-      .classList.add("user-chat-show", "fadeInRight");
+    document.getElementById("user-chat").classList.add("user-chat-show", "fadeInRight");
+    document.getElementById("user-chat").classList.remove( "fadeInRight2");
+
   };
 
   useEffect(() => {
@@ -32,7 +31,6 @@ const UserList = ({ searchOpen, query }) => {
   }, [chat]);
 
   useEffect(() => {
-    console.log(selectedChat);
     // dispatch(clearSelectChatAction());
     // if (selectedChat ? dispatch(getAllChats(selectedChat._id)) : "")
 
@@ -65,6 +63,7 @@ const UserList = ({ searchOpen, query }) => {
                 <li
                   onClick={() => setSelectedChat(item)}
                   key={item._id}
+                  id="chat-box-wrapper"
                   className={
                     result === item
                       ? "chat-box-wrapper active px-5 py-2"
@@ -263,7 +262,7 @@ const Wrapper = styled.section`
     min-width: 100vw;
     .chat-main {
       width: 100vw;
-      height: calc(100vh + 60px);
+      height: calc(100vh - 186px);
       li {
         padding: 20px 20px 20px 20px;
         h2 {

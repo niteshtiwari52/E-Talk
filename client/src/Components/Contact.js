@@ -24,21 +24,26 @@ const Contact = () => {
               />
             </div>
 
-            <div className="feedback-form flex-1 bg-white sm:p-10 p-3">
+            <div className="feedback-form flex-1  bg-white sm:p-10 p-3">
               <div className="title">
                 <h2>Send us your feedback</h2>
               </div>
 
-              <div className="input mt-5">
-                <input type="text" name="" id="" />
+              <div className="mt-5">
+                <input className="input" type="text" name="" id="" />
               </div>
 
-              <div className="input mt-5">
-                <input type="text" />
+              <div className="mt-5">
+                <input className="input" type="text" />
               </div>
 
-              <div className="suggestion">
-                <textarea name="" id="" cols="30" rows="10"></textarea>
+              <div className="suggestion mt-5 w-full">
+                <textarea
+                 className="w-full p-5"
+                  name="message"
+                  rows="5"
+                  placeholder="suggestion..."
+                ></textarea>
               </div>
             </div>
           </div>
@@ -98,7 +103,7 @@ export default Contact;
 const Wrapper = styled.section`
   position: relative;
   max-width: 100vw;
-  height: 100vh;
+  height: 100%;
   background-color: #0c1631;
   overflow: hidden;
   padding: 9rem 0;
@@ -108,6 +113,7 @@ const Wrapper = styled.section`
     top: 0;
     width: 100%;
     height: 100%;
+    z-index: 1;
     .svg-1 {
       width: 100%;
       height: 100%;
@@ -142,8 +148,10 @@ const Wrapper = styled.section`
   }
 
   .custom-container {
+    position: relative;
     height: 100%;
     padding: 6rem 5rem;
+    z-index: 5;
     .wrapper {
       .feedback-content {
         height: 100%;
@@ -158,6 +166,9 @@ const Wrapper = styled.section`
           }
         }
         .feedback-form {
+          input,textarea {
+            background-color: #f6f6f9;
+          }
           .title {
             text-align: center;
             h2 {

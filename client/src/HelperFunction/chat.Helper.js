@@ -1,5 +1,6 @@
 // To get the sender
 export const getSender = (loggedUser, users) => {
+  // console.log(users);
   if (!users) {
     return;
   }
@@ -8,7 +9,7 @@ export const getSender = (loggedUser, users) => {
 
 // To get the sender pic
 export const getSenderPic = (loggedUser, users) => {
-  console.log(users);
+  // console.log(users);
   if (!loggedUser._id || !users) {
     return;
   }

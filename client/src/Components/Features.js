@@ -75,10 +75,12 @@ const Wrapper = styled.section`
   }
 
   .custom-container {
+    position: relative;
     max-width: 100%;
     padding-left: 15px;
     padding-right: 15px;
     margin: 0 auto;
+    z-index: 20;
 
     .section-header {
       margin: 0 50px;
