@@ -213,11 +213,11 @@ export const GlobalStyle = createGlobalStyle`
     }
     .user-chat-show{
     position: absolute;
-    top: 0px;
+    top: 0;
+    left: 0;
     width: 100vw;
     z-index: 40;
-    transform: translateX(100vw);
-    transition: transform 0.25s ease-in-out;
+    transition: transform 0.25s linear;
     }
   .fadeInRight2{
     transform: translateX(100vw);

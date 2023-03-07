@@ -2,9 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { teamImg } from "../config.js/data";
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
-import {FaLinkedinIn} from "react-icons/fa"
-import {BsFillBriefcaseFill} from "react-icons/bs";
-
+import { FaLinkedinIn } from "react-icons/fa";
+import { BsFillBriefcaseFill } from "react-icons/bs";
 
 //import swiper core and require module
 import { Navigation, Autoplay, Pagination } from "swiper";
@@ -19,25 +18,30 @@ import "swiper/css/pagination";
 const Team = () => {
   return (
     <Wrapper className="team-section" id="team">
-    <div className="svg">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill-opacity="1" d="M0,0L48,32C96,64,192,128,288,133.3C384,139,480,85,576,64C672,43,768,53,864,69.3C960,85,1056,107,1152,112C1248,117,1344,107,1392,101.3L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
-    </div>
-   
+      <div className="svg">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+          <path
+            fillOpacity="1"
+            d="M0,0L48,32C96,64,192,128,288,133.3C384,139,480,85,576,64C672,43,768,53,864,69.3C960,85,1056,107,1152,112C1248,117,1344,107,1392,101.3L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
+          ></path>
+        </svg>
+      </div>
 
       <div className="custom-container">
-        <div
-          className="flex items-start justify-center"
-       
-        >
+        <div className="flex items-start justify-center">
           <div className="section-header text-center">
-            <h2  data-aos="fade-up" data-aos-delay="200">Team</h2>
-            <h1  data-aos="fade-up" data-aos-delay="400">Our Experts</h1>
+            <h2 data-aos="fade-up" data-aos-delay="200">
+              Team
+            </h2>
+            <h1 data-aos="fade-up" data-aos-delay="400">
+              Our Experts
+            </h1>
           </div>
         </div>
 
         <div className="team-list">
           <Swiper
-            modules={[Navigation, Autoplay, Pagination ]}
+            modules={[Navigation, Autoplay, Pagination]}
             spaceBetween={50}
             loop={true}
             grabCursor={true}
@@ -46,12 +50,10 @@ const Team = () => {
               prevEl: ".swiper-button-prev",
               clickable: true,
             }}
-            pagination={
-              {
-                el: ".swiper-pagination",
-                clickable: true,
-              }
-            }
+            pagination={{
+              el: ".swiper-pagination",
+              clickable: true,
+            }}
             autoplay={{
               delay: 2500,
             }}
@@ -68,8 +70,12 @@ const Team = () => {
             }}
           >
             {teamImg.map((item, index) => (
-              <SwiperSlide key={item.id} >
-                <div className="team-box" data-aos="fade-up" data-aos-delay="600" >
+              <SwiperSlide key={item.id}>
+                <div
+                  className="team-box"
+                  data-aos="fade-up"
+                  data-aos-delay="600"
+                >
                   {/* team-member */}
                   <div className="team-member">
                     <div className="team-member-img rounded-full">
@@ -81,16 +87,18 @@ const Team = () => {
                     <h3>{item.name}</h3>
                     <h4>{item.role}</h4>
                     <div className="link-btn flex justify-center items-center w-full h-full">
-                    <button className="btn">
-                      <a href={item.link}><BsFillBriefcaseFill/></a>
-                    </button>
-                    <button className="btn">
-                      <a href={item.link}><FaLinkedinIn/></a>
-                    </button>
+                      <button className="btn">
+                        <a href={item.link}>
+                          <BsFillBriefcaseFill />
+                        </a>
+                      </button>
+                      <button className="btn">
+                        <a href={item.link}>
+                          <FaLinkedinIn />
+                        </a>
+                      </button>
+                    </div>
                   </div>
-                  </div>
-
-                  
                 </div>
               </SwiperSlide>
             ))}
@@ -107,7 +115,6 @@ const Team = () => {
           </Swiper>
         </div>
       </div>
-     
     </Wrapper>
   );
 };
@@ -121,16 +128,15 @@ const Wrapper = styled.section`
   background: ${({ theme }) => theme.colors.bg2.secondary};
   overflow: hidden;
 
-  .svg{
+  .svg {
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0%;
     left: 0%;
-    svg{
-      fill:  ${({ theme }) => theme.colors.bg2.primary};
+    svg {
+      fill: ${({ theme }) => theme.colors.bg2.primary};
     }
-
   }
 
   .custom-container {
@@ -187,13 +193,13 @@ const Wrapper = styled.section`
         position: relative;
         font-size: 1.5rem;
       }
-      .swiper-button-next{
+      .swiper-button-next {
         transform: translateX(100px);
       }
       .slider-arrow::after {
         content: "";
       }
-      .swiper-pagination{
+      .swiper-pagination {
         position: relative;
         display: flex;
         justify-content: center;
@@ -203,7 +209,7 @@ const Wrapper = styled.section`
         position: relative;
         width: 100px;
 
-        .swiper-pagination-bullet{
+        .swiper-pagination-bullet {
           width: 1rem;
           height: 1rem;
         }
@@ -251,10 +257,10 @@ const Wrapper = styled.section`
           margin: 0 1rem;
           transition: all 0.5s;
 
-          &:hover{
+          &:hover {
             border-color: ${({ theme }) => theme.colors.cyan};
             background-color: ${({ theme }) => theme.colors.cyan};
-            a{
+            a {
               color: ${({ theme }) => theme.colors.white};
             }
           }
@@ -272,7 +278,8 @@ const Wrapper = styled.section`
           justify-content: center;
           margin: 20px auto;
           align-items: center;
-          box-shadow: 0px 0px 0px 3px ${({ theme }) => theme.colors.boxShadow.primary};
+          box-shadow: 0px 0px 0px 3px
+            ${({ theme }) => theme.colors.boxShadow.primary};
           overflow: hidden;
           object-fit: cover;
           border: solid 4px ${({ theme }) => theme.colors.white};
@@ -280,7 +287,7 @@ const Wrapper = styled.section`
             max-width: 100%;
             height: auto;
           }
-          &:hover{
+          &:hover {
             box-shadow: 0px 0px 0px 3px ${({ theme }) => theme.colors.cyan};
           }
         }
@@ -298,8 +305,6 @@ const Wrapper = styled.section`
       }
     }
   }
-
- 
 
   @media only screen and (min-width: 1680px) {
     .custom-container {
@@ -320,7 +325,7 @@ const Wrapper = styled.section`
         height: 150px;
       }
     }
-    .swiper-pagination{
+    .swiper-pagination {
       display: none !important;
     }
   }
