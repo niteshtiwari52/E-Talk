@@ -132,8 +132,6 @@ const SideMenu = () => {
               {/* logout */}
               <li
                 className="side-menu-item"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
                 title="Logout"
                 onClick={handleLogout}
               >

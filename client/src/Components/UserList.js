@@ -18,7 +18,6 @@ const UserList = ({ searchOpen, query }) => {
 
   const chat = useSelector((globalState) => globalState.chat.chats);
   const loggedUser = useSelector((globalState) => globalState.user.userDetails);
-  const user = useSelector((globalState) => globalState.user.userDetails);
   const result = useSelector((globalState) => globalState.chat.selectedChat);
 
   const userChatShow = () => {
@@ -64,6 +63,7 @@ const UserList = ({ searchOpen, query }) => {
                 <li
                   onClick={() => setSelectedChat(item)}
                   key={item._id}
+                  id="chat-box-wrapper"
                   className={
                     result === item
                       ? "chat-box-wrapper active px-5 py-2"

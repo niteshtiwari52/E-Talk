@@ -160,7 +160,11 @@ const ChatWindow = () => {
     document.getElementById("user-chat").classList.add("fadeInRight2");
   };
 
-  const closeChat = async () => {
+  const closeChat = () => {
+    const element = document.querySelectorAll("#chat-box-wrapper");
+    element.forEach((element)=>{
+      element.classList.remove("active");
+    })
     // await dispatch(clearSelectChatAction());
     // await dispatch(clearSelectedMessage());
   };
