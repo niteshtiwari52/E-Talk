@@ -40,7 +40,7 @@ const Contacts = ({
             </div>
           </div>
           {/* searched user rendering */}
-          <div className="my-4">
+          <div className="contact-list my-4 overflow-y-scroll">
             {searchResult.length !== 0 ? (
               searchResult.map((item, index) => (
                 <li className="px-2 lg:px-2 py-2 " key={index}>
@@ -96,6 +96,9 @@ const Wrapper = styled.div`
     &:focus {
       background-color: none;
     }
+  }
+  .contact-list{
+    height: calc(100vh - 250px)
   }
   .btn {
     background-color: ${({ theme }) => theme.colors.cyan};

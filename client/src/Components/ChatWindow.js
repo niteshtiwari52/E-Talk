@@ -34,8 +34,8 @@ var socket, selectedChatCompare;
 const ChatWindow = () => {
   const dispatch = useDispatch();
   const inputRef = createRef();
-  
-  const messageEndRef = useRef(null)
+
+  const messageEndRef = useRef(null);
 
   // all the message for a particular chat
   const [message, setMessage] = useState([]);
@@ -67,48 +67,6 @@ const ChatWindow = () => {
     setIsOpen(true);
   }
 
-  useEffect(() => {
-    setSender(senderUser);
-  }, [senderUser]);
-
-  useEffect(() => {
-    socket = io(ENDPOINT);
-    socket.emit("setup", loggedUser);
-    socket.on("connection", () => setSocketConnected(true));
-  }, []);
-
-  useEffect(() => {
-    socket.on("message recieved", (newMessageRecieved) => {
-      if (
-        !selectedChatCompare ||
-        selectedChatCompare._id !== newMessageRecieved.chat._id
-      ) {
-        // we will give notification
-        console.log(newMessageRecieved);
-      } else {
-        setTimeout(() => {
-          setCount(count + 1);
-        }, 1000)
-        console.log(message);
-        dispatch(updateGetAllChats(newMessageRecieved));
-        return;
-        // console.log(message);
-      }
-    });
-  });
-
-  useEffect(() => {
-    setSender(senderUser);
-  }, [senderUser]);
-
-  useEffect(() => {
-    console.log(sender);
-    // dispatch(getAllChats(sender));
-    // we will decide we have to give notification to user or render the new msg
-    selectedChatCompare = sender;
-    // console.log(senderUser);
-  }, [sender]);
-
   const pickEmoji = (emojiData, event) => {
     const ref = inputRef.current;
     ref.focus();
@@ -118,21 +76,6 @@ const ChatWindow = () => {
     setNewMessage(msg);
     setCursorPosition(start.length + emojiData.native.length);
   };
-
-  useEffect(() => {
-    if (inputRef.current !== null) {
-      inputRef.current.selectionEnd = cursorPosition;
-    }
-  }, [cursorPosition]);
-
-  useEffect(() => {
-    setMessage(allMessage);
-    socket.emit("join chat", sender);
-  }, [allMessage]);
-  useEffect(() => {
-    console.log(message);
-  }, [message]);
-
   // for input changing
   const handleChange = (e) => {
     setNewMessage(e.target.value);
@@ -162,21 +105,80 @@ const ChatWindow = () => {
 
   const closeChat = () => {
     const element = document.querySelectorAll("#chat-box-wrapper");
-    element.forEach((element)=>{
+    element.forEach((element) => {
       element.classList.remove("active");
-    })
+    });
     // await dispatch(clearSelectChatAction());
     // await dispatch(clearSelectedMessage());
   };
 
+  useEffect(() => {
+    if (inputRef.current !== null) {
+      inputRef.current.selectionEnd = cursorPosition;
+    }
+  }, [cursorPosition]);
+
+  useEffect(() => {
+    setSender(senderUser);
+  }, [senderUser]);
+
+  useEffect(() => {
+    socket = io(ENDPOINT);
+    socket.emit("setup", loggedUser);
+    socket.on("connection", () => setSocketConnected(true));
+  }, []);
+
+  useEffect(() => {
+    const eventHandler = (newMessageRecieved) => {
+      if (
+        !selectedChatCompare ||
+        selectedChatCompare._id !== newMessageRecieved.chat._id
+      ) {
+        // we will give notification
+        console.log(newMessageRecieved);
+      } else {
+        setTimeout(() => {
+          setCount(count + 1);
+        }, 1000);
+        console.log(message);
+        dispatch(updateGetAllChats(newMessageRecieved));
+        // console.log(message);
+      }
+    };
+    socket.on("message recieved", eventHandler);
+    
+    return () => {
+      socket.off("message recieved", eventHandler);
+    };
+  }, []);
+
+  useEffect(() => {
+    setSender(senderUser);
+  }, [senderUser]);
+
+  useEffect(() => {
+    console.log(sender);
+    // dispatch(getAllChats(sender));
+    // we will decide we have to give notification to user or render the new msg
+    selectedChatCompare = sender;
+    // console.log(senderUser);
+  }, [sender]);
+
+  useEffect(() => {
+    setMessage(allMessage);
+    socket.emit("join chat", sender);
+  }, [allMessage]);
+
+  useEffect(() => {
+    console.log(message);
+  }, [message]);
+
   // for automatic scrolling down last message
   useEffect(() => {
-     messageEndRef.current?.scrollIntoView({ 
-      behaviour: "smooth"
-    }
-     );
-  }, [message, newMessage])
-  
+    messageEndRef.current?.scrollIntoView({
+      behaviour: "smooth",
+    });
+  }, [message, newMessage]);
 
   useEffect(() => {
     socket.emit("new message", createdMessage);
@@ -214,7 +216,7 @@ const ChatWindow = () => {
                       className="arrow-icon ml-5 mr-5 cursor-pointer text-2xl p-2 rounded-full"
                       onClick={userChathidden}
                     >
-                      <MdOutlineArrowBackIos onClick={closeChat}/>
+                      <MdOutlineArrowBackIos onClick={closeChat} />
                     </div>
 
                     <div className="flex items-center" onClick={openModal}>
@@ -342,7 +344,6 @@ const ChatWindow = () => {
 
               <div className="chat-input-section p-5 p-lg-6">
                 <div className="flex justify-between items-center">
-                
                   <div className="chat-input flex">
                     {/* 3 dot button button */}
                     {/* <div className="links-list-item">
@@ -387,7 +388,7 @@ const ChatWindow = () => {
                       ref={inputRef}
                     />
                   </div>
-                   {/* submit button */}
+                  {/* submit button */}
                   <div className="chat-input-links ml-2" onClick={handleClick}>
                     <div className="links-list-items ml-5 ">
                       <Button className="btn submit-btn flex justify-center items-center">
@@ -453,11 +454,10 @@ const Wrapper = styled.section`
   .emoji-picker {
     position: absolute;
     max-width: 100%;
-    max-height: 100%;
     overflow-y: auto;
     z-index: 100;
     left: 10px;
-    bottom: 80px;
+    bottom: 100px;
   }
   .submit-btn {
     width: 50px;
@@ -628,12 +628,10 @@ const Wrapper = styled.section`
   }
 
   @media screen and (min-width: 800px) {
-    .arrow-icon{
+    .arrow-icon {
       display: none;
     }
   }
 `;
-
-
 
 export default ChatWindow;
