@@ -1,16 +1,19 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../../Styles/Button";
 import Social from "../../Styles/Social";
 import { AiFillEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // Redux
-import { signUp } from "../../Redux/Reducer/Auth/auth.action";
+import { clearAuthStore, signUp } from "../../Redux/Reducer/Auth/auth.action";
 import { getMySelf } from "../../Redux/Reducer/User/user.action";
 import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
   const [showconfirmPassword, setShowconfirmPassword] = useState(false);
 
@@ -22,14 +25,48 @@ const SignupForm = () => {
     confirmPassword: "",
   });
 
-  // console.log(userData)
+  const serverResponse = useSelector((globalState) => globalState.auth);
+
+  useEffect(() => {
+    if (!serverResponse) {
+      return;
+    }
+    if (serverResponse.success === false) {
+      toast.error(serverResponse.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
+      dispatch(clearAuthStore());
+      return;
+    }
+    if (serverResponse.success === true) {
+      // dispatch(clearAuthStore());
+      // toast.success("Account Created Successfully", {
+      //   position: "top-right",
+      //   autoClose: 2000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      //   theme: "light",
+      // });
+      navigate("/");
+      // alert("navigated");
+    }
+    return;
+  }, [serverResponse]);
 
   const handleChange = (e) => {
     setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleSignUp = () => {
     if (
@@ -39,7 +76,6 @@ const SignupForm = () => {
       userData.confirmPassword
     ) {
       dispatch(signUp(userData));
-      navigate("/verification");
     } else {
       toast.error("Please Fill the Data", {
         autoClose: 1000,
