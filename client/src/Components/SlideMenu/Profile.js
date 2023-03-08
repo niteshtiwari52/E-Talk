@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { getSender, getSenderPic } from "../../HelperFunction/chat.Helper";
-import {RxCross2} from "react-icons/rx"
+import {
+  getGroupProfileDetails,
+  getSender,
+  getSenderPic,
+  getSenderProfileDetails,
+} from "../../HelperFunction/chat.Helper";
+import { RxCross2 } from "react-icons/rx";
 
 const Profile = (props) => {
   const senderUser = useSelector(
@@ -10,7 +15,18 @@ const Profile = (props) => {
   );
   const loggedUser = useSelector((globalState) => globalState.user.userDetails);
   const [sender, setSender] = useState();
+  const [senderProfileData, setSenderProfileData] = useState();
   console.log(sender);
+
+  useEffect(() => {
+    if (sender) {
+      if (!sender.isGroupChat) {
+        const senderData = getSenderProfileDetails(loggedUser, sender);
+      } else {
+        const senderData = getGroupProfileDetails(loggedUser, sender);
+      }
+    }
+  }, [sender]);
 
   useEffect(() => {
     setSender(senderUser);
@@ -19,15 +35,16 @@ const Profile = (props) => {
   return sender ? (
     <>
       <Wrapper className="sidebar w-full h-full flex justify-center ">
-      
         <div className="overflow-hidden sidebar-active">
           <div className="contact-profile p-10">
-
-          <div className="p-1 flex items-center justify-end cursor-pointer">
-            <div className="p-1 bg-white text-black rounded-full" onClick={props.closeModal}>
-              <RxCross2/>
+            <div className="p-1 flex items-center justify-end cursor-pointer">
+              <div
+                className="p-1 bg-white text-black rounded-full"
+                onClick={props.closeModal}
+              >
+                <RxCross2 />
+              </div>
             </div>
-          </div>
 
             <div className="details">
               <div className="user-profile-image m-auto flex justify-center items-center rounded-full overflow-hidden">
@@ -58,6 +75,18 @@ const Profile = (props) => {
           <div className="document"></div>
           <div className="media-gallery"></div>
         </div>
+
+        {/* need to change */}
+        <div>
+          {!sender.isGroupChat ? (
+            <>{/* sender profile  */}</>
+          ) : (
+            <>
+              {/* Group profile  */}
+              {/* group name , */}
+            </>
+          )}
+        </div>
       </Wrapper>
     </>
   ) : (
@@ -68,15 +97,14 @@ const Profile = (props) => {
 export default Profile;
 
 const Wrapper = styled.section`
-.details{
-  .user-profile-image{
-  width: 200px;
-  height: 200px;
-  img{
-    width: 100%;
-    height: auto;
+  .details {
+    .user-profile-image {
+      width: 200px;
+      height: 200px;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
   }
-}
-} 
-  
 `;

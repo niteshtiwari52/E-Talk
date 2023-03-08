@@ -35,7 +35,7 @@ AOS.init({
 // const socket = io.connect("http://localhost:4000");
 
 function App() {
-  const [loading, setloading] = useState(false);
+  const [loading, setloading] = useState(true);
   const [status, setStatus] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -44,18 +44,26 @@ function App() {
   );
   const user = useSelector((globalState) => globalState.user.userDetails);
 
-  useEffect(() => {
-    setloading(true);
-    setTimeout(() => {
-      setloading(false);
-    }, 3000);
-  }, []);
+  // useEffect(() => {
+  //   // setloading(true);
+  //   setTimeout(() => {
+  //     setloading(false);
+  //   }, 1000);
+  // }, []);
+
+  const getUserData = async () => {
+    await dispatch(getMySelf());
+    await dispatch(fetchChats());
+  };
 
   useEffect(() => {
     if (localStorage.ETalkUser) {
-      dispatch(getMySelf());
-
-      dispatch(fetchChats());
+      getUserData();
+      setloading(false);
+    } else {
+      setTimeout(() => {
+        setloading(false);
+      }, 2000);
     }
     // eslint-disable-next-line
   }, [localStorage]);

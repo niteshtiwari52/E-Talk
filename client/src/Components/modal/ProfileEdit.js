@@ -9,6 +9,7 @@ import {
   updateUserProfile,
 } from "../../Redux/Reducer/User/user.action";
 import { fetchChats } from "../../Redux/Reducer/Chat/chat.action";
+import { ToastContainer, toast } from "react-toastify";
 
 const ProfileEdit = () => {
   const dispatch = useDispatch();
@@ -45,12 +46,31 @@ const ProfileEdit = () => {
       user.name === updateProfileData.name &&
       user.about === updateProfileData.about
     ) {
-      alert("Your name and about is same as previous.");
+      toast.warn("Please Change Name Or About", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       return;
     }
     // alert(updateProfileData.name + "\n Abut : " + updateProfileData.about);
 
     await dispatch(updateUserProfile(updateProfileData));
+    toast.success("Profile Updated Successfully", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     await dispatch(getMySelf());
     await dispatch(fetchChats());
     setIsOpen(false);
@@ -58,6 +78,18 @@ const ProfileEdit = () => {
 
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div className="mx-auto w-full max-w-md rounded-2xl py-2">
         <div className="flex w-full justify-between items-center">
           <div className="flex justify-between items-center">
@@ -69,6 +101,7 @@ const ProfileEdit = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
       <Transition className="box" appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"

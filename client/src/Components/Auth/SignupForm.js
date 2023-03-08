@@ -48,20 +48,19 @@ const SignupForm = () => {
     }
     if (serverResponse.success === true) {
       // dispatch(clearAuthStore());
-      // toast.success("Account Created Successfully", {
-      //   position: "top-right",
-      //   autoClose: 2000,
-      //   hideProgressBar: false,
-      //   closeOnClick: true,
-      //   pauseOnHover: true,
-      //   draggable: true,
-      //   progress: undefined,
-      //   theme: "light",
-      // });
+      toast.success("Account Created Successfully", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       navigate("/");
       // alert("navigated");
     }
-    return;
   }, [serverResponse]);
 
   const handleChange = (e) => {

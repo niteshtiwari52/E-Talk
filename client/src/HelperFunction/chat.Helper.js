@@ -10,10 +10,23 @@ export const getSender = (loggedUser, users) => {
 // To get the sender pic
 export const getSenderPic = (loggedUser, users) => {
   // console.log(users);
-  if (!loggedUser._id || !users) {
+  if (!users) {
     return;
   }
   return users[0]._id === loggedUser._id ? users[1].pic : users[0].pic;
+};
+
+// get sender profile details
+export const getSenderProfileDetails = (loggedUser, sender) => {
+  const data = {};
+  // console.log(sender);
+};
+
+// get group public details
+export const getGroupProfileDetails = (loggedUser, sender) => {
+  const data = {};
+
+  // console.log(sender);
 };
 
 export const isMyMessage = (loggedUser, message) => {

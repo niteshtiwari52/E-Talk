@@ -141,7 +141,7 @@ const authUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
   if (!user) {
     return res.status(404).json({
-      message: "Invalid Credentials",
+      message: "Invalid Credentials OR User not found",
       success: false,
     });
   }
@@ -157,7 +157,7 @@ const authUser = asyncHandler(async (req, res) => {
     });
   } else {
     return res.status(404).json({
-      message: "Invalid Credentials",
+      message: "Invalid Credentials OR User not found",
       success: false,
     });
   }
@@ -222,6 +222,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     if (!user) {
       return res.status(404).json({
         message: "User Not Found",
+        success: false,
       });
     }
 
@@ -243,6 +244,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     res.status(201).json({
       passwordResetLink: password_Reset_URL,
       message: `Your Password Reset Link has been sent to your Email ${user.email} . Please check you Spam or Junk Folder.`,
+      success: true,
     });
   } catch (error) {
     return res.status(500).json({

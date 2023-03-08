@@ -29,14 +29,14 @@ export const signIn = (userData) => async (dispatch) => {
       "ETalkUser",
       JSON.stringify({ token: User.data.token })
     );
-    window.location.reload();
+    // window.location.reload();
     axios.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${User.data.token}`;
 
     return dispatch({ type: SIGN_IN, payload: User.data });
   } catch (error) {
-    return dispatch({ type: "ERROR", payload: error.response.data});
+    return dispatch({ type: "ERROR", payload: error.response.data });
   }
 };
 
@@ -54,7 +54,7 @@ export const signUp = (userData) => async (dispatch) => {
       "ETalkUser",
       JSON.stringify({ token: User.data.token })
     );
-    window.location.reload();
+    // window.location.reload();
 
     axios.defaults.headers.common[
       "Authorization"
