@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import {
   clearAuthStore,
   forgotPassword,
@@ -19,7 +20,7 @@ const ResetPassword = () => {
   const [message, setMessage] = useState("");
 
   const result = useSelector((globalState) => globalState.auth.message);
-  // const result = useSelector((globalState) => globalState.auth.message);
+  const status = useSelector((globalState) => globalState.auth.success);
 
   useEffect(() => {
     setUserData((prev) => ({
@@ -31,8 +32,40 @@ const ResetPassword = () => {
   useEffect(() => {
     if (result) {
       setMessage(result);
+      if (!status) {
+        toast.error(result, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        toast.success(result, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
     }
   }, [result]);
+  // useEffect(() => {
+  //   if (!status) {
+  //     return;
+  //   }
+  //   if (status === false) {
+  //     alert(message);
+  //   }
+  // }, [status]);
+
   //   on change of the email field
   const handleChange = (e) => {
     setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -43,11 +76,32 @@ const ResetPassword = () => {
       (userData.newPassword === null || userData.newPassword === "") &&
       (userData.confirmPassword === null || userData.confirmPassword === "")
     ) {
-      alert("Please fill new Password and Confirm Password both");
+      toast.warn("Please fill new Password and Confirm Password both", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       return;
     }
     if (userData.newPassword !== userData.confirmPassword) {
-      alert("Password and Confirm Password Does not Match Does not match.");
+      toast.warn(
+        "Password and Confirm Password Does not Match Does not match.",
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      );
       return;
     }
 
@@ -65,16 +119,30 @@ const ResetPassword = () => {
 
   // Redirecting to forgot password PAge
   const NavigateToForgotPasswordPage = () => {
-    window.location.reload()
+    // window.location.reload();
+    dispatch(clearAuthStore());
     navigate("/forgot-password");
   };
 
   // Redirecting to Home PAge
   const NavigateToHomePage = () => {
+    dispatch(clearAuthStore());
     navigate("/");
   };
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <section className="bg-lightblue-50 dark:bg-gray-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           {/* Here we have to add a navabar component */}
@@ -157,6 +225,7 @@ const ResetPassword = () => {
           </div>
         </div>
       </section>
+      <ToastContainer />
     </>
   );
 };

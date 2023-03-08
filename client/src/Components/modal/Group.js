@@ -10,7 +10,7 @@ import {
   fetchUserClear,
 } from "../../Redux/Reducer/Chat/chat.action";
 import { AiOutlinePlus } from "react-icons/ai";
-import {toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const Group = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const Group = () => {
   const result = useSelector((globalState) => globalState.chat.newUser);
 
   function closeModal() {
-    setGroupChatName("")
+    setGroupChatName("");
     setSearch("");
     setSelectedUser([]);
     setSearchResult([]);
@@ -36,8 +36,9 @@ const Group = () => {
 
   const addUserTogroup = (userToAdd) => {
     if (selectedUser.includes(userToAdd)) {
-      toast.error(`${userToAdd.name} already added`,{
-        autoClose: 1000,});
+      toast.error(`${userToAdd.name} already added`, {
+        autoClose: 1000,
+      });
       return;
     }
 
@@ -57,12 +58,30 @@ const Group = () => {
       users: JSON.stringify(selectedUser.map((user) => user._id)),
     };
     if (!groupInfo.name || JSON.parse(groupInfo.users).length < 2) {
-      toast.error("Please provide Group Name and at least 2 users",{
-        autoClose: 1000,});
+      toast.warn("Please provide Group Name and at least 2 users", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       return;
     }
     await dispatch(createGroupChat(groupInfo));
     await dispatch(fetchChats());
+    toast.success("Group Created Successfully", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     setGroupChatName("");
     setSearch("");
     setSelectedUser([]);
@@ -98,11 +117,28 @@ const Group = () => {
 
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div className="group-icon rounded-full p-2 " onClick={() => openModal()}>
         <BiGroup className="icon text-2xl cursor-pointer" />
       </div>
+      <ToastContainer />
       <Transition className="box" appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="dialog-box relative z-10" onClose={closeModal}>
+        <Dialog
+          as="div"
+          className="dialog-box relative z-10"
+          onClose={closeModal}
+        >
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -214,39 +250,49 @@ const Group = () => {
 
                         {/* searched user render */}
                         <div className="user-list my-4 overflow-y-scroll">
-                        <div className="h-full">
-                          {searchResult.length !== 0 ? (
-                            searchResult.map((item, index) => (
-                              <li className="px-2 py-2 " key={item._id}>
-                                <div className="search-user-box relative flex justify-between items-center">
-                                  <div className="profile absolute left-0 ">
-                                    <img
-                                      className="w-12 h-12 rounded-full"
-                                      src={searchResult[index].pic}
-                                      alt="pic"
-                                    />
-                                  </div>
+                          <div className="h-full">
+                            {searchResult.length !== 0 ? (
+                              searchResult.map((item, index) => (
+                                <li className="px-2 py-2 " key={item._id}>
+                                  <div className="search-user-box relative flex justify-between items-center">
+                                    <div className="profile absolute left-0 ">
+                                      <img
+                                        className="w-12 h-12 rounded-full"
+                                        src={searchResult[index].pic}
+                                        alt="pic"
+                                      />
+                                    </div>
 
-                                  <div className="details w-3/4">
-                                    <h2 className="md:w-32 w-full m-0 text-base">
-                                      {item.name}
-                                    </h2>
-                                  </div>
+                                    <div className="details w-3/4">
+                                      <h2 className="md:w-32 w-full m-0 text-base">
+                                        {item.name}
+                                      </h2>
+                                    </div>
 
-                                  <div className="user-add flex justify-center items-center cursor-pointer rounded-full p-2">
-                                    <AiOutlinePlus
-                                      onClick={() => addUserTogroup(item)}
-                                    />
+                                    <div className="user-add flex justify-center items-center cursor-pointer rounded-full p-2">
+                                      <AiOutlinePlus
+                                        onClick={() => addUserTogroup(item)}
+                                      />
+                                    </div>
                                   </div>
+                                </li>
+                              ))
+                            ) : (
+                              <>
+                                <div
+                                  className={
+                                    search === "" && searchResult.length === 0
+                                      ? "hidden"
+                                      : "text-center"
+                                  }
+                                >
+                                  <span className="text-gray-500">
+                                    No Contact Found
+                                  </span>
                                 </div>
-                              </li>
-                            ))
-                          ) : (
-                            <><div className={search === "" && searchResult.length === 0  ? "hidden" : "text-center"}>
-                            <span className="text-gray-500">No Contact Found</span>
-                            </div></>
-                          )}
-                        </div>
+                              </>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -258,7 +304,7 @@ const Group = () => {
                       className="close-btn mr-4 inline-flex justify-center rounded-md border border-transparent  px-4 py-2 text-sm font-medium text-cyan-500  focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
-                      Close
+                      Cancel
                     </button>
                     <button
                       type="button"
@@ -278,7 +324,5 @@ const Group = () => {
     </>
   );
 };
-
-
 
 export default Group;

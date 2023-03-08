@@ -21,9 +21,10 @@ const UserList = ({ searchOpen, query }) => {
   const result = useSelector((globalState) => globalState.chat.selectedChat);
 
   const userChatShow = () => {
-    document.getElementById("user-chat").classList.add("user-chat-show", "fadeInRight");
-    document.getElementById("user-chat").classList.remove( "fadeInRight2");
-
+    document
+      .getElementById("user-chat")
+      .classList.add("user-chat-show", "fadeInRight");
+    document.getElementById("user-chat").classList.remove("fadeInRight2");
   };
 
   useEffect(() => {
