@@ -92,7 +92,7 @@ const UserList = ({ searchOpen, query }) => {
                             ? getSender(loggedUser, item.users)
                             : item.chatName
                         }
-                        className="md:w-32 w-full m-0 truncate text-base"
+                        className="inline-block md:w-36 w-full m-0 truncate text-base"
                       >
                         {!item.isGroupChat
                           ? getSender(loggedUser, item.users)
