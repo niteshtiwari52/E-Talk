@@ -16,7 +16,34 @@ dotenv.config();
 const app = express();
 connectDB();
 
-app.use(cors({ origin: "http://localhost:3000" }));
+// socket.io implement
+
+const http = require("http");
+const {Server} = require("socket.io");
+// const cors = require("cors");
+
+app.use(cors());
+
+const server = http.createServer(app);
+
+// const io = new Server(server, {
+//   cors: {
+//     origin: "http://localhost:3000",
+//     methods: ["GET", "POST"],
+//   },
+// });
+
+// io.on("connection", (socket) => {
+//   console.log(`User Connected: ${socket.id}`);
+
+//   socket.on("send_message", (data) => {
+//      socket.broadcast.emit("receive_message", data)
+
+    //  socket.on('message', (data) => {
+    //   console.log(`New message from ${socket.id}: ${data}`);
+//   });
+// });
+
 app.use(helmet());
 app.use(express.json()); //to accept json data
 
@@ -47,7 +74,8 @@ app.use(notFound);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 4000;
-const server = app.listen(PORT, () => {
+
+server.listen(PORT, () => {
   console.log(
     `Server is Running on PORT: http://localhost:${PORT}`.yellow.bold
   );
@@ -76,6 +104,9 @@ io.on("connection", (socket) => {
     socket.join(room);
     console.log(`user joined room. Room _id : ${room._id}`);
   });
+
+  socket.on("typing", (room) => socket.in(room).emit("typing"));
+  socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));
 
   socket.on("new message", (newMessageRecieved) => {
     var chat = newMessageRecieved.chat;
