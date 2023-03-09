@@ -132,8 +132,6 @@ const SideMenu = () => {
               {/* logout */}
               <li
                 className="side-menu-item"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
                 title="Logout"
                 onClick={handleLogout}
               >
@@ -181,7 +179,7 @@ const Wrapper = styled.section`
       cursor: pointer;
       .nav-link.active {
         background-color: ${({ theme }) => theme.colors.btn.light};
-        color: ${({ theme }) => theme.colors.cyan};
+        color: ${({ theme }) => theme.colors.primaryRgb};
       }
       .nav-link {
         display: block;
@@ -194,13 +192,13 @@ const Wrapper = styled.section`
         color: ${({ theme }) => theme.colors.text.secondary};
         border-radius: 8px;
         &:hover {
-          color: ${({ theme }) => theme.colors.cyan};
+          color: ${({ theme }) => theme.colors.primaryRgb};
         }
         .icon {
           display: inline;
         }
         .profile-user {
-          border: 3px solid ${({ theme }) => theme.colors.cyan};
+          border: 3px solid ${({ theme }) => theme.colors.primaryRgb};
         }
       }
     }

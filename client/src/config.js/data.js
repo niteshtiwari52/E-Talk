@@ -101,3 +101,24 @@ export const teamImg = [
  
  
 ]
+
+export const colors = [
+  {
+    "id": 1,
+    "color": "rgb(0,128,201)"
+
+  },
+  {
+    "id": 2,
+    "color": "rgb(78, 172, 109)" 
+  },
+  {
+    "id": 3,
+    "color": "rgb(232,62,140)"
+  },
+  {
+    "id": 4,
+    "color": "rgb(97,83,204)"
+  }
+
+]

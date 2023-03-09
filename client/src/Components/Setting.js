@@ -1,18 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Disclosure } from "@headlessui/react";
 import { BiChevronUp } from "react-icons/bi";
 
 import {BsCircleHalf} from "react-icons/bs"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import ProfileEdit from "./modal/ProfileEdit";
 import ImageEdit from "./modal/ImageEdit";
+import { colors } from "../config.js/data";
+import { FaCheck } from "react-icons/fa";
+import {toggleColor} from "../Redux/Reducer/SetColor/setColorAction"
 
 const Setting = () => {
   const user = useSelector((globalState) => globalState.user.userDetails);
+
+  const [color, setColor] = useState(colors[0].color);
   
 
+  const dispatch = useDispatch();
+
+  const activeColor = (color)=> {
+    setColor(color);
+    dispatch(toggleColor(color));
+  }
+
+  
   return (
     <Wrapper className="setting-tab dynamic-sidebar">
       <div className="relative flex items-center chat-menu flex-wrap justify-between w-full ">
@@ -58,7 +71,15 @@ const Setting = () => {
                     </Disclosure.Button>
                     <Disclosure.Panel className="disclosure-Panel pt-2 pb-2 text-sm">
                       
-          
+                    <div className="h-full flex justify-start items-center w-full">
+                    {
+                      colors.map((item)=>{
+                       return <button className={color === item.color ? "btn-style rounded-full active flex justify-center items-center" : "btn-style rounded-full flex justify-center items-center"} onClick={() => activeColor(item.color)} style={{backgroundColor: item.color}} key={item.id}>
+                       {color === item.color ? <FaCheck className="checkStyle" /> : null}
+                        </button>
+                      })
+                    }
+                    </div>
 
                     </Disclosure.Panel>
                   </>
@@ -90,6 +111,7 @@ const Wrapper = styled.div`
       min-width: 100%;
     }
   }
+
   .dialog-box{
     .dialog-box-wrapper .dialog-panel{
       background-color: ${({ theme }) => theme.colors.bg.secondary};

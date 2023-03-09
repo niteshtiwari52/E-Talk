@@ -33,7 +33,9 @@ const Footer = () => {
             <div className="social-links">
               <ul>
                 <li data-aos="fade-up" data-aos-delay="900">
+                  <a href="https://github.com/Nitesh52221/E-Talk" title="github">
                   <BsGithub/>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -94,8 +96,11 @@ const Wrapper = styled.footer`
       margin: 0;
       ul{
         li{
+       a{
+        color: ${({ theme }) => theme.colors.heading};
         font-size: 2rem;
         cursor: pointer;
+       }
       }
     }
     }

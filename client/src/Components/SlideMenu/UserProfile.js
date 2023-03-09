@@ -2,38 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import {
-  getGroupProfileDetails,
   getSender,
   getSenderPic,
-  getSenderProfileDetails,
 } from "../../HelperFunction/chat.Helper";
-import { RxCross2 } from "react-icons/rx";
+import GroupProfile from "../GroupProfile";
+import Profile from "../Profile";
 
-const Profile = (props) => {
+const UserProfile = ({closeModal}) => {
   const senderUser = useSelector(
     (globalState) => globalState.chat.selectedChat
   );
   const loggedUser = useSelector((globalState) => globalState.user.userDetails);
-  const [sender, setSender] = useState();
-  const [senderProfileData, setSenderProfileData] = useState();
+
+  const [sender, setSender] = useState("");
+
   console.log(sender);
-
-  useEffect(() => {
-    console.log(senderProfileData);
-  }, [senderProfileData]);
-
-  useEffect(() => {
-    let senderData;
-    if (sender) {
-      if (!sender.isGroupChat) {
-        senderData = getSenderProfileDetails(loggedUser, sender);
-      } else {
-        senderData = getGroupProfileDetails(loggedUser, sender);
-      }
-      setSenderProfileData(senderData);
-    }
-  }, [sender]);
-
   useEffect(() => {
     setSender(senderUser);
   }, [senderUser]);
@@ -41,7 +24,7 @@ const Profile = (props) => {
   return sender ? (
     <>
       <Wrapper className="sidebar w-full h-full flex justify-center ">
-        <div className="overflow-hidden sidebar-active">
+        {/* <div className="overflow-hidden sidebar-active">
           <div className="contact-profile p-10">
             <div className="p-1 flex items-center justify-end cursor-pointer">
               <div
@@ -80,16 +63,39 @@ const Profile = (props) => {
           </div>
           <div className="document"></div>
           <div className="media-gallery"></div>
-        </div>
+        </div> */}
 
         {/* need to change */}
         <div>
           {!sender.isGroupChat ? (
-            <>{/* sender profile  */}</>
+            <>
+              {/* sender profile  */}
+              <div className="sender-profile overflow-hidden sidebar-active w-full h-full">
+                <Profile
+                  pic={
+                    !sender.isGroupChat
+                      ? getSenderPic(loggedUser, sender.users)
+                      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6wQvepXb0gM_Ft1QUOs6UyYJjPOmA-gq5Yw&usqp=CAU"
+                  }
+                  name={
+                    sender.isGroupChat
+                      ? sender.chatName
+                      : getSender(loggedUser, sender.users)
+                  }
+                  email={!sender.isGroupChat ? sender.users[1].email : ""}
+                  about={!sender.isGroupChat ? sender.users[1].about : ""}
+                  contact={!sender.isGroupChat ? sender.users[1].contact : ""}
+                  closeModal={closeModal}
+                />
+              </div>
+            </>
           ) : (
             <>
               {/* Group profile  */}
               {/* group name , */}
+              <div className=" sender-profile overflow-hidden sidebar-active w-full h-full">
+               <GroupProfile sender={sender} loggedUser={loggedUser} closeModal={closeModal} />
+              </div>
             </>
           )}
         </div>
@@ -100,16 +106,35 @@ const Profile = (props) => {
   );
 };
 
-export default Profile;
+export default UserProfile;
 
 const Wrapper = styled.section`
-  .details {
-    .user-profile-image {
-      width: 200px;
-      height: 200px;
-      img {
-        width: 100%;
-        height: auto;
+  .sender-profile {
+    overflow-y: scroll;
+    height: 100vh;
+    .profile-tab {
+      animation: none;
+    }
+    .chat-menu {
+      margin-top: 2rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      .icon {
+        display: flex;
+      }
+    }
+    .user-details {
+      overflow: hidden;
+      height: 100%;
+    }
+    .details {
+      .user-profile-image {
+        width: 200px;
+        height: 200px;
+        img {
+          width: 100%;
+          height: auto;
+        }
       }
     }
   }

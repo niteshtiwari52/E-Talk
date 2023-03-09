@@ -80,10 +80,12 @@ const Wrapper = styled.section`
   /* overflow: hidden; */
 
   .custom-container {
+    position: relative;
     max-width: 100%;
     padding-left: 15px;
     padding-right: 15px;
     margin: 0 auto;
+    z-index: 20;
 
     .section-header {
       margin: 0 0 25px;
@@ -136,6 +138,7 @@ const Wrapper = styled.section`
     width: 100%;
     height: 100%;
     animation: Zoom-fade 5s infinite linear;
+    z-index: 1;
     div {
     position: absolute;
   }

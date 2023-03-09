@@ -13,7 +13,7 @@ const Verification = () => {
   const [status, setStatus] = useState(false);
   let [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState(
-    "Your account has been succesfully registered. To complete the process a verification link has been sent to your Email. Check your Email to verify your Account"
+    "Your Email is not Verified. We have sent a verification Mail to your Account. Please Check you Spam or Junk Folder. "
   );
   const [userData, setUserData] = useState({
     email: "",
@@ -42,18 +42,20 @@ const Verification = () => {
   const result = useSelector((globalState) => globalState.auth.message);
 
   useEffect(() => {
+    if (status) {
+      navigate("/");
+    }
+  }, [status]);
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    }
     if (user) {
       setStatus(user.is_verified);
       // console.log(user.email);
       // dispatch(userVerification(user));
     }
   }, [user]);
-
-  useEffect(() => {
-    if (status) {
-      navigate("/");
-    }
-  }, [status]);
 
   useEffect(() => {
     if (result) {
@@ -87,24 +89,17 @@ const Verification = () => {
           <>
             <div className="flex flex-col items-center justify-center w-2/4 ">
               <GoMailRead className="mail-icon" color="#8af859" />
-              <p className="my-2">
-                Your Email is Verified Now.
-              </p>
+              <p className="my-2">Your Email is Verified Now.</p>
             </div>
             <h1></h1>
           </>
         ) : (
           <>
             <div className="flex flex-col items-center justify-center w-3/4">
-              
               <GoMail className="mail-icon" color="#faab07" />
               <h1>Verify Your Email</h1>
-              <p className="my-2 px-2 mx-auto ">
-                {message}
-              </p>
-              <p className="my-2 font-bold px-2 mx-auto">
-                OR
-              </p>
+              <p className="my-2 px-2 mx-auto ">{message}</p>
+              <p className="my-2 font-bold px-2 mx-auto">OR</p>
               {/* <p className="text-2xl text-gray-900 dark:text-white my-2 px-2 mx-auto align-middle">
                 Verification Link
               </p> */}
@@ -209,43 +204,43 @@ const Verification = () => {
 export default Verification;
 
 const Wrapper = styled.section`
- color: ${({ theme }) => theme.colors.heading};
- display: flex;
- justify-content: center;
- align-items: center;
- height: 100vh;
- max-width: 100vw;
-
- .mail-icon{
-  font-size: 20rem;
- }
- button{
-  font-size: 1.1rem;
   color: ${({ theme }) => theme.colors.heading};
-  margin: 0.5rem;
-  padding: 0.6rem 2rem;
-  border-radius: 10px;
-  background-color: ${({ theme }) => theme.colors.cyan};
-  transition: all 0.4s ease-in-out;
-  &:hover{
-    transform: translateY(-5px)
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  max-width: 100vw;
+
+  .mail-icon {
+    font-size: 20rem;
   }
- }
- h1 {
-      text-align: center;
-      font-size: 2.4rem;
-      font-weight: bold;
-      margin: 15px auto;
-      line-height: 1.2;
-      max-width: 680px;
+  button {
+    font-size: 1.1rem;
+    color: ${({ theme }) => theme.colors.heading};
+    margin: 0.5rem;
+    padding: 0.6rem 2rem;
+    border-radius: 10px;
+    background-color: ${({ theme }) => theme.colors.cyan};
+    transition: all 0.4s ease-in-out;
+    &:hover {
+      transform: translateY(-5px);
     }
- p{
-      text-align: center;
-      font-size: 1rem;
-      margin-left: auto;
-      margin-right: auto;
-      max-width: 850px;
-      line-height: 27px;
-      color: ${({ theme }) => theme.colors.heading};
- }
-`
+  }
+  h1 {
+    text-align: center;
+    font-size: 2.4rem;
+    font-weight: bold;
+    margin: 15px auto;
+    line-height: 1.2;
+    max-width: 680px;
+  }
+  p {
+    text-align: center;
+    font-size: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 850px;
+    line-height: 27px;
+    color: ${({ theme }) => theme.colors.heading};
+  }
+`;

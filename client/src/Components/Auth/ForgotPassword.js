@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import {
   clearAuthStore,
   forgotPassword,
@@ -14,10 +15,34 @@ const ForgotPassword = () => {
   const [message, setMessage] = useState("");
 
   const result = useSelector((globalState) => globalState.auth.message);
+  const status = useSelector((globalState) => globalState.auth.success);
 
   useEffect(() => {
     if (result) {
       setMessage(result);
+      if (!status) {
+        toast.error(result, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        toast.success("Password Reset Link sent Successfully", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
     }
   }, [result]);
   //   on change of the email field
@@ -27,7 +52,16 @@ const ForgotPassword = () => {
 
   const sendPasswordResetLink = () => {
     if (userData.email === null || userData.email === "") {
-      alert("please enter a valid email");
+      toast.warn("please enter a valid email", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       return;
     }
     // dispatch action htmlFor password reset link
@@ -36,17 +70,31 @@ const ForgotPassword = () => {
 
   // Redirecting to forgot password PAge
   const NavigateToForgotPasswordPage = () => {
-    window.location.reload();
-    navigate("/forgot-password");
+    dispatch(clearAuthStore());
+    // navigate("/forgot-password");
+    setMessage("");
   };
 
   // Redirecting to Home PAge
   const NavigateToHomePage = () => {
+    dispatch(clearAuthStore());
     navigate("/");
   };
 
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <section className="bg-lightblue-50 dark:bg-gray-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           {/* Here we have to add a navabar component */}
@@ -111,6 +159,7 @@ const ForgotPassword = () => {
           </div>
         </div>
       </section>
+      <ToastContainer />
     </>
   );
 };

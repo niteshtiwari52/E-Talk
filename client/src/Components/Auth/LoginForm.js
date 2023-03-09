@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Social from "../../Styles/Social";
 import { Button } from "../../Styles/Button";
@@ -6,34 +6,113 @@ import { Button } from "../../Styles/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // Redux
-import { signIn } from "../../Redux/Reducer/Auth/auth.action";
+import { clearAuthStore, signIn } from "../../Redux/Reducer/Auth/auth.action";
 import { ToastContainer, toast } from "react-toastify";
 import ShowPasswordToggle from "../ShowPasswordToggle";
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [Icon, InputType] = ShowPasswordToggle();
-  const user = useSelector((globalState) => globalState.user.userDetails);
-
+  const [message, setMessage] = useState("");
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
+
+  const result = useSelector((globalState) => globalState.auth.message);
+  const status = useSelector((globalState) => globalState.auth.success);
+  const user = useSelector((globalState) => globalState.user.userDetails);
+  const serverResponse = useSelector((globalState) => globalState.auth);
+  const navigateToHome = async () => {
+    await navigate("/");
+    await dispatch(clearAuthStore());
+  };
+
+  useEffect(() => {
+    if (result) {
+      setMessage(result);
+      if (!status) {
+        toast.error(result, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        dispatch(clearAuthStore());
+      } else {
+        toast.success(result, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        console.log("redirecting");
+        // dispatch(clearAuthStore());
+        navigateToHome();
+        console.log("redirected");
+      }
+    }
+  }, [result]);
+  // useEffect(() => {
+  //   if (!serverResponse) {
+  //     return;
+  //   }
+  //   if (serverResponse.success === false) {
+  //     toast.error(serverResponse.message, {
+  //       position: "top-right",
+  //       autoClose: 2000,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //       theme: "light",
+  //     });
+  //     dispatch(clearAuthStore());
+  //     return;
+  //   }
+  //   if (serverResponse.success === true) {
+  //     toast.success("Login Successfully", {
+  //       position: "top-right",
+  //       autoClose: 2000,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //       theme: "light",
+  //     });
+  //     console.log("redirecting");
+  //     navigateToHome();
+  //     dispatch(clearAuthStore());
+  //     console.log("redirected");
+  //   }
+  // }, [serverResponse]);
+
   const handleChange = (e) => {
     setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (userData.email && userData.password) {
-      dispatch(signIn(userData));
+      await dispatch(signIn(userData));
 
-      toast.success("login Sucessfully");
-      navigate("/verification");
+      // toast.success("login Sucessfully");
+      // navigate("/verification");
+      // navigate("/");
+      // alert("navigated");
 
       // dispatch(getMySelf());
-      setUserData({ email: "", password: "" });
+      // setUserData({ email: "", password: "" });
     } else {
       toast.error("Please Fill the Data", {
         autoClose: 1000,

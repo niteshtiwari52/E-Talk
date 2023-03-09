@@ -20,6 +20,7 @@ const Chat = () => {
 const Wrapper = styled.section`
   overflow: hidden;
   height: 100vh;
+  transition: all 0.5s;
 `;
 
 export default Chat;

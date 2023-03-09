@@ -18,8 +18,10 @@ const registerUser = asyncHandler(async (req, res) => {
   const userExists = await User.findOne({ email });
 
   if (userExists) {
-    res.status(400);
-    throw new Error("User already exists");
+    return res.status(400).json({
+      message: "Your E-Mail Id is already Registered with E-Talk",
+      success: false,
+    });
   }
 
   const user = await User.create({
@@ -54,6 +56,7 @@ const registerUser = asyncHandler(async (req, res) => {
       pic: user.pic,
       token: generateToken(user._id, "30d"),
       message: "An Email is sent to your Email. Please Verify Your Email",
+      success: true,
     });
   } else {
     res.status(400);
@@ -136,6 +139,12 @@ const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
+  if (!user) {
+    return res.status(404).json({
+      message: "Invalid Credentials OR User not found",
+      success: false,
+    });
+  }
   if (user && (await user.matchPassword(password))) {
     res.json({
       _id: user._id,
@@ -143,6 +152,13 @@ const authUser = asyncHandler(async (req, res) => {
       email: user.email,
       pic: user.pic,
       token: generateToken(user._id),
+      message: "Login Successfull",
+      success: true,
+    });
+  } else {
+    return res.status(404).json({
+      message: "Invalid Credentials OR User not found",
+      success: false,
     });
   }
   if (!user.is_verified) {
@@ -206,6 +222,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     if (!user) {
       return res.status(404).json({
         message: "User Not Found",
+        success: false,
       });
     }
 
@@ -227,6 +244,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     res.status(201).json({
       passwordResetLink: password_Reset_URL,
       message: `Your Password Reset Link has been sent to your Email ${user.email} . Please check you Spam or Junk Folder.`,
+      success: true,
     });
   } catch (error) {
     return res.status(500).json({

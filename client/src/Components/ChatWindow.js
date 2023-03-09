@@ -22,7 +22,7 @@ import {
 } from "../Redux/Reducer/Message/message.action";
 
 import { Dialog, Menu, Transition } from "@headlessui/react";
-import Profile from "./SlideMenu/Profile";
+import UserProfile from "./SlideMenu/UserProfile";
 import { MdOutlineArrowBackIos } from "react-icons/md";
 import io from "socket.io-client";
 import { useRef } from "react";
@@ -30,11 +30,12 @@ import { clearSelectChatAction } from "../Redux/Reducer/Chat/chat.action";
 
 const ENDPOINT = "http://localhost:4000";
 var socket, selectedChatCompare;
+
 const ChatWindow = () => {
   const dispatch = useDispatch();
   const inputRef = createRef();
-  
-  const messageEndRef = useRef(null)
+
+  const messageEndRef = useRef(null);
 
   // all the message for a particular chat
   const [message, setMessage] = useState([]);
@@ -68,6 +69,57 @@ const ChatWindow = () => {
     setIsOpen(true);
   }
 
+  const pickEmoji = (emojiData, event) => {
+    const ref = inputRef.current;
+    ref.focus();
+    const start = newMessage.substring(0, ref.selectionStart);
+    const end = newMessage.substring(ref.selectionStart);
+    let msg = start + emojiData.native + end;
+    setNewMessage(msg);
+    setCursorPosition(start.length + emojiData.native.length);
+  };
+  // for input changing
+  const handleChange = (e) => {
+    setNewMessage(e.target.value);
+  };
+
+  // Sending message
+  const handleClick = async () => {
+    console.log(newMessage, sender._id);
+    // alert("Hello");
+    if (!newMessage) {
+      alert("Empty Message can't be send");
+      return;
+    }
+    const messageData = {
+      chatId: sender._id,
+      content: newMessage,
+    };
+    setNewMessage("");
+    await dispatch(sendMessge(messageData));
+  };
+
+  const userChathidden = () => {
+    document.getElementById("user-chat").classList.remove("fadeInRight");
+    document.getElementById("user-chat").classList.remove("user-chat-show");
+    document.getElementById("user-chat").classList.add("fadeInRight2");
+  };
+
+  const closeChat = () => {
+    const element = document.querySelectorAll("#chat-box-wrapper");
+    element.forEach((element) => {
+      element.classList.remove("active");
+    });
+    // await dispatch(clearSelectChatAction());
+    // await dispatch(clearSelectedMessage());
+  };
+
+  useEffect(() => {
+    if (inputRef.current !== null) {
+      inputRef.current.selectionEnd = cursorPosition;
+    }
+  }, [cursorPosition]);
+
   useEffect(() => {
     setSender(senderUser);
   }, [senderUser]);
@@ -81,7 +133,7 @@ const ChatWindow = () => {
   }, []);
 
   useEffect(() => {
-    socket.on("message recieved", (newMessageRecieved) => {
+    const eventHandler = (newMessageRecieved) => {
       if (
         !selectedChatCompare ||
         selectedChatCompare._id !== newMessageRecieved.chat._id
@@ -91,14 +143,18 @@ const ChatWindow = () => {
       } else {
         setTimeout(() => {
           setCount(count + 1);
-        }, 1000)
+        }, 1000);
         console.log(message);
         dispatch(updateGetAllChats(newMessageRecieved));
-        return;
-        console.log(message);
+        // console.log(message);
       }
-    });
-  });
+    };
+    socket.on("message recieved", eventHandler);
+    
+    return () => {
+      socket.off("message recieved", eventHandler);
+    };
+  }, []);
 
   useEffect(() => {
     setSender(senderUser);
@@ -112,29 +168,15 @@ const ChatWindow = () => {
     // console.log(senderUser);
   }, [sender]);
 
-  const pickEmoji = (emojiData, event) => {
-    const ref = inputRef.current;
-    ref.focus();
-    const start = newMessage.substring(0, ref.selectionStart);
-    const end = newMessage.substring(ref.selectionStart);
-    let msg = start + emojiData.native + end;
-    setNewMessage(msg);
-    setCursorPosition(start.length + emojiData.native.length);
-  };
-
-  useEffect(() => {
-    if (inputRef.current !== null) {
-      inputRef.current.selectionEnd = cursorPosition;
-    }
-  }, [cursorPosition]);
-
   useEffect(() => {
     setMessage(allMessage);
     socket.emit("join chat", sender);
   }, [allMessage]);
+
   useEffect(() => {
     console.log(message);
   }, [message]);
+
 
   // for input changing
   const handleChange = (e) => {
@@ -188,13 +230,13 @@ const ChatWindow = () => {
     // await dispatch(clearSelectedMessage());
   };
 
+  // for automatic scrolling down last message
+
   useEffect(() => {
-     messageEndRef.current?.scrollIntoView({ 
-      behaviour: "smooth"
-    }
-     );
-  }, [message, newMessage])
-  
+    messageEndRef.current?.scrollIntoView({
+      behaviour: "smooth",
+    });
+  }, [message, newMessage]);
 
   useEffect(() => {
     socket.emit("new message", createdMessage);
@@ -229,7 +271,7 @@ const ChatWindow = () => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center justify-center">
                     <div
-                      className="arrow-icon md:hidden ml-5 mr-5 cursor-pointer text-2xl p-2 rounded-full"
+                      className="arrow-icon ml-5 mr-5 cursor-pointer text-2xl p-2 rounded-full"
                       onClick={userChathidden}
                     >
                       <MdOutlineArrowBackIos onClick={closeChat} />
@@ -360,7 +402,6 @@ const ChatWindow = () => {
 
               <div className="chat-input-section p-5 p-lg-6">
                 <div className="flex justify-between items-center">
-                
                   <div className="chat-input flex">
                     {/* 3 dot button button */}
                     {/* <div className="links-list-item">
@@ -406,7 +447,7 @@ const ChatWindow = () => {
                       ref={inputRef}
                     />
                   </div>
-                   {/* submit button */}
+                  {/* submit button */}
                   <div className="chat-input-links ml-2" onClick={handleClick}>
                     <div className="links-list-items ml-5 ">
                       <Button className="btn submit-btn flex justify-center items-center">
@@ -441,7 +482,7 @@ const ChatWindow = () => {
                     leaveTo="translate-x-full"
                   >
                     <Dialog.Panel className="dialog-panel z-50  h-screen max-w-sm transform  text-white text-left shadow-xl transition-all">
-                      <Profile closeModal={closeModal} />
+                      <UserProfile closeModal={closeModal} />
                     </Dialog.Panel>
                   </Transition.Child>
                 </div>
@@ -468,15 +509,17 @@ const Wrapper = styled.section`
     font-size: 1.4rem;
     color: #797c8c;
     cursor: pointer;
+    &:hover{
+       color: ${({ theme }) => theme.colors.primaryRgb};
+    }
   }
   .emoji-picker {
     position: absolute;
     max-width: 100%;
-    max-height: 100%;
     overflow-y: auto;
     z-index: 100;
     left: 10px;
-    bottom: 80px;
+    bottom: 100px;
   }
   .submit-btn {
     width: 50px;
@@ -511,11 +554,8 @@ const Wrapper = styled.section`
         border-radius: 50%;
       }
       .btn-outline-primary {
-        background-color: rgba(
-          ${({ theme }) => theme.colors.btn.primary},
-          0.15
-        );
-        color: ${({ theme }) => theme.colors.cyan};
+        background-color: rgba(${({ theme }) => theme.colors.btn.primary},0.15);
+        color: ${({ theme }) => theme.colors.primaryRgb};
       }
       .btn-outline-danger {
         background-color: rgba(${({ theme }) => theme.colors.btn.danger}, 0.15);
@@ -602,14 +642,14 @@ const Wrapper = styled.section`
             }
             .chat-wrap-content {
               color: ${({ theme }) => theme.colors.heading};
-              background-color: rgb(${({ theme }) => theme.colors.rgb.primary});
+              background-color: ${({ theme }) => theme.colors.primaryRgb};
             }
           }
         }
       }
     }
     .chat-input-section {
-      bottom: 0;
+      position: relative;
       background-color: ${({ theme }) => theme.colors.bg.primary};
       border-top: 1px solid rgba(${({ theme }) => theme.colors.border}, 0.3);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -628,7 +668,7 @@ const Wrapper = styled.section`
         width: 3rem;
         height: 3rem;
         &:hover {
-          color: ${({ theme }) => theme.colors.cyan};
+          color: ${({ theme }) => theme.colors.primaryRgb};
           background-color: ${({ theme }) => theme.colors.bg.secondary};
         }
         border-radius: 100%;
@@ -636,13 +676,19 @@ const Wrapper = styled.section`
       .links-list-items {
         .btn {
           color: #fff;
-          background-color: ${({ theme }) => theme.colors.cyan};
+          background-color: ${({ theme }) => theme.colors.primaryRgb};
           &:hover {
-            background-color: rgb(${({ theme }) => theme.colors.rgb.cyan}, 0.8);
+            background-color: rgb(${({ theme }) => theme.colors.rgb.primary}, 0.8);
           }
-          border-color: ${({ theme }) => theme.colors.cyan};
+          border-color: ${({ theme }) => theme.colors.primaryRgb};
         }
       }
+    }
+  }
+
+  @media screen and (min-width: 800px) {
+    .arrow-icon {
+      display: none;
     }
   }
 `;

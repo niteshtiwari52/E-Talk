@@ -6,6 +6,7 @@ import { uploadProfilePicture } from "../../Redux/Reducer/ProfileImage/profileIm
 import { getMySelf } from "../../Redux/Reducer/User/user.action";
 import { fetchChats } from "../../Redux/Reducer/Chat/chat.action";
 import { getAllChats } from "../../Redux/Reducer/Message/message.action";
+import { toast, ToastContainer } from "react-toastify";
 
 function ImageEdit() {
   const user = useSelector((globalState) => globalState.user.userDetails);
@@ -26,11 +27,30 @@ function ImageEdit() {
 
   const uploadImage = async () => {
     if (selectedImage === null) {
-      alert("Please select an image");
+      toast.warn("Please Select One Image", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       return;
     }
     setLoading(true);
     await dispatch(uploadProfilePicture(selectedImage));
+    toast.success("Profile Picture Updated Successfully", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     setLoading(false);
     closeModal();
     await dispatch(getMySelf());
@@ -45,7 +65,7 @@ function ImageEdit() {
       setImagePath(imageURL);
       setSelectedImage(file);
 
-      console.log();
+      // console.log();
     } else {
       setSelectedImage(null);
       setIsOpen(false);
@@ -54,11 +74,23 @@ function ImageEdit() {
   };
 
   // useEffect(() => {
-    // console.log(selectedImage);
+  // console.log(selectedImage);
   // }, [selectedImage]);
 
   return (
     <>
+      {/* <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      /> */}
       <div className="relative">
         <div className="user-profile-img rounded-full overflow-hidden">
           <img src={user.pic} alt="profile" />
@@ -104,7 +136,7 @@ function ImageEdit() {
                   <Dialog.Panel className="dialog-panel w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                     <Dialog.Title
                       as="h3"
-                      className="text-lg font-medium leading-6 text-gray-900"
+                      className="text-lg text-center font-medium leading-6 text-gray-900"
                     >
                       Update Profile
                     </Dialog.Title>
@@ -112,7 +144,7 @@ function ImageEdit() {
                     <div>
                       {selectedImage ? (
                         <>
-                          <p>Image Uploaded</p>
+                          {/* <p>Image Uploaded</p> */}
                           <img
                             src={imagePath}
                             className="w-1/2 h-1/2 mx-auto"
@@ -149,7 +181,7 @@ function ImageEdit() {
                           className="close-btn inline-flex justify-center rounded-md border border-transparent  px-4 py-2 text-sm font-medium text-cyan-500 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                           onClick={closeModal}
                         >
-                          Close
+                          Cancel
                         </button>
                       </div>
                       <div className="mt-4">
@@ -179,6 +211,7 @@ function ImageEdit() {
           </Dialog>
         </Transition>
       </div>
+      {/* <ToastContainer /> */}
     </>
   );
 }

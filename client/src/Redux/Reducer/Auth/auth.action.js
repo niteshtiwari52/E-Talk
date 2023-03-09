@@ -11,6 +11,7 @@ import {
   FORGOT_PASSWORD,
   RESET_PASSWORD,
   CLEAR_AUTH_STORE,
+  ERROR,
 } from "./auth.type";
 
 // Sign IN
@@ -22,19 +23,20 @@ export const signIn = (userData) => async (dispatch) => {
       url: "http://localhost:4000/api/user/login/",
       data: { ...userData },
     });
+    console.log(User);
 
     localStorage.setItem(
       "ETalkUser",
       JSON.stringify({ token: User.data.token })
     );
-    window.location.reload();
+    // window.location.reload();
     axios.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${User.data.token}`;
 
     return dispatch({ type: SIGN_IN, payload: User.data });
   } catch (error) {
-    return dispatch({ type: "Error", payload: error });
+    return dispatch({ type: "ERROR", payload: error.response.data });
   }
 };
 
@@ -52,7 +54,7 @@ export const signUp = (userData) => async (dispatch) => {
       "ETalkUser",
       JSON.stringify({ token: User.data.token })
     );
-    window.location.reload();
+    // window.location.reload();
 
     axios.defaults.headers.common[
       "Authorization"
@@ -60,7 +62,7 @@ export const signUp = (userData) => async (dispatch) => {
 
     return dispatch({ type: SIGN_UP, payload: User.data });
   } catch (error) {
-    return dispatch({ type: "ERROR", payload: error });
+    return dispatch({ type: "ERROR", payload: error.response.data });
   }
 };
 

@@ -1,47 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
 import { getSender, getSenderPic } from "../HelperFunction/chat.Helper";
-import {
-  clearSelectChatAction,
-  selectChatAction,
-} from "../Redux/Reducer/Chat/chat.action";
-import { getAllChats } from "../Redux/Reducer/Message/message.action";
+
 import moment from "moment";
 import Highlighter from "react-highlight-words";
 
-const UserList = ({ searchOpen, query }) => {
-  const dispatch = useDispatch();
-
-  const [selectedChat, setSelectedChat] = useState();
-  const [chatList, setchatList] = useState([]);
-
-  const chat = useSelector((globalState) => globalState.chat.chats);
-  const loggedUser = useSelector((globalState) => globalState.user.userDetails);
-  const user = useSelector((globalState) => globalState.user.userDetails);
-
+const UserList = ({ searchOpen, query , chatList, chat, loggedUser, result, setSelectedChat }) => {
+  
   const userChatShow = () => {
     document
       .getElementById("user-chat")
       .classList.add("user-chat-show", "fadeInRight");
+    document.getElementById("user-chat").classList.remove("fadeInRight2");
   };
 
-  useEffect(() => {
-    setchatList(chat);
-  }, [chat]);
-
-  useEffect(() => {
-    console.log(selectedChat);
-    // dispatch(clearSelectChatAction());
-    // if (selectedChat ? dispatch(getAllChats(selectedChat._id)) : "")
-
-    dispatch(selectChatAction(selectedChat));
-    console.log(selectedChat);
-
-    dispatch(getAllChats(selectedChat));
-
-    // alert(selectedChat._id)
-  }, [selectedChat]);
 
 
   return (
@@ -52,13 +24,22 @@ const UserList = ({ searchOpen, query }) => {
           <div className="my-4" onClick={() => userChatShow()}>
             {chatList
               .filter((item) => {
-                return query.toLowerCase() === "" || searchOpen === false ? item : (!item.isGroupChat ? getSender(loggedUser, item.users) : item.chatName).toLowerCase().includes(query.toLowerCase()) ;
-              }).map((item, index) => (
+                return query.toLowerCase() === "" || searchOpen === false
+                  ? item
+                  : (!item.isGroupChat
+                      ? getSender(loggedUser, item.users)
+                      : item.chatName
+                    )
+                      .toLowerCase()
+                      .includes(query.toLowerCase());
+              })
+              .map((item, index) => (
                 <li
                   onClick={() => setSelectedChat(item)}
                   key={item._id}
+                  id="chat-box-wrapper"
                   className={
-                    selectedChat === item
+                    result === item
                       ? "chat-box-wrapper active px-5 py-2"
                       : "chat-box-wrapper px-5 py-2"
                   }
@@ -85,7 +66,7 @@ const UserList = ({ searchOpen, query }) => {
                             ? getSender(loggedUser, item.users)
                             : item.chatName
                         }
-                        className="md:w-32 w-full m-0 truncate text-base"
+                        className="inline-block md:w-36 w-full m-0 truncate text-base"
                       >
                         {!item.isGroupChat
                           ? getSender(loggedUser, item.users)
@@ -177,15 +158,15 @@ const UserList = ({ searchOpen, query }) => {
 const Wrapper = styled.section`
   position: relative;
 
-  mark{
-    background-color: ${({ theme }) => theme.colors.cyan};
+  mark {
+    background-color: ${({ theme }) => theme.colors.primaryRgb};
   }
   .chat-main {
     height: 100vh;
     background-color: ${({ theme }) => theme.colors.bg.primary};
     li.active {
       background-color: ${({ theme }) => theme.colors.bg.secondary};
-      border-left: 4px solid ${({ theme }) => theme.colors.cyan};
+      border-left: 4px solid ${({ theme }) => theme.colors.primaryRgb};
       transition: all 0.3s ease;
     }
     .chat-box-wrapper {
@@ -255,7 +236,7 @@ const Wrapper = styled.section`
     min-width: 100vw;
     .chat-main {
       width: 100vw;
-      height: calc(100vh + 60px);
+      height: calc(100vh - 186px);
       li {
         padding: 20px 20px 20px 20px;
         h2 {
