@@ -45,6 +45,8 @@ const ChatWindow = () => {
   const [socketConnected, setSocketConnected] = useState(false);
   let [isOpen, setIsOpen] = useState(false);
   const [count, setCount] = useState(0);
+  const [typing,setTyping] = useState(false);
+  const [isTyping,setIsTyping] = useState(false);
 
   const senderUser = useSelector(
     (globalState) => globalState.chat.selectedChat
@@ -73,7 +75,9 @@ const ChatWindow = () => {
   useEffect(() => {
     socket = io(ENDPOINT);
     socket.emit("setup", loggedUser);
-    socket.on("connection", () => setSocketConnected(true));
+    socket.on("connected", () => setSocketConnected(true));
+    socket.on('typing', ()=>setIsTyping(true));
+    socket.on('stop typing', ()=>setIsTyping(false));
   }, []);
 
   useEffect(() => {
@@ -135,6 +139,26 @@ const ChatWindow = () => {
   // for input changing
   const handleChange = (e) => {
     setNewMessage(e.target.value);
+      
+    // typing Indicator
+    if(!socketConnected) return;
+
+    if(!typing){
+      setTyping(true);
+      socket.emit("typing", sender._id);
+    }
+
+    let lastTypingTime = new Date().getTime()
+    var timerLength = 3000;
+    setTimeout(() => {
+      var timeNow = new Date().getTime();
+      var timeDiff = timeNow - lastTypingTime;
+
+      if(timeDiff >= timerLength && typing){
+        socket.emit('stop typing', sender._id);
+        setTyping(false);
+      }
+    }, timerLength);
   };
 
   // Sending message
@@ -142,6 +166,7 @@ const ChatWindow = () => {
     console.log(newMessage, sender._id);
     // alert("Hello");
     if (!newMessage) {
+      socket.emit("stop typing", sender._id);
       alert("Empty Message can't be send");
       return;
     }
@@ -370,6 +395,7 @@ const ChatWindow = () => {
                   </div>
                   {/* input field */}
                   <div className="position-relative w-full">
+                    {isTyping ? <div>Loading...</div> : <></>}
                     <input
                       placeholder="Type Your message..."
                       autoComplete="off"
