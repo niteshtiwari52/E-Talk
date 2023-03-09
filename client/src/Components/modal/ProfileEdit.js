@@ -78,7 +78,7 @@ const ProfileEdit = () => {
 
   return (
     <>
-      <ToastContainer
+      {/* <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -89,7 +89,7 @@ const ProfileEdit = () => {
         draggable
         pauseOnHover
         theme="light"
-      />
+      /> */}
       <div className="mx-auto w-full max-w-md rounded-2xl py-2">
         <div className="flex w-full justify-between items-center">
           <div className="flex justify-between items-center">
@@ -101,7 +101,7 @@ const ProfileEdit = () => {
           </div>
         </div>
       </div>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <Transition className="box" appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"

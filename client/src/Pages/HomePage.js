@@ -8,8 +8,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getMySelf } from "../Redux/Reducer/User/user.action";
 import { fetchChats } from "../Redux/Reducer/Chat/chat.action";
+import Loading from "../Components/Loading";
 
 const HomePage = () => {
+  const [loading, setloading] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [status, setStatus] = useState();
@@ -23,7 +25,15 @@ const HomePage = () => {
   useEffect(() => {
     if (localStorage.ETalkUser) {
       getUserData();
-      // setloading(false);
+         setTimeout(() => {
+      setloading(false);
+    }, 1000);
+    
+    }
+    else {
+      setTimeout(() => {
+        setloading(false);
+      }, 1000);
     }
 
     // eslint-disable-next-line
@@ -47,7 +57,14 @@ const HomePage = () => {
   }, [status]);
 
   return (
-    <>
+    
+      loading ? (
+         <>
+          <Loading />
+         </>
+      ):
+      (
+        <>
       {user?.name ? (
         <>
           <Chat />
@@ -58,6 +75,8 @@ const HomePage = () => {
         </>
       )}
     </>
+      )
+    
   );
 };
 

@@ -21,6 +21,7 @@ const ChatMenu = () => {
 
   const tabIndex = useSelector((state) => state.tabReducer);
   const result = useSelector((globalState) => globalState.chat.newUser);
+  const user = useSelector((globalState) => globalState.user.userDetails);
 
   // const chat = useSelector((globalState) => globalState.chat.chats);
 
@@ -58,7 +59,23 @@ const ChatMenu = () => {
       <Wrapper className="chat-menu-section ">
         <div className="tab-content">
           <div className={tabIndex === 1 ? "tab-pane active" : "tab-pane "}>
-            <Profile />
+            <Profile 
+             pic={
+                   user.pic
+                  }
+                  name = {
+                    user.name
+                  }
+                  email = {
+                  user.email
+                  }
+                  about ={
+                  user.about
+                  }
+                  contact ={
+                  user.contact
+                  }
+             />
           </div>
           <div className={tabIndex === 2 ? "tab-pane active" : "tab-pane "}>
             <Favourite />

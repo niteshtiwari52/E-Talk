@@ -4,7 +4,3 @@ export const toggleTab = (index ) => ({
     type: TOGGLE_TAB,
     payload: index,
   });
-// export const toggleDarkTheme = (index ) => ({
-//     type: TOGGLE_TAB,
-//     payload: index,
-//   });

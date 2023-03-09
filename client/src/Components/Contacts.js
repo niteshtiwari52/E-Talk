@@ -101,7 +101,7 @@ const Wrapper = styled.div`
     height: calc(100vh - 250px)
   }
   .btn {
-    background-color: ${({ theme }) => theme.colors.cyan};
+    background-color: ${({ theme }) => theme.colors.primaryRgb};
   }
   .search-user-box {
     position: relative;

@@ -1,25 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
 import { getSender, getSenderPic } from "../HelperFunction/chat.Helper";
-import {
-  clearSelectChatAction,
-  selectChatAction,
-} from "../Redux/Reducer/Chat/chat.action";
-import { getAllChats } from "../Redux/Reducer/Message/message.action";
+
 import moment from "moment";
 import Highlighter from "react-highlight-words";
 
-const UserList = ({ searchOpen, query }) => {
-  const dispatch = useDispatch();
-
-  const [selectedChat, setSelectedChat] = useState();
-  const [chatList, setchatList] = useState([]);
-
-  const chat = useSelector((globalState) => globalState.chat.chats);
-  const loggedUser = useSelector((globalState) => globalState.user.userDetails);
-  const result = useSelector((globalState) => globalState.chat.selectedChat);
-
+const UserList = ({ searchOpen, query , chatList, chat, loggedUser, result, setSelectedChat }) => {
+  
   const userChatShow = () => {
     document
       .getElementById("user-chat")
@@ -27,21 +14,7 @@ const UserList = ({ searchOpen, query }) => {
     document.getElementById("user-chat").classList.remove("fadeInRight2");
   };
 
-  useEffect(() => {
-    setchatList(chat);
-  }, [chat]);
 
-  useEffect(() => {
-    // dispatch(clearSelectChatAction());
-    // if (selectedChat ? dispatch(getAllChats(selectedChat._id)) : "")
-
-    dispatch(selectChatAction(selectedChat));
-    console.log(selectedChat);
-
-    dispatch(getAllChats(selectedChat));
-
-    // alert(selectedChat._id)
-  }, [selectedChat]);
 
   return (
     // <Wrapper>
@@ -186,14 +159,14 @@ const Wrapper = styled.section`
   position: relative;
 
   mark {
-    background-color: ${({ theme }) => theme.colors.cyan};
+    background-color: ${({ theme }) => theme.colors.primaryRgb};
   }
   .chat-main {
     height: 100vh;
     background-color: ${({ theme }) => theme.colors.bg.primary};
     li.active {
       background-color: ${({ theme }) => theme.colors.bg.secondary};
-      border-left: 4px solid ${({ theme }) => theme.colors.cyan};
+      border-left: 4px solid ${({ theme }) => theme.colors.primaryRgb};
       transition: all 0.3s ease;
     }
     .chat-box-wrapper {
