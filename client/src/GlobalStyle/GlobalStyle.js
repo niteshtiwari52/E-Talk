@@ -40,6 +40,15 @@ export const GlobalStyle = createGlobalStyle`
   }
   .dialog-panel{
   background-color: ${({ theme }) => theme.colors.bg.primary};
+  .button, .btn{
+    background-color: ${({ theme }) => theme.colors.primaryRgb};
+  }
+  .close-btn{
+    color: ${({ theme }) => theme.colors.primaryRgb};
+    &:hover{
+      background-color: ${({ theme }) => theme.colors.primaryRgb} !important;
+    }
+  }
   .user-list{
       max-height: 190px;
     }
@@ -91,6 +100,17 @@ export const GlobalStyle = createGlobalStyle`
       }
     }
    }
+    }
+  }
+
+  .disclosure-Panel{
+    .btn-style{
+     width: 2rem;
+     height: 2rem;
+     margin-left: 1rem;
+     border: none;
+     outline: none;
+    cursor: pointer;
     }
   }
 
@@ -197,11 +217,10 @@ export const GlobalStyle = createGlobalStyle`
 }
 
 
-
   
   @media (max-width: ${({ theme }) => theme.media.mobile}) {
     html {
-      font-size: 80%;
+      font-size: 75%;
     }
   
     .grid {

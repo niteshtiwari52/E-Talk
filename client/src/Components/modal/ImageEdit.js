@@ -79,7 +79,7 @@ function ImageEdit() {
 
   return (
     <>
-      <ToastContainer
+      {/* <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -90,7 +90,7 @@ function ImageEdit() {
         draggable
         pauseOnHover
         theme="light"
-      />
+      /> */}
       <div className="relative">
         <div className="user-profile-img rounded-full overflow-hidden">
           <img src={user.pic} alt="profile" />
@@ -211,7 +211,7 @@ function ImageEdit() {
           </Dialog>
         </Transition>
       </div>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </>
   );
 }

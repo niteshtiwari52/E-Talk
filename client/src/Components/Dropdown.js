@@ -6,7 +6,8 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { useSelector } from "react-redux";
 
 import { Menu, Transition } from "@headlessui/react";
-import Profile from "./SlideMenu/Profile";
+import UserProfile from "./SlideMenu/UserProfile";
+import { MdFavorite } from "react-icons/md";
 
 const Dropdown = (props) => {
   const [sender, setSender] = useState();
@@ -61,7 +62,7 @@ const Dropdown = (props) => {
                   }`}
                 >
                   <div className="icon-btn btn-outline-danger mr-4">
-                    <RiDeleteBin6Line className="icon inline" />
+                    <MdFavorite className="icon inline" />
                   </div>{" "}
                   <h5 className="relative w-full text-left">
                     Mark As Favourites

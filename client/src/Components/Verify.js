@@ -94,7 +94,7 @@ const Verify = () => {
 
   return (
     <>
-      <div className="m-4 p-4 h-full flex flex-col items-center justify-center">
+      <div className="m-4 p-4 w-screen h-screen flex flex-col items-center justify-center">
         {status ? (
           <>
             <div className="flex flex-col items-center justify-center w-3/4">

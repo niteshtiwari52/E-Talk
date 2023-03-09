@@ -22,7 +22,7 @@ import {
 } from "../Redux/Reducer/Message/message.action";
 
 import { Dialog, Menu, Transition } from "@headlessui/react";
-import Profile from "./SlideMenu/Profile";
+import UserProfile from "./SlideMenu/UserProfile";
 import { MdOutlineArrowBackIos } from "react-icons/md";
 import io from "socket.io-client";
 import { useRef } from "react";
@@ -423,7 +423,7 @@ const ChatWindow = () => {
                     leaveTo="translate-x-full"
                   >
                     <Dialog.Panel className="dialog-panel z-50  h-screen max-w-sm transform  text-white text-left shadow-xl transition-all">
-                      <Profile closeModal={closeModal} />
+                      <UserProfile closeModal={closeModal} />
                     </Dialog.Panel>
                   </Transition.Child>
                 </div>
@@ -450,6 +450,9 @@ const Wrapper = styled.section`
     font-size: 1.4rem;
     color: #797c8c;
     cursor: pointer;
+    &:hover{
+       color: ${({ theme }) => theme.colors.primaryRgb};
+    }
   }
   .emoji-picker {
     position: absolute;
@@ -492,11 +495,8 @@ const Wrapper = styled.section`
         border-radius: 50%;
       }
       .btn-outline-primary {
-        background-color: rgba(
-          ${({ theme }) => theme.colors.btn.primary},
-          0.15
-        );
-        color: ${({ theme }) => theme.colors.cyan};
+        background-color: rgba(${({ theme }) => theme.colors.btn.primary},0.15);
+        color: ${({ theme }) => theme.colors.primaryRgb};
       }
       .btn-outline-danger {
         background-color: rgba(${({ theme }) => theme.colors.btn.danger}, 0.15);
@@ -583,7 +583,7 @@ const Wrapper = styled.section`
             }
             .chat-wrap-content {
               color: ${({ theme }) => theme.colors.heading};
-              background-color: rgb(${({ theme }) => theme.colors.rgb.primary});
+              background-color: ${({ theme }) => theme.colors.primaryRgb};
             }
           }
         }
@@ -609,7 +609,7 @@ const Wrapper = styled.section`
         width: 3rem;
         height: 3rem;
         &:hover {
-          color: ${({ theme }) => theme.colors.cyan};
+          color: ${({ theme }) => theme.colors.primaryRgb};
           background-color: ${({ theme }) => theme.colors.bg.secondary};
         }
         border-radius: 100%;
@@ -617,11 +617,11 @@ const Wrapper = styled.section`
       .links-list-items {
         .btn {
           color: #fff;
-          background-color: ${({ theme }) => theme.colors.cyan};
+          background-color: ${({ theme }) => theme.colors.primaryRgb};
           &:hover {
-            background-color: rgb(${({ theme }) => theme.colors.rgb.cyan}, 0.8);
+            background-color: rgb(${({ theme }) => theme.colors.rgb.primary}, 0.8);
           }
-          border-color: ${({ theme }) => theme.colors.cyan};
+          border-color: ${({ theme }) => theme.colors.primaryRgb};
         }
       }
     }

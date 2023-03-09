@@ -117,7 +117,7 @@ const Group = () => {
 
   return (
     <>
-      <ToastContainer
+      {/* <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -128,11 +128,11 @@ const Group = () => {
         draggable
         pauseOnHover
         theme="light"
-      />
+      /> */}
       <div className="group-icon rounded-full p-2 " onClick={() => openModal()}>
         <BiGroup className="icon text-2xl cursor-pointer" />
       </div>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <Transition className="box" appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
