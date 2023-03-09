@@ -43,6 +43,7 @@ const LoginForm = () => {
           progress: undefined,
           theme: "light",
         });
+        dispatch(clearAuthStore());
       } else {
         toast.success(result, {
           position: "top-right",

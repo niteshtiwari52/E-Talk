@@ -19,12 +19,18 @@ const Profile = (props) => {
   console.log(sender);
 
   useEffect(() => {
+    console.log(senderProfileData);
+  }, [senderProfileData]);
+
+  useEffect(() => {
+    let senderData;
     if (sender) {
       if (!sender.isGroupChat) {
-        const senderData = getSenderProfileDetails(loggedUser, sender);
+        senderData = getSenderProfileDetails(loggedUser, sender);
       } else {
-        const senderData = getGroupProfileDetails(loggedUser, sender);
+        senderData = getGroupProfileDetails(loggedUser, sender);
       }
+      setSenderProfileData(senderData);
     }
   }, [sender]);
 
