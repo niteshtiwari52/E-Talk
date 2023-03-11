@@ -119,6 +119,7 @@ export const colors = [
   {
     "id": 4,
     "color": "rgb(97,83,204)"
-  }
+  },
+  
 
 ]

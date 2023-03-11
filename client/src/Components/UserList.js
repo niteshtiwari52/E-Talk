@@ -21,7 +21,7 @@ const UserList = ({ searchOpen, query , chatList, chat, loggedUser, result, setS
     <Wrapper>
       <ul className="chat-main h-full overflow-x-hidden overflow-y-scroll">
         {chatList.length !== 0 ? (
-          <div className="my-4" onClick={() => userChatShow()}>
+          <div className="mb-4" onClick={() => userChatShow()}>
             {chatList
               .filter((item) => {
                 return query.toLowerCase() === "" || searchOpen === false
@@ -165,7 +165,7 @@ const Wrapper = styled.section`
     height: 100vh;
     background-color: ${({ theme }) => theme.colors.bg.primary};
     li.active {
-      background-color: ${({ theme }) => theme.colors.bg.secondary};
+      background-color: rgba(${({ theme }) => theme.colors.rgb.primary}, 0.12);
       border-left: 4px solid ${({ theme }) => theme.colors.primaryRgb};
       transition: all 0.3s ease;
     }

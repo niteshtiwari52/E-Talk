@@ -90,6 +90,7 @@ const Wrapper = styled.div`
   .group-icon {
     &:hover {
       background-color: ${({ theme }) => theme.colors.bg.secondary};
+      color: ${({ theme }) => theme.colors.primaryRgb};
     }
   }
 `;

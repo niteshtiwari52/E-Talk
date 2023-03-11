@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Button } from "../Styles/Button";
 
 import { AiOutlinePlus } from "react-icons/ai";
+import Spinner from "../Styles/Spinner";
 
 const Contacts = ({
   search,
@@ -10,6 +11,8 @@ const Contacts = ({
   handleClick,
   searchResult,
   createNewChat,
+  loading,
+  showResult,
 }) => {
   return (
     <>
@@ -41,44 +44,56 @@ const Contacts = ({
           </div>
           {/* searched user rendering */}
           <div className="contact-list my-4 overflow-y-scroll">
-            {searchResult.length !== 0 ? (
-              searchResult.map((item, index) => (
-                <li className="px-2 lg:px-2 py-2 " key={index}>
-                  <div className="search-user-box flex items-center">
-                    <div className="profile absolute left-0 ">
-                      <img
-                        className="w-12 h-12 rounded-full"
-                        src={searchResult[index].pic}
-                        alt="pic"
-                      />
-                    </div>
-
-                    <div className="details w-3/4">
-                      <h2 className="md:w-32 w-full m-0 text-base">
-                        {item.name}
-                      </h2>
-                    </div>
-
-                    <div
-                      className="user-add flex justify-center items-center cursor-pointer rounded-full p-2"
-                      onClick={() => createNewChat(item, index)}
-                    >
-                      <AiOutlinePlus title="Add" />
-                    </div>
-                  </div>
-                </li>
-              ))
+            {loading && showResult ? (
+              <>
+                <Spinner />
+              </>
             ) : (
               <>
-                <div
-                  className={
-                    search == "" && searchResult.length == 0
-                      ? "hidden"
-                      : "text-center w-full"
-                  }
-                >
-                  <span className="text-gray-500 mr-10">User Not Found</span>
-                </div>
+                {showResult && searchResult.length == 0 ? (
+                  <>
+                    <div
+                      className={
+                        search == "" && searchResult.length == 0
+                          ? "hidden"
+                          : "text-center w-full"
+                      }
+                    >
+                      <span className="text-gray-500 mr-10">
+                        User Not Found
+                      </span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {searchResult.map((item, index) => (
+                      <li className="px-2 lg:px-2 py-2 " key={index}>
+                        <div className="search-user-box flex items-center">
+                          <div className="profile absolute left-0 ">
+                            <img
+                              className="w-12 h-12 rounded-full"
+                              src={searchResult[index].pic}
+                              alt="pic"
+                            />
+                          </div>
+
+                          <div className="details w-3/4">
+                            <h2 className="md:w-32 w-full m-0 text-base">
+                              {item.name}
+                            </h2>
+                          </div>
+
+                          <div
+                            className="user-add flex justify-center items-center cursor-pointer rounded-full p-2"
+                            onClick={() => createNewChat(item, index)}
+                          >
+                            <AiOutlinePlus title="Add" />
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </>
+                )}
               </>
             )}
           </div>
@@ -97,8 +112,8 @@ const Wrapper = styled.div`
       background-color: none;
     }
   }
-  .contact-list{
-    height: calc(100vh - 250px)
+  .contact-list {
+    height: calc(100vh - 250px);
   }
   .btn {
     background-color: ${({ theme }) => theme.colors.primaryRgb};

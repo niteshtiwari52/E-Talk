@@ -14,8 +14,8 @@ import {toggleColor} from "../Redux/Reducer/SetColor/setColorAction"
 
 const Setting = () => {
   const user = useSelector((globalState) => globalState.user.userDetails);
-
-  const [color, setColor] = useState(colors[0].color);
+  const ThemeColor = useSelector((state) => state.setColorReducer.themeColor);
+  const [color, setColor] = useState(ThemeColor);
   
 
   const dispatch = useDispatch();

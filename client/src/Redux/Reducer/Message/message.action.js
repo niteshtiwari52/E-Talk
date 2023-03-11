@@ -3,15 +3,18 @@ import {
   SEND_MESSAGE,
   GET_ALL_MESSAGE,
   UPDATE_GET_ALL_MESSAGE,
+  SHOW_TOOGLE_LOADING,
 } from "./message.type";
 
 // get all messages
 export const getAllChats = (selectedChat) => async (dispatch) => {
   try {
+    dispatch(loadingToggleAction(true));
     const allMessage = await axios({
       method: "GET",
       url: `http://localhost:4000/api/message/${selectedChat._id}`,
     });
+    dispatch(loadingToggleAction(false));
     // console.log(allMessage);
     return dispatch({ type: GET_ALL_MESSAGE, payload: allMessage.data });
   } catch (error) {
@@ -63,3 +66,10 @@ export const clearSelectedMessage = () => async (dispatch) => {
     return dispatch({ type: "ERROR", payload: error });
   }
 };
+
+export const loadingToggleAction = (state) => {
+      return{
+        type: SHOW_TOOGLE_LOADING,
+        payload: state,
+      }
+}

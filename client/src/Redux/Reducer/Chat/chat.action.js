@@ -1,4 +1,5 @@
 import axios from "axios";
+import { loadingToggleAction } from "../Message/message.action";
 import {
   FETCH_CHATS,
   FETCH_USER,
@@ -24,13 +25,14 @@ export const fetchChats = () => async (dispatch) => {
 // fetching user for creating new one to one chat and group chat
 export const fetchUser = (Search) => async (dispatch) => {
   try {
+    dispatch(loadingToggleAction(true))
     const newUser = await axios({
       method: "GET",
       url: `http://localhost:4000/api/user?search=${Search}`,
     });
 
     // console.log(...newUser.data);
-
+    dispatch(loadingToggleAction(false))
     return dispatch({ type: FETCH_USER, payload: newUser.data });
   } catch (error) {
     return dispatch({ type: "ERROR", payload: error });
