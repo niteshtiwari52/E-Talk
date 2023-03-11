@@ -4,11 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel index.js -d dist",
     "start": "node index.js",
-    "dev": "nodemon --exec babel-node index.js",
-     "starts": "npm run build && node dist/index.js"
+    "dev": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
