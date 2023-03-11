@@ -20,6 +20,9 @@ const Error = () => {
     </>
   );
 };
+
+export default Error;
+
 const Wrapper = styled.section`
   width: 100vw;
   height: 100vh;
@@ -39,4 +42,4 @@ const Wrapper = styled.section`
   }
 `;
 
-export default Error;
+
