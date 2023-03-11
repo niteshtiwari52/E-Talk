@@ -24,7 +24,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import ForgotPassword from "./Components/Auth/ForgotPassword";
 import ResetPassword from "./Components/Auth/ResetPassword";
-import Error from "./Components/Error";
+import Error from "./Components/Error.js";
 AOS.init({
   once: true,
   duration: 2000,
