@@ -44,7 +44,7 @@ function App() {
 
   const ThemeColor = useSelector((state) => state.setColorReducer.themeColor);
   const rgb = ThemeColor.split(")")[0].split("(")[1];
-
+  console.log(rgb)
 
   const lightTheme = {
     colors: {
@@ -121,7 +121,7 @@ function App() {
       },
 
       "rgb":{
-      "primary": "0, 128, 201",
+      "primary": `${rgb}`,
       "secondary": "78,172,109",
       "cyan": "28,157,234",
       "heading": "255,255,255",

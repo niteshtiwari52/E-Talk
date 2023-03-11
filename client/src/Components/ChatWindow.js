@@ -79,25 +79,25 @@ const ChatWindow = () => {
     setCursorPosition(start.length + emojiData.native.length);
   };
   // for input changing
-  const handleChange = (e) => {
-    setNewMessage(e.target.value);
-  };
+  // const handleChange = (e) => {
+  //   setNewMessage(e.target.value);
+  // };
 
   // Sending message
-  const handleClick = async () => {
-    console.log(newMessage, sender._id);
-    // alert("Hello");
-    if (!newMessage) {
-      alert("Empty Message can't be send");
-      return;
-    }
-    const messageData = {
-      chatId: sender._id,
-      content: newMessage,
-    };
-    setNewMessage("");
-    await dispatch(sendMessge(messageData));
-  };
+  // const handleClick = async () => {
+  //   console.log(newMessage, sender._id);
+  //   // alert("Hello");
+  //   if (!newMessage) {
+  //     alert("Empty Message can't be send");
+  //     return;
+  //   }
+  //   const messageData = {
+  //     chatId: sender._id,
+  //     content: newMessage,
+  //   };
+  //   setNewMessage("");
+  //   await dispatch(sendMessge(messageData));
+  // };
 
   const userChathidden = () => {
     document.getElementById("user-chat").classList.remove("fadeInRight");
@@ -220,15 +220,15 @@ const ChatWindow = () => {
     await dispatch(sendMessge(messageData));
   };
 
-  const userChathidden = () => {
-    document.getElementById("user-chat").classList.remove("fadeInRight");
-    document.getElementById("user-chat").classList.add("fadeInRight2");
-  };
+  // const userChathidden = () => {
+  //   document.getElementById("user-chat").classList.remove("fadeInRight");
+  //   document.getElementById("user-chat").classList.add("fadeInRight2");
+  // };
 
-  const closeChat = async () => {
-    // await dispatch(clearSelectChatAction());
-    // await dispatch(clearSelectedMessage());
-  };
+  // const closeChat = async () => {
+  //   // await dispatch(clearSelectChatAction());
+  //   // await dispatch(clearSelectedMessage());
+  // };
 
   // for automatic scrolling down last message
 
@@ -338,7 +338,7 @@ const ChatWindow = () => {
                             <div className="user-chat-content">
                               <div className="flex mb-3 justify-end">
                                 <div className="chat-wrap-content">
-                                  <span className="mb-0 chat-content text-sm text-left">
+                                  <span className="mb-0 chat-content text-sm font-medium text-left">
                                     {item.content}
                                   </span>
                                 </div>
@@ -374,7 +374,7 @@ const ChatWindow = () => {
                             <div className="user-chat-content">
                               <div className="flex mb-3">
                                 <div className="chat-wrap-content">
-                                  <span className="mb-0 chat-content text-sm text-left">
+                                  <span className="mb-0 chat-content text-sm font-medium text-left">
                                     {item.content}
                                   </span>
                                 </div>
@@ -501,7 +501,7 @@ const Wrapper = styled.section`
   height: 100vh;
   min-width: auto;
   overflow: hidden;
-  background-color: ${({ theme }) => theme.colors.bg.secondary};
+  background-color: rgba(${({ theme }) => theme.colors.rgb.primary}, .05);
   background-image: url("/images/pattern-05.png");
   .btn {
     width: 43px;
@@ -641,8 +641,8 @@ const Wrapper = styled.section`
               margin-left: 16px;
             }
             .chat-wrap-content {
-              color: ${({ theme }) => theme.colors.heading};
-              background-color: ${({ theme }) => theme.colors.primaryRgb};
+              color: ${({ theme }) => theme.colors.white};
+              background-color: rgba(${({ theme }) => theme.colors.rgb.primary}, 0.7);
             }
           }
         }
