@@ -194,17 +194,24 @@ const authUser = asyncHandler(async (req, res) => {
 
 // Search user
 const allUsers = asyncHandler(async (req, res) => {
-  const keyword = req.query.search
-    ? {
-        $or: [
-          { name: { $regex: req.query.search, $options: "i" } },
-          { email: { $regex: req.query.search, $options: "i" } },
-        ],
-      }
-    : {};
+  try {
+    const keyword = req.query.search
+      ? {
+          $or: [
+            { name: { $regex: req.query.search, $options: "i" } },
+            { email: { $regex: req.query.search, $options: "i" } },
+          ],
+        }
+      : {};
 
-  const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
-  res.send(users);
+    const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
+    res.send(users);
+  } catch (error) {
+    return res.status(401).json({
+      message: "Unathorize Access",
+      success: false,
+    });
+  }
 });
 
 // get my self
