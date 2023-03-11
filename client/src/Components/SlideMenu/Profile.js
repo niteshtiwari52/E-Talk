@@ -16,10 +16,10 @@ const Profile = (props) => {
   const loggedUser = useSelector((globalState) => globalState.user.userDetails);
   const [sender, setSender] = useState();
   const [senderProfileData, setSenderProfileData] = useState();
-  console.log(sender);
+  // console.log(sender);
 
   useEffect(() => {
-    console.log(senderProfileData);
+    // console.log(senderProfileData);
   }, [senderProfileData]);
 
   useEffect(() => {

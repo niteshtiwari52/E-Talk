@@ -16,10 +16,16 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   const userExists = await User.findOne({ email });
-
+  const contactExists = await User.findOne({ contact });
   if (userExists) {
     return res.status(400).json({
       message: "Your E-Mail Id is already Registered with E-Talk",
+      success: false,
+    });
+  }
+  if (contactExists) {
+    return res.status(400).json({
+      message: "Your Mobile is already Registered with E-Talk",
       success: false,
     });
   }
@@ -262,7 +268,7 @@ const resetPassword = asyncHandler(async (req, res) => {
     const decoded = await jwt.verify(token, process.env.JWT_SECRET);
 
     let user = await User.findOne({ _id: decoded.id }).select("password");
-    console.log(user);
+    // console.log(user);
     if (!user) {
       return res.status(400).send({ message: "Invalid link" });
     }

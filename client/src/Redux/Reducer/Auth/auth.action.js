@@ -23,7 +23,7 @@ export const signIn = (userData) => async (dispatch) => {
       url: "http://localhost:4000/api/user/login/",
       data: { ...userData },
     });
-    console.log(User);
+    // console.log(User);
 
     localStorage.setItem(
       "ETalkUser",
@@ -70,7 +70,7 @@ export const signUp = (userData) => async (dispatch) => {
 
 export const userVerification = (data) => async (dispatch) => {
   try {
-    console.log(data.email);
+    // console.log(data.email);
     const verificationLink = await axios({
       method: "POST",
       url: "http://localhost:4000/api/user/resend/verificationlink",

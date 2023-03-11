@@ -55,10 +55,10 @@ const LoginForm = () => {
           progress: undefined,
           theme: "light",
         });
-        console.log("redirecting");
+        // console.log("redirecting");
         // dispatch(clearAuthStore());
         navigateToHome();
-        console.log("redirected");
+        // console.log("redirected");
       }
     }
   }, [result]);

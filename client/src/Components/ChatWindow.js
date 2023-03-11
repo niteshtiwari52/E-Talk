@@ -46,8 +46,8 @@ const ChatWindow = () => {
   const [socketConnected, setSocketConnected] = useState(false);
   let [isOpen, setIsOpen] = useState(false);
   const [count, setCount] = useState(0);
-  const [typing,setTyping] = useState(false);
-  const [isTyping,setIsTyping] = useState(false);
+  const [typing, setTyping] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
 
   const senderUser = useSelector(
     (globalState) => globalState.chat.selectedChat
@@ -78,26 +78,6 @@ const ChatWindow = () => {
     setNewMessage(msg);
     setCursorPosition(start.length + emojiData.native.length);
   };
-  // for input changing
-  const handleChange = (e) => {
-    setNewMessage(e.target.value);
-  };
-
-  // Sending message
-  const handleClick = async () => {
-    console.log(newMessage, sender._id);
-    // alert("Hello");
-    if (!newMessage) {
-      alert("Empty Message can't be send");
-      return;
-    }
-    const messageData = {
-      chatId: sender._id,
-      content: newMessage,
-    };
-    setNewMessage("");
-    await dispatch(sendMessge(messageData));
-  };
 
   const userChathidden = () => {
     document.getElementById("user-chat").classList.remove("fadeInRight");
@@ -110,8 +90,6 @@ const ChatWindow = () => {
     element.forEach((element) => {
       element.classList.remove("active");
     });
-    // await dispatch(clearSelectChatAction());
-    // await dispatch(clearSelectedMessage());
   };
 
   useEffect(() => {
@@ -128,8 +106,8 @@ const ChatWindow = () => {
     socket = io(ENDPOINT);
     socket.emit("setup", loggedUser);
     socket.on("connected", () => setSocketConnected(true));
-    socket.on('typing', ()=>setIsTyping(true));
-    socket.on('stop typing', ()=>setIsTyping(false));
+    socket.on("typing", () => setIsTyping(true));
+    socket.on("stop typing", () => setIsTyping(false));
   }, []);
 
   useEffect(() => {
@@ -139,18 +117,18 @@ const ChatWindow = () => {
         selectedChatCompare._id !== newMessageRecieved.chat._id
       ) {
         // we will give notification
-        console.log(newMessageRecieved);
+        // console.log(newMessageRecieved);
       } else {
         setTimeout(() => {
           setCount(count + 1);
         }, 1000);
-        console.log(message);
+        // console.log(message);
         dispatch(updateGetAllChats(newMessageRecieved));
         // console.log(message);
       }
     };
     socket.on("message recieved", eventHandler);
-    
+
     return () => {
       socket.off("message recieved", eventHandler);
     };
@@ -161,7 +139,7 @@ const ChatWindow = () => {
   }, [senderUser]);
 
   useEffect(() => {
-    console.log(sender);
+    // console.log(sender);
     // dispatch(getAllChats(sender));
     // we will decide we have to give notification to user or render the new msg
     selectedChatCompare = sender;
@@ -174,38 +152,40 @@ const ChatWindow = () => {
   }, [allMessage]);
 
   useEffect(() => {
-    console.log(message);
+    // console.log(message);
   }, [message]);
-
 
   // for input changing
   const handleChange = (e) => {
     setNewMessage(e.target.value);
-      
-    // typing Indicator
-    if(!socketConnected) return;
 
-    if(!typing){
-      setTyping(true);
+    // typing Indicator
+    if (!socketConnected) return;
+
+    if (!typing) {
       socket.emit("typing", sender._id);
+      setTyping(true);
+      // console.log(typing);
     }
 
-    let lastTypingTime = new Date().getTime()
+    let lastTypingTime = new Date().getTime();
     var timerLength = 3000;
     setTimeout(() => {
       var timeNow = new Date().getTime();
       var timeDiff = timeNow - lastTypingTime;
 
-      if(timeDiff >= timerLength && typing){
-        socket.emit('stop typing', sender._id);
+      if (timeDiff >= timerLength && typing) {
+        socket.emit("stop typing", sender._id);
         setTyping(false);
       }
+      // console.log(typing);
     }, timerLength);
+    // console.log(typing);
   };
 
   // Sending message
   const handleClick = async () => {
-    console.log(newMessage, sender._id);
+    // console.log(newMessage, sender._id);
     // alert("Hello");
     if (!newMessage) {
       socket.emit("stop typing", sender._id);
@@ -218,16 +198,6 @@ const ChatWindow = () => {
     };
     setNewMessage("");
     await dispatch(sendMessge(messageData));
-  };
-
-  const userChathidden = () => {
-    document.getElementById("user-chat").classList.remove("fadeInRight");
-    document.getElementById("user-chat").classList.add("fadeInRight2");
-  };
-
-  const closeChat = async () => {
-    // await dispatch(clearSelectChatAction());
-    // await dispatch(clearSelectedMessage());
   };
 
   // for automatic scrolling down last message
@@ -277,7 +247,10 @@ const ChatWindow = () => {
                       <MdOutlineArrowBackIos onClick={closeChat} />
                     </div>
 
-                    <div className="flex items-center" onClick={openModal}>
+                    <div
+                      className="flex items-center cursor-pointer"
+                      onClick={openModal}
+                    >
                       <div className="chat-avatar mr-4">
                         <img
                           // src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
@@ -305,7 +278,9 @@ const ChatWindow = () => {
                                   (index ? ", " : " ") + item.name
                               )
                             ) : (
-                              <>Active</>
+                              <>
+                                {socketConnected ? <>Online</> : <>Offline</>}
+                              </>
                             )}
                           </small>
                         </p>
@@ -509,8 +484,8 @@ const Wrapper = styled.section`
     font-size: 1.4rem;
     color: #797c8c;
     cursor: pointer;
-    &:hover{
-       color: ${({ theme }) => theme.colors.primaryRgb};
+    &:hover {
+      color: ${({ theme }) => theme.colors.primaryRgb};
     }
   }
   .emoji-picker {
@@ -554,7 +529,10 @@ const Wrapper = styled.section`
         border-radius: 50%;
       }
       .btn-outline-primary {
-        background-color: rgba(${({ theme }) => theme.colors.btn.primary},0.15);
+        background-color: rgba(
+          ${({ theme }) => theme.colors.btn.primary},
+          0.15
+        );
         color: ${({ theme }) => theme.colors.primaryRgb};
       }
       .btn-outline-danger {
@@ -678,7 +656,10 @@ const Wrapper = styled.section`
           color: #fff;
           background-color: ${({ theme }) => theme.colors.primaryRgb};
           &:hover {
-            background-color: rgb(${({ theme }) => theme.colors.rgb.primary}, 0.8);
+            background-color: rgb(
+              ${({ theme }) => theme.colors.rgb.primary},
+              0.8
+            );
           }
           border-color: ${({ theme }) => theme.colors.primaryRgb};
         }

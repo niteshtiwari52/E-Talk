@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { getSender, getSenderPic } from "../HelperFunction/chat.Helper";
 
 const GroupProfile = (props) => {
-  console.log(props.sender);
+  // console.log(props.sender);
   // console.log(props.loggedUser)
   const [query, setQuary] = useState("");
 
