@@ -16,10 +16,16 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   const userExists = await User.findOne({ email });
-
+  const contactExists = await User.findOne({ contact });
   if (userExists) {
     return res.status(400).json({
       message: "Your E-Mail Id is already Registered with E-Talk",
+      success: false,
+    });
+  }
+  if (contactExists) {
+    return res.status(400).json({
+      message: "Your Mobile is already Registered with E-Talk",
       success: false,
     });
   }
@@ -188,17 +194,24 @@ const authUser = asyncHandler(async (req, res) => {
 
 // Search user
 const allUsers = asyncHandler(async (req, res) => {
-  const keyword = req.query.search
-    ? {
-        $or: [
-          { name: { $regex: req.query.search, $options: "i" } },
-          { email: { $regex: req.query.search, $options: "i" } },
-        ],
-      }
-    : {};
+  try {
+    const keyword = req.query.search
+      ? {
+          $or: [
+            { name: { $regex: req.query.search, $options: "i" } },
+            { email: { $regex: req.query.search, $options: "i" } },
+          ],
+        }
+      : {};
 
-  const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
-  res.send(users);
+    const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
+    res.send(users);
+  } catch (error) {
+    return res.status(401).json({
+      message: "Unathorize Access",
+      success: false,
+    });
+  }
 });
 
 // get my self
@@ -262,7 +275,7 @@ const resetPassword = asyncHandler(async (req, res) => {
     const decoded = await jwt.verify(token, process.env.JWT_SECRET);
 
     let user = await User.findOne({ _id: decoded.id }).select("password");
-    console.log(user);
+    // console.log(user);
     if (!user) {
       return res.status(400).send({ message: "Invalid link" });
     }

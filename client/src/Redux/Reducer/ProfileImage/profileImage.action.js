@@ -10,7 +10,7 @@ export const uploadProfilePicture = (image) => async (dispatch) => {
       data: { image },
       headers: { "Content-Type": "multipart/form-data" },
     });
-    console.log(profileImage.data);
+    // console.log(profileImage.data);
     return dispatch({ type: UPLOAD_IMAGE, payload: image });
   } catch (error) {
     return dispatch({ type: "ERROR", payload: error });

@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 import { useNavigate } from "react-router-dom";
 import { getMySelf } from "../Redux/Reducer/User/user.action";
-import { userVerification } from "../Redux/Reducer/Auth/auth.action";
+import { userVerification, signOut } from "../Redux/Reducer/Auth/auth.action";
 
 const Verification = () => {
   const [status, setStatus] = useState(false);
@@ -103,12 +103,20 @@ const Verification = () => {
               {/* <p className="text-2xl text-gray-900 dark:text-white my-2 px-2 mx-auto align-middle">
                 Verification Link
               </p> */}
-              <button
-                className="text-2xl cursor-pointer mx-auto"
-                onClick={() => openModal()}
-              >
-                Resend
-              </button>
+              <div className="flex">
+                <button
+                  className="text-2xl cursor-pointer mx-auto"
+                  onClick={() => dispatch(signOut())}
+                >
+                  Home
+                </button>
+                <button
+                  className="text-2xl cursor-pointer mx-auto"
+                  onClick={() => openModal()}
+                >
+                  Resend
+                </button>
+              </div>
             </div>
             <Transition className="box" appear show={isOpen} as={Fragment}>
               <Dialog

@@ -5,7 +5,6 @@ import { Button } from "../Styles/Button";
 import { HiChevronDoubleRight } from "react-icons/hi";
 import { SquareDonut, Donut, Circle, PolygonCard } from "react-awesome-shapes";
 
-
 const HeroSection = () => {
   return (
     <Wrapper className="hero-section" id="home">
@@ -51,7 +50,7 @@ const HeroSection = () => {
           />
         </div>
         <div className="shape-2">
-        <Circle
+          <Circle
             color="linear-gradient(135deg, #a5b4fc, #6366f1)"
             size={["800px", "800px", "800px", "800px"]}
             zIndex={2}
@@ -161,37 +160,37 @@ const Wrapper = styled.section`
     height: 100%;
     animation: Zoom-fade 5s infinite linear;
     div {
-    position: absolute;
-  }
-  .shape-1 {
-    top: -10%;
-    left: -3%;
-    opacity: 0.1;
-  }
-  .shape-2 {
-    top: 40%;
-    right: 30%;
-    opacity: 0.1;
-  }
-  .shape-3{
-   top: 70%;
-   left: -3%;
-   transform-origin: center;
-   transform: rotate(20deg);
-   opacity: 0.1;
-  }
-  .shape-5 {
-    bottom: 0%;
-    left: 20%;
-    transition: all 0.5s;
-    animation: balloonfly-02 12s infinite;
-  }
-  .shape-6 {
-    bottom: 0%;
-    right: 20%;
-    transition: all 0.5s;
-    animation: balloonfly-01 12s infinite;
-  }
+      position: absolute;
+    }
+    .shape-1 {
+      top: -10%;
+      left: -3%;
+      opacity: 0.1;
+    }
+    .shape-2 {
+      top: 40%;
+      right: 30%;
+      opacity: 0.1;
+    }
+    .shape-3 {
+      top: 70%;
+      left: -3%;
+      transform-origin: center;
+      transform: rotate(20deg);
+      opacity: 0.1;
+    }
+    .shape-5 {
+      bottom: 0%;
+      left: 20%;
+      transition: all 0.5s;
+      animation: balloonfly-02 12s infinite;
+    }
+    .shape-6 {
+      bottom: 0%;
+      right: 20%;
+      transition: all 0.5s;
+      animation: balloonfly-01 12s infinite;
+    }
   }
   @keyframes zoom-fade {
     0% {

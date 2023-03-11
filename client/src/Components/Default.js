@@ -33,13 +33,14 @@ const Default = () => {
     // if (selectedChat ? dispatch(getAllChats(selectedChat._id)) : "")
 
     dispatch(selectChatAction(selectedChat));
-    console.log(selectedChat);
+    // console.log(selectedChat);
 
     dispatch(getAllChats(selectedChat));
 
     // alert(selectedChat._id)
   }, [selectedChat]);
-  
+
+
   return (
     <Wrapper className="default dynamic-sidebar">
       <div className="chat-menu flex flex-wrap items-center justify-between w-full  ">
@@ -54,23 +55,33 @@ const Default = () => {
           </>
         )}
 
-        <div className={searchOpen ? "flex justify-center items-center w-full" : "flex justify-center items-center" }>
-          <Searchbar searchOpen={searchOpen} setSearchOpen={setSearchOpen} setQuary={setQuary}/>
+        <div
+          className={
+            searchOpen
+              ? "flex justify-center items-center w-full"
+              : "flex justify-center items-center"
+          }
+        >
+          <Searchbar
+            searchOpen={searchOpen}
+            setSearchOpen={setSearchOpen}
+            setQuary={setQuary}
+          />
           <Group />
         </div>
       </div>
 
       {/* User list  */}
-      <UserList 
-      query={query} 
-      searchOpen={searchOpen} 
-      setSearchOpen={setSearchOpen}
-      chatList= {chatList}
-      chat={chat}
-      loggedUser={loggedUser}
-      result={result}
-      setSelectedChat={setSelectedChat}
-       />
+      <UserList
+        query={query}
+        searchOpen={searchOpen}
+        setSearchOpen={setSearchOpen}
+        chatList={chatList}
+        chat={chat}
+        loggedUser={loggedUser}
+        result={result}
+        setSelectedChat={setSelectedChat}
+      />
     </Wrapper>
   );
 };

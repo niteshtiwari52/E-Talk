@@ -177,7 +177,7 @@ export const getGroupProfileDetails = (loggedUser, sender) => {
     }
   });
 
-  console.log(data);
+  // console.log(data);
   return data;
 };
 

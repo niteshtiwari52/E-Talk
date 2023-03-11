@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import {
-  getSender,
-  getSenderPic,
-} from "../../HelperFunction/chat.Helper";
+import { getSender, getSenderPic } from "../../HelperFunction/chat.Helper";
 import GroupProfile from "../GroupProfile";
 import Profile from "../Profile";
 
-const UserProfile = ({closeModal}) => {
+const UserProfile = ({ closeModal }) => {
   const senderUser = useSelector(
     (globalState) => globalState.chat.selectedChat
   );
@@ -16,7 +13,7 @@ const UserProfile = ({closeModal}) => {
 
   const [sender, setSender] = useState("");
 
-  console.log(sender);
+  // console.log(sender);
   useEffect(() => {
     setSender(senderUser);
   }, [senderUser]);
@@ -94,7 +91,11 @@ const UserProfile = ({closeModal}) => {
               {/* Group profile  */}
               {/* group name , */}
               <div className=" sender-profile overflow-hidden sidebar-active w-full h-full">
-               <GroupProfile sender={sender} loggedUser={loggedUser} closeModal={closeModal} />
+                <GroupProfile
+                  sender={sender}
+                  loggedUser={loggedUser}
+                  closeModal={closeModal}
+                />
               </div>
             </>
           )}

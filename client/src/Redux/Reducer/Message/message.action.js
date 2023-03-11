@@ -12,7 +12,7 @@ export const getAllChats = (selectedChat) => async (dispatch) => {
       method: "GET",
       url: `http://localhost:4000/api/message/${selectedChat._id}`,
     });
-    console.log(allMessage);
+    // console.log(allMessage);
     return dispatch({ type: GET_ALL_MESSAGE, payload: allMessage.data });
   } catch (error) {
     return dispatch({ type: "ERROR", payload: error });
@@ -23,9 +23,9 @@ export const getAllChats = (selectedChat) => async (dispatch) => {
 // updateing get all message
 export const updateGetAllChats = (messageRecived) => async (dispatch) => {
   try {
-    console.log(messageRecived);
-    if(!messageRecived.sender){
-      return ;
+    // console.log(messageRecived);
+    if (!messageRecived.sender) {
+      return;
     }
     const updatedAllMessage = messageRecived;
     return dispatch({
