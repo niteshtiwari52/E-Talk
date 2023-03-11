@@ -6,9 +6,9 @@ const colors = require("colors");
 const chatRoutes = require("./routes/chatRoutes");
 const userRoutes = require("./routes/userRoutes");
 const messageRoutes = require("./routes/messageRoutes");
-import cors from "cors";
-import helmet from "helmet";
-import { socket } from "socket.io";
+const cors = require("cors");
+const helmet = require("helmet");
+const socket = require("socket.io");
 
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
@@ -54,7 +54,7 @@ server.listen(PORT, () => {
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "http://localhost:3000",
+    origin: process.env.CLIENT_ACCESS_URL,
   },
 });
 
