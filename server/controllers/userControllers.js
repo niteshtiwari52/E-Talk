@@ -40,7 +40,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (user) {
     const token = generateToken(user._id, "120s");
-    const url = `http://localhost:3000/verify-email/${token}`;
+    const url = `https://reactetalk.netlify.app/verify-email/${token}`;
     const options = {
       name: user.name,
       email: user.email,
@@ -169,7 +169,7 @@ const authUser = asyncHandler(async (req, res) => {
   }
   if (!user.is_verified) {
     const token = generateToken(user._id, "120s");
-    const url = `http://localhost:3000/verify-email/${token}`;
+    const url = `https://reactetalk.netlify.app/verify-email/${token}`;
 
     const options = {
       name: user.name,
