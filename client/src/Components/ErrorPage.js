@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Button } from "../Styles/Button";
 import { NavLink } from "react-router-dom";
 
-const Error = () => {
+const ErrorPage = () => {
   return (
     <>
       <Wrapper className="flex justify-center flex-col items-center text-center">
@@ -21,7 +21,7 @@ const Error = () => {
   );
 };
 
-export default Error;
+export default ErrorPage;
 
 const Wrapper = styled.section`
   width: 100vw;

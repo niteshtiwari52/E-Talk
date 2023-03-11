@@ -24,7 +24,9 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import ForgotPassword from "./Components/Auth/ForgotPassword";
 import ResetPassword from "./Components/Auth/ResetPassword";
-import Error from "./Components/Error";
+import ErrorPage from "./Components/ErrorPage";
+
+
 AOS.init({
   once: true,
   duration: 2000,
@@ -208,7 +210,7 @@ function App() {
               <Route path="" element={<Login />} />
               <Route path="signup" element={<Signup />} />
             </Route>
-            <Route path="*" element={<Error />} />
+            <Route path="/*" element={<ErrorPage/>} />
           </Routes>
         )}
       </div>
