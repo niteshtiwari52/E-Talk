@@ -4,7 +4,7 @@ import Login from "./Components/Auth/Login";
 import Signup from "./Components/Auth/Signup";
 import AuthPage from "./Pages/AuthPage";
 import HomePage from "./Pages/HomePage";
-import Error from "./Components/Error";
+
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./GlobalStyle/GlobalStyle";
 import { useEffect, useState } from "react";
@@ -24,6 +24,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import ForgotPassword from "./Components/Auth/ForgotPassword";
 import ResetPassword from "./Components/Auth/ResetPassword";
+import Error from "./Components/Error";
 AOS.init({
   once: true,
   duration: 2000,
