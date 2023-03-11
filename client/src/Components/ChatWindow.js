@@ -28,7 +28,7 @@ import io from "socket.io-client";
 import { useRef } from "react";
 import { clearSelectChatAction } from "../Redux/Reducer/Chat/chat.action";
 
-const ENDPOINT = "http://localhost:4000";
+const ENDPOINT = process.env.BACKEND_BASE_URL;
 var socket, selectedChatCompare;
 
 const ChatWindow = () => {

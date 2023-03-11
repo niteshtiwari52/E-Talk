@@ -20,7 +20,7 @@ export const signIn = (userData) => async (dispatch) => {
   try {
     const User = await axios({
       method: "POST",
-      url: "http://localhost:4000/api/user/login/",
+      url: `https://reactetalk.netlify.app/api/user/login/`,
       data: { ...userData },
     });
     // console.log(User);
