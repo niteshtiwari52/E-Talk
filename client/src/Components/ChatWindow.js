@@ -29,7 +29,7 @@ import { useRef } from "react";
 import { clearSelectChatAction } from "../Redux/Reducer/Chat/chat.action";
 import Spinner from "../Styles/Spinner";
 
-const ENDPOINT = "http://localhost:4000";
+const ENDPOINT = process.env.BACKEND_BASE_URL;
 var socket, selectedChatCompare;
 
 const ChatWindow = () => {
@@ -100,7 +100,7 @@ const ChatWindow = () => {
     setNewMessage(e.target.value);
 
     // typing Indicator
-    if (!socketConnected) return console.log("not connected");
+    if (!socketConnected) return;
 
     if (!typing) {
       setTyping(true);
@@ -160,7 +160,6 @@ const ChatWindow = () => {
     socket.on("stop typing", () => setIsTyping(false));
   }, []);
 
-  console.log(socketConnected)
 
   useEffect(() => {
     const eventHandler = (newMessageRecieved) => {
