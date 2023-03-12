@@ -84,7 +84,7 @@ const resendVerificationLink = asyncHandler(async (req, res) => {
     }
 
     const token = generateToken(user._id, "120s");
-    const url = `https://reactetalk.netlify.app/verify-email/${token}`;
+    const url = `https://e-talk-client.vercel.app/verify-email/${token}`;
     const options = {
       name: user.name,
       email: user.email,
@@ -169,7 +169,7 @@ const authUser = asyncHandler(async (req, res) => {
   }
   if (!user.is_verified) {
     const token = generateToken(user._id, "120s");
-    const url = `https://reactetalk.netlify.app/verify-email/${token}`;
+    const url = `https://e-talk-client.vercel.app/verify-email/${token}`;
 
     const options = {
       name: user.name,
