@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../Styles/Button";
 import { HiChevronDoubleRight } from "react-icons/hi";
-import { SquareDonut, Donut, Circle, PolygonCard } from "react-awesome-shapes";
+// import { SquareDonut, Donut, Circle, PolygonCard } from "react-awesome-shapes";
 
 const HeroSection = () => {
   return (
@@ -40,8 +40,8 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-
-      <div className="shapes">
+      {/* React react-awesome-shapes code */}
+      {/* <div className="shapes">
         <div className="shape-1">
           <Circle
             color="linear-gradient(135deg, #a5b4fc, #6366f1)"
@@ -76,7 +76,7 @@ const HeroSection = () => {
         <div className="shape-6">
           <SquareDonut size="50px" zIndex={2} color="#2a9bd1" />
         </div>
-      </div>
+      </div> */}
     </Wrapper>
   );
 };

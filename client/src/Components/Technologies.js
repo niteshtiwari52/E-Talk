@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { technologiesImg } from "../config.js/data";
-import { SquareDonut, Donut, Circle, PolygonCard } from "react-awesome-shapes";
+// import { SquareDonut, Donut, Circle, PolygonCard } from "react-awesome-shapes";
 
 const Technologies = () => {
   return (
@@ -35,7 +35,8 @@ const Technologies = () => {
           </ul>
         </div>
       </div>
-      <div className="shapes">
+      {/* react-awesome-shapes code */}
+      {/* <div className="shapes">
         <div className="shape-1">
           <Circle
             color="linear-gradient(135deg, #a5b4fc, #6366f1)"
@@ -70,7 +71,7 @@ const Technologies = () => {
         <div className="shape-6">
           <SquareDonut size="50px" zIndex={2} color="#2a9bd1" />
         </div>
-      </div>
+      </div> */}
     </Wrapper>
   );
 };
