@@ -54,7 +54,7 @@ server.listen(PORT, () => {
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: process.env.CLIENT_ACCESS_URL,
+    origin: "https://e-talk-client.vercel.app",
   },
 });
 
