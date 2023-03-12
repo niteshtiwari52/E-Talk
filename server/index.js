@@ -8,7 +8,8 @@ const userRoutes = require("./routes/userRoutes");
 const messageRoutes = require("./routes/messageRoutes");
 const cors = require("cors");
 const helmet = require("helmet");
-const socket = require("socket.io");
+
+const { socket } = require("socket.io");
 
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
@@ -54,7 +55,7 @@ server.listen(PORT, () => {
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "https://e-talk-client.vercel.app",
+    origin: "http://localhost:3000",
   },
 });
 

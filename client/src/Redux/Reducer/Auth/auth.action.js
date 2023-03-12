@@ -20,7 +20,7 @@ export const signIn = (userData) => async (dispatch) => {
   try {
     const User = await axios({
       method: "POST",
-      url: `https://e-talk-server.vercel.app/api/user/login/`,
+      url: `http://localhost:4000/api/user/login/`,
       data: { ...userData },
     });
     // console.log(User);
@@ -46,7 +46,7 @@ export const signUp = (userData) => async (dispatch) => {
   try {
     const User = await axios({
       method: "POST",
-      url: "https://e-talk-server.vercel.app/api/user",
+      url: "http://localhost:4000/api/user",
       data: { ...userData },
     });
 
@@ -73,7 +73,7 @@ export const userVerification = (data) => async (dispatch) => {
     // console.log(data.email);
     const verificationLink = await axios({
       method: "POST",
-      url: "https://e-talk-server.vercel.app/api/user/resend/verificationlink",
+      url: "http://localhost:4000/api/user/resend/verificationlink",
       data: { ...data },
     });
 
@@ -91,7 +91,7 @@ export const verifyEmailLink = (token) => async (dispatch) => {
   try {
     const verificationStatus = await axios({
       method: "PUT",
-      url: `https://e-talk-server.vercel.app/api/user/verify`,
+      url: `http://localhost:4000/api/user/verify`,
       data: { token },
     });
     return dispatch({ type: VERIFY_TOKEN, payload: verificationStatus.data });
@@ -106,7 +106,7 @@ export const forgotPassword = (data) => async (dispatch) => {
     // console.log(data.email);
     const forgotPasswordStatus = await axios({
       method: "POST",
-      url: "https://e-talk-server.vercel.app/api/user/forgotpassword",
+      url: "http://localhost:4000/api/user/forgotpassword",
       data: { ...data },
     });
 
@@ -130,7 +130,7 @@ export const resetPassword = (userData) => async (dispatch) => {
     // };
     const resetPasswordStatus = await axios({
       method: "POST",
-      url: "https://e-talk-server.vercel.app/api/user/resetpassword",
+      url: "http://localhost:4000/api/user/resetpassword",
       data: userData,
     });
 

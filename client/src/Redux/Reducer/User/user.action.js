@@ -5,7 +5,7 @@ export const getMySelf = () => async (dispatch) => {
   try {
     const User = await axios({
       method: "GET",
-      url: `https://e-talk-server.vercel.app/api/user/getmyself`,
+      url: `http://localhost:4000/api/user/getmyself`,
     });
     return dispatch({ type: SELF, payload: { ...User.data.user } });
   } catch (error) {
@@ -18,7 +18,7 @@ export const updateUserProfile = (userData) => async (dispatch) => {
   try {
     const User = await axios({
       method: "PUT",
-      url: `https://e-talk-server.vercel.app/api/user/updateprofile`,
+      url: `http://localhost:4000/api/user/updateprofile`,
       data: { ...userData },
     });
     return dispatch({ type: UPDATE_PROFILE, payload: User.data });
