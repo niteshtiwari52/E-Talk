@@ -134,9 +134,9 @@ const ChatWindow = () => {
     };
     socket.on("message recieved", eventHandler);
 
-    return () => {
-      socket.off("message recieved", eventHandler);
-    };
+    // return () => {
+    //   socket.off("message recieved", eventHandler);
+    // };
   });
 
   useEffect(() => {
