@@ -41,7 +41,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://localhost:4000",
+  "proxy": "https://e-talk-server.vercel.app/auth",
   "eslintConfig": {
     "extends": [
       "react-app",
