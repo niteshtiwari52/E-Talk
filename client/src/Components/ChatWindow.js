@@ -28,7 +28,7 @@ import io from "socket.io-client";
 import { useRef } from "react";
 import { clearSelectChatAction } from "../Redux/Reducer/Chat/chat.action";
 
-const ENDPOINT = process.env.REACT_APP_SERVER_ACCESS_BASE_URL;
+const ENDPOINT = `https://e-talk-server.vercel.app`;
 var socket, selectedChatCompare;
 
 const ChatWindow = () => {
