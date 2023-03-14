@@ -57,8 +57,8 @@ server.listen(PORT, () => {
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: CLIENT_ACCESS_URL,
-    methods: ["GET", "POST"]
+    origin: "*",
+    methods: ["GET", "POST"],
   },
 });
 
