@@ -1,17 +1,23 @@
 const nodeMailer = require("nodemailer");
-
+const {
+  SMPT_HOST,
+  SMPT_PORT,
+  SMPT_SERVICES,
+  SMPT_MAIL,
+  SMPT_PASSWORD,
+} = require("../config/keys");
 const sendEmail = async (options) => {
   const transporter = nodeMailer.createTransport({
-    host: process.env.SMPT_HOST,
-    port: process.env.SMPT_PORT,
-    service: process.env.SMPT_SERVICE,
+    host: SMPT_HOST,
+    port: SMPT_PORT,
+    service: SMPT_SERVICES,
     auth: {
-      user: process.env.SMPT_MAIL,
-      pass: process.env.SMPT_PASSWORD,
+      user: SMPT_MAIL,
+      pass: SMPT_PASSWORD,
     },
   });
   const mailOptions = {
-    from: process.env.SMPT_MAIL,
+    from: SMPT_MAIL,
     to: options.email,
     subject: options.subject,
     html: options.message_Content,

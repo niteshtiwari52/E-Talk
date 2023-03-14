@@ -6,6 +6,8 @@ import {
   SHOW_TOOGLE_LOADING,
 } from "./message.type";
 
+const SERVER_ACCESS_BASE_URL = process.env.REACT_APP_SERVER_ACCESS_BASE_URL;
+
 // get all messages
 export const getAllChats = (selectedChat) => async (dispatch) => {
   try {

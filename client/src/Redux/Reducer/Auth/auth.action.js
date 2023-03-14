@@ -1,5 +1,5 @@
 import axios from "axios";
-
+// import dotenv from "dotenv";
 // action type
 
 import {
@@ -14,10 +14,13 @@ import {
   ERROR,
 } from "./auth.type";
 
+const SERVER_ACCESS_BASE_URL = process.env.REACT_APP_SERVER_ACCESS_BASE_URL;
+
 // Sign IN
 
 export const signIn = (userData) => async (dispatch) => {
   try {
+    console.log(SERVER_ACCESS_BASE_URL);
     const User = await axios({
       method: "POST",
       url: `https://e-talk-server.vercel.app/api/user/login/`,
@@ -46,7 +49,7 @@ export const signUp = (userData) => async (dispatch) => {
   try {
     const User = await axios({
       method: "POST",
-      url: "https://e-talk-server.vercel.app/api/user",
+      url: `https://e-talk-server.vercel.app/api/user`,
       data: { ...userData },
     });
 
@@ -73,7 +76,7 @@ export const userVerification = (data) => async (dispatch) => {
     // console.log(data.email);
     const verificationLink = await axios({
       method: "POST",
-      url: "https://e-talk-server.vercel.app/api/user/resend/verificationlink",
+      url: `https://e-talk-server.vercel.app/api/user/resend/verificationlink`,
       data: { ...data },
     });
 
@@ -106,7 +109,7 @@ export const forgotPassword = (data) => async (dispatch) => {
     // console.log(data.email);
     const forgotPasswordStatus = await axios({
       method: "POST",
-      url: "https://e-talk-server.vercel.app/api/user/forgotpassword",
+      url: `https://e-talk-server.vercel.app/api/user/forgotpassword`,
       data: { ...data },
     });
 
@@ -130,7 +133,7 @@ export const resetPassword = (userData) => async (dispatch) => {
     // };
     const resetPasswordStatus = await axios({
       method: "POST",
-      url: "https://e-talk-server.vercel.app/api/user/resetpassword",
+      url: `https://e-talk-server.vercel.app/api/user/resetpassword`,
       data: userData,
     });
 

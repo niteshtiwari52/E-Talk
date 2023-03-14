@@ -1,6 +1,6 @@
 import axios from "axios";
 import { CLEAR_USER, SELF, UPDATE_PROFILE } from "./user.type";
-
+const SERVER_ACCESS_BASE_URL = process.env.REACT_APP_SERVER_ACCESS_BASE_URL;
 export const getMySelf = () => async (dispatch) => {
   try {
     const User = await axios({

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { UPLOAD_IMAGE } from "./profileImage.type";
+const SERVER_ACCESS_BASE_URL = process.env.REACT_APP_SERVER_ACCESS_BASE_URL;
 
 // profile picture update
 export const uploadProfilePicture = (image) => async (dispatch) => {

@@ -6,13 +6,14 @@ import {
   FETCH_USER_CLEAR,
   SELECT_CHAT,
 } from "./chat.type";
+const SERVER_ACCESS_BASE_URL = process.env.REACT_APP_SERVER_ACCESS_BASE_URL;
 
 // fetching all the chats for a particaular user
 export const fetchChats = () => async (dispatch) => {
   try {
     const chats = await axios({
       method: "GET",
-      url: "https://e-talk-server.vercel.app/api/chat",
+      url: `https://e-talk-server.vercel.app/api/chat`,
     });
     // console.log(chats.data);
 
@@ -53,7 +54,7 @@ export const createChat = (userId) => async (dispatch) => {
   try {
     const newCreatedChat = await axios({
       method: "POST",
-      url: "https://e-talk-server.vercel.app/api/chat",
+      url: `https://e-talk-server.vercel.app/api/chat`,
       data: { userId },
     });
     return dispatch({ type: "CREATE_CHAT", payload: newCreatedChat.data });
@@ -70,7 +71,7 @@ export const createGroupChat = (groupInfo) => async (dispatch) => {
 
     const newCreatedGroupChat = await axios({
       method: "POST",
-      url: "https://e-talk-server.vercel.app/api/chat/group",
+      url: `https://e-talk-server.vercel.app/api/chat/group`,
       data: { ...groupInfo },
     });
 

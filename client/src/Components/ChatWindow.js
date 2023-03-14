@@ -29,7 +29,7 @@ import { useRef } from "react";
 import { clearSelectChatAction } from "../Redux/Reducer/Chat/chat.action";
 import Spinner from "../Styles/Spinner";
 
-const ENDPOINT = process.env.BACKEND_BASE_URL;
+const ENDPOINT = "https://e-talk-server.vercel.app";
 var socket, selectedChatCompare;
 
 const ChatWindow = () => {
@@ -153,7 +153,7 @@ const ChatWindow = () => {
   }, [senderUser]);
 
   useEffect(() => {
-    socket = io(ENDPOINT);
+    socket = io(ENDPOINT, { transports: ["websocket"] });
     socket.emit("setup", loggedUser);
     socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
@@ -183,7 +183,7 @@ const ChatWindow = () => {
     return () => {
       socket.off("message recieved", eventHandler);
     };
-  }, []);
+  });
 
   useEffect(() => {
     setSender(senderUser);

@@ -33,7 +33,7 @@ AOS.init({
   offset: 100,
 });
 
-// const socket = io.connect("https://e-talk-server.vercel.app");
+// const socket = io.connect("http://localhost:4000");
 
 function App() {
   const [loading, setloading] = useState(true);

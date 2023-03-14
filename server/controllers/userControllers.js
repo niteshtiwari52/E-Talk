@@ -6,6 +6,8 @@ const jwt = require("jsonwebtoken");
 const cloudinary = require("../utils/cloudinary");
 const sendEmail = require("../utils/sendEmail");
 
+const { JWT_SECRET } = require("../config/keys");
+
 // signup new user
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, contact, pic } = req.body;
@@ -114,7 +116,7 @@ const verifyEmail = asyncHandler(async (req, res) => {
     const { token } = req.body;
 
     //decodes token id
-    const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = await jwt.verify(token, JWT_SECRET);
 
     const user = await User.findOne({ _id: decoded.id });
     // console.log(user);
@@ -272,7 +274,7 @@ const resetPassword = asyncHandler(async (req, res) => {
     const { token, newPassword } = req.body;
 
     //decodes token id
-    const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = await jwt.verify(token, JWT_SECRET);
 
     let user = await User.findOne({ _id: decoded.id }).select("password");
     // console.log(user);
