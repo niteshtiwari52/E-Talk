@@ -29,7 +29,7 @@ import { useRef } from "react";
 import { clearSelectChatAction } from "../Redux/Reducer/Chat/chat.action";
 import Spinner from "../Styles/Spinner";
 
-const ENDPOINT = "https://e-talk-server.vercel.app/auth";
+const ENDPOINT = "https://e-talk-server.vercel.app";
 var socket, selectedChatCompare;
 
 const ChatWindow = () => {
