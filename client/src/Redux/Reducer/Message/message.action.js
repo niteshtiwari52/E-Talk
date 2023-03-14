@@ -14,7 +14,7 @@ export const getAllChats = (selectedChat) => async (dispatch) => {
     dispatch(loadingToggleAction(true));
     const allMessage = await axios({
       method: "GET",
-      url: `https://e-talk-server.vercel.app/api/message/${selectedChat._id}`,
+      url: `https://localhost:4000/api/message/${selectedChat._id}`,
     });
     dispatch(loadingToggleAction(false));
     // console.log(allMessage);
@@ -47,7 +47,7 @@ export const sendMessge = (messageData) => async (dispatch) => {
   try {
     const newMessage = await axios({
       method: "POSt",
-      url: `https://e-talk-server.vercel.app/api/message`,
+      url: `https://localhost:4000/api/message`,
       data: { ...messageData },
     });
 
