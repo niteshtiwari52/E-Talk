@@ -1,11 +1,11 @@
 import axios from "axios";
 import { CLEAR_USER, SELF, UPDATE_PROFILE } from "./user.type";
-
+const SERVER_ACCESS_BASE_URL = process.env.REACT_APP_SERVER_ACCESS_BASE_URL;
 export const getMySelf = () => async (dispatch) => {
   try {
     const User = await axios({
       method: "GET",
-      url: `http://localhost:4000/api/user/getmyself`,
+      url: `${SERVER_ACCESS_BASE_URL}/api/user/getmyself`,
     });
     return dispatch({ type: SELF, payload: { ...User.data.user } });
   } catch (error) {
@@ -18,7 +18,7 @@ export const updateUserProfile = (userData) => async (dispatch) => {
   try {
     const User = await axios({
       method: "PUT",
-      url: `http://localhost:4000/api/user/updateprofile`,
+      url: `${SERVER_ACCESS_BASE_URL}/api/user/updateprofile`,
       data: { ...userData },
     });
     return dispatch({ type: UPDATE_PROFILE, payload: User.data });

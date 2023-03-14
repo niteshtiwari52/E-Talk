@@ -1,12 +1,13 @@
 import axios from "axios";
 import { UPLOAD_IMAGE } from "./profileImage.type";
+const SERVER_ACCESS_BASE_URL = process.env.REACT_APP_SERVER_ACCESS_BASE_URL;
 
 // profile picture update
 export const uploadProfilePicture = (image) => async (dispatch) => {
   try {
     const profileImage = await axios({
       method: "PUT",
-      url: `http://localhost:4000/api/user/profilepic`,
+      url: `${SERVER_ACCESS_BASE_URL}/api/user/profilepic`,
       data: { image },
       headers: { "Content-Type": "multipart/form-data" },
     });

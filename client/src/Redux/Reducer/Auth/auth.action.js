@@ -1,5 +1,5 @@
 import axios from "axios";
-
+// import dotenv from "dotenv";
 // action type
 
 import {
@@ -14,13 +14,16 @@ import {
   ERROR,
 } from "./auth.type";
 
+const SERVER_ACCESS_BASE_URL = process.env.REACT_APP_SERVER_ACCESS_BASE_URL;
+
 // Sign IN
 
 export const signIn = (userData) => async (dispatch) => {
   try {
+    console.log(SERVER_ACCESS_BASE_URL);
     const User = await axios({
       method: "POST",
-      url: `http://localhost:4000/api/user/login/`,
+      url: `${SERVER_ACCESS_BASE_URL}/api/user/login/`,
       data: { ...userData },
     });
     // console.log(User);
@@ -46,7 +49,7 @@ export const signUp = (userData) => async (dispatch) => {
   try {
     const User = await axios({
       method: "POST",
-      url: "http://localhost:4000/api/user",
+      url: `${SERVER_ACCESS_BASE_URL}/api/user`,
       data: { ...userData },
     });
 
@@ -73,7 +76,7 @@ export const userVerification = (data) => async (dispatch) => {
     // console.log(data.email);
     const verificationLink = await axios({
       method: "POST",
-      url: "http://localhost:4000/api/user/resend/verificationlink",
+      url: `${SERVER_ACCESS_BASE_URL}/api/user/resend/verificationlink`,
       data: { ...data },
     });
 
@@ -91,7 +94,7 @@ export const verifyEmailLink = (token) => async (dispatch) => {
   try {
     const verificationStatus = await axios({
       method: "PUT",
-      url: `http://localhost:4000/api/user/verify`,
+      url: `${SERVER_ACCESS_BASE_URL}/api/user/verify`,
       data: { token },
     });
     return dispatch({ type: VERIFY_TOKEN, payload: verificationStatus.data });
@@ -106,7 +109,7 @@ export const forgotPassword = (data) => async (dispatch) => {
     // console.log(data.email);
     const forgotPasswordStatus = await axios({
       method: "POST",
-      url: "http://localhost:4000/api/user/forgotpassword",
+      url: `${SERVER_ACCESS_BASE_URL}/api/user/forgotpassword`,
       data: { ...data },
     });
 
@@ -130,7 +133,7 @@ export const resetPassword = (userData) => async (dispatch) => {
     // };
     const resetPasswordStatus = await axios({
       method: "POST",
-      url: "http://localhost:4000/api/user/resetpassword",
+      url: `${SERVER_ACCESS_BASE_URL}/api/user/resetpassword`,
       data: userData,
     });
 

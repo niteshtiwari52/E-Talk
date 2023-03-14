@@ -12,6 +12,7 @@ const helmet = require("helmet");
 const { socket } = require("socket.io");
 
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
+const { PORT, CLIENT_ACCESS_URL } = require("./config/keys");
 
 dotenv.config();
 const app = express();
@@ -21,6 +22,7 @@ connectDB();
 
 const http = require("http");
 const { Server } = require("socket.io");
+
 // const cors = require("cors");
 
 app.use(cors());
@@ -45,7 +47,7 @@ app.use(notFound);
 app.use(errorHandler);
 
 // PORT
-const PORT = process.env.PORT || 4000;
+// const PORT = PORT || 4000;
 server.listen(PORT, () => {
   console.log(
     `Server is Running on PORT: http://localhost:${PORT}`.yellow.bold
@@ -55,7 +57,7 @@ server.listen(PORT, () => {
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "http://localhost:3000",
+    origin: CLIENT_ACCESS_URL,
   },
 });
 
