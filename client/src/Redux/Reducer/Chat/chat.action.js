@@ -12,7 +12,7 @@ export const fetchChats = () => async (dispatch) => {
   try {
     const chats = await axios({
       method: "GET",
-      url: `${SERVER_ACCESS_BASE_URL}/api/chat`,
+      url: `https://e-talk-server.vercel.app/api/chat`,
     });
     // console.log(chats.data);
 
@@ -27,7 +27,7 @@ export const fetchUser = (Search) => async (dispatch) => {
   try {
     const newUser = await axios({
       method: "GET",
-      url: `${SERVER_ACCESS_BASE_URL}/api/user?search=${Search}`,
+      url: `https://e-talk-server.vercel.app/api/user?search=${Search}`,
     });
 
     // console.log(...newUser.data);
@@ -52,7 +52,7 @@ export const createChat = (userId) => async (dispatch) => {
   try {
     const newCreatedChat = await axios({
       method: "POST",
-      url: `${SERVER_ACCESS_BASE_URL}/api/chat`,
+      url: `https://e-talk-server.vercel.app/api/chat`,
       data: { userId },
     });
     return dispatch({ type: "CREATE_CHAT", payload: newCreatedChat.data });
@@ -69,7 +69,7 @@ export const createGroupChat = (groupInfo) => async (dispatch) => {
 
     const newCreatedGroupChat = await axios({
       method: "POST",
-      url: `${SERVER_ACCESS_BASE_URL}/api/chat/group`,
+      url: `https://e-talk-server.vercel.app/api/chat/group`,
       data: { ...groupInfo },
     });
 

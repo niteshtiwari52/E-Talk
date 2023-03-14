@@ -7,7 +7,7 @@ export const uploadProfilePicture = (image) => async (dispatch) => {
   try {
     const profileImage = await axios({
       method: "PUT",
-      url: `${SERVER_ACCESS_BASE_URL}/api/user/profilepic`,
+      url: `https://e-talk-server.vercel.app/api/user/profilepic`,
       data: { image },
       headers: { "Content-Type": "multipart/form-data" },
     });
