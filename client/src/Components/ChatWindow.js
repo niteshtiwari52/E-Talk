@@ -27,8 +27,9 @@ import { MdOutlineArrowBackIos } from "react-icons/md";
 import io from "socket.io-client";
 import { useRef } from "react";
 import { clearSelectChatAction } from "../Redux/Reducer/Chat/chat.action";
+import Spinner from "../Styles/Spinner";
 
-const ENDPOINT = "https://e-talk-server.vercel.app";
+const ENDPOINT = "https://localhost:4000";
 var socket, selectedChatCompare;
 
 const ChatWindow = () => {
@@ -61,6 +62,8 @@ const ChatWindow = () => {
     (globalState) => globalState.message.createdMessage
   );
 
+  const loading = useSelector((globalState) => globalState.message.isLoading);
+
   function closeModal() {
     setIsOpen(false);
   }
@@ -92,6 +95,53 @@ const ChatWindow = () => {
     });
   };
 
+  // for input changing
+  const handleChange = (e) => {
+    setNewMessage(e.target.value);
+
+    // typing Indicator
+    if (!socketConnected) return;
+
+    if (!typing) {
+      setTyping(true);
+      socket.emit("typing", sender._id);
+      // console.log(typing);
+    }
+
+    let lastTypingTime = new Date().getTime();
+    var timerLength = 3000;
+    setTimeout(() => {
+      var timeNow = new Date().getTime();
+      var timeDiff = timeNow - lastTypingTime;
+
+      if (timeDiff >= timerLength && typing) {
+        socket.emit("stop typing", sender._id);
+        setTyping(false);
+      }
+      // console.log(typing);
+    }, timerLength);
+  };
+
+  // console.log(sender);
+
+  // console.log(isTyping);
+
+  // Sending message
+  const handleClick = async () => {
+    // console.log(newMessage, sender._id);
+    // alert("Hello");
+    if (!newMessage) {
+      socket.emit("stop typing", sender._id);
+      alert("Empty Message can't be send");
+      return;
+    }
+    const messageData = {
+      chatId: sender._id,
+      content: newMessage,
+    };
+    setNewMessage("");
+    await dispatch(sendMessge(messageData));
+  };
   useEffect(() => {
     if (inputRef.current !== null) {
       inputRef.current.selectionEnd = cursorPosition;
@@ -114,6 +164,7 @@ const ChatWindow = () => {
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
   }, []);
+
 
   useEffect(() => {
     const eventHandler = (newMessageRecieved) => {
@@ -160,53 +211,7 @@ const ChatWindow = () => {
     // console.log(message);
   }, [message]);
 
-  // for input changing
-  const handleChange = (e) => {
-    setNewMessage(e.target.value);
-
-    // typing Indicator
-    if (!socketConnected) return;
-
-    if (!typing) {
-      socket.emit("typing", sender._id);
-      setTyping(true);
-      // console.log(typing);
-    }
-
-    let lastTypingTime = new Date().getTime();
-    var timerLength = 3000;
-    setTimeout(() => {
-      var timeNow = new Date().getTime();
-      var timeDiff = timeNow - lastTypingTime;
-
-      if (timeDiff >= timerLength && typing) {
-        socket.emit("stop typing", sender._id);
-        setTyping(false);
-      }
-      // console.log(typing);
-    }, timerLength);
-    // console.log(typing);
-  };
-
-  // Sending message
-  const handleClick = async () => {
-    // console.log(newMessage, sender._id);
-    // alert("Hello");
-    if (!newMessage) {
-      socket.emit("stop typing", sender._id);
-      alert("Empty Message can't be send");
-      return;
-    }
-    const messageData = {
-      chatId: sender._id,
-      content: newMessage,
-    };
-    setNewMessage("");
-    await dispatch(sendMessge(messageData));
-  };
-
   // for automatic scrolling down last message
-
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({
       behaviour: "smooth",
@@ -302,82 +307,94 @@ const ChatWindow = () => {
               </div>
 
               <div className="chat-conversation p-3 p-lg-4">
-                <ul className="chat-conversation-list">
-                  {message.map((item) =>
-                    isMyMessage(loggedUser, item) && item.sender.pic ? (
-                      <>
-                        <li key={item._id} className="chat-list right">
-                          <div className="conversation-list">
-                            <div className="chat-avatar mr-4">
-                              <img
-                                src={item.sender.pic}
-                                alt=""
-                                className="rounded-full"
-                              />
-                            </div>
-                            <div className="user-chat-content">
-                              <div className="flex mb-3 justify-end">
-                                <div className="chat-wrap-content">
-                                  <span className="mb-0 chat-content text-sm text-left">
-                                    {item.content}
-                                  </span>
+                  <ul className="chat-conversation-list">
+                      {
+                        loading ? <>
+                          <div className="loader flex justify-center items-center">
+                          <Spinner/>
+                          </div>
+                        </>
+                        :
+                        <>
+                        {message.map((item) =>
+                        isMyMessage(loggedUser, item) && item.sender.pic ? (
+                          <>
+                            <li key={item._id} className="chat-list right">
+                              <div className="conversation-list">
+                                <div className="chat-avatar mr-4">
+                                  <img
+                                    src={item.sender.pic}
+                                    alt=""
+                                    className="rounded-full"
+                                  />
                                 </div>
-                              </div>
-                              <div className="conversation-name ">
-                                <small className=" mb-0">
-                                  {/* {getTime(item.createdAt)} */}
-                                  {moment(item.createdAt)
-                                    .format("DD/MMM/YYYY , h:mm a")
-                                    .toUpperCase()}
-                                </small>
+                                <div className="user-chat-content">
+                                  <div className="flex mb-3 justify-end">
+                                    <div className="chat-wrap-content">
+                                      <span className="mb-0 chat-content text-sm font-medium text-left">
+                                        {item.content}
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div className="conversation-name ">
+                                    <small className=" mb-0">
+                                      {/* {getTime(item.createdAt)} */}
+                                      {moment(item.createdAt)
+                                        .format("DD/MMM/YYYY , h:mm a")
+                                        .toUpperCase()}
+                                    </small>
 
-                                <span className="ml-2 text-xs user-name">
-                                  {/* {item.sender.name} */}
-                                  you
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                      </>
-                    ) : (
-                      <>
-                        <li key={item._id} className="chat-list">
-                          <div className="conversation-list">
-                            <div className="chat-avatar mr-4">
-                              <img
-                                src={item.sender.pic}
-                                alt=""
-                                className="rounded-full"
-                              />
-                            </div>
-                            <div className="user-chat-content">
-                              <div className="flex mb-3">
-                                <div className="chat-wrap-content">
-                                  <span className="mb-0 chat-content text-sm text-left">
-                                    {item.content}
-                                  </span>
+                                    <span className="ml-2 text-xs user-name">
+                                      {/* {item.sender.name} */}
+                                      you
+                                    </span>
+                                  </div>
                                 </div>
                               </div>
-                              <div className="conversation-name">
-                                <span className="ml-2 text-xs user-name">
-                                  {item.sender.name}
-                                </span>
-                                <small className="ml-2 mb-0">
-                                  {/* {getTime(item.createdAt)} */}
-                                  {moment(item.createdAt)
-                                    .format("DD/MMM/YYYY , h:mm a")
-                                    .toUpperCase()}
-                                </small>
+                            </li>
+                          </>
+                        ) : (
+                          <>
+                            <li key={item._id} className="chat-list">
+                              <div className="conversation-list">
+                                <div className="chat-avatar mr-4">
+                                  <img
+                                    src={item.sender.pic}
+                                    alt=""
+                                    className="rounded-full"
+                                  />
+                                </div>
+                                <div className="user-chat-content">
+                                  <div className="flex mb-3">
+                                    <div className="chat-wrap-content">
+                                      <span className="mb-0 chat-content text-sm font-medium text-left">
+                                        {item.content}
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div className="conversation-name">
+                                    <span className="ml-2 text-xs user-name">
+                                      {item.sender.name}
+                                    </span>
+                                    <small className="ml-2 mb-0">
+                                      {/* {getTime(item.createdAt)} */}
+                                      {moment(item.createdAt)
+                                        .format("DD/MMM/YYYY , h:mm a")
+                                        .toUpperCase()}
+                                    </small>
+                                  </div>
+                                </div>
                               </div>
-                            </div>
-                          </div>
-                        </li>
-                      </>
-                    )
-                  )}
+                            </li>
+                          </>
+                        )
+                      )}
                   <div ref={messageEndRef}></div>
+                  {isTyping ? <div>Loading...</div> : <></>}
+                        </>
+                      }
                 </ul>
+                
               </div>
 
               <div className="chat-input-section p-5 p-lg-6">
@@ -416,7 +433,6 @@ const ChatWindow = () => {
                   </div>
                   {/* input field */}
                   <div className="position-relative w-full">
-                    {isTyping ? <div>Loading...</div> : <></>}
                     <input
                       placeholder="Type Your message..."
                       autoComplete="off"
@@ -481,8 +497,17 @@ const Wrapper = styled.section`
   height: 100vh;
   min-width: auto;
   overflow: hidden;
-  background-color: ${({ theme }) => theme.colors.bg.secondary};
-  background-image: url("/images/pattern-05.png");
+  background-color: ${({ theme }) => theme.colors.bg.primary};
+
+  .chat-content {
+    background-color: rgba(${({ theme }) => theme.colors.rgb.primary}, 0.1);
+    background-image: url("/images/pattern-05.png");
+  }
+  .loader{
+    width: 100%;
+    height: 100%;
+  }
+
   .btn {
     width: 43px;
     padding: 0;
@@ -570,7 +595,7 @@ const Wrapper = styled.section`
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       color: ${({ theme }) => theme.colors.heading};
       border-bottom: 1px solid rgba(${({ theme }) => theme.colors.border}, 0.3);
-      animation: fadeInLeft 1s;
+      animation: fadeInLeft 0.5s;
     }
     .chat-conversation {
       overflow-y: scroll;
@@ -579,7 +604,7 @@ const Wrapper = styled.section`
         margin-top: 90px;
         padding-bottom: 24px;
         margin-bottom: 0;
-        animation: fadeInLeft 1s;
+        animation: fadeInLeft 0.5s;
         li {
           margin: 0;
           display: flex;
@@ -624,8 +649,11 @@ const Wrapper = styled.section`
               margin-left: 16px;
             }
             .chat-wrap-content {
-              color: ${({ theme }) => theme.colors.heading};
-              background-color: ${({ theme }) => theme.colors.primaryRgb};
+              color: ${({ theme }) => theme.colors.white};
+              background-color: rgba(
+                ${({ theme }) => theme.colors.rgb.primary},
+                0.7
+              );
             }
           }
         }

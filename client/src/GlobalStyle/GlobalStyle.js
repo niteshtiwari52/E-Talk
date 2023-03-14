@@ -14,7 +14,7 @@ export const GlobalStyle = createGlobalStyle`
     width: 5px;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(${({ theme }) => theme.colors.rgb.cyan}, .2);
+  background-color: rgba(${({ theme }) => theme.colors.rgb.primary}, .2);
     border-radius: 10px;
 }
 ::-webkit-scrollbar-track {

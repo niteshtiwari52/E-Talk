@@ -1,4 +1,5 @@
 import axios from "axios";
+import { loadingToggleAction } from "../Message/message.action";
 import {
   FETCH_CHATS,
   FETCH_USER,
@@ -12,7 +13,7 @@ export const fetchChats = () => async (dispatch) => {
   try {
     const chats = await axios({
       method: "GET",
-      url: `https://e-talk-server.vercel.app/api/chat`,
+      url: `https://localhost:4000/api/chat`,
     });
     // console.log(chats.data);
 
@@ -25,13 +26,14 @@ export const fetchChats = () => async (dispatch) => {
 // fetching user for creating new one to one chat and group chat
 export const fetchUser = (Search) => async (dispatch) => {
   try {
+    dispatch(loadingToggleAction(true))
     const newUser = await axios({
       method: "GET",
-      url: `https://e-talk-server.vercel.app/api/user?search=${Search}`,
+      url: `https://localhost:4000/api/user?search=${Search}`,
     });
 
     // console.log(...newUser.data);
-
+    dispatch(loadingToggleAction(false))
     return dispatch({ type: FETCH_USER, payload: newUser.data });
   } catch (error) {
     return dispatch({ type: "ERROR", payload: error });
@@ -52,7 +54,7 @@ export const createChat = (userId) => async (dispatch) => {
   try {
     const newCreatedChat = await axios({
       method: "POST",
-      url: `https://e-talk-server.vercel.app/api/chat`,
+      url: `https://localhost:4000/api/chat`,
       data: { userId },
     });
     return dispatch({ type: "CREATE_CHAT", payload: newCreatedChat.data });
@@ -69,7 +71,7 @@ export const createGroupChat = (groupInfo) => async (dispatch) => {
 
     const newCreatedGroupChat = await axios({
       method: "POST",
-      url: `https://e-talk-server.vercel.app/api/chat/group`,
+      url: `https://localhost:4000/api/chat/group`,
       data: { ...groupInfo },
     });
 

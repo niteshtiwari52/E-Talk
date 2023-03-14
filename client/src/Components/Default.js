@@ -40,6 +40,7 @@ const Default = () => {
     // alert(selectedChat._id)
   }, [selectedChat]);
 
+
   return (
     <Wrapper className="default dynamic-sidebar">
       <div className="chat-menu flex flex-wrap items-center justify-between w-full  ">
@@ -89,6 +90,7 @@ const Wrapper = styled.div`
   .group-icon {
     &:hover {
       background-color: ${({ theme }) => theme.colors.bg.secondary};
+      color: ${({ theme }) => theme.colors.primaryRgb};
     }
   }
 `;
