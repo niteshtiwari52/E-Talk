@@ -12,6 +12,7 @@ import {
   createChat,
   fetchChats,
   fetchUser,
+  fetchUserClear,
 } from "../Redux/Reducer/Chat/chat.action";
 import { toast } from "react-toastify";
 
@@ -22,6 +23,8 @@ const ChatMenu = () => {
   const tabIndex = useSelector((state) => state.tabReducer);
   const result = useSelector((globalState) => globalState.chat.newUser);
   const user = useSelector((globalState) => globalState.user.userDetails);
+  const loading = useSelector((globalState)=> globalState.message.isLoading);
+  const [showResult, setShowResult] = useState(false)
 
   // const chat = useSelector((globalState) => globalState.chat.chats);
 
@@ -29,6 +32,7 @@ const ChatMenu = () => {
 
   const handleChange = (e) => {
     setSearch(e.target.value);
+
   };
 
   useEffect(() => {
@@ -42,6 +46,7 @@ const ChatMenu = () => {
       });
       return;
     }
+    setShowResult(true)
     dispatch(fetchUser(search));
   };
 
@@ -53,6 +58,14 @@ const ChatMenu = () => {
     await dispatch(fetchChats());
     await dispatch(toggleTab(3));
   };
+
+  useEffect(() => {
+   if(tabIndex != 4 || !search){
+    setSearch("")
+    dispatch(fetchUserClear())
+   }
+  }, [tabIndex, search])
+  
 
   return (
     <>
@@ -94,6 +107,8 @@ const ChatMenu = () => {
               handleClick={handleClick}
               searchResult={searchResult}
               createNewChat={createNewChat}
+              loading = {loading}
+              showResult={showResult}
             />
           </div>
           <div className={tabIndex === 5 ? "tab-pane active" : "tab-pane "}>
@@ -138,6 +153,9 @@ const Wrapper = styled.section`
     .icon {
       font-size: 1.5rem;
       color: ${({ theme }) => theme.colors.heading};
+      &:hover{
+        color: ${({ theme }) => theme.colors.primaryRgb};
+      }
     }
     .search-icon {
       background-color: ${({ theme }) => theme.colors.bg.primary};

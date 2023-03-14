@@ -24,7 +24,9 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import ForgotPassword from "./Components/Auth/ForgotPassword";
 import ResetPassword from "./Components/Auth/ResetPassword";
-// import Error from "./Components/Error.js";
+import ErrorPage from "./Components/ErrorPage";
+
+
 AOS.init({
   once: true,
   duration: 2000,
@@ -119,11 +121,11 @@ function App() {
         secondary: "#8f9198",
       },
 
-      rgb: {
-        primary: "0, 128, 201",
-        secondary: "78,172,109",
-        cyan: "28,157,234",
-        heading: "255,255,255",
+      "rgb":{
+      "primary": `${rgb}`,
+      "secondary": "78,172,109",
+      "cyan": "28,157,234",
+      "heading": "255,255,255",
       },
 
       bg: {
@@ -207,7 +209,7 @@ function App() {
               <Route path="" element={<Login />} />
               <Route path="signup" element={<Signup />} />
             </Route>
-            {/* <Route path="*" element={<Error />} /> */}
+            <Route path="/*" element={<ErrorPage/>} />
           </Routes>
         )}
       </div>

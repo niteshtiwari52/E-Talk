@@ -105,7 +105,7 @@ export const teamImg = [
 export const colors = [
   {
     "id": 1,
-    "color": "rgb(0,128,201)"
+    "color": "rgb(28, 169, 254)"
 
   },
   {
@@ -119,6 +119,7 @@ export const colors = [
   {
     "id": 4,
     "color": "rgb(97,83,204)"
-  }
+  },
+  
 
 ]

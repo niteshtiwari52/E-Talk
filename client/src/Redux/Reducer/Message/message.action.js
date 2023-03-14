@@ -3,6 +3,7 @@ import {
   SEND_MESSAGE,
   GET_ALL_MESSAGE,
   UPDATE_GET_ALL_MESSAGE,
+  SHOW_TOOGLE_LOADING,
 } from "./message.type";
 
 const SERVER_ACCESS_BASE_URL = process.env.REACT_APP_SERVER_ACCESS_BASE_URL;
@@ -10,10 +11,12 @@ const SERVER_ACCESS_BASE_URL = process.env.REACT_APP_SERVER_ACCESS_BASE_URL;
 // get all messages
 export const getAllChats = (selectedChat) => async (dispatch) => {
   try {
+    dispatch(loadingToggleAction(true));
     const allMessage = await axios({
       method: "GET",
-      url: `https://e-talk-server.vercel.app/api/message/${selectedChat._id}`,
+      url: `https://localhost:4000/api/message/${selectedChat._id}`,
     });
+    dispatch(loadingToggleAction(false));
     // console.log(allMessage);
     return dispatch({ type: GET_ALL_MESSAGE, payload: allMessage.data });
   } catch (error) {
@@ -44,7 +47,7 @@ export const sendMessge = (messageData) => async (dispatch) => {
   try {
     const newMessage = await axios({
       method: "POSt",
-      url: `https://e-talk-server.vercel.app/api/message`,
+      url: `https://localhost:4000/api/message`,
       data: { ...messageData },
     });
 
@@ -65,3 +68,10 @@ export const clearSelectedMessage = () => async (dispatch) => {
     return dispatch({ type: "ERROR", payload: error });
   }
 };
+
+export const loadingToggleAction = (state) => {
+      return{
+        type: SHOW_TOOGLE_LOADING,
+        payload: state,
+      }
+}
