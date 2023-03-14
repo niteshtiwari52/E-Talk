@@ -103,7 +103,12 @@ const ChatWindow = () => {
   }, [senderUser]);
 
   useEffect(() => {
-    socket = io(ENDPOINT, { transports: ["websocket"] });
+    socket = io(ENDPOINT, {
+      withCredentials: true,
+      extraHeaders: {
+        "my-custom-header": "abcd",
+      },
+    });
     socket.emit("setup", loggedUser);
     socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
