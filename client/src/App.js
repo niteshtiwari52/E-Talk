@@ -47,7 +47,6 @@ function App() {
 
   const ThemeColor = useSelector((state) => state.setColorReducer.themeColor);
   const rgb = ThemeColor.split(")")[0].split("(")[1];
-  console.log(rgb)
 
   const lightTheme = {
     colors: {
