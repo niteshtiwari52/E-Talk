@@ -28,7 +28,7 @@ import io from "socket.io-client";
 import { useRef } from "react";
 import { clearSelectChatAction } from "../Redux/Reducer/Chat/chat.action";
 
-const ENDPOINT = `https://e-talk-server.vercel.app`;
+const ENDPOINT = "https://e-talk-server.vercel.app";
 var socket, selectedChatCompare;
 
 const ChatWindow = () => {
@@ -103,12 +103,7 @@ const ChatWindow = () => {
   }, [senderUser]);
 
   useEffect(() => {
-    socket = io(ENDPOINT, {
-      withCredentials: true,
-      extraHeaders: {
-        "my-custom-header": "abcd",
-      },
-    });
+    socket = io(ENDPOINT, { transports: ["websocket"] });
     socket.emit("setup", loggedUser);
     socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
