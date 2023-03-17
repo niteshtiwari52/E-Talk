@@ -28,8 +28,9 @@ import io from "socket.io-client";
 import { useRef } from "react";
 import { clearSelectChatAction } from "../Redux/Reducer/Chat/chat.action";
 import Spinner from "../Styles/Spinner";
+const SERVER_ACCESS_BASE_URL = process.env.REACT_APP_SERVER_ACCESS_BASE_URL;
 
-const ENDPOINT = "https://e-talk-server.onrender.com";
+const ENDPOINT = SERVER_ACCESS_BASE_URL;
 var socket, selectedChatCompare;
 
 const ChatWindow = () => {
