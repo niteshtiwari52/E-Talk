@@ -1,18 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { getSender, getSenderPic } from "../../HelperFunction/chat.Helper";
+import {
+  getGroupProfileDetails,
+  getSender,
+  getSenderPic,
+  getSenderProfileDetails,
+} from "../../HelperFunction/chat.Helper";
 import GroupProfile from "../GroupProfile";
 import Profile from "../Profile";
 
 const UserProfile = ({ closeModal }) => {
+  const [sender, setSender] = useState("");
+  const [senderProfileData, setSenderProfileData] = useState();
   const senderUser = useSelector(
     (globalState) => globalState.chat.selectedChat
   );
   const loggedUser = useSelector((globalState) => globalState.user.userDetails);
 
-  const [sender, setSender] = useState("");
+  useEffect(() => {
+    if (senderProfileData) {
+      console.log(senderProfileData);
+    }
+  }, [senderProfileData]);
 
+  useEffect(() => {
+    let senderData;
+    if (sender) {
+      if (!sender.isGroupChat) {
+        senderData = getSenderProfileDetails(loggedUser, sender);
+      } else {
+        senderData = getGroupProfileDetails(loggedUser, sender);
+      }
+      if (senderData) {
+        setSenderProfileData(senderData);
+      }
+    }
+    setSenderProfileData(senderData);
+  }, [sender]);
   // console.log(sender);
   useEffect(() => {
     setSender(senderUser);
@@ -68,34 +93,46 @@ const UserProfile = ({ closeModal }) => {
             <>
               {/* sender profile  */}
               <div className="sender-profile overflow-hidden sidebar-active w-full h-full">
-                <Profile
-                  pic={
-                    !sender.isGroupChat
-                      ? getSenderPic(loggedUser, sender.users)
-                      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6wQvepXb0gM_Ft1QUOs6UyYJjPOmA-gq5Yw&usqp=CAU"
-                  }
-                  name={
-                    sender.isGroupChat
-                      ? sender.chatName
-                      : getSender(loggedUser, sender.users)
-                  }
-                  email={!sender.isGroupChat ? sender.users[1].email : ""}
-                  about={!sender.isGroupChat ? sender.users[1].about : ""}
-                  contact={!sender.isGroupChat ? sender.users[1].contact : ""}
-                  closeModal={closeModal}
-                />
+                {senderProfileData ? (
+                  <>
+                    <Profile
+                      pic={
+                        senderProfileData.senderPic
+                        // : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6wQvepXb0gM_Ft1QUOs6UyYJjPOmA-gq5Yw&usqp=CAU"
+                      }
+                      name={senderProfileData.senderName}
+                      email={senderProfileData.senderEmail}
+                      about={senderProfileData.senderAbout}
+                      contact={senderProfileData.senderContact}
+                      closeModal={closeModal}
+                    />
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
             </>
           ) : (
             <>
               {/* Group profile  */}
               {/* group name , */}
+
               <div className=" sender-profile overflow-hidden sidebar-active w-full h-full">
-                <GroupProfile
-                  sender={sender}
-                  loggedUser={loggedUser}
-                  closeModal={closeModal}
-                />
+                {senderProfileData ? (
+                  <>
+                    <GroupProfile
+                      groupPic={senderProfileData.groupPic}
+                      groupName={senderProfileData.groupName}
+                      groupCreatedAt={senderProfileData.groupCreatedAt}
+                      groupCreatedBy={senderProfileData.groupCreatedBy}
+                      groupAdmin={senderProfileData.groupAdmin}
+                      groupUsers={senderProfileData.groupUsers}
+                      closeModal={closeModal}
+                    />
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
             </>
           )}

@@ -3,6 +3,7 @@ import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { BiGroup } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
+import Loading1 from "../Loading1";
 import {
   createGroupChat,
   fetchChats,
@@ -19,6 +20,7 @@ const Group = () => {
   const [selectedUser, setSelectedUser] = useState([]);
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
+  const [loading1, setLoading1] = useState(false);
 
   const result = useSelector((globalState) => globalState.chat.newUser);
 
@@ -70,11 +72,14 @@ const Group = () => {
       });
       return;
     }
+    setLoading1(true);
     await dispatch(createGroupChat(groupInfo));
     await dispatch(fetchChats());
+    setLoading1(false);
+    await closeModal();
     toast.success("Group Created Successfully", {
       position: "top-right",
-      autoClose: 5000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -86,7 +91,7 @@ const Group = () => {
     setSearch("");
     setSelectedUser([]);
     setSearchResult([]);
-    await closeModal();
+
     // setSearchResult([])
     // setSearch
   };
@@ -103,9 +108,8 @@ const Group = () => {
 
   useEffect(() => {
     // console.log(selectedUser);
-
     setSearchResult(result);
-  }, [result, selectedUser]);
+  }, [result]);
 
   useEffect(() => {
     if (!search) {
@@ -312,7 +316,13 @@ const Group = () => {
                       // disabled
                       onClick={() => handleCreateNewGroupChat()}
                     >
-                      Create Group
+                      {loading1 ? (
+                        <>
+                          creating... <Loading1 />{" "}
+                        </>
+                      ) : (
+                        <> Create Group</>
+                      )}
                     </button>
                   </div>
                 </Dialog.Panel>

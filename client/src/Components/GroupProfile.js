@@ -18,125 +18,108 @@ const GroupProfile = (props) => {
     <Wrapper>
       <div className="group-profile h-full w-full">
         <div>
-          {props.sender ? (
-            <>
-              <div className="group-container">
-                <div className="group-details">
-                  <div className="relative chat-menu flex flex-wrap items-center justify-between w-full ">
-                    <div className="title">
-                      <h2>Profile</h2>
-                    </div>
-                    <div className="icon p-1 flex items-start h-full justify-start cursor-pointer">
-                      <div
-                        className="p-1 bg-white text-black rounded-full"
-                        onClick={props.closeModal}
-                      >
-                        <RxCross2 />
-                      </div>
-                    </div>
+          {/* {props.sender ? ( */}
+          <>
+            <div className="group-container">
+              <div className="group-details">
+                <div className="relative chat-menu flex flex-wrap items-center justify-between w-full ">
+                  <div className="title">
+                    <h2>Profile</h2>
                   </div>
-
-                  <div className="profile py-4 flex flex-col justify-center items-center">
-                    <div className="profile-img rounded-full overflow-hidden">
-                      <img
-                        src={
-                          !props.sender.isGroupChat
-                            ? getSenderPic(props.loggedUser, props.sender.users)
-                            : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6wQvepXb0gM_Ft1QUOs6UyYJjPOmA-gq5Yw&usqp=CAU"
-                        }
-                        alt=""
-                      />
-                    </div>
-
-                    <div className="profile-details">
-                      <div className="title pt-4 text-center w-full">
-                        <h5 className="text-3xl font-medium capitalize">
-                          {props.sender.chatName}
-                        </h5>
-                      </div>
-
-                      <div className="detatils">
-                        <div className="pt-4 w-full">
-                          <p className="text-lg  text-gray-400">Created</p>
-                        </div>
-                        <div className="w-full">
-                          <span className="text-lg">
-                            {props.sender.createdAt
-                              ? moment(props.sender.createdAt).format(
-                                  "DD-MM-YY , hh:mm a"
-                                )
-                              : ""}
-                          </span>
-                        </div>
-                      </div>
+                  <div className="icon p-1 flex items-start h-full justify-start cursor-pointer">
+                    <div
+                      className="p-1 bg-white text-black rounded-full"
+                      onClick={props.closeModal}
+                    >
+                      <RxCross2 />
                     </div>
                   </div>
                 </div>
 
-                <div className="Participants w-full h-full">
-                  <div className="title">
-                    <h3 className=" text-lg font-medium">
-                      {" "}
-                      {`${props.sender.users.length} Participants`}{" "}
-                    </h3>
+                <div className="profile py-4 flex flex-col justify-center items-center">
+                  <div className="profile-img rounded-full overflow-hidden">
+                    <img src={props.groupPic} alt="group Image" />
                   </div>
 
-                  <div className="search-field w-full">
-                    <div className="search-input flex justify-center items-center ">
-                      <input
-                        className="w-full"
-                        onChange={(e) => searchUser(e)}
-                      />
-                      <BiSearch className="icon" size={20} />
+                  <div className="profile-details">
+                    <div className="title pt-4 text-center w-full">
+                      <h5 className="text-3xl font-medium capitalize">
+                        {props.groupName}
+                      </h5>
                     </div>
-                  </div>
 
-                  <div className="participants-list w-full my-4 overflow-y-scroll">
-                    {props.sender.users
-                      .filter((item) => {
-                        return query.toLowerCase() === ""
-                          ? item
-                          : item.name
-                              .toLowerCase()
-                              .includes(query.toLowerCase());
-                      })
-                      .map((item) => (
-                        <li className="chat-box-wrapper px-5 py-2">
-                          <div className="chat-box flex items-center cursor-pointer">
-                            <div className="profile">
-                              <img
-                                src={item.pic}
-                                className="w-12 h-12 rounded-full"
-                                alt=""
-                              />
-                            </div>
-                            <div className="details w-10/12">
-                              <span className="inline-block md:w-48 w-full m-0 truncate text-base font-bold capitalize">
-                                {item.name}
-                              </span>
-                              <p className="text-xs truncate whitespace-nowrap overflow-hidden">
-                                {item.about}
-                              </p>
-                            </div>
-                            <div className="data-status h-full">
-                              {item.name === props.sender.groupAdmin.name ? (
-                                <>
-                                  <span className="text-xs">Admin</span>
-                                </>
-                              ) : (
-                                <></>
-                              )}
-                            </div>
-                          </div>
-                        </li>
-                      ))}
+                    <div className="detatils">
+                      <div className="pt-4 w-full">
+                        <p className="text-lg  text-gray-400">Created At</p>
+                      </div>
+                      <div className="w-full">
+                        <span className="text-lg">
+                          {moment(props.groupCreatedAt).format(
+                            "DD-MM-YY , hh:mm a"
+                          )}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </>
-          ) : (
-            <></>
-          )}
+
+              <div className="Participants w-full h-full">
+                <div className="title">
+                  <h3 className=" text-lg font-medium">
+                    {" "}
+                    {`${props.groupUsers.length} Participants`}{" "}
+                  </h3>
+                </div>
+
+                <div className="search-field w-full">
+                  <div className="search-input flex justify-center items-center ">
+                    <input className="w-full" onChange={(e) => searchUser(e)} />
+                    <BiSearch className="icon" size={20} />
+                  </div>
+                </div>
+
+                <div className="participants-list w-full my-4 overflow-y-scroll">
+                  {props.groupUsers
+                    .filter((item) => {
+                      return query.toLowerCase() === ""
+                        ? item
+                        : item.name.toLowerCase().includes(query.toLowerCase());
+                    })
+                    .map((item, index) => (
+                      <li key={index} className="chat-box-wrapper px-5 py-2">
+                        <div className="chat-box flex items-center cursor-pointer">
+                          <div className="profile">
+                            <img
+                              src={item.pic}
+                              className="w-12 h-12 rounded-full"
+                              alt=""
+                            />
+                          </div>
+                          <div className="details w-10/12">
+                            <span className="inline-block md:w-48 w-full m-0 truncate text-base font-bold capitalize">
+                              {item.name}
+                            </span>
+                            <p className="text-xs truncate whitespace-nowrap overflow-hidden">
+                              {item.about}
+                            </p>
+                          </div>
+                          <div className="data-status h-full">
+                            {item.name === props.groupAdmin.name ? (
+                              <>
+                                <span className="text-xs">Admin</span>
+                              </>
+                            ) : (
+                              <></>
+                            )}
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                </div>
+              </div>
+            </div>
+          </>
         </div>
       </div>
     </Wrapper>

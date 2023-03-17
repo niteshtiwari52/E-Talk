@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { clearAuthStore, signIn } from "../../Redux/Reducer/Auth/auth.action";
 import { ToastContainer, toast } from "react-toastify";
 import ShowPasswordToggle from "../ShowPasswordToggle";
+import Loading1 from "../Loading1";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
+  const [loading1, setLoading1] = useState(false);
 
   const result = useSelector((globalState) => globalState.auth.message);
   const status = useSelector((globalState) => globalState.auth.success);
@@ -62,50 +64,16 @@ const LoginForm = () => {
       }
     }
   }, [result]);
-  // useEffect(() => {
-  //   if (!serverResponse) {
-  //     return;
-  //   }
-  //   if (serverResponse.success === false) {
-  //     toast.error(serverResponse.message, {
-  //       position: "top-right",
-  //       autoClose: 2000,
-  //       hideProgressBar: false,
-  //       closeOnClick: true,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //       progress: undefined,
-  //       theme: "light",
-  //     });
-  //     dispatch(clearAuthStore());
-  //     return;
-  //   }
-  //   if (serverResponse.success === true) {
-  //     toast.success("Login Successfully", {
-  //       position: "top-right",
-  //       autoClose: 2000,
-  //       hideProgressBar: false,
-  //       closeOnClick: true,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //       progress: undefined,
-  //       theme: "light",
-  //     });
-  //     console.log("redirecting");
-  //     navigateToHome();
-  //     dispatch(clearAuthStore());
-  //     console.log("redirected");
-  //   }
-  // }, [serverResponse]);
 
   const handleChange = (e) => {
     setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleLogin = async () => {
+    setLoading1(true);
     if (userData.email && userData.password) {
       await dispatch(signIn(userData));
-
+      setLoading1(false);
       // toast.success("login Sucessfully");
       // navigate("/verification");
       // navigate("/");
@@ -186,7 +154,13 @@ const LoginForm = () => {
                 className="button bg-green-600 hover:bg-green-500 active:bg-green-700 text-white radius-round h-11 px-8 py-2 w-full"
                 onClick={handleLogin}
               >
-                Log In
+                {loading1 ? (
+                  <>
+                    Signing... <Loading1 />
+                  </>
+                ) : (
+                  <>Log In</>
+                )}
               </Button>
               {/* <Social /> */}
             </div>
