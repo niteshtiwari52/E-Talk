@@ -188,6 +188,7 @@ const ChatWindow = () => {
     return () => {
       socket.off("message recieved", eventHandler);
     };
+    
   });
 
   useEffect(() => {
