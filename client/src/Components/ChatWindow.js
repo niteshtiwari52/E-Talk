@@ -28,8 +28,9 @@ import io from "socket.io-client";
 import { useRef } from "react";
 import { clearSelectChatAction } from "../Redux/Reducer/Chat/chat.action";
 import Spinner from "../Styles/Spinner";
+const SERVER_ACCESS_BASE_URL = process.env.REACT_APP_SERVER_ACCESS_BASE_URL;
 
-const ENDPOINT = "https://localhost:4000";
+const ENDPOINT = SERVER_ACCESS_BASE_URL;
 var socket, selectedChatCompare;
 
 const ChatWindow = () => {
@@ -164,7 +165,6 @@ const ChatWindow = () => {
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
   }, []);
-
 
   useEffect(() => {
     const eventHandler = (newMessageRecieved) => {
@@ -308,16 +308,16 @@ const ChatWindow = () => {
               </div>
 
               <div className="chat-conversation p-3 p-lg-4">
-                  <ul className="chat-conversation-list">
-                      {
-                        loading ? <>
-                          <div className="loader flex justify-center items-center">
-                          <Spinner/>
-                          </div>
-                        </>
-                        :
-                        <>
-                        {message.map((item) =>
+                <ul className="chat-conversation-list">
+                  {loading ? (
+                    <>
+                      <div className="loader flex justify-center items-center">
+                        <Spinner />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      {message.map((item) =>
                         isMyMessage(loggedUser, item) && item.sender.pic ? (
                           <>
                             <li key={item._id} className="chat-list right">
@@ -390,12 +390,11 @@ const ChatWindow = () => {
                           </>
                         )
                       )}
-                  <div ref={messageEndRef}></div>
-                  {isTyping ? <div>Loading...</div> : <></>}
-                        </>
-                      }
+                      <div ref={messageEndRef}></div>
+                      {isTyping ? <div>Loading...</div> : <></>}
+                    </>
+                  )}
                 </ul>
-                
               </div>
 
               <div className="chat-input-section p-5 p-lg-6">
@@ -504,7 +503,7 @@ const Wrapper = styled.section`
     background-color: rgba(${({ theme }) => theme.colors.rgb.primary}, 0.1);
     background-image: url("/images/pattern-05.png");
   }
-  .loader{
+  .loader {
     width: 100%;
     height: 100%;
   }

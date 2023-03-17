@@ -7,7 +7,7 @@ export const uploadProfilePicture = (image) => async (dispatch) => {
   try {
     const profileImage = await axios({
       method: "PUT",
-      url: `https://localhost:4000/api/user/profilepic`,
+      url: `${SERVER_ACCESS_BASE_URL}/api/user/profilepic`,
       data: { image },
       headers: { "Content-Type": "multipart/form-data" },
     });

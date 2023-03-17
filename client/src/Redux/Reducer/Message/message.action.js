@@ -14,7 +14,7 @@ export const getAllChats = (selectedChat) => async (dispatch) => {
     dispatch(loadingToggleAction(true));
     const allMessage = await axios({
       method: "GET",
-      url: `https://localhost:4000/api/message/${selectedChat._id}`,
+      url: `${SERVER_ACCESS_BASE_URL}/api/message/${selectedChat._id}`,
     });
     dispatch(loadingToggleAction(false));
     // console.log(allMessage);
@@ -47,7 +47,7 @@ export const sendMessge = (messageData) => async (dispatch) => {
   try {
     const newMessage = await axios({
       method: "POSt",
-      url: `https://localhost:4000/api/message`,
+      url: `${SERVER_ACCESS_BASE_URL}/api/message`,
       data: { ...messageData },
     });
 
@@ -70,8 +70,8 @@ export const clearSelectedMessage = () => async (dispatch) => {
 };
 
 export const loadingToggleAction = (state) => {
-      return{
-        type: SHOW_TOOGLE_LOADING,
-        payload: state,
-      }
-}
+  return {
+    type: SHOW_TOOGLE_LOADING,
+    payload: state,
+  };
+};
