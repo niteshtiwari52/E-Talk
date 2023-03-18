@@ -70,7 +70,7 @@ const SignupForm = () => {
   };
 
   const handleSignUp = () => {
-    loading1(true);
+    setLoading1(true);
     if (
       userData.email &&
       userData.password &&
