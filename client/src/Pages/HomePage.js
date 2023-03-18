@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
-import Chat from "../Components/Chat";
-import Welcome from "../Components/Welcome";
-import DefaultLayoutHoc from "../Layout/DefaultLayout";
+import React, { Suspense, useEffect, useState } from "react";
 
+import DefaultLayoutHoc from "../Layout/DefaultLayout";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getMySelf } from "../Redux/Reducer/User/user.action";
 import { fetchChats } from "../Redux/Reducer/Chat/chat.action";
 import Loading from "../Components/Loading";
+const Welcome = React.lazy(()=> import("../Components/Welcome"))
+const Chat = React.lazy(()=> import("../Components/Chat"));
+
 
 const HomePage = () => {
   const [loading, setloading] = useState(true);
@@ -66,13 +67,21 @@ const HomePage = () => {
       (
         <>
       {user?.name ? (
-        <>
+        <Suspense fallback={
+          <>
+            <Loading/>
+          </>
+        }>
           <Chat />
-        </>
+        </Suspense>
       ) : (
-        <>
+        <Suspense fallback={
+          <>
+            <Loading/>
+          </>
+        }>
           <Welcome />
-        </>
+        </Suspense>
       )}
     </>
       )

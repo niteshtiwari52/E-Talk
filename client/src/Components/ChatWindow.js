@@ -26,7 +26,7 @@ import UserProfile from "./SlideMenu/UserProfile";
 import { MdOutlineArrowBackIos } from "react-icons/md";
 import io from "socket.io-client";
 import { useRef } from "react";
-import { clearSelectChatAction } from "../Redux/Reducer/Chat/chat.action";
+// import { clearSelectChatAction } from "../Redux/Reducer/Chat/chat.action";
 import Spinner from "../Styles/Spinner";
 const SERVER_ACCESS_BASE_URL = process.env.REACT_APP_SERVER_ACCESS_BASE_URL;
 
@@ -50,10 +50,13 @@ const ChatWindow = () => {
   const [count, setCount] = useState(0);
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
+  const [user, setUser] = useState()
+
 
   const senderUser = useSelector(
     (globalState) => globalState.chat.selectedChat
   );
+
   const loggedUser = useSelector((globalState) => globalState.user.userDetails);
   const theme = useSelector((state) => state.themeReducer.darkThemeEnabled);
   const allMessage = useSelector(
@@ -95,6 +98,30 @@ const ChatWindow = () => {
       element.classList.remove("active");
     });
   };
+ 
+  const getUserId = () =>{
+
+
+  if(loggedUser._id === sender?.users[0]._id){
+    const arr = sender.users.reverse();
+    setUser(arr);
+    
+   }
+   else{
+     setUser(sender?.users);
+   }
+
+ 
+  }
+
+  // console.log(user)
+
+ useEffect(() => {
+  getUserId();
+
+ })
+ 
+//  console.log(sender?.users)
 
   // for input changing
   const handleChange = (e) => {
@@ -105,8 +132,8 @@ const ChatWindow = () => {
 
     if (!typing) {
       setTyping(true);
-      socket.emit("typing", sender._id);
-      // console.log(typing);
+      socket.emit("typing", user[0]._id);
+      console.log(typing);
     }
 
     let lastTypingTime = new Date().getTime();
@@ -116,23 +143,22 @@ const ChatWindow = () => {
       var timeDiff = timeNow - lastTypingTime;
 
       if (timeDiff >= timerLength && typing) {
-        socket.emit("stop typing", sender._id);
+        socket.emit("stop typing", user[0]._id);
         setTyping(false);
       }
       // console.log(typing);
     }, timerLength);
   };
 
-  // console.log(sender);
+ 
 
-  // console.log(isTyping);
 
   // Sending message
   const handleClick = async () => {
     // console.log(newMessage, sender._id);
     // alert("Hello");
     if (!newMessage) {
-      socket.emit("stop typing", sender._id);
+      socket.emit("stop typing", user[0]._id);
       alert("Empty Message can't be send");
       return;
     }
@@ -188,7 +214,6 @@ const ChatWindow = () => {
     return () => {
       socket.off("message recieved", eventHandler);
     };
-    
   });
 
   useEffect(() => {
@@ -248,7 +273,7 @@ const ChatWindow = () => {
           <div className="chat-content flex">
             <div className="w-full h-full position-relative">
               {/* user-chat-topbar */}
-              <div className="user-chat-topbar p-3 p-lg-4 absolute">
+              <div className="user-chat-topbar p-3 p-lg-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center justify-center">
                     <div
@@ -309,7 +334,7 @@ const ChatWindow = () => {
 
               <div className="chat-conversation p-3 p-lg-4">
                 <ul className="chat-conversation-list">
-                  {loading ? (
+                  {loading  ? (
                     <>
                       <div className="loader flex justify-center items-center">
                         <Spinner />
@@ -368,8 +393,8 @@ const ChatWindow = () => {
                                 <div className="user-chat-content">
                                   <div className="flex mb-3">
                                     <div className="chat-wrap-content">
-                                      <span className="mb-0 chat-content text-sm font-medium text-left">
-                                        {item.content}
+                                      <span className="mb-0  text-sm font-medium text-left">
+                                           {item.content}
                                       </span>
                                     </div>
                                   </div>
@@ -391,7 +416,37 @@ const ChatWindow = () => {
                         )
                       )}
                       <div ref={messageEndRef}></div>
-                      {isTyping ? <div>Loading...</div> : <></>}
+                      {/* {
+                        isTyping? <>
+
+                        <li className="chat-list">
+                              <div className="conversation-list">
+                                <div className="chat-avatar mr-4">
+                                  <img
+                                    src={sender.pic}
+                                    alt=""
+                                    className="rounded-full"
+                                  />
+                                </div>
+                                <div className="user-chat-content">
+                                  <div className="flex mb-3">
+                                    <div className="chat-wrap-content w-20 h-12 flex justify-center items-center ">
+                                      <span className="relative mb-0  text-sm font-medium text-left ">
+                                          <span className="typing-loader"></span>
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div className="conversation-name">
+                                    <span className="ml-2 text-xs user-name">
+                                      {sender.name}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+
+                        </> : <> </>
+                      } */}
                     </>
                   )}
                 </ul>
@@ -500,12 +555,19 @@ const Wrapper = styled.section`
   background-color: ${({ theme }) => theme.colors.bg.primary};
 
   .chat-content {
+    width: 100%;
+    height: 100vh;
     background-color: rgba(${({ theme }) => theme.colors.rgb.primary}, 0.1);
     background-image: url("/images/pattern-05.png");
   }
   .loader {
     width: 100%;
     height: 100%;
+  }
+  .three-dot-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .btn {
@@ -589,6 +651,9 @@ const Wrapper = styled.section`
       background-color: ${({ theme }) => theme.colors.bg.secondary};
     }
     .user-chat-topbar {
+      position: sticky;
+      top: 0;
+      left: 0;
       width: 100%;
       background-color: ${({ theme }) => theme.colors.bg.primary};
       z-index: 50;
@@ -596,10 +661,34 @@ const Wrapper = styled.section`
       color: ${({ theme }) => theme.colors.heading};
       border-bottom: 1px solid rgba(${({ theme }) => theme.colors.border}, 0.3);
       animation: fadeInLeft 0.5s;
+      .chat-avatar {
+        position: relative;
+        overflow: hidden;
+        border-radius: 100%;
+        img {
+          position: relative;
+          z-index: -1;
+        }
+        &::after {
+              content: "";
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 3rem;
+              height: 3rem;
+              z-index: 3;
+              border-radius: 100%;
+            }
+        &:hover {
+             &::after{
+              background-color: rgba(0, 0, 0, 0.2);
+             }
+        }
+      }
     }
     .chat-conversation {
       overflow-y: scroll;
-      height: calc(100vh - 90px);
+      height: calc(100vh - 130px);
       .chat-conversation-list {
         margin-top: 90px;
         padding-bottom: 24px;
@@ -619,6 +708,7 @@ const Wrapper = styled.section`
               color: ${({ theme }) => theme.colors.heading};
             }
             .chat-avatar {
+              position: relative;
               overflow: hidden;
               border-radius: 100%;
               width: 3rem;
@@ -660,7 +750,9 @@ const Wrapper = styled.section`
       }
     }
     .chat-input-section {
-      position: relative;
+      position: sticky;
+      left: 0;
+      top: 100vh;
       background-color: ${({ theme }) => theme.colors.bg.primary};
       border-top: 1px solid rgba(${({ theme }) => theme.colors.border}, 0.3);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

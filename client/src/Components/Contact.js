@@ -6,7 +6,7 @@ const Contact = () => {
   return (
     <Wrapper id="contact">
       <div className="custom-container">
-        <div className="wrapper w-full lg:flex lg:space-x-[30px]">
+        <div className="wrapper w-full flex lg:flex-row flex-col lg:space-x-[30px] justify-center items-center">
           <div className="feedback-content lg:w-1/2 w-full">
             <div className="title" data-aos="fade-right">
               <h1>Feel free to drop us your feedback</h1>
@@ -24,7 +24,7 @@ const Contact = () => {
               />
             </div>
 
-            <div className="feedback-form flex-1  bg-white sm:p-10 p-3">
+            <div className="feedback-form flex-1  bg-white sm:p-10 py-5 px-5">
               <div className="title">
                 <h2>Send us your feedback</h2>
               </div>
@@ -188,12 +188,25 @@ const Wrapper = styled.section`
         }
         .feedback-form {
           border-radius: 10px;
+          input,textarea{
+            color: ${({ theme }) => theme.colors.black};
+          }
         }
       }
     }
   }
 
   @media only screen and (max-width: 992px) {
+    h1{
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+   .custom-container .wrapper {
+      .feedback-content{
+        margin: 0;
+        padding: 0;
+      }
+    }
     .feedback-content {
       margin-bottom: 2.5rem;
     }

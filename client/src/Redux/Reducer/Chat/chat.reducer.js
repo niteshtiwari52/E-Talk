@@ -1,4 +1,4 @@
-import { fetchUser } from "./chat.action";
+// import { fetchUser } from "./chat.action";
 import {
   CLEAR_SELECT_CHAT,
   CREATE_CHAT,
@@ -7,6 +7,7 @@ import {
   FETCH_USER,
   FETCH_USER_CLEAR,
   SELECT_CHAT,
+  SHOW_USER_LOADING
 } from "./chat.type";
 const initialState = {
   chats: [],
@@ -14,6 +15,7 @@ const initialState = {
   createdChat: {},
   createdGroupChat: {},
   selectedChat: {},
+  isUserLoading: false,
 };
 
 const chatReducer = (state = initialState, action) => {
@@ -58,6 +60,11 @@ const chatReducer = (state = initialState, action) => {
         ...state,
         selectedChat: action.payload,
       };
+      case SHOW_USER_LOADING:
+        return{
+          ...state,
+          isUserLoading: action.payload
+        }
 
     default:
       return {

@@ -23,7 +23,7 @@ const ChatMenu = () => {
   const tabIndex = useSelector((state) => state.tabReducer);
   const result = useSelector((globalState) => globalState.chat.newUser);
   const user = useSelector((globalState) => globalState.user.userDetails);
-  const loading = useSelector((globalState)=> globalState.message.isLoading);
+  const UserLoading = useSelector((globalState)=> globalState.chat.isUserLoading);
   const [showResult, setShowResult] = useState(false)
 
   // const chat = useSelector((globalState) => globalState.chat.chats);
@@ -60,7 +60,7 @@ const ChatMenu = () => {
   };
 
   useEffect(() => {
-   if(tabIndex != 4 || !search){
+   if(tabIndex !== 4 || !search){
     setSearch("")
     dispatch(fetchUserClear())
    }
@@ -107,7 +107,7 @@ const ChatMenu = () => {
               handleClick={handleClick}
               searchResult={searchResult}
               createNewChat={createNewChat}
-              loading = {loading}
+              UserLoading = {UserLoading}
               showResult={showResult}
             />
           </div>

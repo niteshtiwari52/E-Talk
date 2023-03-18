@@ -159,7 +159,6 @@ const Wrapper = styled.section`
 
     .team-list {
       text-align: center;
-      margin: 10px 50px;
       .swiper {
         justify-content: center;
         align-items: center;
@@ -316,6 +315,9 @@ const Wrapper = styled.section`
     }
   }
   @media screen and (min-width: 992px) {
+    .team-list{
+      margin: 10px 50px;
+    }
     .team-list li {
       width: calc(26% - 20px);
     }

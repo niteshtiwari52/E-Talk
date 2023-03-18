@@ -1,10 +1,10 @@
 import axios from "axios";
-import { loadingToggleAction } from "../Message/message.action";
 import {
   FETCH_CHATS,
   FETCH_USER,
   FETCH_USER_CLEAR,
-  SELECT_CHAT,
+  // SELECT_CHAT,
+  SHOW_USER_LOADING,
 } from "./chat.type";
 const SERVER_ACCESS_BASE_URL = process.env.REACT_APP_SERVER_ACCESS_BASE_URL;
 
@@ -26,14 +26,14 @@ export const fetchChats = () => async (dispatch) => {
 // fetching user for creating new one to one chat and group chat
 export const fetchUser = (Search) => async (dispatch) => {
   try {
-    dispatch(loadingToggleAction(true));
+    dispatch(loadingUserAction(true));
     const newUser = await axios({
       method: "GET",
       url: `${SERVER_ACCESS_BASE_URL}/api/user?search=${Search}`,
     });
 
     // console.log(...newUser.data);
-    dispatch(loadingToggleAction(false));
+    dispatch(loadingUserAction(false));
     return dispatch({ type: FETCH_USER, payload: newUser.data });
   } catch (error) {
     return dispatch({ type: "ERROR", payload: error });
@@ -116,3 +116,11 @@ export const clearSelectChatAction = () => async (dispatch) => {
 //     return dispatch({ type: "ERROR", payload: error });
 //   }
 // };
+
+export const loadingUserAction = (state) => {
+  return {
+    type: SHOW_USER_LOADING,
+    payload: state,
+  };
+};
+
