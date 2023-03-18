@@ -20,7 +20,7 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
-  const [loading1, setLoading1] = useState(true);
+  const [loading1, setLoading1] = useState(false);
 
   const result = useSelector((globalState) => globalState.auth.message);
   const status = useSelector((globalState) => globalState.auth.success);
