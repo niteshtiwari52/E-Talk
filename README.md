@@ -1,8 +1,29 @@
+[![Logo](https://e-talk.vercel.app/images/logo.png)](https://e-talk.vercel.app)
 
-# E-Talk 
+# E-Talk
 
 E-Talk is a basic chat Application that is build using the MERN Stack stands for MongoDB, ExpressJS, ReactJS, NodeJS.
 
+## Live Website
+
+- [E-Talk](https://e-talk.vercel.app)
+
+## Features
+
+- Sign Up
+- Sign In
+- Email Verification
+- Forgot Password
+- Reset Password
+- Dark/Light mode
+- one-on-one
+- Group Chat
+- Group Creation with min 3 users
+- Chat Theme
+- Update Profile Image
+- Update Profile Details
+- View others profile
+- Fully Responsive
 
 ## Tech Stack
 
@@ -10,35 +31,44 @@ E-Talk is a basic chat Application that is build using the MERN Stack stands for
 
 **Server:** Node, Express
 
+**Deployment:** Vercel(Frontend), Backend(Render)
 
-## Installation
+## Installation Guide
 
-Run E-Talk project on local system
+To Run E-Talk project on local system follow the simple steps:
 
-## Step-1 
+### Step-1
+
 clone this project on your local system
 
 ```bash
   git clone https://github.com/Nitesh52221/E-Talk.git
   cd E-Talk
 ```
-## Step-2 Installing Dependency
+
+### Step-2 Installing Dependency
+
 Installing Dependency for client and Server both
+
 ```bash
   cd E-Talk
 ```
-To Installing Dependency for client 
-```bash 
+
+To Installing Dependency for client
+
+```bash
   cd client
   npm i
 ```
-To Installing Dependency for server 
-```bash 
+
+To Installing Dependency for server
+
+```bash
   cd server
   npm i
 ```
 
-## Step-3 Adding Environment Variables
+### Step-3 Adding Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
 
@@ -47,7 +77,6 @@ To run this project, you will need to add the following environment variables to
 `REACT_APP_SERVER_ACCESS_BASE_URL`
 
 ### Environment Variables for Server
-
 
 `MONGO_URL`
 
@@ -71,58 +100,57 @@ To run this project, you will need to add the following environment variables to
 
 `CLIENT_ACCESS_URL`
 
-## Step-4 Start the Application on local machine
+### Step-4 Start the Application on local machine
 
-### To Start Frontend Server(or client):
- Move into client Directory by 
-```bash 
+#### To Start Frontend Server(or client):
+
+Move into client Directory by
+
+```bash
   cd client
 ```
+
 start the Frontend server by
-```bash 
+
+```bash
   npm start
 ```
+
 after ruunning this command, It will start after some time.
-### To Start Backend Server(or server):
- Move into server Directory by 
-```bash 
+
+#### To Start Backend Server(or server):
+
+Move into server Directory by
+
+```bash
   cd server
 ```
+
 start the Backend server by
-```bash 
+
+```bash
   npm start
 ```
+
 To start the server automatic after every changes we have to run this command :
-```bash 
+
+```bash
   npm run dev
 ```
+
 after starting the both Frontend and Backend server you can access application on the browser.
-
-
-
-
-
-
-
-## Features
-
-- Sign Up
-- Sign In
-- Email Verification
-- Forgot Password
-- Reset Password
-- Dark/Light mode
-- one-on-one
-- Group Chat
-- Group Creation with min 3 users
-- Remove member from group
-- Chat Theme 
-- Update Profile Image
-- Update Profile Details
-- View others profile
-
 
 ## Screenshots
 
+Available Soon.....
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
+## Authors
+
+- [@narendercoder](https://github.com/narendercoder)
+- [@niteshtiwari52](https://github.com/niteshtiwari52)
+- [@Rituresh143](https://github.com/Rituresh143)
+
+## Feedback
+
+If you have any feedback or Suggestion, please reach out to us at etalkhelp12@gmail.com

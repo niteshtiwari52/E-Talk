@@ -17,7 +17,7 @@ const HomePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [status, setStatus] = useState();
-  let [isOpen, setIsOpen] = useState(true);
+  let [isOpen, setIsOpen] = useState(false);
   const user = useSelector((globalState) => globalState.user.userDetails);
 
   const getUserData = async () => {

@@ -289,7 +289,7 @@ const ChatWindow = () => {
                               )
                             ) : (
                               <>
-                                {socketConnected ? <>Online</> : <>Offline</>}
+                                {socketConnected ? <>offline</> : <>Offline</>}
                               </>
                             )}
                           </small>
