@@ -10,6 +10,7 @@ import { getMySelf } from "../Redux/Reducer/User/user.action";
 import { fetchChats } from "../Redux/Reducer/Chat/chat.action";
 import Loading from "../Components/Loading";
 import { Dialog, Transition } from "@headlessui/react";
+import { clearAuthStore } from "../Redux/Reducer/Auth/auth.action";
 
 const HomePage = () => {
   const [loading, setloading] = useState(true);
@@ -31,6 +32,7 @@ const HomePage = () => {
         setloading(false);
       }, 1000);
     } else {
+      dispatch(clearAuthStore());
       setTimeout(() => {
         setloading(false);
       }, 1000);

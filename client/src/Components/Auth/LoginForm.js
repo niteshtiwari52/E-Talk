@@ -20,7 +20,7 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
-  const [loading1, setLoading1] = useState(false);
+  const [loading1, setLoading1] = useState(true);
 
   const result = useSelector((globalState) => globalState.auth.message);
   const status = useSelector((globalState) => globalState.auth.success);
@@ -151,12 +151,13 @@ const LoginForm = () => {
                 </label>
               </div> */}
               <Button
-                className="button bg-green-600 hover:bg-green-500 active:bg-green-700 text-white radius-round h-11 px-8 py-2 w-full"
+                className="button bg-green-600  hover:bg-green-500 active:bg-green-700 text-white radius-round h-11 px-8 py-2 w-full"
                 onClick={handleLogin}
               >
                 {loading1 ? (
                   <>
-                    Signing... <Loading1 />
+                    <span>Signing...</span>
+                    {/* <Loading1 /> */}
                   </>
                 ) : (
                   <>Log In</>

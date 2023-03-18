@@ -214,7 +214,8 @@ const SignupForm = () => {
               {loading1 ? (
                 <>
                   {" "}
-                  Registering... <Loading1 />{" "}
+                  Registering...
+                  {/* <Loading1 />{" "} */}
                 </>
               ) : (
                 <>Register</>

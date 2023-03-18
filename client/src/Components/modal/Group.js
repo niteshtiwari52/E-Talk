@@ -318,7 +318,8 @@ const Group = () => {
                     >
                       {loading1 ? (
                         <>
-                          creating... <Loading1 />{" "}
+                          creating...
+                          {/* <Loading1 />{" "} */}
                         </>
                       ) : (
                         <> Create Group</>
