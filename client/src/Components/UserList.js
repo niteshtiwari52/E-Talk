@@ -162,7 +162,7 @@ const Wrapper = styled.section`
     background-color: ${({ theme }) => theme.colors.primaryRgb};
   }
   .chat-main {
-    height: 100vh;
+    height: calc(100vh - 90px);
     background-color: ${({ theme }) => theme.colors.bg.primary};
     li.active {
       background-color: rgba(${({ theme }) => theme.colors.rgb.primary}, 0.12);

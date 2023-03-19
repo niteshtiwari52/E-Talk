@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import Social from "../../Styles/Social";
+// import Social from "../../Styles/Social";
 import { Button } from "../../Styles/Button";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // Redux
 import { clearAuthStore, signIn } from "../../Redux/Reducer/Auth/auth.action";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import ShowPasswordToggle from "../ShowPasswordToggle";
 import Loading1 from "../Loading1";
 
@@ -24,8 +24,8 @@ const LoginForm = () => {
 
   const result = useSelector((globalState) => globalState.auth.message);
   const status = useSelector((globalState) => globalState.auth.success);
-  const user = useSelector((globalState) => globalState.user.userDetails);
-  const serverResponse = useSelector((globalState) => globalState.auth);
+  // const user = useSelector((globalState) => globalState.user.userDetails);
+  // const serverResponse = useSelector((globalState) => globalState.auth);
   const navigateToHome = async () => {
     await navigate("/");
     await dispatch(clearAuthStore());
@@ -172,7 +172,6 @@ const LoginForm = () => {
             {/* </form> */}
           </div>
         </div>
-        <ToastContainer />
       </div>
     </>
   );

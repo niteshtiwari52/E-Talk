@@ -5,6 +5,7 @@ import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import styled from "styled-components";
+
 import { getSender, getSenderPic } from "../HelperFunction/chat.Helper";
 import {
   fetchChats,
@@ -122,7 +123,9 @@ const GroupProfile = (props) => {
 
                     <div className="detatils">
                       <div className="pt-4 w-full">
-                        <p className="text-lg  text-gray-400">Created At</p>
+                        <p className=" text-center text-lg  text-gray-400">
+                          Created At
+                        </p>
                       </div>
                       <div className="w-full">
                         <span className="text-lg">

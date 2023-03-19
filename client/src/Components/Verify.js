@@ -7,6 +7,7 @@ import { GoUnverified, GoVerified, GoMailRead, GoMail } from "react-icons/go";
 import { getMySelf } from "../Redux/Reducer/User/user.action";
 import { Dialog, Transition } from "@headlessui/react";
 import { userVerification } from "../Redux/Reducer/Auth/auth.action";
+import styled from "styled-components";
 
 const Verify = () => {
   const navigate = useNavigate();
@@ -94,7 +95,7 @@ const Verify = () => {
 
   return (
     <>
-      <div className="m-4 p-4 w-screen h-screen flex flex-col items-center justify-center">
+      <Wrapper className=" flex flex-col items-center justify-center">
         {status ? (
           <>
             <div className="flex flex-col items-center justify-center w-3/4">
@@ -233,9 +234,20 @@ const Verify = () => {
             </Transition>
           </>
         )}
-      </div>
+      </Wrapper>
     </>
   );
 };
 
 export default Verify;
+
+const Wrapper = styled.div`
+height: 100vh;
+width: 100vw;
+background-color: ${({ theme }) => theme.colors.bg.primary};
+h1,p{
+  color: ${({ theme }) => theme.colors.heading};
+}
+
+
+`

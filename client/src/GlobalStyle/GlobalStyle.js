@@ -43,9 +43,13 @@ export const GlobalStyle = createGlobalStyle`
   .button, .btn{
     background-color: ${({ theme }) => theme.colors.primaryRgb};
   }
+  .btn{
+    color: ${({ theme }) => theme.colors.white};
+  }
   .close-btn{
     color: ${({ theme }) => theme.colors.primaryRgb};
     &:hover{
+      color: ${({ theme }) => theme.colors.white} !important;
       background-color: ${({ theme }) => theme.colors.primaryRgb} !important;
     }
   }
@@ -214,6 +218,45 @@ export const GlobalStyle = createGlobalStyle`
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
+}
+
+.typing-loader {
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+    animation: loadertyping .8s ease-in-out infinite alternate;
+    animation-delay: .32s;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: -28px;
+}
+
+.typing-loader:after, .typing-loader:before {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+    box-shadow: 0 40px 0 #fff;
+    animation: loadertyping .8s ease-in-out infinite alternate;
+}
+.typing-loader:before {
+    left: -17px;
+    animation-delay: .48s;
+}
+.typing-loader:after {
+    right: -17px;
+    animation-delay: .16s;
+}
+@keyframes loadertyping {
+  0% {
+    box-shadow: 0 30px 0 #fff;
+}
+100% {
+    box-shadow: 0 10px 0 #fff;
+}
 }
 
 

@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../Styles/Button";
 import { HiChevronDoubleRight } from "react-icons/hi";
-// import { SquareDonut, Donut, Circle, PolygonCard } from "react-awesome-shapes";
+
 
 const HeroSection = () => {
   return (
@@ -34,49 +34,35 @@ const HeroSection = () => {
               </NavLink>
             </div>
           </div>
-
-          <div className="hero-section-image">
-            {/* <img src="./images/bg.png" alt="bg" className="img-style" /> */}
-          </div>
         </div>
       </div>
-      {/* React react-awesome-shapes code */}
-      {/* <div className="shapes">
-        <div className="shape-1">
-          <Circle
-            color="linear-gradient(135deg, #a5b4fc, #6366f1)"
-            size={["250px", "250px", "250px", "250px"]}
-            zIndex={2}
-          />
+
+        <div className="hero-section-image absolute w-full h-full">
+            {/* <img src="https://chitchat-react.vercel.app/assets/images/landing/2.png" alt="bg" className="img-style" /> */}
+          </div>
+
+      {/* shapes code */}
+      <div className="shapes">
+      <div className="shape-1">
+         <img width="250px" src="/images/shape-1.png" alt="" />
         </div>
         <div className="shape-2">
-          <Circle
-            color="linear-gradient(135deg, #a5b4fc, #6366f1)"
-            size={["800px", "800px", "800px", "800px"]}
-            zIndex={2}
-          />
+         <div style={{width: "800px"}}>
+         <img width="800px" src="/images/shape-1.png" alt="" />
+         </div>
         </div>
         <div className="shape-3">
-          <PolygonCard
-            height="250px"
-            width="150px"
-            zIndex={2}
-            color="linear-gradient(135deg, #f9a8d4, #ec4899)"
-          />
+         <div style={{width: "150px"}}>
+         <img width="800px" src="/images/shape-3.png" alt="" />
+         </div>
         </div>
-        <div></div>
+        <div className="shape-4">
+         <img width="43px" src="/images/shape-5.png" alt="" />
+        </div>
         <div className="shape-5">
-          <Donut
-            color="#2a9bd1"
-            size="50px"
-            width={["7px", "7px", "7px", "7px"]}
-            zIndex={2}
-          />
+         <img width="43px" style={{zIndex: "2"}} src="/images/shape-6.png" alt="" />
         </div>
-        <div className="shape-6">
-          <SquareDonut size="50px" zIndex={2} color="#2a9bd1" />
-        </div>
-      </div> */}
+      </div>
     </Wrapper>
   );
 };
@@ -141,12 +127,12 @@ const Wrapper = styled.section`
 
   .hero-section-image {
     position: absolute;
-    max-width: 58.333%;
-    width: 100%;
+    left: 0;
+    top: 0;
     .img-style {
       position: absolute;
-      left: 0;
-      top: 30px;
+      right: 0;
+      top: 0;
       vertical-align: middle;
       width: 50%;
       height: auto;
@@ -158,7 +144,7 @@ const Wrapper = styled.section`
     top: 0;
     width: 100%;
     height: 100%;
-    animation: Zoom-fade 5s infinite linear;
+    animation: zoom-fade 5s infinite linear;
     div {
       position: absolute;
     }
@@ -179,13 +165,13 @@ const Wrapper = styled.section`
       transform: rotate(20deg);
       opacity: 0.1;
     }
-    .shape-5 {
+    .shape-4 {
       bottom: 0%;
       left: 20%;
       transition: all 0.5s;
       animation: balloonfly-02 12s infinite;
     }
-    .shape-6 {
+    .shape-5 {
       bottom: 0%;
       right: 20%;
       transition: all 0.5s;
