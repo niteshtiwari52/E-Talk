@@ -51,6 +51,11 @@ const Verify = () => {
   }, [success]);
 
   useEffect(() => {
+    if (status) {
+      navigate("/");
+    }
+  }, [status]);
+  useEffect(() => {
     if (result) {
       setMessage(result);
     }
@@ -112,18 +117,17 @@ const Verify = () => {
                 Verification Link
               </p> */}
               <div className=" w-2/4 flex item-center justify-center">
+<<<<<<< HEAD
                 <span
                   className="text-2xl cursor-pointer text-blue-500  my-2 px-2 mx-auto align-middle"
+=======
+                <button
+                  className=" cursor-pointer bg-blue-500 my-2 px-3 rounded-lg py-3 mx-auto align-middle"
+>>>>>>> ab9d96ad05a239ab10a69b8033b3bf0b84fdf212
                   onClick={() => startChatting()}
                 >
-                  Start Chatting
-                </span>
-                {/* <span
-                  className="text-2xl cursor-pointer text-blue-500 dark:text-white my-2 px-2 mx-auto align-middle"
-                  onClick={() => chatting()}
-                >
-                  Chatting
-                </span> */}
+                  <span className=" text-2xl text-white">Start Chatting</span>
+                </button>
               </div>
             </div>
           </>
@@ -141,11 +145,21 @@ const Verify = () => {
               {/* <p className="text-2xl text-gray-900 dark:text-white my-2 px-2 mx-auto align-middle">
                 Verification Link
               </p> */}
+<<<<<<< HEAD
               <button className="resend-btn text-2xl cursor-pointer bg-blue-500 dark:text-white my-2 px-2 mx-auto align-middle">
               <span
                 onClick={() => openModal()}>
                 Verification Link Resend
               </span>
+=======
+              <button
+                className="cursor-pointer bg-blue-500 my-2 px-3 rounded-lg py-3 mx-auto align-middle"
+                onClick={() => openModal()}
+              >
+                <span className="text-2xl text-white">
+                  Verification Link Resend
+                </span>
+>>>>>>> ab9d96ad05a239ab10a69b8033b3bf0b84fdf212
               </button>
             </div>
             <Transition className="box" appear show={isOpen} as={Fragment}>
@@ -242,13 +256,15 @@ const Verify = () => {
 export default Verify;
 
 const Wrapper = styled.div`
-height: 100vh;
-width: 100vw;
-background-color: ${({ theme }) => theme.colors.bg.primary};
-h1,p{
-  color: ${({ theme }) => theme.colors.heading};
-}
+  height: 100vh;
+  width: 100vw;
+  background-color: ${({ theme }) => theme.colors.bg.primary};
+  h1,
+  p {
+    color: ${({ theme }) => theme.colors.heading};
+  }
 
+<<<<<<< HEAD
 .resend-btn{
   span{
     color: white !important;
@@ -256,3 +272,8 @@ h1,p{
 }
 
 `
+=======
+  
+  }
+`;
+>>>>>>> ab9d96ad05a239ab10a69b8033b3bf0b84fdf212

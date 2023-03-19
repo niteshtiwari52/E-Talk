@@ -54,32 +54,45 @@ const HomePage = () => {
     if (!status) {
       navigate("/verification");
       // alert("mot verified ");
-    } 
+    }
     // else {
-      // alert("verified");
+    // alert("verified");
     // }
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
 
-
   return (
     <>
-          {
-            loading ? <>
-            <Loading />
-            </> : <>
-            {user?.name ? (
-            <Suspense fallback={<><Loading /></>}>
+      {loading ? (
+        <>
+          <Loading />
+        </>
+      ) : (
+        <>
+          {user?.name ? (
+            <Suspense
+              fallback={
+                <>
+                  <Loading />
+                </>
+              }
+            >
               <Chat />
             </Suspense>
           ) : (
-            <Suspense fallback={<><Loading /> </> }>
+            <Suspense
+              fallback={
+                <>
+                  <Loading />{" "}
+                </>
+              }
+            >
               <Welcome />
             </Suspense>
           )}
-            </>
-          }
+        </>
+      )}
     </>
   );
 };
