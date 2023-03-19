@@ -12,7 +12,7 @@ const Welcome = React.lazy(() => import("../Components/Welcome"));
 const Chat = React.lazy(() => import("../Components/Chat"));
 
 const HomePage = () => {
-  // const [loading, setloading] = useState(true);
+  const [loading, setloading] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [status, setStatus] = useState();
@@ -29,14 +29,14 @@ const HomePage = () => {
   useEffect(() => {
     if (localStorage.ETalkUser) {
       getUserData();
-      // setTimeout(() => {
-      //   setloading(false);
-      // }, 1000);
+      setTimeout(() => {
+        setloading(false);
+      }, 1000);
     } else {
       dispatch(clearAuthStore());
-      // setTimeout(() => {
-      //   setloading(false);
-      // }, 1000);
+      setTimeout(() => {
+        setloading(false);
+      }, 1000);
     }
 
     // eslint-disable-next-line
@@ -54,28 +54,46 @@ const HomePage = () => {
     if (!status) {
       navigate("/verification");
       // alert("mot verified ");
-    } 
+    }
     // else {
-      // alert("verified");
+    // alert("verified");
     // }
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
 
-
   return (
     <>
+      {loading ? (
+        <>
+          <Loading />
+        </>
+      ) : (
+        <>
           {user?.name ? (
-            <Suspense fallback={<><Loading /></>}>
+            <Suspense
+              fallback={
+                <>
+                  <Loading />
+                </>
+              }
+            >
               <Chat />
             </Suspense>
           ) : (
-            <Suspense fallback={<><Loading /> </> }
+            <Suspense
+              fallback={
+                <>
+                  <Loading />{" "}
+                </>
+              }
             >
               <Welcome />
             </Suspense>
           )}
         </>
+      )}
+    </>
   );
 };
 export default DefaultLayoutHoc(HomePage);

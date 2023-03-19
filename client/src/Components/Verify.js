@@ -51,6 +51,11 @@ const Verify = () => {
   }, [success]);
 
   useEffect(() => {
+    if (status) {
+      navigate("/");
+    }
+  }, [status]);
+  useEffect(() => {
     if (result) {
       setMessage(result);
     }
@@ -70,9 +75,9 @@ const Verify = () => {
     navigate("/");
   };
 
-  const resendLink = () => {
-    navigate("/verification");
-  };
+  // const resendLink = () => {
+  //   navigate("/verification");
+  // };
 
   const handleChange = (e) => {
     setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -112,18 +117,12 @@ const Verify = () => {
                 Verification Link
               </p> */}
               <div className=" w-2/4 flex item-center justify-center">
-                <span
-                  className="text-2xl cursor-pointer text-blue-500 dark:text-white my-2 px-2 mx-auto align-middle"
+                <button
+                  className=" cursor-pointer bg-blue-500 my-2 px-3 rounded-lg py-3 mx-auto align-middle"
                   onClick={() => startChatting()}
                 >
-                  Start Chatting
-                </span>
-                {/* <span
-                  className="text-2xl cursor-pointer text-blue-500 dark:text-white my-2 px-2 mx-auto align-middle"
-                  onClick={() => chatting()}
-                >
-                  Chatting
-                </span> */}
+                  <span className=" text-2xl text-white">Start Chatting</span>
+                </button>
               </div>
             </div>
           </>
@@ -141,12 +140,14 @@ const Verify = () => {
               {/* <p className="text-2xl text-gray-900 dark:text-white my-2 px-2 mx-auto align-middle">
                 Verification Link
               </p> */}
-              <span
-                className="text-2xl cursor-pointer text-blue-500 dark:text-white my-2 px-2 mx-auto align-middle"
+              <button
+                className="cursor-pointer bg-blue-500 my-2 px-3 rounded-lg py-3 mx-auto align-middle"
                 onClick={() => openModal()}
               >
-                Verification Link Resend
-              </span>
+                <span className="text-2xl text-white">
+                  Verification Link Resend
+                </span>
+              </button>
             </div>
             <Transition className="box" appear show={isOpen} as={Fragment}>
               <Dialog
@@ -242,12 +243,14 @@ const Verify = () => {
 export default Verify;
 
 const Wrapper = styled.div`
-height: 100vh;
-width: 100vw;
-background-color: ${({ theme }) => theme.colors.bg.primary};
-h1,p{
-  color: ${({ theme }) => theme.colors.heading};
-}
+  height: 100vh;
+  width: 100vw;
+  background-color: ${({ theme }) => theme.colors.bg.primary};
+  h1,
+  p {
+    color: ${({ theme }) => theme.colors.heading};
+  }
 
-
-`
+  
+  }
+`;

@@ -310,11 +310,11 @@ const ChatWindow = () => {
                                 )
                               ) : (
                                 <>
-                                  {socketConnected ? (
+                                  {/* {socketConnected ? (
                                     <>offline</>
                                   ) : (
                                     <>Offline</>
-                                  )}
+                                  )} */}
                                 </>
                               )}
                             </small>
@@ -675,30 +675,6 @@ const Wrapper = styled.section`
       color: ${({ theme }) => theme.colors.heading};
       border-bottom: 1px solid rgba(${({ theme }) => theme.colors.border}, 0.3);
       animation: fadeInLeft 0.5s;
-      .chat-avatar {
-        position: relative;
-        overflow: hidden;
-        border-radius: 100%;
-        img {
-          position: relative;
-          z-index: -1;
-        }
-        &::after {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 3rem;
-          height: 3rem;
-          z-index: 3;
-          border-radius: 100%;
-        }
-        &:hover {
-          &::after {
-            background-color: rgba(0, 0, 0, 0.2);
-          }
-        }
-      }
     }
     .chat-conversation {
       overflow-y: scroll;
