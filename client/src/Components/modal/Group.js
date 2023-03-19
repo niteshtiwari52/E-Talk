@@ -4,6 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { BiGroup } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 // import Loading1 from "../Loading1";
+// import Loading1 from "../Loading1";
 import {
   createGroupChat,
   fetchChats,
@@ -130,18 +131,6 @@ const Group = () => {
 
   return (
     <>
-      {/* <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      /> */}
       <div className="group-icon rounded-full p-2 " onClick={() => openModal()}>
         <BiGroup className="icon text-2xl cursor-pointer" />
       </div>
