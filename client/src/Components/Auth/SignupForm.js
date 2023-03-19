@@ -70,6 +70,12 @@ const SignupForm = () => {
   };
 
   const handleSignUp = () => {
+    if (userData.password !== userData.confirmPassword) {
+      toast.error("Password and Confirm Password Does not match", {
+        autoClose: 1000,
+      });
+      return;
+    }
     setLoading1(true);
     if (
       userData.email &&
