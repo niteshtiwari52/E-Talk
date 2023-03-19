@@ -117,13 +117,8 @@ const Verify = () => {
                 Verification Link
               </p> */}
               <div className=" w-2/4 flex item-center justify-center">
-<<<<<<< HEAD
-                <span
-                  className="text-2xl cursor-pointer text-blue-500  my-2 px-2 mx-auto align-middle"
-=======
                 <button
                   className=" cursor-pointer bg-blue-500 my-2 px-3 rounded-lg py-3 mx-auto align-middle"
->>>>>>> ab9d96ad05a239ab10a69b8033b3bf0b84fdf212
                   onClick={() => startChatting()}
                 >
                   <span className=" text-2xl text-white">Start Chatting</span>
@@ -145,13 +140,6 @@ const Verify = () => {
               {/* <p className="text-2xl text-gray-900 dark:text-white my-2 px-2 mx-auto align-middle">
                 Verification Link
               </p> */}
-<<<<<<< HEAD
-              <button className="resend-btn text-2xl cursor-pointer bg-blue-500 dark:text-white my-2 px-2 mx-auto align-middle">
-              <span
-                onClick={() => openModal()}>
-                Verification Link Resend
-              </span>
-=======
               <button
                 className="cursor-pointer bg-blue-500 my-2 px-3 rounded-lg py-3 mx-auto align-middle"
                 onClick={() => openModal()}
@@ -159,7 +147,6 @@ const Verify = () => {
                 <span className="text-2xl text-white">
                   Verification Link Resend
                 </span>
->>>>>>> ab9d96ad05a239ab10a69b8033b3bf0b84fdf212
               </button>
             </div>
             <Transition className="box" appear show={isOpen} as={Fragment}>
@@ -263,17 +250,4 @@ const Wrapper = styled.div`
   p {
     color: ${({ theme }) => theme.colors.heading};
   }
-
-<<<<<<< HEAD
-.resend-btn{
-  span{
-    color: white !important;
-  }
-}
-
-`
-=======
-  
-  }
 `;
->>>>>>> ab9d96ad05a239ab10a69b8033b3bf0b84fdf212
