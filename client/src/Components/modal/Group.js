@@ -3,7 +3,7 @@ import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { BiGroup } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import Loading1 from "../Loading1";
+// import Loading1 from "../Loading1";
 import {
   createGroupChat,
   fetchChats,
@@ -119,6 +119,7 @@ const Group = () => {
       return;
     }
     dispatch(fetchUser(search));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
   return (
