@@ -50,8 +50,7 @@ const ChatWindow = () => {
   const [count, setCount] = useState(0);
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
-  const [user, setUser] = useState()
-
+  const [user, setUser] = useState();
 
   const senderUser = useSelector(
     (globalState) => globalState.chat.selectedChat
@@ -98,30 +97,23 @@ const ChatWindow = () => {
       element.classList.remove("active");
     });
   };
- 
-  const getUserId = () =>{
 
-
-  if(loggedUser._id === sender?.users[0]._id){
-    const arr = sender.users.reverse();
-    setUser(arr);
-    
-   }
-   else{
-     setUser(sender?.users);
-   }
-
- 
-  }
+  const getUserId = () => {
+    if (loggedUser._id === sender?.users[0]._id) {
+      const arr = sender.users.reverse();
+      setUser(arr);
+    } else {
+      setUser(sender?.users);
+    }
+  };
 
   // console.log(user)
 
- useEffect(() => {
-  getUserId();
+  useEffect(() => {
+    getUserId();
+  });
 
- })
- 
-//  console.log(sender?.users)
+  //  console.log(sender?.users)
 
   // for input changing
   const handleChange = (e) => {
@@ -149,9 +141,6 @@ const ChatWindow = () => {
       // console.log(typing);
     }, timerLength);
   };
-
- 
-
 
   // Sending message
   const handleClick = async () => {
@@ -251,172 +240,181 @@ const ChatWindow = () => {
 
   return (
     <Wrapper className="" id="user-chat">
-      {!sender ? (
-        <>
-          <div className="chat-welcome-section overflow-x-hidden flex justify-center items-center">
-            <div className="flex justify-center items-center p-4">
-              <div className=" flex flex-col justify-center items-center text-center">
-                <div className="avatar mx-auto mb-4">
-                  <div className=" rounded-full">
-                    <img src="./images/logo2.png" alt="logo" className="w-10" />
+      <div className="chat-window-section">
+        {!sender ? (
+          <>
+            <div className="chat-welcome-section overflow-x-hidden flex justify-center items-center">
+              <div className="flex justify-center items-center p-4">
+                <div className=" flex flex-col justify-center items-center text-center">
+                  <div className="avatar mx-auto mb-4">
+                    <div className=" rounded-full">
+                      <img
+                        src="./images/logo2.png"
+                        alt="logo"
+                        className="w-10"
+                      />
+                    </div>
                   </div>
+                  <h4>Welcome to E-Talk Chat App</h4>
+                  <p>Click on user to start chat.</p>
+                  {/* <Button>Get Started</Button> */}
                 </div>
-                <h4>Welcome to E-Talk Chat App</h4>
-                <p>Click on user to start chat.</p>
-                {/* <Button>Get Started</Button> */}
               </div>
             </div>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="chat-content flex">
-            <div className="w-full h-full position-relative">
-              {/* user-chat-topbar */}
-              <div className="user-chat-topbar p-3 p-lg-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center justify-center">
-                    <div
-                      className="arrow-icon ml-5 mr-5 cursor-pointer text-2xl p-2 rounded-full"
-                      onClick={userChathidden}
-                    >
-                      <MdOutlineArrowBackIos onClick={closeChat} />
+          </>
+        ) : (
+          <>
+            <div className="chat-content flex">
+              <div className="w-full h-full position-relative">
+                {/* user-chat-topbar */}
+                <div className="user-chat-topbar p-3 p-lg-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-center">
+                      <div
+                        className="arrow-icon ml-5 mr-5 cursor-pointer text-2xl p-2 rounded-full"
+                        onClick={userChathidden}
+                      >
+                        <MdOutlineArrowBackIos onClick={closeChat} />
+                      </div>
+
+                      <div
+                        className="flex items-center cursor-pointer"
+                        onClick={openModal}
+                      >
+                        <div className="chat-avatar mr-4">
+                          <img
+                            // src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
+                            src={
+                              !sender.isGroupChat
+                                ? getSenderPic(loggedUser, sender.users)
+                                : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6wQvepXb0gM_Ft1QUOs6UyYJjPOmA-gq5Yw&usqp=CAU"
+                            }
+                            alt="profile"
+                            className=" w-12 h-12 rounded-full"
+                          />
+                        </div>
+                        <div className="overflow-hidden">
+                          <h6 className="mb-0">
+                            {sender.isGroupChat
+                              ? sender.chatName
+                              : getSender(loggedUser, sender.users)}
+                          </h6>
+                          <p className="mb-0 truncate">
+                            {/* status to be set later */}
+                            <small className="truncate">
+                              {sender.isGroupChat ? (
+                                sender.users.map(
+                                  (item, index) =>
+                                    (index ? ", " : " ") + item.name
+                                )
+                              ) : (
+                                <>
+                                  {socketConnected ? (
+                                    <>offline</>
+                                  ) : (
+                                    <>Offline</>
+                                  )}
+                                </>
+                              )}
+                            </small>
+                          </p>
+                        </div>
+                      </div>
                     </div>
 
-                    <div
-                      className="flex items-center cursor-pointer"
-                      onClick={openModal}
-                    >
-                      <div className="chat-avatar mr-4">
-                        <img
-                          // src="https://themes.pixelstrap.com/chitchat/assets/images/avtar/2.jpg"
-                          src={
-                            !sender.isGroupChat
-                              ? getSenderPic(loggedUser, sender.users)
-                              : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6wQvepXb0gM_Ft1QUOs6UyYJjPOmA-gq5Yw&usqp=CAU"
-                          }
-                          alt="profile"
-                          className=" w-12 h-12 rounded-full"
-                        />
+                    <div className="flex items-center">
+                      <div className="dropdown relative">
+                        <Dropdown openModal={openModal} />
                       </div>
-                      <div className="overflow-hidden">
-                        <h6 className="mb-0">
-                          {sender.isGroupChat
-                            ? sender.chatName
-                            : getSender(loggedUser, sender.users)}
-                        </h6>
-                        <p className="mb-0 truncate">
-                          {/* status to be set later */}
-                          <small className="truncate">
-                            {sender.isGroupChat ? (
-                              sender.users.map(
-                                (item, index) =>
-                                  (index ? ", " : " ") + item.name
-                              )
-                            ) : (
-                              <>
-                                {socketConnected ? <>offline</> : <>Offline</>}
-                              </>
-                            )}
-                          </small>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center">
-                    <div className="dropdown relative">
-                      <Dropdown openModal={openModal} />
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="chat-conversation p-3 p-lg-4">
-                <ul className="chat-conversation-list">
-                  {loading  ? (
-                    <>
-                      <div className="loader flex justify-center items-center">
-                        <Spinner />
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      {message.map((item) =>
-                        isMyMessage(loggedUser, item) && item.sender.pic ? (
-                          <>
-                            <li key={item._id} className="chat-list right">
-                              <div className="conversation-list">
-                                <div className="chat-avatar mr-4">
-                                  <img
-                                    src={item.sender.pic}
-                                    alt=""
-                                    className="rounded-full"
-                                  />
-                                </div>
-                                <div className="user-chat-content">
-                                  <div className="flex mb-3 justify-end">
-                                    <div className="chat-wrap-content">
-                                      <span className="mb-0 chat-content text-sm font-medium text-left">
-                                        {item.content}
+                <div className="chat-conversation p-3 p-lg-4">
+                  <ul className="chat-conversation-list">
+                    {loading ? (
+                      <>
+                        <div className="loader flex justify-center items-center">
+                          <Spinner />
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        {message.map((item) =>
+                          isMyMessage(loggedUser, item) && item.sender.pic ? (
+                            <>
+                              <li key={item._id} className="chat-list right">
+                                <div className="conversation-list">
+                                  <div className="chat-avatar mr-4">
+                                    <img
+                                      src={item.sender.pic}
+                                      alt=""
+                                      className="rounded-full"
+                                    />
+                                  </div>
+                                  <div className="user-chat-content">
+                                    <div className="flex mb-3 justify-end">
+                                      <div className="chat-wrap-content">
+                                        <span className="mb-0 chat-content text-sm font-medium text-left">
+                                          {item.content}
+                                        </span>
+                                      </div>
+                                    </div>
+                                    <div className="conversation-name ">
+                                      <small className=" mb-0">
+                                        {/* {getTime(item.createdAt)} */}
+                                        {moment(item.createdAt)
+                                          .format("DD/MMM/YYYY , h:mm a")
+                                          .toUpperCase()}
+                                      </small>
+
+                                      <span className="ml-2 text-xs user-name">
+                                        {/* {item.sender.name} */}
+                                        you
                                       </span>
                                     </div>
                                   </div>
-                                  <div className="conversation-name ">
-                                    <small className=" mb-0">
-                                      {/* {getTime(item.createdAt)} */}
-                                      {moment(item.createdAt)
-                                        .format("DD/MMM/YYYY , h:mm a")
-                                        .toUpperCase()}
-                                    </small>
-
-                                    <span className="ml-2 text-xs user-name">
-                                      {/* {item.sender.name} */}
-                                      you
-                                    </span>
+                                </div>
+                              </li>
+                            </>
+                          ) : (
+                            <>
+                              <li key={item._id} className="chat-list">
+                                <div className="conversation-list">
+                                  <div className="chat-avatar mr-4">
+                                    <img
+                                      src={item.sender.pic}
+                                      alt=""
+                                      className="rounded-full"
+                                    />
                                   </div>
-                                </div>
-                              </div>
-                            </li>
-                          </>
-                        ) : (
-                          <>
-                            <li key={item._id} className="chat-list">
-                              <div className="conversation-list">
-                                <div className="chat-avatar mr-4">
-                                  <img
-                                    src={item.sender.pic}
-                                    alt=""
-                                    className="rounded-full"
-                                  />
-                                </div>
-                                <div className="user-chat-content">
-                                  <div className="flex mb-3">
-                                    <div className="chat-wrap-content">
-                                      <span className="mb-0  text-sm font-medium text-left">
-                                           {item.content}
+                                  <div className="user-chat-content">
+                                    <div className="flex mb-3">
+                                      <div className="chat-wrap-content">
+                                        <span className="mb-0  text-sm font-medium text-left">
+                                          {item.content}
+                                        </span>
+                                      </div>
+                                    </div>
+                                    <div className="conversation-name">
+                                      <span className="ml-2 text-xs user-name">
+                                        {item.sender.name}
                                       </span>
+                                      <small className="ml-2 mb-0">
+                                        {/* {getTime(item.createdAt)} */}
+                                        {moment(item.createdAt)
+                                          .format("DD/MMM/YYYY , h:mm a")
+                                          .toUpperCase()}
+                                      </small>
                                     </div>
                                   </div>
-                                  <div className="conversation-name">
-                                    <span className="ml-2 text-xs user-name">
-                                      {item.sender.name}
-                                    </span>
-                                    <small className="ml-2 mb-0">
-                                      {/* {getTime(item.createdAt)} */}
-                                      {moment(item.createdAt)
-                                        .format("DD/MMM/YYYY , h:mm a")
-                                        .toUpperCase()}
-                                    </small>
-                                  </div>
                                 </div>
-                              </div>
-                            </li>
-                          </>
-                        )
-                      )}
-                      <div ref={messageEndRef}></div>
-                      {/* {
+                              </li>
+                            </>
+                          )
+                        )}
+                        <div ref={messageEndRef}></div>
+                        {/* {
                         isTyping? <>
 
                         <li className="chat-list">
@@ -447,99 +445,103 @@ const ChatWindow = () => {
 
                         </> : <> </>
                       } */}
-                    </>
-                  )}
-                </ul>
-              </div>
+                      </>
+                    )}
+                  </ul>
+                </div>
 
-              <div className="chat-input-section p-5 p-lg-6">
-                <div className="flex justify-between items-center">
-                  <div className="chat-input flex">
-                    {/* 3 dot button button */}
-                    {/* <div className="links-list-item">
+                <div className="chat-input-section p-5 p-lg-6">
+                  <div className="flex justify-between items-center">
+                    <div className="chat-input flex">
+                      {/* 3 dot button button */}
+                      {/* <div className="links-list-item">
                       <div className="btn dot-btn">
                         <BiDotsHorizontalRounded />
                       </div>
                     </div> */}
-                    {/* emoji button */}
-                    <div className="links-list-item">
-                      <Menu>
-                        <Menu.Button className="flex justify-center items-center btn emoji-btn mr-2">
-                          <BiSmile title="emoji" />
-                        </Menu.Button>
-                        <Transition
-                          as={Fragment}
-                          enter="transition ease-out duration-100"
-                          enterFrom="transform opacity-0 scale-95"
-                          enterTo="transform opacity-100 scale-100"
-                          leave="transition ease-in duration-75"
-                          leaveFrom="transform opacity-100 scale-100"
-                          leaveTo="transform opacity-0 scale-95"
-                        >
-                          <Menu.Items className="emoji-picker">
-                            <Picker
-                              theme={!theme ? "light" : "dark"}
-                              onEmojiSelect={pickEmoji}
-                            />
-                          </Menu.Items>
-                        </Transition>
-                      </Menu>
+                      {/* emoji button */}
+                      <div className="links-list-item">
+                        <Menu>
+                          <Menu.Button className="flex justify-center items-center btn emoji-btn mr-2">
+                            <BiSmile title="emoji" />
+                          </Menu.Button>
+                          <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                          >
+                            <Menu.Items className="emoji-picker">
+                              <Picker
+                                theme={!theme ? "light" : "dark"}
+                                onEmojiSelect={pickEmoji}
+                              />
+                            </Menu.Items>
+                          </Transition>
+                        </Menu>
+                      </div>
                     </div>
-                  </div>
-                  {/* input field */}
-                  <div className="position-relative w-full">
-                    <input
-                      placeholder="Type Your message..."
-                      autoComplete="off"
-                      id="chat-input"
-                      className="w-full py-3 px-5 focus:outline-none"
-                      value={newMessage}
-                      onChange={handleChange}
-                      ref={inputRef}
-                    />
-                  </div>
-                  {/* submit button */}
-                  <div className="chat-input-links ml-2" onClick={handleClick}>
-                    <div className="links-list-items ml-5 ">
-                      <Button className="btn submit-btn flex justify-center items-center">
-                        <IoMdSend />
-                      </Button>
+                    {/* input field */}
+                    <div className="position-relative w-full">
+                      <input
+                        placeholder="Type Your message..."
+                        autoComplete="off"
+                        id="chat-input"
+                        className="w-full py-3 px-5 focus:outline-none"
+                        value={newMessage}
+                        onChange={handleChange}
+                        ref={inputRef}
+                      />
+                    </div>
+                    {/* submit button */}
+                    <div
+                      className="chat-input-links ml-2"
+                      onClick={handleClick}
+                    >
+                      <div className="links-list-items ml-5 ">
+                        <Button className="btn submit-btn flex justify-center items-center">
+                          <IoMdSend />
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </>
-      )}
+          </>
+        )}
 
-      <div className="absolute">
-        <div className="flex items-center justify-center">
-          <Transition appear show={isOpen} as={Fragment}>
-            <Dialog
-              as="div"
-              className="user-profile-sidebar absolute z-50"
-              onClose={closeModal}
-            >
-              <div className="dialog-wrapper z-50 fixed inset-0">
-                <div className="dialog-container flex min-h-full items-start justify-end text-center">
-                  <Transition.Child
-                    as={Fragment}
-                    enter="ease-in-out duration-300 transform"
-                    enterFrom="translate-x-full scale-95"
-                    enterTo="translate-x-100 "
-                    leave="ease-in-out duration-300 transform"
-                    leaveFrom="translate-x-100"
-                    leaveTo="translate-x-full"
-                  >
-                    <Dialog.Panel className="dialog-panel z-50  h-screen max-w-sm transform  text-white text-left shadow-xl transition-all">
-                      <UserProfile closeModal={closeModal} />
-                    </Dialog.Panel>
-                  </Transition.Child>
+        <div className="absolute">
+          <div className="flex items-center justify-center">
+            <Transition appear show={isOpen} as={Fragment}>
+              <Dialog
+                as="div"
+                className="user-profile-sidebar absolute z-50"
+                onClose={closeModal}
+              >
+                <div className="dialog-wrapper z-50 fixed inset-0">
+                  <div className="dialog-container flex min-h-full items-start justify-end text-center">
+                    <Transition.Child
+                      as={Fragment}
+                      enter="ease-in-out duration-300 transform"
+                      enterFrom="translate-x-full scale-95"
+                      enterTo="translate-x-100 "
+                      leave="ease-in-out duration-300 transform"
+                      leaveFrom="translate-x-100"
+                      leaveTo="translate-x-full"
+                    >
+                      <Dialog.Panel className="dialog-panel z-50  h-screen max-w-sm transform  text-white text-left shadow-xl transition-all">
+                        <UserProfile closeModal={closeModal} />
+                      </Dialog.Panel>
+                    </Transition.Child>
+                  </div>
                 </div>
-              </div>
-            </Dialog>
-          </Transition>
+              </Dialog>
+            </Transition>
+          </div>
         </div>
       </div>
     </Wrapper>
@@ -547,12 +549,16 @@ const ChatWindow = () => {
 };
 
 const Wrapper = styled.section`
-  position: relative;
   width: 100%;
   height: 100vh;
-  min-width: auto;
-  overflow: hidden;
-  background-color: ${({ theme }) => theme.colors.bg.primary};
+
+  .chat-window-section {
+    width: 100%;
+    height: 100%;
+    min-width: auto;
+    overflow: hidden;
+    background-color: ${({ theme }) => theme.colors.bg.primary};
+  }
 
   .chat-content {
     width: 100%;
@@ -670,19 +676,19 @@ const Wrapper = styled.section`
           z-index: -1;
         }
         &::after {
-              content: "";
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: 3rem;
-              height: 3rem;
-              z-index: 3;
-              border-radius: 100%;
-            }
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 3rem;
+          height: 3rem;
+          z-index: 3;
+          border-radius: 100%;
+        }
         &:hover {
-             &::after{
-              background-color: rgba(0, 0, 0, 0.2);
-             }
+          &::after {
+            background-color: rgba(0, 0, 0, 0.2);
+          }
         }
       }
     }
@@ -795,6 +801,9 @@ const Wrapper = styled.section`
   @media screen and (min-width: 800px) {
     .arrow-icon {
       display: none;
+    }
+    .chat-window-section {
+      position: relative;
     }
   }
 `;
