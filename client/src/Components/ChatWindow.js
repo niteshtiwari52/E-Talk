@@ -560,7 +560,6 @@ const Wrapper = styled.section`
     overflow: hidden;
     background-color: ${({ theme }) => theme.colors.bg.primary};
   }
-
   .chat-content {
     width: 100%;
     height: 100vh;
@@ -783,6 +782,9 @@ const Wrapper = styled.section`
   }
 
   @media screen and (min-width: 800px) {
+    .chat-window-section {
+      position: relative;
+    }
     .arrow-icon {
       display: none;
     }

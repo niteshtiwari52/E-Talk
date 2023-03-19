@@ -14,8 +14,6 @@ const UserList = ({ searchOpen, query , chatList, chat, loggedUser, result, setS
     document.getElementById("user-chat").classList.remove("fadeInRight2");
   };
 
-
-
   return (
     // <Wrapper>
     <Wrapper>

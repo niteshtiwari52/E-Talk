@@ -39,6 +39,7 @@ export const GlobalStyle = createGlobalStyle`
     background-color: rgba(${({ theme }) => theme.colors.border},0.5)
   }
   .dialog-panel{
+  color: ${({ theme }) => theme.colors.heading};
   background-color: ${({ theme }) => theme.colors.bg.primary};
   .button, .btn{
     background-color: ${({ theme }) => theme.colors.primaryRgb};
