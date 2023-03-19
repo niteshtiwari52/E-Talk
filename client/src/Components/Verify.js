@@ -70,9 +70,9 @@ const Verify = () => {
     navigate("/");
   };
 
-  const resendLink = () => {
-    navigate("/verification");
-  };
+  // const resendLink = () => {
+  //   navigate("/verification");
+  // };
 
   const handleChange = (e) => {
     setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -113,7 +113,7 @@ const Verify = () => {
               </p> */}
               <div className=" w-2/4 flex item-center justify-center">
                 <span
-                  className="text-2xl cursor-pointer text-blue-500 dark:text-white my-2 px-2 mx-auto align-middle"
+                  className="text-2xl cursor-pointer text-blue-500  my-2 px-2 mx-auto align-middle"
                   onClick={() => startChatting()}
                 >
                   Start Chatting
@@ -141,12 +141,12 @@ const Verify = () => {
               {/* <p className="text-2xl text-gray-900 dark:text-white my-2 px-2 mx-auto align-middle">
                 Verification Link
               </p> */}
+              <button className="resend-btn text-2xl cursor-pointer bg-blue-500 dark:text-white my-2 px-2 mx-auto align-middle">
               <span
-                className="text-2xl cursor-pointer text-blue-500 dark:text-white my-2 px-2 mx-auto align-middle"
-                onClick={() => openModal()}
-              >
+                onClick={() => openModal()}>
                 Verification Link Resend
               </span>
+              </button>
             </div>
             <Transition className="box" appear show={isOpen} as={Fragment}>
               <Dialog
@@ -249,5 +249,10 @@ h1,p{
   color: ${({ theme }) => theme.colors.heading};
 }
 
+.resend-btn{
+  span{
+    color: white !important;
+  }
+}
 
 `

@@ -4,6 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { BiGroup } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 // import Loading1 from "../Loading1";
+// import Loading1 from "../Loading1";
 import {
   createGroupChat,
   fetchChats,
@@ -40,15 +41,21 @@ const Group = () => {
   }
 
   const addUserTogroup = (userToAdd, index) => {
-    // console.log(userToAdd);
-    
-    // if (selectedUser.includes(userToAdd)) {
-    //   toast.error(`${userToAdd.name} already added`, {
-    //     autoClose: 1000,
-    //   });
-
-    setSelectedUser([...selectedUser, userToAdd]);
-    // setSearchResult(result.splice(index, 1))
+    const userExist = selectedUser.some((item) => item._id === userToAdd._id);
+    if (userExist) {
+      toast.warn(`${userToAdd.name} already added`, {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      setSelectedUser([...selectedUser, userToAdd]);
+    }
   };
   console.log(selectedUser);
 
@@ -126,18 +133,6 @@ const Group = () => {
 
   return (
     <>
-      {/* <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      /> */}
       <div className="group-icon rounded-full p-2 " onClick={() => openModal()}>
         <BiGroup className="icon text-2xl cursor-pointer" />
       </div>
@@ -284,14 +279,13 @@ const Group = () => {
                                           </h2>
                                         </div>
 
-                                        <div className="user-add flex justify-center items-center cursor-pointer rounded-full p-2">
-                                             <>
-                                              <AiOutlinePlus
-                                                onClick={() =>
-                                                  addUserTogroup(item, index)
-                                                }
-                                              />
-                                            </>
+                                        <div
+                                          className="user-add flex justify-center items-center cursor-pointer rounded-full p-2"
+                                          onClick={() =>
+                                            addUserTogroup(item, index)
+                                          }
+                                        >
+                                          <AiOutlinePlus />
                                         </div>
                                       </div>
                                     </li>

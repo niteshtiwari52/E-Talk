@@ -2,16 +2,89 @@ import moment from "moment";
 import React, { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { RxCross2 } from "react-icons/rx";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import styled from "styled-components";
-// import { getSender, getSenderPic } from "../HelperFunction/chat.Helper";
+
+import { getSender, getSenderPic } from "../HelperFunction/chat.Helper";
+import {
+  fetchChats,
+  removeUserFromGroup,
+} from "../Redux/Reducer/Chat/chat.action";
 
 const GroupProfile = (props) => {
+  const dispatch = useDispatch();
+  const {
+    groupId,
+    closeModal,
+    groupPic,
+    groupName,
+    groupCreatedAt,
+    groupUsers,
+    groupAdmin,
+  } = props;
   // console.log(props.sender);
   // console.log(props.loggedUser)
   const [query, setQuary] = useState("");
+  const [userDataForRemove, setUserDataForRemove] = useState({
+    chatId: groupId,
+    userId: "",
+  });
 
+  const loggedUser = useSelector((globalState) => globalState.user.userDetails);
+
+  // console.log(loggedUser);
+  // console.log(groupId);
   const searchUser = (e) => {
     setQuary(e.target.value);
+  };
+
+  const removeFromGroup = async (user) => {
+    // console.log(user);
+    const { id } = user;
+    if (groupUsers.length >= 4) {
+      const data = {
+        chatId: groupId,
+        userId: id,
+      };
+      if (loggedUser) {
+        if (loggedUser._id == groupAdmin.id) {
+          await dispatch(removeUserFromGroup(data));
+          toast.success(`${user.name} deleted Successfully`, {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        } else {
+          toast.warn("your are not admin. Please Ask Admin", {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+      }
+    } else {
+      toast.warn("group must have at least 3 Members", {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
 
   return (
@@ -29,7 +102,7 @@ const GroupProfile = (props) => {
                   <div className="icon p-1 flex items-start h-full justify-start cursor-pointer">
                     <div
                       className="p-1 bg-white text-black rounded-full"
-                      onClick={props.closeModal}
+                      onClick={closeModal}
                     >
                       <RxCross2 />
                     </div>
@@ -38,25 +111,25 @@ const GroupProfile = (props) => {
 
                 <div className="profile py-4 flex flex-col justify-center items-center">
                   <div className="profile-img rounded-full overflow-hidden">
-                    <img src={props.groupPic} alt="group-pic" />
+                    <img src={groupPic} alt="group Image" />
                   </div>
 
                   <div className="profile-details">
                     <div className="title pt-4 text-center w-full">
                       <h5 className="text-3xl font-medium capitalize">
-                        {props.groupName}
+                        {groupName}
                       </h5>
                     </div>
 
                     <div className="detatils">
                       <div className="pt-4 w-full">
-                        <p className=" text-center text-lg  text-gray-400">Created At</p>
+                        <p className=" text-center text-lg  text-gray-400">
+                          Created At
+                        </p>
                       </div>
                       <div className="w-full">
                         <span className="text-lg">
-                          {moment(props.groupCreatedAt).format(
-                            "DD-MM-YY , hh:mm a"
-                          )}
+                          {moment(groupCreatedAt).format("DD-MM-YY , hh:mm a")}
                         </span>
                       </div>
                     </div>
@@ -68,7 +141,7 @@ const GroupProfile = (props) => {
                 <div className="title">
                   <h3 className=" text-lg font-medium">
                     {" "}
-                    {`${props.groupUsers.length} Participants`}{" "}
+                    {`${groupUsers.length} Participants`}{" "}
                   </h3>
                 </div>
 
@@ -80,7 +153,7 @@ const GroupProfile = (props) => {
                 </div>
 
                 <div className="participants-list w-full my-4 overflow-y-scroll">
-                  {props.groupUsers
+                  {groupUsers
                     .filter((item) => {
                       return query.toLowerCase() === ""
                         ? item
@@ -97,7 +170,7 @@ const GroupProfile = (props) => {
                             />
                           </div>
                           <div className="details w-10/12">
-                            <span className="inline-block md:w-48 w-full m-0 truncate text-base font-bold capitalize">
+                            <span className="inline-block md:w-32 w-full m-0 truncate text-base font-bold capitalize">
                               {item.name}
                             </span>
                             <p className="text-xs truncate whitespace-nowrap overflow-hidden">
@@ -105,12 +178,19 @@ const GroupProfile = (props) => {
                             </p>
                           </div>
                           <div className="data-status h-full">
-                            {item.name === props.groupAdmin.name ? (
+                            {item.name === groupAdmin.name ? (
                               <>
                                 <span className="text-xs">Admin</span>
                               </>
                             ) : (
-                              <></>
+                              <>
+                                <span
+                                  className="text-xs cursor-pointer"
+                                  onClick={() => removeFromGroup(item)}
+                                >
+                                  Remove
+                                </span>
+                              </>
                             )}
                           </div>
                         </div>

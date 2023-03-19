@@ -27,6 +27,7 @@ import { MdOutlineArrowBackIos } from "react-icons/md";
 import io from "socket.io-client";
 import { useRef } from "react";
 // import { clearSelectChatAction } from "../Redux/Reducer/Chat/chat.action";
+// import { clearSelectChatAction } from "../Redux/Reducer/Chat/chat.action";
 import Spinner from "../Styles/Spinner";
 const SERVER_ACCESS_BASE_URL = process.env.REACT_APP_SERVER_ACCESS_BASE_URL;
 
@@ -239,8 +240,8 @@ const ChatWindow = () => {
   }, [createdMessage]);
 
   return (
-    <Wrapper id="user-chat">
-      <div className="chat-window-section" >
+    <Wrapper className="" id="user-chat">
+      <div className="chat-window-section">
         {!sender ? (
           <>
             <div className="chat-welcome-section overflow-x-hidden flex justify-center items-center">
@@ -309,7 +310,11 @@ const ChatWindow = () => {
                                 )
                               ) : (
                                 <>
-                                  {socketConnected ? <>Online</> : <>Offline</>}
+                                  {socketConnected ? (
+                                    <>offline</>
+                                  ) : (
+                                    <>Offline</>
+                                  )}
                                 </>
                               )}
                             </small>
@@ -545,10 +550,10 @@ const ChatWindow = () => {
 };
 
 const Wrapper = styled.section`
-    width: 100%;
-    height: 100vh;
+  width: 100%;
+  height: 100vh;
+
   .chat-window-section {
-    position: relative;
     width: 100%;
     height: 100%;
     min-width: auto;
@@ -558,12 +563,19 @@ const Wrapper = styled.section`
   .chat-content {
     width: 100%;
     height: 100vh;
+    width: 100%;
+    height: 100vh;
     background-color: rgba(${({ theme }) => theme.colors.rgb.primary}, 0.1);
     background-image: url("/images/pattern-05.png");
   }
   .loader {
     width: 100%;
     height: 100%;
+  }
+  .three-dot-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .three-dot-btn {
     display: flex;
@@ -799,6 +811,9 @@ const Wrapper = styled.section`
     }
     .arrow-icon {
       display: none;
+    }
+    .chat-window-section {
+      position: relative;
     }
   }
 `;

@@ -3,11 +3,11 @@ import "./App.css";
 import Login from "./Components/Auth/Login";
 import Signup from "./Components/Auth/Signup";
 import AuthPage from "./Pages/AuthPage";
-
+// import HomePage from "./Pages/HomePage";
 
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./GlobalStyle/GlobalStyle";
-import React, {Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import Loading from "./Components/Loading";
 import Team from "./Components/Team";
 import Contact from "./Components/Contact";
@@ -25,7 +25,7 @@ import "aos/dist/aos.css";
 import ForgotPassword from "./Components/Auth/ForgotPassword";
 import ResetPassword from "./Components/Auth/ResetPassword";
 import ErrorPage from "./Components/ErrorPage";
-const HomePage = React.lazy(()=>import( "./Pages/HomePage"));
+const HomePage = React.lazy(() => import("./Pages/HomePage"));
 
 AOS.init({
   once: true,
@@ -121,11 +121,11 @@ function App() {
         secondary: "#8f9198",
       },
 
-      "rgb":{
-      "primary": `${rgb}`,
-      "secondary": "78,172,109",
-      "cyan": "28,157,234",
-      "heading": "255,255,255",
+      rgb: {
+        primary: `${rgb}`,
+        secondary: "78,172,109",
+        cyan: "28,157,234",
+        heading: "255,255,255",
       },
 
       bg: {
@@ -196,23 +196,32 @@ function App() {
         {loading ? (
           <Loading />
         ) : (
-          <Suspense fallback={<><Loading/></>}>
-         <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/verification" element={<Verification />} />
-            <Route path="/verify-email/:token" element={<Verify />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/reset-password/:token" element={<ResetPassword />} />
-            <Route path="/features" element={<Features />} />
-            <Route path="/team" element={<Team />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/auth" element={<AuthPage />}>
-              <Route path="" element={<Login />} />
-              <Route path="signup" element={<Signup />} />
-            </Route>
-            <Route path="/*" element={<ErrorPage/>} />
-          </Routes>
-         </Suspense>
+          <Suspense
+            fallback={
+              <>
+                <Loading />
+              </>
+            }
+          >
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/verification" element={<Verification />} />
+              <Route path="/verify-email/:token" element={<Verify />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route
+                path="/reset-password/:token"
+                element={<ResetPassword />}
+              />
+              <Route path="/features" element={<Features />} />
+              <Route path="/team" element={<Team />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/auth" element={<AuthPage />}>
+                <Route path="" element={<Login />} />
+                <Route path="signup" element={<Signup />} />
+              </Route>
+              <Route path="/*" element={<ErrorPage />} />
+            </Routes>
+          </Suspense>
         )}
       </div>
     </ThemeProvider>

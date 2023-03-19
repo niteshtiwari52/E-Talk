@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { Menu, Transition } from "@headlessui/react";
 import UserProfile from "./SlideMenu/UserProfile";
 import { MdFavorite } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const Dropdown = (props) => {
   const [sender, setSender] = useState();
@@ -16,6 +17,42 @@ const Dropdown = (props) => {
     (globalState) => globalState.chat.selectedChat
   );
 
+  const handleClickMarkAsFavourites = () => {
+    toast.success("We are working this feature. Available Soon", {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+  const handleClickDeleteChat = () => {
+    toast.success("We are working this feature. Available Soon", {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+  const handleClickLeaveGroup = () => {
+    toast.success("We are working this feature. Available Soon", {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   useEffect(() => {
     setSender(senderUser);
   }, [senderUser]);
@@ -60,6 +97,7 @@ const Dropdown = (props) => {
                       ? "active flex items-center justify-between"
                       : "flex items-center justify-between"
                   }`}
+                  onClick={handleClickMarkAsFavourites}
                 >
                   <div className="icon-btn btn-outline-danger mr-4">
                     <MdFavorite className="icon inline" />
@@ -78,6 +116,7 @@ const Dropdown = (props) => {
                       ? "active flex items-center justify-between"
                       : "flex items-center justify-between"
                   }`}
+                  onClick={handleClickDeleteChat}
                 >
                   <div className="icon-btn btn-outline-danger mr-4">
                     <RiDeleteBin6Line className="icon inline" />
@@ -94,6 +133,7 @@ const Dropdown = (props) => {
                       ? "active flex items-center justify-between"
                       : "flex items-center justify-between"
                   }`}
+                  onClick={handleClickLeaveGroup}
                 >
                   <div className="icon-btn btn-outline-light mr-4">
                     {/* <ImBlocked className="icon inline" /> */}

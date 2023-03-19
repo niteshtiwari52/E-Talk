@@ -20,7 +20,7 @@ const UserProfile = ({ closeModal }) => {
 
   useEffect(() => {
     if (senderProfileData) {
-      console.log(senderProfileData);
+      // console.log(senderProfileData);
     }
   }, [senderProfileData]);
 
@@ -121,6 +121,7 @@ const UserProfile = ({ closeModal }) => {
                 {senderProfileData ? (
                   <>
                     <GroupProfile
+                      groupId={senderProfileData.groupId}
                       groupPic={senderProfileData.groupPic}
                       groupName={senderProfileData.groupName}
                       groupCreatedAt={senderProfileData.groupCreatedAt}

@@ -6,8 +6,9 @@ import {
   FETCH_CHATS,
   FETCH_USER,
   FETCH_USER_CLEAR,
+  REMOVE_USER_FROM_GROUP,
   SELECT_CHAT,
-  SHOW_USER_LOADING
+  SHOW_USER_LOADING,
 } from "./chat.type";
 const initialState = {
   chats: [],
@@ -16,6 +17,7 @@ const initialState = {
   createdGroupChat: {},
   selectedChat: {},
   isUserLoading: false,
+  removedUserFromGroup: {},
 };
 
 const chatReducer = (state = initialState, action) => {
@@ -50,6 +52,12 @@ const chatReducer = (state = initialState, action) => {
         createdGroupChat: action.payload,
       };
 
+    case REMOVE_USER_FROM_GROUP:
+      return {
+        ...state,
+        selectedChat: action.payload,
+      };
+
     case SELECT_CHAT:
       return {
         ...state,
@@ -60,11 +68,11 @@ const chatReducer = (state = initialState, action) => {
         ...state,
         selectedChat: action.payload,
       };
-      case SHOW_USER_LOADING:
-        return{
-          ...state,
-          isUserLoading: action.payload
-        }
+    case SHOW_USER_LOADING:
+      return {
+        ...state,
+        isUserLoading: action.payload,
+      };
 
     default:
       return {

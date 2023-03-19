@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const cloudinary = require("../utils/cloudinary");
 const sendEmail = require("../utils/sendEmail");
 
-const { JWT_SECRET } = require("../config/keys");
+const { JWT_SECRET, CLIENT_ACCESS_URL } = require("../config/keys");
 
 // signup new user
 const registerUser = asyncHandler(async (req, res) => {
@@ -42,7 +42,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (user) {
     const token = generateToken(user._id, "120s");
-    const url = `https://e-talk-client.vercel.app/verify-email/${token}`;
+    const url = `${CLIENT_ACCESS_URL}/verify-email/${token}`;
     const options = {
       name: user.name,
       email: user.email,
@@ -86,7 +86,7 @@ const resendVerificationLink = asyncHandler(async (req, res) => {
     }
 
     const token = generateToken(user._id, "120s");
-    const url = `https://e-talk-client.vercel.app/verify-email/${token}`;
+    const url = `${CLIENT_ACCESS_URL}/verify-email/${token}`;
     const options = {
       name: user.name,
       email: user.email,
@@ -171,7 +171,7 @@ const authUser = asyncHandler(async (req, res) => {
   }
   if (!user.is_verified) {
     const token = generateToken(user._id, "120s");
-    const url = `https://e-talk-client.vercel.app/verify-email/${token}`;
+    const url = `${CLIENT_ACCESS_URL}/verify-email/${token}`;
 
     const options = {
       name: user.name,
@@ -242,7 +242,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     }
 
     const password_Reset_Token = generateToken(user._id, "300s");
-    const password_Reset_URL = `https://e-talk-client.vercel.app/reset-password/${password_Reset_Token}`;
+    const password_Reset_URL = `${CLIENT_ACCESS_URL}/reset-password/${password_Reset_Token}`;
     const options = {
       name: user.name,
       email: user.email,

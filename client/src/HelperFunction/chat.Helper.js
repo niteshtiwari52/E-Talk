@@ -36,16 +36,17 @@ export const getSenderProfileDetails = (loggedUser, sender) => {
       data.senderPic = element.pic;
     }
   });
-  console.log(data);
+  // console.log(data);
   return data;
 };
 
 // get group public details
 export const getGroupProfileDetails = (loggedUser, sender) => {
-  console.log(sender);
-  const { chatName, isGroupChat, users, groupAdmin, createdAt } = sender;
+  // console.log(sender);
+  const { _id, chatName, isGroupChat, users, groupAdmin, createdAt } = sender;
 
   const data = {
+    groupId: _id,
     groupName: chatName,
     groupPic:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6wQvepXb0gM_Ft1QUOs6UyYJjPOmA-gq5Yw&usqp=CAU",
@@ -72,7 +73,7 @@ export const getGroupProfileDetails = (loggedUser, sender) => {
     }
   });
 
-  console.log(data);
+  // console.log(data);
   return data;
 };
 

@@ -82,7 +82,7 @@ export const teamImg = [
     "name": "Narender Singh Bisht",
     "src" : "/team/narender.jpg",
     "role" : "Frontend Developer",
-    "link": "https://narenderportfolio.netlify.app/portfolio",
+    "link": "https://narenderportfolio.netlify.app",
   },
   {
     "id" : 2,
