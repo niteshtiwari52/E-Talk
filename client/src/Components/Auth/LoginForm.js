@@ -33,6 +33,10 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (result) {
+      // if (!user) {
+      //   dispatch(clearAuthStore());
+      //   return;
+      // }
       setMessage(result);
       if (!status) {
         toast.error(result, {
@@ -70,8 +74,8 @@ const LoginForm = () => {
   };
 
   const handleLogin = async () => {
-    setLoading1(true);
     if (userData.email && userData.password) {
+      setLoading1(true);
       await dispatch(signIn(userData));
       setLoading1(false);
       // toast.success("login Sucessfully");

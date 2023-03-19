@@ -84,6 +84,26 @@ export const createGroupChat = (groupInfo) => async (dispatch) => {
   }
 };
 
+// Remove user from group
+export const removeUserFromGroup = (data) => async (dispatch) => {
+  try {
+    // console.log({ ...groupInfo });
+
+    const removedUser = await axios({
+      method: "PUT",
+      url: `${SERVER_ACCESS_BASE_URL}/api/chat/groupremove`,
+      data: { ...data },
+    });
+
+    return dispatch({
+      type: "REMOVE_USER_FROM_GROUP",
+      payload: removedUser.data,
+    });
+  } catch (error) {
+    return dispatch({ type: "ERROR", payload: error });
+  }
+};
+
 // selected chat
 
 export const selectChatAction = (item) => async (dispatch) => {

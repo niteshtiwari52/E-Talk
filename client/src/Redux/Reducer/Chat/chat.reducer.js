@@ -7,6 +7,7 @@ import {
   FETCH_USER,
   FETCH_USER_CLEAR,
   SELECT_CHAT,
+  REMOVE_USER_FROM_GROUP,
 } from "./chat.type";
 const initialState = {
   chats: [],
@@ -14,6 +15,7 @@ const initialState = {
   createdChat: {},
   createdGroupChat: {},
   selectedChat: {},
+  removedUserFromGroup: {},
 };
 
 const chatReducer = (state = initialState, action) => {
@@ -46,6 +48,12 @@ const chatReducer = (state = initialState, action) => {
       return {
         ...state,
         createdGroupChat: action.payload,
+      };
+
+    case REMOVE_USER_FROM_GROUP:
+      return {
+        ...state,
+        selectedChat: action.payload,
       };
 
     case SELECT_CHAT:
