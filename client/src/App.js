@@ -95,7 +95,7 @@ function App() {
       },
 
       hr: "#ffffff",
-      border: "239, 241, 242",
+      border: "181, 181, 181",
       img_border: "255, 255, 255",
       gradient: "linear-gradient(145deg,#1ca9fe,#1c6ee9);",
     },

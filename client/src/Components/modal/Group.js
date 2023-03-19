@@ -13,6 +13,7 @@ import {
 import { AiOutlinePlus } from "react-icons/ai";
 import { toast } from "react-toastify";
 import Spinner from "../../Styles/Spinner";
+import {IoMdCheckmark} from "react-icons/io"
 
 const Group = () => {
   const dispatch = useDispatch();
@@ -39,20 +40,21 @@ const Group = () => {
   }
 
   const addUserTogroup = (userToAdd, index) => {
-    if (selectedUser.includes(userToAdd)) {
-      toast.error(`${userToAdd.name} already added`, {
-        autoClose: 1000,
-      });
-      return;
-    }
+    // console.log(userToAdd);
+    
+    // if (selectedUser.includes(userToAdd)) {
+    //   toast.error(`${userToAdd.name} already added`, {
+    //     autoClose: 1000,
+    //   });
 
     setSelectedUser([...selectedUser, userToAdd]);
-    setSearchResult(result.splice(index, 1))
+    // setSearchResult(result.splice(index, 1))
   };
+  console.log(selectedUser);
 
   const deleteSelectedUser = (deleteUser) => {
     setSelectedUser(selectedUser.filter((sel) => sel._id !== deleteUser._id));
-    setSearchResult(result.splice(0, 0, deleteUser))
+    setSearchResult(result.splice(0, 0, deleteUser));
   };
 
   const handleCreateNewGroupChat = async () => {
@@ -258,55 +260,60 @@ const Group = () => {
                         {/* searched user render */}
                         <div className="user-list my-4 overflow-y-scroll">
                           <div className="h-full">
-                          {
-                            loading && search? <>
-                              <Spinner/>
-                            </>
-                            :
-                            <>
-                            {searchResult.length !== 0 ? (
-                              searchResult.map((item, index) => (
-                                <li className="px-2 py-2 " key={item._id}>
-                                  <div className="search-user-box relative flex justify-between items-center">
-                                    <div className="profile absolute left-0 ">
-                                      <img
-                                        className="w-12 h-12 rounded-full"
-                                        src={searchResult[index].pic}
-                                        alt="pic"
-                                      />
-                                    </div>
-
-                                    <div className="details w-3/4">
-                                      <h2 className="md:w-32 w-full m-0 text-base">
-                                        {item.name}
-                                      </h2>
-                                    </div>
-
-                                    <div className="user-add flex justify-center items-center cursor-pointer rounded-full p-2">
-                                      <AiOutlinePlus
-                                        onClick={() => addUserTogroup(item, index)}
-                                      />
-                                    </div>
-                                  </div>
-                                </li>
-                              ))
+                            {loading && search ? (
+                              <>
+                                <Spinner />
+                              </>
                             ) : (
                               <>
-                                <div
-                                  className={
-                                    search === "" && searchResult.length === 0
-                                      ? "hidden"
-                                      : "text-center"
-                                  }
-                                >
-                                  <span className="text-gray-500">
-                                    No Contact Found
-                                  </span>
-                                </div>
+                                {searchResult.length !== 0 ? (
+                                  searchResult.map((item, index) => (
+                                    <li className="px-2 py-2 " key={item._id}>
+                                      <div className="search-user-box relative flex justify-between items-center">
+                                        <div className="profile absolute left-0 ">
+                                          <img
+                                            className="w-12 h-12 rounded-full"
+                                            src={searchResult[index].pic}
+                                            alt="pic"
+                                          />
+                                        </div>
+
+                                        <div className="details w-3/4">
+                                          <h2 className="md:w-32 w-full m-0 text-base">
+                                            {item.name}
+                                          </h2>
+                                        </div>
+
+                                        <div className="user-add flex justify-center items-center cursor-pointer rounded-full p-2">
+                                             <>
+                                              <AiOutlinePlus
+                                                onClick={() =>
+                                                  addUserTogroup(item, index)
+                                                }
+                                              />
+                                            </>
+                                        </div>
+                                      </div>
+                                    </li>
+                                  ))
+                                ) : (
+                                  <>
+                                    <div
+                                      className={
+                                        search === "" &&
+                                        searchResult.length === 0
+                                          ? "hidden"
+                                          : "text-center"
+                                      }
+                                    >
+                                      <span className="text-gray-500">
+                                        No Contact Found
+                                      </span>
+                                    </div>
+                                  </>
+                                )}
                               </>
                             )}
-                            </>
-                          }
                           </div>
                         </div>
                       </div>
