@@ -52,12 +52,12 @@ const Setting = () => {
         </div>
 
         <div className="setting-block">
-          <div className="theme-setting w-full">
+          <div className="theme-setting w-full pt-3">
             <div className="mx-auto w-full max-w-md rounded-2xl py-2">
               <Disclosure>
                 {({ open }) => (
                   <>
-                    <Disclosure.Button className="flex w-full justify-between rounded-lg py-2 text-left text-sm font-medium focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
+                    <Disclosure.Button className="flex w-full justify-between items-center rounded-lg py-2 text-left text-sm font-medium focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
                       <div className="flex justify-between items-center">
                         <BsCircleHalf className="mb-4 mr-4" />
                         <span>Themes</span>
@@ -65,8 +65,8 @@ const Setting = () => {
                       
                       <BiChevronUp
                         className={`${
-                          open ? "rotate-180 transform" : ""
-                        } h-5 w-5`}
+                          open ? "rotate-180 transform mb-4" : ""
+                        } h-5 w-5 mb-4`}
                       />
                     </Disclosure.Button>
                     <Disclosure.Panel className="disclosure-Panel pt-2 pb-2 text-sm">

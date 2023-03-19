@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { RxCross2 } from "react-icons/rx";
 import styled from "styled-components";
-import { getSender, getSenderPic } from "../HelperFunction/chat.Helper";
+// import { getSender, getSenderPic } from "../HelperFunction/chat.Helper";
 
 const GroupProfile = (props) => {
   // console.log(props.sender);
@@ -38,7 +38,7 @@ const GroupProfile = (props) => {
 
                 <div className="profile py-4 flex flex-col justify-center items-center">
                   <div className="profile-img rounded-full overflow-hidden">
-                    <img src={props.groupPic} alt="group Image" />
+                    <img src={props.groupPic} alt="group-pic" />
                   </div>
 
                   <div className="profile-details">
@@ -50,7 +50,7 @@ const GroupProfile = (props) => {
 
                     <div className="detatils">
                       <div className="pt-4 w-full">
-                        <p className="text-lg  text-gray-400">Created At</p>
+                        <p className=" text-center text-lg  text-gray-400">Created At</p>
                       </div>
                       <div className="w-full">
                         <span className="text-lg">

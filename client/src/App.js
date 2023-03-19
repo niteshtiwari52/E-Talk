@@ -1,13 +1,13 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Login from "./Components/Auth/Login";
 import Signup from "./Components/Auth/Signup";
 import AuthPage from "./Pages/AuthPage";
-import HomePage from "./Pages/HomePage";
+
 
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./GlobalStyle/GlobalStyle";
-import { useEffect, useState } from "react";
+import React, {Suspense, useEffect, useState } from "react";
 import Loading from "./Components/Loading";
 import Team from "./Components/Team";
 import Contact from "./Components/Contact";
@@ -25,7 +25,7 @@ import "aos/dist/aos.css";
 import ForgotPassword from "./Components/Auth/ForgotPassword";
 import ResetPassword from "./Components/Auth/ResetPassword";
 import ErrorPage from "./Components/ErrorPage";
-
+const HomePage = React.lazy(()=>import( "./Pages/HomePage"));
 
 AOS.init({
   once: true,
@@ -37,13 +37,13 @@ AOS.init({
 
 function App() {
   const [loading, setloading] = useState(true);
-  const [status, setStatus] = useState(false);
+  // const [status, setStatus] = useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const darkThemeEnabled = useSelector(
     (state) => state.themeReducer.darkThemeEnabled
   );
-  const user = useSelector((globalState) => globalState.user.userDetails);
+  // const user = useSelector((globalState) => globalState.user.userDetails);
 
   const ThemeColor = useSelector((state) => state.setColorReducer.themeColor);
   const rgb = ThemeColor.split(")")[0].split("(")[1];
@@ -175,7 +175,7 @@ function App() {
     } else {
       setTimeout(() => {
         setloading(false);
-      }, 2000);
+      }, 1000);
     }
     // eslint-disable-next-line
   }, [localStorage]);
@@ -196,7 +196,8 @@ function App() {
         {loading ? (
           <Loading />
         ) : (
-          <Routes>
+          <Suspense fallback={<><Loading/></>}>
+         <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/verification" element={<Verification />} />
             <Route path="/verify-email/:token" element={<Verify />} />
@@ -211,6 +212,7 @@ function App() {
             </Route>
             <Route path="/*" element={<ErrorPage/>} />
           </Routes>
+         </Suspense>
         )}
       </div>
     </ThemeProvider>

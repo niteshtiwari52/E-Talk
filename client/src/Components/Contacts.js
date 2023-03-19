@@ -11,9 +11,12 @@ const Contacts = ({
   handleClick,
   searchResult,
   createNewChat,
-  loading,
+  UserLoading,
   showResult,
 }) => {
+
+  
+
   return (
     <>
       <Wrapper className="contacts-tab dynamic-sidebar">
@@ -44,17 +47,17 @@ const Contacts = ({
           </div>
           {/* searched user rendering */}
           <div className="contact-list my-4 overflow-y-scroll">
-            {loading && showResult ? (
+            {UserLoading && showResult ? (
               <>
                 <Spinner />
               </>
             ) : (
               <>
-                {showResult && searchResult.length == 0 ? (
+                {showResult && searchResult.length === 0 ? (
                   <>
                     <div
                       className={
-                        search == "" && searchResult.length == 0
+                        search === "" && searchResult.length === 0
                           ? "hidden"
                           : "text-center w-full"
                       }

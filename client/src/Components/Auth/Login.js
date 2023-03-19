@@ -3,10 +3,12 @@ import styled from "styled-components";
 import LoginForm from "./LoginForm";
 import { NavLink } from "react-router-dom";
 import Toggler from "../Toggler";
+import { ToastContainer } from "react-toastify";
 
 const Login = () => {
   return (
     <Wrapper className="login-page-bg">
+     <ToastContainer />
    <div className="toggle-icon">
    <Toggler/>
    </div>

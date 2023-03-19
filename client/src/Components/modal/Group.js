@@ -3,7 +3,7 @@ import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { BiGroup } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import Loading1 from "../Loading1";
+// import Loading1 from "../Loading1";
 import {
   createGroupChat,
   fetchChats,
@@ -11,7 +11,8 @@ import {
   fetchUserClear,
 } from "../../Redux/Reducer/Chat/chat.action";
 import { AiOutlinePlus } from "react-icons/ai";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
+import Spinner from "../../Styles/Spinner";
 
 const Group = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ const Group = () => {
   const [loading1, setLoading1] = useState(false);
 
   const result = useSelector((globalState) => globalState.chat.newUser);
+  const loading = useSelector((globalState) => globalState.chat.isUserLoading);
 
   function closeModal() {
     setGroupChatName("");
@@ -36,7 +38,7 @@ const Group = () => {
     setIsOpen(true);
   }
 
-  const addUserTogroup = (userToAdd) => {
+  const addUserTogroup = (userToAdd, index) => {
     if (selectedUser.includes(userToAdd)) {
       toast.error(`${userToAdd.name} already added`, {
         autoClose: 1000,
@@ -45,12 +47,12 @@ const Group = () => {
     }
 
     setSelectedUser([...selectedUser, userToAdd]);
-
-    // console.log(selectedUser);
+    setSearchResult(result.splice(index, 1))
   };
 
   const deleteSelectedUser = (deleteUser) => {
     setSelectedUser(selectedUser.filter((sel) => sel._id !== deleteUser._id));
+    setSearchResult(result.splice(0, 0, deleteUser))
   };
 
   const handleCreateNewGroupChat = async () => {
@@ -117,6 +119,7 @@ const Group = () => {
       return;
     }
     dispatch(fetchUser(search));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
   return (
@@ -255,6 +258,12 @@ const Group = () => {
                         {/* searched user render */}
                         <div className="user-list my-4 overflow-y-scroll">
                           <div className="h-full">
+                          {
+                            loading && search? <>
+                              <Spinner/>
+                            </>
+                            :
+                            <>
                             {searchResult.length !== 0 ? (
                               searchResult.map((item, index) => (
                                 <li className="px-2 py-2 " key={item._id}>
@@ -275,7 +284,7 @@ const Group = () => {
 
                                     <div className="user-add flex justify-center items-center cursor-pointer rounded-full p-2">
                                       <AiOutlinePlus
-                                        onClick={() => addUserTogroup(item)}
+                                        onClick={() => addUserTogroup(item, index)}
                                       />
                                     </div>
                                   </div>
@@ -296,6 +305,8 @@ const Group = () => {
                                 </div>
                               </>
                             )}
+                            </>
+                          }
                           </div>
                         </div>
                       </div>

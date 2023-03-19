@@ -22,7 +22,7 @@ const Dropdown = (props) => {
   return (
     <>
       <Menu>
-        <Menu.Button className="btn">
+        <Menu.Button className="btn three-dot-btn">
           <BiDotsVerticalRounded />
         </Menu.Button>
         <Transition
