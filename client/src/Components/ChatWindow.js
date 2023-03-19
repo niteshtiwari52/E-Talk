@@ -199,7 +199,7 @@ const ChatWindow = () => {
         selectedChatCompare._id !== newMessageRecieved.chat._id
       ) {
         // we will give notification
-        // console.log(newMessageRecieved);
+        console.log(newMessageRecieved);
       } else {
         setTimeout(() => {
           setCount(count + 1);

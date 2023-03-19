@@ -8,6 +8,13 @@ import {
 } from "./chat.type";
 const SERVER_ACCESS_BASE_URL = process.env.REACT_APP_SERVER_ACCESS_BASE_URL;
 
+export const loadingUserAction = (state) => {
+  return {
+    type: SHOW_USER_LOADING,
+    payload: state,
+  };
+};
+
 // fetching all the chats for a particaular user
 export const fetchChats = () => async (dispatch) => {
   try {
@@ -117,10 +124,5 @@ export const clearSelectChatAction = () => async (dispatch) => {
 //   }
 // };
 
-export const loadingUserAction = (state) => {
-  return {
-    type: SHOW_USER_LOADING,
-    payload: state,
-  };
-};
+
 

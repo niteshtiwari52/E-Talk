@@ -37,8 +37,8 @@ const HeroSection = () => {
         </div>
       </div>
 
-        <div className="hero-section-image absolute z-20 w-full h-full">
-            <img src="https://chitchat-react.vercel.app/assets/images/landing/2.png" alt="bg" className="img-style" />
+        <div className="hero-section-image absolute w-full h-full">
+            {/* <img src="https://chitchat-react.vercel.app/assets/images/landing/2.png" alt="bg" className="img-style" /> */}
           </div>
 
       {/* shapes code */}

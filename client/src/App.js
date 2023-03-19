@@ -3,11 +3,11 @@ import "./App.css";
 import Login from "./Components/Auth/Login";
 import Signup from "./Components/Auth/Signup";
 import AuthPage from "./Pages/AuthPage";
-import HomePage from "./Pages/HomePage";
+
 
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./GlobalStyle/GlobalStyle";
-import { useEffect, useState } from "react";
+import React, {Suspense, useEffect, useState } from "react";
 import Loading from "./Components/Loading";
 import Team from "./Components/Team";
 import Contact from "./Components/Contact";
@@ -25,7 +25,7 @@ import "aos/dist/aos.css";
 import ForgotPassword from "./Components/Auth/ForgotPassword";
 import ResetPassword from "./Components/Auth/ResetPassword";
 import ErrorPage from "./Components/ErrorPage";
-
+const HomePage = React.lazy(()=>import( "./Pages/HomePage"));
 
 AOS.init({
   once: true,
@@ -175,7 +175,7 @@ function App() {
     } else {
       setTimeout(() => {
         setloading(false);
-      }, 2000);
+      }, 1000);
     }
     // eslint-disable-next-line
   }, [localStorage]);
@@ -196,7 +196,8 @@ function App() {
         {loading ? (
           <Loading />
         ) : (
-          <Routes>
+          <Suspense fallback={<><Loading/></>}>
+         <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/verification" element={<Verification />} />
             <Route path="/verify-email/:token" element={<Verify />} />
@@ -211,6 +212,7 @@ function App() {
             </Route>
             <Route path="/*" element={<ErrorPage/>} />
           </Routes>
+         </Suspense>
         )}
       </div>
     </ThemeProvider>

@@ -25,8 +25,9 @@ const ChatMenu = () => {
   const user = useSelector((globalState) => globalState.user.userDetails);
   const UserLoading = useSelector((globalState)=> globalState.chat.isUserLoading);
   const [showResult, setShowResult] = useState(false)
+  const chat = useSelector((globalState) => globalState.chat.chats);
+  const arr = chat.filter((elem)=>{return elem.isGroupChat === false}).map((e)=>{return e.users}).map((e)=>{return e[1]._id;})
 
-  // const chat = useSelector((globalState) => globalState.chat.chats);
 
   const dispatch = useDispatch();
 
@@ -51,9 +52,22 @@ const ChatMenu = () => {
   };
 
   const createNewChat = async (item) => {
-    toast.success("contact successfully added", {
-      autoClose: 1000,
-    });
+   
+    const DuplicateUser = arr.find((elem)=>{
+      return elem === item._id
+    })
+    if(DuplicateUser === item._id){
+      toast.error("contact already exist", {
+        autoClose: 1000,
+      });
+      return
+    }
+    else{
+      toast.success("contact successfully added", {
+        autoClose: 1000,
+      });
+    }
+
     await dispatch(createChat(item._id));
     await dispatch(fetchChats());
     await dispatch(toggleTab(3));

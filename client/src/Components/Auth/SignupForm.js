@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { clearAuthStore, signUp } from "../../Redux/Reducer/Auth/auth.action";
 import { getMySelf } from "../../Redux/Reducer/User/user.action";
 import { useNavigate } from "react-router-dom";
+import Loading1 from "../Loading1";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const SignupForm = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showconfirmPassword, setShowconfirmPassword] = useState(false);
+  const [loading1, setLoading1] = useState(false);
 
   const [userData, setUserData] = useState({
     name: "",
@@ -68,6 +70,7 @@ const SignupForm = () => {
   };
 
   const handleSignUp = () => {
+    loading1(true);
     if (
       userData.email &&
       userData.password &&
@@ -75,6 +78,7 @@ const SignupForm = () => {
       userData.confirmPassword
     ) {
       dispatch(signUp(userData));
+      setLoading1(false);
     } else {
       toast.error("Please Fill the Data", {
         autoClose: 1000,
@@ -207,7 +211,15 @@ const SignupForm = () => {
               className="button bg-green-600 hover:bg-green-500 active:bg-green-700 text-white radius-round h-11 px-8 py-2 w-full"
               onClick={() => handleSignUp()}
             >
-              Register
+              {loading1 ? (
+                <>
+                  {" "}
+                  Registering...
+                  {/* <Loading1 />{" "} */}
+                </>
+              ) : (
+                <>Register</>
+              )}
             </Button>
             {/* <Social /> */}
           </div>

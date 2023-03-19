@@ -7,12 +7,11 @@ import { useNavigate } from "react-router-dom";
 import { getMySelf } from "../Redux/Reducer/User/user.action";
 import { fetchChats } from "../Redux/Reducer/Chat/chat.action";
 import Loading from "../Components/Loading";
-const Welcome = React.lazy(()=> import("../Components/Welcome"))
-const Chat = React.lazy(()=> import("../Components/Chat"));
-
+import { clearAuthStore } from "../Redux/Reducer/Auth/auth.action";
+const Welcome = React.lazy(() => import("../Components/Welcome"));
+const Chat = React.lazy(() => import("../Components/Chat"));
 
 const HomePage = () => {
-  const [loading, setloading] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [status, setStatus] = useState();
@@ -26,15 +25,8 @@ const HomePage = () => {
   useEffect(() => {
     if (localStorage.ETalkUser) {
       getUserData();
-         setTimeout(() => {
-      setloading(false);
-    }, 1000);
-    
-    }
-    else {
-      setTimeout(() => {
-        setloading(false);
-      }, 1000);
+    } else {
+      dispatch(clearAuthStore());
     }
 
     // eslint-disable-next-line
@@ -58,35 +50,17 @@ const HomePage = () => {
   }, [status]);
 
   return (
-    
-      loading ? (
-         <>
-          <Loading />
-         </>
-      ):
-      (
-        <>
+    <>
       {user?.name ? (
-        <Suspense fallback={
-          <>
-            <Loading/>
-          </>
-        }>
+        <Suspense fallback={<><Loading /></>}>
           <Chat />
         </Suspense>
       ) : (
-        <Suspense fallback={
-          <>
-            <Loading/>
-          </>
-        }>
+        <Suspense fallback={<><Loading /></>}>
           <Welcome />
         </Suspense>
       )}
     </>
-      )
-    
   );
 };
-
 export default DefaultLayoutHoc(HomePage);
