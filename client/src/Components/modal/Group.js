@@ -14,7 +14,7 @@ import {
 import { AiOutlinePlus } from "react-icons/ai";
 import { toast } from "react-toastify";
 import Spinner from "../../Styles/Spinner";
-import {IoMdCheckmark} from "react-icons/io"
+
 
 const Group = () => {
   const dispatch = useDispatch();
@@ -57,7 +57,7 @@ const Group = () => {
       setSelectedUser([...selectedUser, userToAdd]);
     }
   };
-  console.log(selectedUser);
+  // console.log(selectedUser);
 
   const deleteSelectedUser = (deleteUser) => {
     setSelectedUser(selectedUser.filter((sel) => sel._id !== deleteUser._id));

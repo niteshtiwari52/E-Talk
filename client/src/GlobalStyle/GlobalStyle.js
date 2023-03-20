@@ -9,6 +9,7 @@ export const GlobalStyle = createGlobalStyle`
     scroll-behavior: smooth;
   }
 
+
   ::-webkit-scrollbar {
     background-color: initial;
     width: 5px;

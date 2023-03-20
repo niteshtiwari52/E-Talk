@@ -6,9 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 
-import { getSender, getSenderPic } from "../HelperFunction/chat.Helper";
+// import { getSender, getSenderPic } from "../HelperFunction/chat.Helper";
 import {
-  fetchChats,
   removeUserFromGroup,
 } from "../Redux/Reducer/Chat/chat.action";
 
@@ -26,14 +25,13 @@ const GroupProfile = (props) => {
   // console.log(props.sender);
   // console.log(props.loggedUser)
   const [query, setQuary] = useState("");
-  const [userDataForRemove, setUserDataForRemove] = useState({
-    chatId: groupId,
-    userId: "",
-  });
+
 
   const loggedUser = useSelector((globalState) => globalState.user.userDetails);
-
   // console.log(loggedUser);
+  // console.log(groupUsers);
+  // console.log(groupAdmin);
+
   // console.log(groupId);
   const searchUser = (e) => {
     setQuary(e.target.value);
@@ -48,7 +46,7 @@ const GroupProfile = (props) => {
         userId: id,
       };
       if (loggedUser) {
-        if (loggedUser._id == groupAdmin.id) {
+        if (loggedUser._id === groupAdmin.id) {
           await dispatch(removeUserFromGroup(data));
           toast.success(`${user.name} deleted Successfully`, {
             position: "top-right",
@@ -111,7 +109,7 @@ const GroupProfile = (props) => {
 
                 <div className="profile py-4 flex flex-col justify-center items-center">
                   <div className="profile-img rounded-full overflow-hidden">
-                    <img src={groupPic} alt="group Image" />
+                    <img src={groupPic} alt="group-pic" />
                   </div>
 
                   <div className="profile-details">
@@ -182,8 +180,10 @@ const GroupProfile = (props) => {
                               <>
                                 <span className="text-xs">Admin</span>
                               </>
-                            ) : (
-                              <>
+                            ) : 
+                            <>
+                              {
+                                groupAdmin.id === loggedUser._id ? <>
                                 <span
                                   className="text-xs cursor-pointer"
                                   onClick={() => removeFromGroup(item)}
@@ -191,7 +191,10 @@ const GroupProfile = (props) => {
                                   Remove
                                 </span>
                               </>
-                            )}
+                              : <></>
+                              }
+                            </>
+                            }
                           </div>
                         </div>
                       </li>

@@ -11,7 +11,6 @@ import {
   FORGOT_PASSWORD,
   RESET_PASSWORD,
   CLEAR_AUTH_STORE,
-  ERROR,
 } from "./auth.type";
 
 const SERVER_ACCESS_BASE_URL = process.env.REACT_APP_SERVER_ACCESS_BASE_URL;
@@ -20,7 +19,7 @@ const SERVER_ACCESS_BASE_URL = process.env.REACT_APP_SERVER_ACCESS_BASE_URL;
 
 export const signIn = (userData) => async (dispatch) => {
   try {
-    console.log(SERVER_ACCESS_BASE_URL);
+    // console.log(SERVER_ACCESS_BASE_URL);
     const User = await axios({
       method: "POST",
       url: `${SERVER_ACCESS_BASE_URL}/api/user/login/`,
