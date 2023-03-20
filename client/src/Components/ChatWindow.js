@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import styled from "styled-components";
 import { Button } from "../Styles/Button";
-import { BiDotsHorizontalRounded, BiSmile } from "react-icons/bi";
+import { BiSmile } from "react-icons/bi";
 import { IoMdSend } from "react-icons/io";
 import Dropdown from "./Dropdown";
 import Picker from "@emoji-mart/react";
@@ -15,8 +15,6 @@ import {
 } from "../HelperFunction/chat.Helper";
 import { useDispatch } from "react-redux";
 import {
-  clearSelectedMessage,
-  getAllChats,
   sendMessge,
   updateGetAllChats,
 } from "../Redux/Reducer/Message/message.action";
@@ -163,6 +161,7 @@ const ChatWindow = () => {
     if (inputRef.current !== null) {
       inputRef.current.selectionEnd = cursorPosition;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cursorPosition]);
 
   useEffect(() => {
@@ -180,6 +179,7 @@ const ChatWindow = () => {
     socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -221,6 +221,7 @@ const ChatWindow = () => {
   useEffect(() => {
     setMessage(allMessage);
     socket.emit("join chat", sender);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allMessage]);
 
   useEffect(() => {
@@ -237,6 +238,7 @@ const ChatWindow = () => {
   useEffect(() => {
     socket.emit("new message", createdMessage);
     dispatch(updateGetAllChats(createdMessage));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [createdMessage]);
 
   return (
@@ -306,7 +308,15 @@ const ChatWindow = () => {
                               {sender.isGroupChat ? (
                                 sender.users.map(
                                   (item, index) =>
-                                    (index ? ", " : " ") + item.name
+                                   (
+                                    <>
+                                      <span key={index} className="text-sm">
+                                      {
+                                        (index ? ", " : " ") + item.name
+                                      }
+                                      </span>
+                                    </>
+                                   )
                                 )
                               ) : (
                                 <>
@@ -341,10 +351,10 @@ const ChatWindow = () => {
                       </>
                     ) : (
                       <>
-                        {message.map((item) =>
+                        {message.map((item, index) =>
                           isMyMessage(loggedUser, item) && item.sender.pic ? (
                             <>
-                              <li key={item._id} className="chat-list right">
+                              <li key={index} className="chat-list right">
                                 <div className="conversation-list">
                                   <div className="chat-avatar mr-4">
                                     <img
@@ -380,7 +390,7 @@ const ChatWindow = () => {
                             </>
                           ) : (
                             <>
-                              <li key={item._id} className="chat-list">
+                              <li key={index} className="chat-list">
                                 <div className="conversation-list">
                                   <div className="chat-avatar mr-4">
                                     <img
