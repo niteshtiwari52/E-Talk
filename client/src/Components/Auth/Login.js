@@ -8,10 +8,10 @@ import { ToastContainer } from "react-toastify";
 const Login = () => {
   return (
     <Wrapper className="login-page-bg">
-     <ToastContainer />
-   <div className="toggle-icon">
-   <Toggler/>
-   </div>
+      <ToastContainer />
+      <div className="toggle-icon">
+        <Toggler />
+      </div>
       <div className="relative h-full flex justify-center items-center">
         <div className="h-full py-6">
           <div className="px-8 flex flex-col justify-center items-center">
@@ -45,13 +45,13 @@ const Wrapper = styled.section`
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color:  ${({ theme }) => theme.colors.bg.secondary};
+  background-color: ${({ theme }) => theme.colors.bg.secondary};
   .logo {
     img {
       height: 50px;
     }
   }
-  .toggle-icon{
+  .toggle-icon {
     position: absolute;
     top: 10px;
     right: 0;
@@ -59,27 +59,28 @@ const Wrapper = styled.section`
     display: flex;
     width: 100vw;
     font-size: 2rem;
-    justify-content: flex-end ;
+    justify-content: flex-end;
   }
 
   .auth-page-content {
     border-radius: 16px;
     margin: 24px 0;
     background-color: ${({ theme }) => theme.colors.bg.primary};
-    a{
-      color: ${({ theme }) => theme.colors.text.secondary}
+    a {
+      color: ${({ theme }) => theme.colors.text.secondary};
     }
-    input{
-      background-color:  ${({ theme }) => theme.colors.btn.light};
+    input {
+      background-color: ${({ theme }) => theme.colors.btn.light};
       border-color: ${({ theme }) => theme.colors.border};
-      &:focus{
-        background-color:  ${({ theme }) => theme.colors.btn.light};
+      &:focus {
+        background-color: ${({ theme }) => theme.colors.btn.light};
         outline-color: ${({ theme }) => theme.colors.btn.light};
         border-color: ${({ theme }) => theme.colors.border};
       }
     }
-    p,label{
-      color: ${({ theme }) => theme.colors.text.secondary}
+    p,
+    label {
+      color: ${({ theme }) => theme.colors.text.secondary};
     }
   }
   .signin-other-title {
