@@ -15,6 +15,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { toast } from "react-toastify";
 import Spinner from "../../Styles/Spinner";
 
+
 const Group = () => {
   const dispatch = useDispatch();
   let [isOpen, setIsOpen] = useState(false);
@@ -56,6 +57,7 @@ const Group = () => {
       setSelectedUser([...selectedUser, userToAdd]);
     }
   };
+  // console.log(selectedUser);
 
   const deleteSelectedUser = (deleteUser) => {
     setSelectedUser(selectedUser.filter((sel) => sel._id !== deleteUser._id));

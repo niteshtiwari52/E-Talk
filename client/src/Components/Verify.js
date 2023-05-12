@@ -250,7 +250,4 @@ const Wrapper = styled.div`
   p {
     color: ${({ theme }) => theme.colors.heading};
   }
-
-  
-  }
 `;
