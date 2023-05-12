@@ -58,11 +58,11 @@ const registerUser = asyncHandler(async (req, res) => {
     await sendEmail(options);
 
     res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      pic: user.pic,
-      token: generateToken(user._id, "30d"),
+      // _id: user._id,
+      // name: user.name,
+      // email: user.email,
+      // pic: user.pic,
+      // token: generateToken(user._id, "30d"),
       message: "An Email is sent to your Email. Please Verify Your Email",
       success: true,
     });
@@ -102,7 +102,7 @@ const resendVerificationLink = asyncHandler(async (req, res) => {
     await sendEmail(options);
 
     res.status(201).json({
-      verificationURL: url,
+      // verificationURL: url,
       message: `An Email is sent to your Email ${user.email}. Please Verify Your Email`,
     });
   } catch (error) {
@@ -132,7 +132,7 @@ const verifyEmail = asyncHandler(async (req, res) => {
 
     res.status(200).send({
       message: "Email verified successfully",
-      updatedUser,
+      // updatedUser,
       success: true,
     });
   } catch (error) {
@@ -155,11 +155,11 @@ const authUser = asyncHandler(async (req, res) => {
   }
   if (user && (await user.matchPassword(password))) {
     res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      pic: user.pic,
-      token: generateToken(user._id),
+      // _id: user._id,
+      // name: user.name,
+      // email: user.email,
+      // pic: user.pic,
+      // token: generateToken(user._id),
       message: "Login Successfull",
       success: true,
     });
@@ -188,7 +188,7 @@ const authUser = asyncHandler(async (req, res) => {
     await sendEmail(options);
 
     return res.status(201).json({
-      verificationURL: url,
+      // verificationURL: url,
       message: `An Email is sent to your Email ${user.email}. Please Verify Your Email`,
     });
   }
@@ -257,7 +257,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
 
     await sendEmail(options);
     res.status(201).json({
-      passwordResetLink: password_Reset_URL,
+      // passwordResetLink: password_Reset_URL,
       message: `Your Password Reset Link has been sent to your Email ${user.email} . Please check you Spam or Junk Folder.`,
       success: true,
     });
@@ -317,7 +317,7 @@ const updateProfile = asyncHandler(async (req, res) => {
     user = await User.findByIdAndUpdate(user._id, data, { new: true });
     return res.status(200).json({
       message: "your profile update successfully.",
-      user,
+      // user,
     });
   } catch (error) {
     return res.status(500).json({
