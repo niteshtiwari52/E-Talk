@@ -17,7 +17,7 @@ const SignupForm = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showconfirmPassword, setShowconfirmPassword] = useState(false);
-  const [loading1, setLoading1] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [userData, setUserData] = useState({
     name: "",
@@ -70,13 +70,14 @@ const SignupForm = () => {
   };
 
   const handleSignUp = () => {
+    setLoading(true);
     if (userData.password !== userData.confirmPassword) {
       toast.error("Password and Confirm Password Does not match", {
         autoClose: 1000,
       });
       return;
     }
-    setLoading1(true);
+
     if (
       userData.email &&
       userData.password &&
@@ -84,7 +85,7 @@ const SignupForm = () => {
       userData.confirmPassword
     ) {
       dispatch(signUp(userData));
-      setLoading1(false);
+      setLoading(false);
     } else {
       toast.error("Please Fill the Data", {
         autoClose: 1000,
@@ -217,15 +218,7 @@ const SignupForm = () => {
               className="button bg-green-600 hover:bg-green-500 active:bg-green-700 text-white radius-round h-11 px-8 py-2 w-full"
               onClick={() => handleSignUp()}
             >
-              {loading1 ? (
-                <>
-                  {" "}
-                  Registering...
-                  {/* <Loading1 />{" "} */}
-                </>
-              ) : (
-                <>Register</>
-              )}
+              {loading ? <>Registering... </> : <>Register</>}
             </Button>
             {/* <Social /> */}
           </div>

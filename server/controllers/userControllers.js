@@ -58,11 +58,11 @@ const registerUser = asyncHandler(async (req, res) => {
     await sendEmail(options);
 
     res.status(201).json({
-      // _id: user._id,
-      // name: user.name,
-      // email: user.email,
-      // pic: user.pic,
-      // token: generateToken(user._id, "30d"),
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      pic: user.pic,
+      token: generateToken(user._id, "30d"),
       message: "An Email is sent to your Email. Please Verify Your Email",
       success: true,
     });
@@ -155,11 +155,11 @@ const authUser = asyncHandler(async (req, res) => {
   }
   if (user && (await user.matchPassword(password))) {
     res.json({
-      // _id: user._id,
-      // name: user.name,
-      // email: user.email,
-      // pic: user.pic,
-      // token: generateToken(user._id),
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      pic: user.pic,
+      token: generateToken(user._id),
       message: "Login Successfull",
       success: true,
     });
