@@ -13,6 +13,7 @@ const {
   forgotPassword,
   updateProfile,
   resetPassword,
+  invitingUser,
 } = require("../controllers/userControllers");
 const { protect } = require("../middleware/authMiddleware");
 
@@ -31,6 +32,7 @@ router.route("/verify").put(verifyEmail);
 router.route("/forgotpassword").post(forgotPassword);
 router.route("/resetpassword").post(resetPassword);
 router.route("/updateprofile").put(protect, updateProfile);
+router.route("/invitefriends").post(protect, invitingUser);
 router
   .route("/profilepic")
   .put(protect, upload.single("image"), uploadProfileImage);

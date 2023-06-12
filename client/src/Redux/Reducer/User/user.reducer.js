@@ -1,4 +1,4 @@
-import { SELF, CLEAR_USER, UPDATE_PROFILE } from "./user.type";
+import { SELF, CLEAR_USER, UPDATE_PROFILE, INVITE_FRIENDS } from "./user.type";
 
 const initialState = {
   user: {},
@@ -19,6 +19,11 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.payload,
+      };
+    case INVITE_FRIENDS:
+      return {
+        ...state,
+        InvitingStatus: { ...action.payload },
       };
     default:
       return {

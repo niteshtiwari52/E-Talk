@@ -4,6 +4,7 @@ import { Button } from "../Styles/Button";
 
 import { AiOutlinePlus } from "react-icons/ai";
 import Spinner from "../Styles/Spinner";
+import Invite from "./modal/Invite";
 
 const Contacts = ({
   search,
@@ -14,9 +15,6 @@ const Contacts = ({
   UserLoading,
   showResult,
 }) => {
-
-  
-
   return (
     <>
       <Wrapper className="contacts-tab dynamic-sidebar">
@@ -25,7 +23,11 @@ const Contacts = ({
             <h2>Contacts</h2>
             <p>Start talking now</p>
           </div>
-          <div className="icon text-right"></div>
+          <div className="icon text-right">
+            <Button className="btn p-3 text-white rounded ">
+              <Invite />
+            </Button>
+          </div>
         </div>
         <div className="details p-4">
           <div className="mt-3 flex justify-center items-center">

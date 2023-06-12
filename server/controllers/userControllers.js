@@ -326,6 +326,56 @@ const updateProfile = asyncHandler(async (req, res) => {
   }
 });
 
+/**
+ *  Inviting User
+ */
+
+const invitingUser = asyncHandler(async (req, res) => {
+  try {
+    const { email } = req.body;
+    console.log(email);
+    const InvitedUser = await User.findOne({ email });
+    console.log(InvitedUser);
+    const senderUser = req.user;
+    const websiteUrl = CLIENT_ACCESS_URL;
+    // console.log(senderUser);
+    if (InvitedUser !== null) {
+      res.status(201).json({
+        success: false,
+        message: "User Already Exist. You chat with user.",
+      });
+    }
+
+    const options = {
+      // name: InvitedUser.name,
+      email: email,
+      subject: "E-Talk Invitation",
+      // verification_Link: url,
+      message_Content:
+        "<p> Hi " +
+        email +
+        ",<br /> Your Friend " +
+        senderUser.name +
+        " is available on the E-Talk. " +
+        senderUser.name +
+        " is Waitng for you. Please Register yourself and start chatting with " +
+        senderUser.name +
+        " . Click here to <br /> <a href =" +
+        websiteUrl +
+        " >Register</a></p> ",
+    };
+
+    await sendEmail(options);
+
+    res.status(201).json({
+      success: true,
+      message: `An Invitation Email is sent to your friend email ${email} `,
+    });
+  } catch (error) {
+    res.status(400).send({ succss: true, message: "Internal Server Error" });
+  }
+});
+
 // upload profile image
 const uploadProfileImage = asyncHandler(async (req, res) => {
   try {
@@ -368,4 +418,5 @@ module.exports = {
   forgotPassword,
   resetPassword,
   updateProfile,
+  invitingUser,
 };
