@@ -7,8 +7,8 @@ const Signup = () => {
   return (
     <Wrapper className="login-page-bg">
       <div className="toggle-icon">
-   <Toggler/>
-   </div>
+        <Toggler />
+      </div>
       <div className="h-full flex justify-center items-center">
         <div className="py-6">
           <div className="px-8 flex flex-col justify-center items-center">
@@ -28,7 +28,7 @@ const Signup = () => {
                   Sign in
                 </NavLink>
               </p>
-              <p>© 2022 E-Talk created with ❤️ </p>
+              <p>© {new Date().getFullYear()} E-Talk created with ❤️ </p>
             </div>
           </div>
         </div>
@@ -40,20 +40,20 @@ const Wrapper = styled.section`
   position: relative;
   width: 100vw;
   height: auto;
-  background-color:  ${({ theme }) => theme.colors.bg.secondary};
+  background-color: ${({ theme }) => theme.colors.bg.secondary};
   .logo {
     img {
       height: 50px;
     }
   }
-  .toggle-icon{
+  .toggle-icon {
     position: absolute;
     top: 10px;
     right: 0;
     margin-right: 20px;
     display: flex;
     width: 100vw;
-    justify-content: flex-end ;
+    justify-content: flex-end;
   }
   .auth-page-content {
     height: calc(100% - 48px);
@@ -63,20 +63,21 @@ const Wrapper = styled.section`
       border-radius: 0.25rem;
     }
     background-color: ${({ theme }) => theme.colors.bg.primary};
-    a{
-      color: ${({ theme }) => theme.colors.text.secondary}
+    a {
+      color: ${({ theme }) => theme.colors.text.secondary};
     }
-    input{
-      background-color:  ${({ theme }) => theme.colors.btn.light};
+    input {
+      background-color: ${({ theme }) => theme.colors.btn.light};
       border-color: ${({ theme }) => theme.colors.border};
-      &:focus{
-        background-color:  ${({ theme }) => theme.colors.btn.light};
+      &:focus {
+        background-color: ${({ theme }) => theme.colors.btn.light};
         outline-color: ${({ theme }) => theme.colors.btn.light};
         border-color: ${({ theme }) => theme.colors.border};
       }
     }
-    p,label{
-      color: ${({ theme }) => theme.colors.text.secondary}
+    p,
+    label {
+      color: ${({ theme }) => theme.colors.text.secondary};
     }
   }
   .signin-other-title {

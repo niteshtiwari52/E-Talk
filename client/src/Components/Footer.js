@@ -9,9 +9,13 @@ const Footer = () => {
       <div className="footer-container flex flex-col justify-between items-center">
         <div className="footer-block flex flex-col flex-wrap justify-center">
           <div className="logo-footer-content">
-            <div className="logo flex justify-center items-center" data-aos="fade-up" data-aos-delay="100">
+            <div
+              className="logo flex justify-center items-center"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
               <a href="/">
-                <img src="/images/logo.png" alt="logo"/>
+                <img src="/images/logo.png" alt="logo" />
               </a>
             </div>
           </div>
@@ -63,7 +67,10 @@ const Footer = () => {
       <div className="footer-copywrite ">
         <div className="custom-container flex justify-center items-center">
           <div className="footer-bottom text-center">
-            <p>© 2023. All rights reserved | Made with 💙 by E-Talk</p>
+            <p>
+              © {new Date().getFullYear()}. All rights reserved | Made with 💙
+              by E-Talk
+            </p>
           </div>
         </div>
       </div>
@@ -85,22 +92,21 @@ const Wrapper = styled.footer`
       justify-content: center;
       align-items: center;
     }
-    .logo-footer-content{
-    .logo{
-      a{
-        width: 10rem;
-        display: flex !important;
-        justify-content: center;
-        align-items: center;
-      }
-      img{
-        width: 100%;
-        height: auto;
+    .logo-footer-content {
+      .logo {
+        a {
+          width: 10rem;
+          display: flex !important;
+          justify-content: center;
+          align-items: center;
+        }
+        img {
+          width: 100%;
+          height: auto;
+        }
       }
     }
   }
-  }
-  
 
   .links {
     margin: 2rem auto 0 auto;

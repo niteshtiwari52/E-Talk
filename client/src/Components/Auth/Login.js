@@ -29,7 +29,7 @@ const Login = () => {
                   Sign up
                 </NavLink>
               </p>
-              <p>© 2022 E-Talk created with ❤️ </p>
+              <p>© {new Date().getFullYear()} E-Talk created with ❤️ </p>
             </div>
           </div>
         </div>
