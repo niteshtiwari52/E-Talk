@@ -12,8 +12,7 @@ const HeroSection = () => {
         <div className="flex">
           <div
             className="hero-section-data flex flex-col justify-start"
-            data-aos="fade-right"
-          >
+            data-aos="fade-right">
             <p>Welcome to</p>
             <h1 className="font-bold">
               Real time chat application for all your needs
