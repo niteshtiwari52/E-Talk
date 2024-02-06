@@ -17,9 +17,10 @@ const HomePage = () => {
   const dispatch = useDispatch();
   const [status, setStatus] = useState();
 
-  let [isOpen, setIsOpen] = useState(false);
+  // let [isOpen, setIsOpen] = useState(false);
 
   const user = useSelector((globalState) => globalState.user.userDetails);
+
 
   const getUserData = async () => {
     await dispatch(getMySelf());

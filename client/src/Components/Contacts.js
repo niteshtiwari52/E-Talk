@@ -118,7 +118,7 @@ const Wrapper = styled.div`
     }
   }
   .contact-list {
-    height: calc(100vh - 250px);
+    height: calc(100vh - 220px);
   }
   .btn {
     background-color: ${({ theme }) => theme.colors.primaryRgb};
@@ -144,6 +144,13 @@ const Wrapper = styled.div`
       }
     }
   }
+
+  @media (max-width: 800px) {
+    .contact-list {
+    height: calc(100vh - 300px);
+  }
+  }
+
 `;
 
 export default Contacts;

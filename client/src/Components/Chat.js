@@ -5,16 +5,21 @@ import ChatMenu from "./ChatMenu";
 import ChatWindow from "./ChatWindow";
 import SideMenu from "./SideMenu";
 import { ToastContainer} from "react-toastify";
+import NetworkError from "./modal/NetworkError";
+import { useSelector } from "react-redux";
 const Chat = () => {
+
+  const isNetworkError = useSelector((globalstate)=> globalstate.message.NetworkError)
+  
   return (
-    <>
+    <NetworkError>
      <ToastContainer />
       <Wrapper className="flex justify-start w-screen">
         <SideMenu />
         <ChatMenu />
         <ChatWindow />
       </Wrapper>
-    </>
+    </NetworkError>
   );
 };
 const Wrapper = styled.section`

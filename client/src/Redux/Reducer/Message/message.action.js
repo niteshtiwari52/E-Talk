@@ -4,6 +4,7 @@ import {
   GET_ALL_MESSAGE,
   UPDATE_GET_ALL_MESSAGE,
   SHOW_TOOGLE_LOADING,
+  SHOW_NETWORK_ERROR,
 } from "./message.type";
 
 const SERVER_ACCESS_BASE_URL = process.env.REACT_APP_SERVER_ACCESS_BASE_URL;
@@ -20,6 +21,7 @@ export const getAllChats = (selectedChat) => async (dispatch) => {
     // console.log(allMessage);
     return dispatch({ type: GET_ALL_MESSAGE, payload: allMessage.data });
   } catch (error) {
+    dispatch(showNetworkError(true));
     return dispatch({ type: "ERROR", payload: error });
   }
   //   }
@@ -38,6 +40,7 @@ export const updateGetAllChats = (messageRecived) => async (dispatch) => {
       payload: updatedAllMessage,
     });
   } catch (error) {
+    dispatch(showNetworkError(true));
     return dispatch({ type: "ERROR", payload: error });
   }
 };
@@ -53,6 +56,7 @@ export const sendMessge = (messageData) => async (dispatch) => {
 
     return dispatch({ type: SEND_MESSAGE, payload: newMessage.data });
   } catch (error) {
+    dispatch(showNetworkError(true));
     return dispatch({ type: "ERROR", payload: error });
   }
 };
@@ -65,6 +69,7 @@ export const clearSelectedMessage = () => async (dispatch) => {
       payload: "",
     });
   } catch (error) {
+    dispatch(showNetworkError(true));
     return dispatch({ type: "ERROR", payload: error });
   }
 };
@@ -72,6 +77,13 @@ export const clearSelectedMessage = () => async (dispatch) => {
 export const loadingToggleAction = (state) => {
   return {
     type: SHOW_TOOGLE_LOADING,
+    payload: state,
+  };
+};
+
+export const showNetworkError = (state) => {
+  return {
+    type: SHOW_NETWORK_ERROR,
     payload: state,
   };
 };

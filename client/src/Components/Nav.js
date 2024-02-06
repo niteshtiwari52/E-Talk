@@ -104,6 +104,7 @@ function Nav() {
         <div className="mobile-navbar-btn ml-10">
           <Toggler className="mobile-nav-icon" />
         </div>
+        
       </div>
     </Navbar>
   );
