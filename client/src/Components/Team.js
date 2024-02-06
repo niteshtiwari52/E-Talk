@@ -88,12 +88,12 @@ const Team = () => {
                     <h4>{item.role}</h4>
                     <div className="link-btn flex justify-center items-center w-full h-full">
                       <button className="btn" title="portfolio">
-                        <a href={item.link} >
+                        <a href={item.portfolio_URL}>
                           <BsFillBriefcaseFill />
                         </a>
                       </button>
                       <button className="btn" title="linkedin">
-                        <a href={item.link} >
+                        <a href={item.linkedin_URL}>
                           <FaLinkedinIn />
                         </a>
                       </button>
@@ -315,7 +315,7 @@ const Wrapper = styled.section`
     }
   }
   @media screen and (min-width: 992px) {
-    .team-list{
+    .team-list {
       margin: 10px 50px;
     }
     .team-list li {
