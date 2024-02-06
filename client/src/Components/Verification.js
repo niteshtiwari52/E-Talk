@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment } from "react";
-import { GoUnverified, GoVerified, GoMailRead, GoMail } from "react-icons/go";
+import { GoUnverified, GoVerified, GoMail } from "react-icons/go";
 import { VscMailRead } from "react-icons/vsc";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
