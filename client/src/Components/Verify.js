@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { verifyEmailLink } from "../Redux/Reducer/Auth/auth.action";
 import { GoUnverified, GoVerified, GoMailRead, GoMail } from "react-icons/go";
+import { VscMailRead } from "react-icons/vsc";
 import { getMySelf } from "../Redux/Reducer/User/user.action";
 import { Dialog, Transition } from "@headlessui/react";
 import { userVerification } from "../Redux/Reducer/Auth/auth.action";
@@ -129,7 +130,7 @@ const Verify = () => {
         ) : (
           <>
             <div className="flex flex-col items-center justify-center w-3/4">
-              <GoMailRead className="w-2/4 h-2/4 red" color="#faab07" />
+              <VscMailRead className="w-2/4 h-2/4 red" color="#faab07" />
 
               <p className="text-2xl text-gray-900 dark:text-white my-2 px-2 mx-auto align-middle">
                 {message}

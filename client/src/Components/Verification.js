@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { GoUnverified, GoVerified, GoMailRead, GoMail } from "react-icons/go";
+import { VscMailRead } from "react-icons/vsc";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Dialog, Transition } from "@headlessui/react";
@@ -88,7 +89,7 @@ const Verification = () => {
         {status ? (
           <>
             <div className="flex flex-col items-center justify-center w-2/4 ">
-              <GoMailRead className="mail-icon" color="#8af859" />
+              <VscMailRead className="mail-icon" color="#8af859" />
               <p className="my-2">Your Email is Verified Now.</p>
             </div>
             <h1></h1>
