@@ -95,7 +95,7 @@ export const teamImg = [
     src: "/team/nitesh.png",
     role: "Full-stack Developer",
     portfolio_URL: "https://nitesh-tiwari-portfolio.vercel.app/",
-    linkedin_URL: "https://www.linkedin.com/in/niteshtiwari5222/",
+    linkedin_URL: "https://www.linkedin.com/in/niteshtiwari24/",
   },
   {
     id: 3,
