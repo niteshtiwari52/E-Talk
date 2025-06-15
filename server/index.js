@@ -1,3 +1,4 @@
+require("./instrument.js");
 const express = require("express");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
@@ -8,6 +9,7 @@ const userRoutes = require("./routes/userRoutes");
 const messageRoutes = require("./routes/messageRoutes");
 const cors = require("cors");
 const helmet = require("helmet");
+const Sentry = require("@sentry/node");
 
 const { socket } = require("socket.io");
 
@@ -38,11 +40,23 @@ app.get("/", (req, res) => {
     message: "Welcome to E-Talk Server",
   });
 });
-
+app.get("/debug-sentry", function mainHandler(req, res) {
+  throw new Error("My first Sentry error!");
+});
 // Routes
 app.use("/api/chat", chatRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/message", messageRoutes);
+// The error handler must be registered before any other error middleware and after all controllers
+Sentry.setupExpressErrorHandler(app);
+
+// Optional fallthrough error handler
+app.use(function onError(err, req, res, next) {
+  // The error id is attached to `res.sentry` to be returned
+  // and optionally displayed to the user for support.
+  res.statusCode = 500;
+  res.end(res.sentry + "\n");
+});
 app.use(notFound);
 app.use(errorHandler);
 
